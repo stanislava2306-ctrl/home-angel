@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Домашний ангел — система безопасности для пожилых людей</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f1a14;
+  --forest: #1a2e22;
+  --forest-mid: #243d2e;
+  --sage: #4d8c65;
+  --sage-light: #6ba882;
+  --sage-mist: #e6f0ea;
+  --gold: #c8a84b;
+  --gold-light: #f5edcc;
+  --cream: #faf7f2;
+  --warm-white: #fffef9;
+  --stone: #f0ece4;
+  --mid: #7a7a72;
+  --border: rgba(0,0,0,0.08);
+  --border-dark: rgba(255,255,255,0.08);
+  --r: 16px;
+  --r-lg: 24px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:18px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .4s;
+}
+nav.scrolled{
+  background:rgba(250,247,242,.92);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  padding:14px 48px;
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-mark{
+  width:38px;height:38px;
+  background:linear-gradient(135deg,var(--forest),var(--sage));
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+}
+.logo-mark svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.8;}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;letter-spacing:.2px;color:var(--ink);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--mid);font-size:14px;font-weight:400;letter-spacing:.2px;transition:color .2s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-right{display:flex;gap:12px;align-items:center;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:14px;text-decoration:none;cursor:pointer;border:none;transition:all .25s;letter-spacing:.1px;}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--border);}
+.btn-ghost:hover{border-color:var(--sage);color:var(--sage);}
+.btn-primary{background:var(--forest);color:#fff;box-shadow:0 4px 20px rgba(26,46,34,.25);}
+.btn-primary:hover{background:var(--sage);transform:translateY(-1px);box-shadow:0 8px 28px rgba(77,140,101,.35);}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#a8842a);color:#fff;box-shadow:0 4px 20px rgba(200,168,75,.3);}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(200,168,75,.45);}
+.btn-lg{padding:16px 36px;font-size:15px;}
+.btn-outline-light{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3);}
+.btn-outline-light:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.5);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:60px;
+  max-width:1240px;margin:0 auto;
+  padding:120px 48px 80px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid rgba(77,140,101,.3);
+  background:rgba(77,140,101,.06);
+  color:var(--sage);
+  padding:6px 18px 6px 10px;border-radius:50px;
+  font-size:12px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;
+  margin-bottom:28px;
+}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);box-shadow:0 0 8px var(--sage);}
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(44px,4.5vw,68px);
+  font-weight:600;line-height:1.1;letter-spacing:-1.5px;
+  margin-bottom:24px;
+  color:var(--ink);
+}
+h1 em{font-style:italic;color:var(--sage);}
+.hero-desc{font-size:17px;color:var(--mid);line-height:1.75;margin-bottom:44px;max-width:500px;font-weight:300;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:52px;}
+.hero-stats{
+  display:flex;gap:0;
+  border:1px solid var(--border);border-radius:var(--r);
+  background:var(--warm-white);overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,.05);
+}
+.stat-item{
+  padding:18px 28px;flex:1;
+  border-right:1px solid var(--border);
+}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--ink);line-height:1;}
+.stat-label{font-size:11px;color:var(--mid);margin-top:4px;font-weight:400;letter-spacing:.3px;}
+
+/* HERO VISUAL */
+.hero-visual{position:relative;display:flex;justify-content:center;}
+.app-card{
+  background:var(--warm-white);
+  border:1px solid var(--border);
+  border-radius:28px;
+  padding:28px;
+  box-shadow:0 32px 80px rgba(0,0,0,.12),0 4px 16px rgba(0,0,0,.06);
+  width:320px;
+  animation:float 5s ease-in-out infinite;
+  position:relative;z-index:2;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.app-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.app-user{display:flex;align-items:center;gap:10px;}
+.app-avatar{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--forest),var(--sage));display:flex;align-items:center;justify-content:center;}
+.app-avatar svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.8;}
+.app-name{font-size:13px;font-weight:600;}
+.app-role{font-size:11px;color:var(--mid);}
+.live-badge{display:flex;align-items:center;gap:5px;background:#e8f8ed;border:1px solid #b8e8c8;color:#2d7a4f;padding:4px 10px;border-radius:50px;font-size:11px;font-weight:600;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#2d7a4f;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.status-block{
+  background:linear-gradient(135deg,var(--forest),var(--forest-mid));
+  border-radius:18px;padding:20px;margin-bottom:16px;
+  position:relative;overflow:hidden;
+}
+.status-block::after{content:'';position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);top:-30px;right:-30px;}
+.status-label-sm{font-size:11px;color:rgba(255,255,255,.55);margin-bottom:6px;letter-spacing:.3px;}
+.status-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:12px;}
+.status-pills{display:flex;gap:6px;}
+.s-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75);padding:4px 10px;border-radius:50px;font-size:10px;font-weight:500;}
+.mini-events{display:flex;flex-direction:column;gap:6px;}
+.mini-ev{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--stone);border-radius:10px;font-size:12px;}
+.mini-ev-icon{width:26px;height:26px;border-radius:8px;background:var(--sage-mist);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mini-ev-icon svg{width:14px;height:14px;stroke:var(--sage);fill:none;stroke-width:2;}
+.mini-ev-text{flex:1;font-weight:500;color:var(--ink);}
+.mini-ev-time{color:var(--mid);font-size:11px;}
+.float-tag{
+  position:absolute;background:var(--warm-white);border:1px solid var(--border);
+  border-radius:14px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,.1);
+  font-size:12px;z-index:3;
+}
+.ft1{right:-50px;top:60px;animation:float 5s ease-in-out infinite .8s;}
+.ft2{left:-55px;bottom:90px;animation:float 5s ease-in-out infinite 1.6s;}
+.float-tag-label{font-size:10px;color:var(--mid);font-weight:500;margin-bottom:4px;letter-spacing:.3px;text-transform:uppercase;}
+.float-tag-val{font-weight:600;color:var(--ink);font-size:15px;}
+
+/* ── SECTIONS ── */
+section{padding:112px 48px;}
+.section-inner{max-width:1240px;margin:0 auto;}
+.section-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--sage);margin-bottom:20px;
+}
+.section-label::before{content:'';width:24px;height:1px;background:var(--sage);}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.5vw,52px);font-weight:600;line-height:1.15;letter-spacing:-1px;margin-bottom:20px;}
+.section-sub{font-size:17px;color:var(--mid);line-height:1.75;font-weight:300;max-width:580px;margin-bottom:64px;}
+
+/* ── PROBLEM ── */
+.problem-section{background:var(--forest);color:#fff;}
+.problem-section h2{color:#fff;}
+.problem-section .section-label{color:var(--sage-light);}
+.problem-section .section-label::before{background:var(--sage-light);}
+.problem-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.problem-qs{display:flex;flex-direction:column;gap:10px;}
+.pq{
+  display:flex;align-items:center;gap:16px;
+  padding:16px 20px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r);
+  color:rgba(255,255,255,.7);font-size:15px;font-weight:300;
+  transition:all .2s;cursor:default;
+}
+.pq:hover{background:rgba(255,255,255,.05);border-color:rgba(77,140,101,.3);color:#fff;}
+.pq-icon{width:36px;height:36px;border-radius:10px;background:rgba(77,140,101,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pq-icon svg{width:18px;height:18px;stroke:var(--sage-light);fill:none;stroke-width:1.8;}
+.pq-answer{
+  margin-top:8px;
+  background:rgba(77,140,101,.12);border:1px solid rgba(77,140,101,.25);
+  border-radius:var(--r);padding:20px;
+  color:var(--sage-light);font-size:15px;font-weight:400;line-height:1.6;
+}
+.stats-col{display:flex;flex-direction:column;gap:16px;}
+.stat-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r-lg);padding:28px 32px;
+  transition:all .25s;
+}
+.stat-card:hover{background:rgba(255,255,255,.08);border-color:rgba(77,140,101,.3);}
+.stat-big{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:600;color:var(--sage-light);line-height:1;margin-bottom:8px;}
+.stat-desc{font-size:14px;color:rgba(255,255,255,.5);line-height:1.55;font-weight:300;}
+
+/* ── SOLUTION ── */
+.sol-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.sol-card{
+  background:var(--warm-white);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:36px;
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.sol-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(77,140,101,.04),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.sol-card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.1);border-color:rgba(77,140,101,.2);}
+.sol-card:hover::after{opacity:1;}
+.sol-card-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:var(--sage-mist);
+  display:flex;align-items:center;justify-content:center;margin-bottom:24px;
+}
+.sol-card-icon svg{width:26px;height:26px;stroke:var(--sage);fill:none;stroke-width:1.7;}
+.sol-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:12px;letter-spacing:-.3px;}
+.sol-card p{font-size:14px;color:var(--mid);line-height:1.65;font-weight:300;}
+
+/* ── HOW ── */
+.how-section{background:var(--stone);}
+.steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.steps-row::before{
+  content:'';position:absolute;top:36px;left:calc(12.5%);right:calc(12.5%);
+  height:1px;background:linear-gradient(90deg,transparent,var(--sage),var(--sage),transparent);
+  opacity:.3;
+}
+.step{padding:0 24px;text-align:center;position:relative;z-index:1;}
+.step-circle{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--warm-white);
+  border:1px solid rgba(77,140,101,.3);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;
+  box-shadow:0 4px 20px rgba(77,140,101,.1);
+}
+.step-circle svg{width:30px;height:30px;stroke:var(--sage);fill:none;stroke-width:1.7;}
+.step h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;margin-bottom:10px;}
+.step p{font-size:13px;color:var(--mid);line-height:1.6;font-weight:300;}
+
+/* ── KIT ── */
+.kit-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;}
+.kit-items{display:flex;flex-direction:column;gap:8px;}
+.kit-item{
+  display:flex;align-items:center;gap:16px;
+  padding:15px 18px;border-radius:var(--r);
+  border:1px solid var(--border);background:var(--warm-white);
+  transition:all .2s;
+}
+.kit-item:hover{border-color:var(--sage);background:var(--sage-mist);}
+.kit-item-icon{
+  width:40px;height:40px;border-radius:10px;background:var(--stone);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.kit-item-icon svg{width:20px;height:20px;stroke:var(--sage);fill:none;stroke-width:1.8;}
+.kit-item-name{font-size:14px;font-weight:500;flex:1;}
+.kit-check{margin-left:auto;color:var(--sage);}
+.kit-check svg{width:18px;height:18px;stroke:var(--sage);fill:none;stroke-width:2.5;}
+
+/* ── NOTIFICATIONS ── */
+.notif-section{background:var(--forest);}
+.notif-section h2{color:#fff;}
+.notif-section .section-label{color:var(--sage-light);}
+.notif-section .section-label::before{background:var(--sage-light);}
+.notif-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.notif-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r);padding:18px 20px;
+  display:flex;align-items:center;gap:14px;
+  transition:all .2s;
+}
+.notif-card:hover{background:rgba(255,255,255,.09);border-color:rgba(77,140,101,.3);}
+.notif-card.red{border-left:3px solid #f87171;}
+.notif-card.amber{border-left:3px solid #fbbf24;}
+.notif-card.green{border-left:3px solid var(--sage-light);}
+.notif-icon-wrap{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.notif-icon-wrap.red{background:rgba(248,113,113,.15);}
+.notif-icon-wrap.amber{background:rgba(251,191,36,.15);}
+.notif-icon-wrap.green{background:rgba(107,168,130,.15);}
+.notif-icon-wrap svg{width:20px;height:20px;fill:none;stroke-width:1.8;}
+.notif-icon-wrap.red svg{stroke:#f87171;}
+.notif-icon-wrap.amber svg{stroke:#fbbf24;}
+.notif-icon-wrap.green svg{stroke:var(--sage-light);}
+.notif-text{font-size:14px;color:rgba(255,255,255,.8);font-weight:400;}
+
+/* ── PRICING ── */
+.pricing-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;}
+.price-card{
+  background:var(--warm-white);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:40px;
+}
+.price-card.featured{
+  background:var(--forest);border-color:transparent;
+  box-shadow:0 24px 64px rgba(26,46,34,.3);
+}
+.price-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:4px 12px;border-radius:50px;margin-bottom:20px;}
+.price-card:not(.featured) .price-tag{background:var(--sage-mist);color:var(--sage);}
+.price-card.featured .price-tag{background:rgba(200,168,75,.2);color:var(--gold);}
+.price-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:8px;}
+.price-card:not(.featured) .price-name{color:var(--ink);}
+.price-card.featured .price-name{color:#fff;}
+.price-amount{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;line-height:1;margin-bottom:4px;}
+.price-card:not(.featured) .price-amount{color:var(--ink);}
+.price-card.featured .price-amount{color:#fff;}
+.price-period{font-size:13px;color:var(--mid);margin-bottom:32px;}
+.price-card.featured .price-period{color:rgba(255,255,255,.5);}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:36px;}
+.price-features li{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:300;}
+.price-card:not(.featured) .price-features li{color:var(--mid);}
+.price-card.featured .price-features li{color:rgba(255,255,255,.75);}
+.pf-check{width:18px;height:18px;flex-shrink:0;}
+.price-card:not(.featured) .pf-check{stroke:var(--sage);}
+.price-card.featured .pf-check{stroke:var(--gold);}
+
+/* ── CTA ── */
+.cta-section{
+  background:var(--cream);
+  text-align:center;
+}
+.cta-section h2{font-size:clamp(32px,4vw,56px);}
+.cta-inner{max-width:680px;margin:0 auto;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:44px;}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:48px;text-align:center;}
+.footer-logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;font-weight:600;margin-bottom:10px;}
+footer p{font-size:13px;color:rgba(255,255,255,.35);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.delay-1{transition-delay:.1s;}
+.delay-2{transition-delay:.2s;}
+.delay-3{transition-delay:.3s;}
+.delay-4{transition-delay:.4s;}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:16px 24px;}nav.scrolled{padding:12px 24px;}
+  .hero{grid-template-columns:1fr;padding:110px 24px 60px;gap:48px;min-height:auto;}
+  .hero-visual{display:none;}
+  section{padding:72px 24px;}
+  .problem-inner,.kit-wrap{grid-template-columns:1fr;gap:40px;}
+  .sol-cards,.steps-row,.notif-grid{grid-template-columns:1fr;}
+  .pricing-cards{grid-template-columns:1fr;}
+  .steps-row::before{display:none;}
+  .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="logo">
+    <div class="logo-mark" style="background:transparent;border:none;box-shadow:none">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" width="40" height="28" style="display:block"><defs><linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c870"/><stop offset="50%" stop-color="#c8a84b"/><stop offset="100%" stop-color="#a07830"/></linearGradient></defs><circle cx="160" cy="28" r="18" fill="url(#ag)"/><path d="M152 44 Q148 60 145 75 Q150 82 160 84 Q170 82 175 75 Q172 60 168 44Z" fill="url(#ag)"/><path d="M148 68 C138 62,118 52,95 42 C75 33,48 24,25 18 C10 13,-2 12,0 22 C2 30,16 34,32 38 C50 43,72 46,90 54 C108 62,120 72,130 82 C136 88,142 94,148 100 C150 88,150 78,148 68Z" fill="url(#ag)"/><path d="M148 80 C135 76,110 65,82 58 C58 52,30 48,12 52 C4 54,0 60,4 66 C8 72,20 74,38 72 C60 70,90 74,115 85 C130 91,142 100,148 110 C150 100,150 90,148 80Z" fill="url(#ag)" opacity="0.8"/><path d="M172 68 C182 62,202 52,225 42 C245 33,272 24,295 18 C310 13,322 12,320 22 C318 30,304 34,288 38 C270 43,248 46,230 54 C212 62,200 72,190 82 C184 88,178 94,172 100 C170 88,170 78,172 68Z" fill="url(#ag)"/><path d="M172 80 C185 76,210 65,238 58 C262 52,290 48,308 52 C316 54,320 60,316 66 C312 72,300 74,282 72 C260 70,230 74,205 85 C190 91,178 100,172 110 C170 100,170 90,172 80Z" fill="url(#ag)" opacity="0.8"/><path d="M160 210 C160 210,118 185,110 165 C102 148,106 135,116 130 C124 126,133 129,140 136 C146 142,150 150,155 158 L160 165 L165 158 C170 150,174 142,180 136 C187 129,196 126,204 130 C214 135,218 148,210 165 C202 185,160 210,160 210Z" fill="url(#ag)"/><path d="M148 82 C145 95,143 108,145 122 C148 130,152 135,155 140 Q158 145,160 150 Q162 145,165 140 C168 135,172 130,175 122 C177 108,175 95,172 82 Q166 78,160 77 Q154 78,148 82Z" fill="url(#ag)"/></svg>
+    </div>
+    <span class="logo-name">Домашний ангел</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#solution">Решение</a></li>
+    <li><a href="#how">Как работает</a></li>
+    <li><a href="#kit">Комплект</a></li>
+    <li><a href="#pricing">Цены</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="login.html" class="btn btn-ghost">Войти</a>
+    <a href="#pricing" class="btn btn-primary">Купить комплект</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Безопасность · Забота · Спокойствие</div>
+    <h1>Домашний ангел —<br>система заботы<br>для <em>близких людей</em></h1>
+    <p class="hero-desc">Датчики в квартире, GPS-часы и умная аналитика помогают вовремя заметить опасную ситуацию и предупредить родственников.</p>
+    <div class="hero-cta">
+      <a href="#pricing" class="btn btn-primary btn-lg">Купить комплект</a>
+      <a href="#how" class="btn btn-ghost btn-lg">Как работает</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">20 000 ₽</div>
+        <div class="stat-label">Комплект устройств</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1 990 ₽</div>
+        <div class="stat-label">Подписка / месяц</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7 / 24</div>
+        <div class="stat-label">Мониторинг</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div style="position:relative">
+      <div class="app-card">
+        <div class="app-header">
+          <div class="app-user">
+            <div class="app-avatar">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            </div>
+            <div>
+              <div class="app-name">Галина Ивановна</div>
+              <div class="app-role">Мама · Москва</div>
+            </div>
+          </div>
+          <div class="live-badge"><div class="live-dot"></div>Live</div>
+        </div>
+        <div class="status-block">
+          <div class="status-label-sm">СТАТУС БЕЗОПАСНОСТИ</div>
+          <div class="status-val">Всё в порядке</div>
+          <div class="status-pills">
+            <span class="s-pill">📍 Дома</span>
+            <span class="s-pill">🔋 84%</span>
+            <span class="s-pill">10:32</span>
+          </div>
+        </div>
+        <div class="mini-events">
+          <div class="mini-ev">
+            <div class="mini-ev-icon">
+              <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <span class="mini-ev-text">Активность обычная</span>
+            <span class="mini-ev-time">10:32</span>
+          </div>
+          <div class="mini-ev">
+            <div class="mini-ev-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <span class="mini-ev-text">Дверь открыта/закрыта</span>
+            <span class="mini-ev-time">09:15</span>
+          </div>
+          <div class="mini-ev">
+            <div class="mini-ev-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <span class="mini-ev-text">Утренняя рутина</span>
+            <span class="mini-ev-time">08:47</span>
+          </div>
+        </div>
+      </div>
+      <div class="float-tag ft1">
+        <div class="float-tag-label">GPS</div>
+        <div class="float-tag-val">📍 Дома</div>
+      </div>
+      <div class="float-tag ft2">
+        <div class="float-tag-label">Активность</div>
+        <div class="float-tag-val">87% — норма</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem" class="problem-section">
+  <div class="section-inner">
+    <div class="problem-inner">
+      <div>
+        <div class="section-label">Проблема</div>
+        <h2>Забота о близком часто превращается в постоянную тревогу</h2>
+        <p style="color:rgba(255,255,255,.5);font-size:16px;line-height:1.75;font-weight:300;margin-bottom:32px;">Родственники не могут быть рядом постоянно. Но вопросы остаются:</p>
+        <div class="problem-qs">
+          <div class="pq reveal">
+            <div class="pq-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            Всё ли в порядке дома
+          </div>
+          <div class="pq reveal delay-1">
+            <div class="pq-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            Не было ли падения
+          </div>
+          <div class="pq reveal delay-2">
+            <div class="pq-icon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
+            Не вышел ли человек один ночью
+          </div>
+          <div class="pq reveal delay-3">
+            <div class="pq-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+            Не меняется ли режим активности
+          </div>
+          <div class="pq-answer reveal delay-4">Домашний ангел помогает заметить важные сигналы раньше — и дать вам спокойствие.</div>
+        </div>
+      </div>
+      <div class="stats-col">
+        <div class="stat-card reveal">
+          <div class="stat-big">73%</div>
+          <div class="stat-desc">пожилых людей хотят жить самостоятельно как можно дольше</div>
+        </div>
+        <div class="stat-card reveal delay-1">
+          <div class="stat-big">68%</div>
+          <div class="stat-desc">взрослых детей испытывают постоянное беспокойство за родителей, живущих отдельно</div>
+        </div>
+        <div class="stat-card reveal delay-2">
+          <div class="stat-big">1 из 3</div>
+          <div class="stat-desc">пожилых людей старше 65 лет падает как минимум раз в год</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="section-inner">
+    <div class="section-label">Решение</div>
+    <h2>Один комплект — и семья всегда знает, что происходит</h2>
+    <p class="section-sub">Умная система объединяет устройства, аналитику и мобильное приложение.</p>
+    <div class="sol-cards">
+      <div class="sol-card reveal">
+        <div class="sol-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3>Устройства у пожилого</h3>
+        <p>GPS-часы и датчики фиксируют события дома и активность человека — непрерывно и автоматически.</p>
+      </div>
+      <div class="sol-card reveal delay-1">
+        <div class="sol-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>Умная аналитика</h3>
+        <p>Система анализирует данные и выявляет потенциальные риски с помощью ИИ — до того, как ситуация стала опасной.</p>
+      </div>
+      <div class="sol-card reveal delay-2">
+        <div class="sol-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <h3>Приложение родственника</h3>
+        <p>Родственники получают уведомления, рекомендации и всегда видят актуальный статус безопасности.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how" class="how-section">
+  <div class="section-inner">
+    <div style="text-align:center;margin-bottom:72px">
+      <div class="section-label" style="justify-content:center">Как работает</div>
+      <h2>От события до уведомления — секунды</h2>
+    </div>
+    <div class="steps-row">
+      <div class="step reveal">
+        <div class="step-circle">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h4>Датчики фиксируют</h4>
+        <p>движение, открытие двери, утечки воды и газа</p>
+      </div>
+      <div class="step reveal delay-1">
+        <div class="step-circle">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h4>GPS-часы отслеживают</h4>
+        <p>местоположение, падения и сигнал SOS</p>
+      </div>
+      <div class="step reveal delay-2">
+        <div class="step-circle">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h4>ИИ анализирует</h4>
+        <p>алгоритмы определяют уровень риска в реальном времени</p>
+      </div>
+      <div class="step reveal delay-3">
+        <div class="step-circle">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </div>
+        <h4>Родственники узнают</h4>
+        <p>мгновенное уведомление при потенциальной опасности</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KIT -->
+<section id="kit">
+  <div class="section-inner">
+    <div class="kit-wrap">
+      <div>
+        <div class="section-label">Комплект</div>
+        <h2>Всё необходимое уже включено</h2>
+        <p class="section-sub">Полный набор устройств — готов к работе с первого дня.</p>
+        <a href="#pricing" class="btn btn-primary btn-lg">Купить за 20 000 ₽</a>
+      </div>
+      <div class="kit-items">
+        <div class="kit-item reveal">
+          <div class="kit-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <span class="kit-item-name">GPS-часы с кнопкой SOS и детектором падения</span>
+          <div class="kit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="kit-item reveal delay-1">
+          <div class="kit-item-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <span class="kit-item-name">2 датчика движения</span>
+          <div class="kit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="kit-item reveal delay-2">
+          <div class="kit-item-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <span class="kit-item-name">Датчик открытия двери</span>
+          <div class="kit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="kit-item reveal delay-3">
+          <div class="kit-item-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg></div>
+          <span class="kit-item-name">Датчик утечки воды</span>
+          <div class="kit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="kit-item reveal">
+          <div class="kit-item-icon"><svg viewBox="0 0 24 24"><path d="M8.56 2.9A7 7 0 0119 9v4l2 2v1H3v-1l2-2V9a7 7 0 011-3.6M12 22a2 2 0 002-2h-4a2 2 0 002 2z"/></svg></div>
+          <span class="kit-item-name">Датчик утечки газа</span>
+          <div class="kit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="kit-item reveal delay-1">
+          <div class="kit-item-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <span class="kit-item-name">Zigbee-хаб</span>
+          <div class="kit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="kit-item reveal delay-2">
+          <div class="kit-item-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+          <span class="kit-item-name">Доступ к мобильному приложению</span>
+          <div class="kit-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTIFICATIONS -->
+<section class="notif-section">
+  <div class="section-inner">
+    <div style="text-align:center;margin-bottom:56px">
+      <div class="section-label" style="justify-content:center">Уведомления</div>
+      <h2>Что получают родственники</h2>
+    </div>
+    <div class="notif-grid">
+      <div class="notif-card amber reveal">
+        <div class="notif-icon-wrap amber"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <span class="notif-text">Нет движения более 5 часов</span>
+      </div>
+      <div class="notif-card red reveal delay-1">
+        <div class="notif-icon-wrap red"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="notif-text">Обнаружено падение</span>
+      </div>
+      <div class="notif-card amber reveal delay-2">
+        <div class="notif-icon-wrap amber"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
+        <span class="notif-text">Открылась дверь ночью</span>
+      </div>
+      <div class="notif-card red reveal">
+        <div class="notif-icon-wrap red"><svg viewBox="0 0 24 24"><path d="M8.56 2.9A7 7 0 0119 9v4l2 2v1H3v-1l2-2V9a7 7 0 011-3.6M12 22a2 2 0 002-2h-4a2 2 0 002 2z"/></svg></div>
+        <span class="notif-text">Обнаружена утечка газа</span>
+      </div>
+      <div class="notif-card red reveal delay-1">
+        <div class="notif-icon-wrap red"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg></div>
+        <span class="notif-text">Обнаружена утечка воды</span>
+      </div>
+      <div class="notif-card red reveal delay-2">
+        <div class="notif-icon-wrap red"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <span class="notif-text">Нажата кнопка SOS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="section-label">Цены</div>
+    <h2>Прозрачные условия</h2>
+    <p class="section-sub">Один раз покупаете оборудование — и получаете полный доступ к сервису.</p>
+    <div class="pricing-cards">
+      <div class="price-card reveal">
+        <div class="price-tag">Оборудование</div>
+        <div class="price-name">Комплект устройств</div>
+        <div class="price-amount">20 000 ₽</div>
+        <div class="price-period">единовременно</div>
+        <ul class="price-features">
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>GPS-часы с кнопкой SOS</li>
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>2 датчика движения</li>
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Датчик открытия двери</li>
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Датчики воды и газа</li>
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Zigbee-хаб</li>
+        </ul>
+        <a href="#" class="btn btn-ghost" style="width:100%;justify-content:center">Купить комплект</a>
+      </div>
+      <div class="price-card featured reveal delay-1">
+        <div class="price-tag">Сервис</div>
+        <div class="price-name" style="color:#fff">Подписка</div>
+        <div class="price-amount" style="color:#fff">1 990 ₽</div>
+        <div class="price-period">в месяц</div>
+        <ul class="price-features">
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Аналитика данных</li>
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Рекомендации через ИИ</li>
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Уведомления о рисках</li>
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Отчёты по активности</li>
+          <li><svg class="pf-check" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Доступ к приложению</li>
+        </ul>
+        <a href="#" class="btn btn-gold" style="width:100%;justify-content:center">Оставить заявку</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" style="background:var(--forest)">
+  <div class="section-inner">
+    <div class="cta-inner">
+      <div class="section-label" style="justify-content:center;color:var(--sage-light)"><span style="background:var(--sage-light)"></span>Начните сейчас</div>
+      <h2 style="color:#fff">Позаботьтесь о безопасности близкого уже сегодня</h2>
+      <div class="cta-btns">
+        <a href="#pricing" class="btn btn-gold btn-lg">Купить комплект</a>
+        <a href="#" class="btn btn-outline-light btn-lg">Оставить заявку</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo-text">Домашний ангел</div>
+  <p>Система безопасности и заботы для пожилых людей</p>
+  <p style="margin-top:8px">© 2025 Домашний ангел. Все права защищены.</p>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, {threshold: 0.12});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

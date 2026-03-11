@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Личный кабинет — Домашний ангел</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f1a14;--forest:#1a2e22;--forest-mid:#243d2e;
+  --sage:#4d8c65;--sage-light:#6ba882;--sage-mist:#e6f0ea;
+  --gold:#c8a84b;--gold-light:#f5edcc;
+  --cream:#faf7f2;--warm-white:#fffef9;--stone:#f0ece4;
+  --mid:#7a7a72;--border:rgba(0,0,0,0.07);
+  --red:#ef4444;--amber:#f59e0b;--blue:#60a5fa;
+  --sidebar:260px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);display:flex;}
+
+/* SIDEBAR */
+.sidebar{
+  width:var(--sidebar);flex-shrink:0;
+  background:var(--forest);
+  display:flex;flex-direction:column;
+  height:100vh;
+  border-right:1px solid rgba(255,255,255,.06);
+}
+.sb-logo{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);}
+.sb-logo-mark{width:36px;height:36px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.sb-logo-mark svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.8;}
+.sb-logo-name{font-family:'Cormorant Garamond',serif;color:#fff;font-size:18px;font-weight:600;}
+.sb-nav{flex:1;padding:16px 12px;overflow-y:auto;}
+.sb-section{padding:14px 12px 6px;font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.sb-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 14px;border-radius:12px;
+  color:rgba(255,255,255,.5);font-size:14px;font-weight:400;
+  cursor:pointer;transition:all .18s;margin-bottom:2px;
+  border:1px solid transparent;
+}
+.sb-item:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85);}
+.sb-item.active{background:rgba(77,140,101,.18);color:rgba(255,255,255,.9);border-color:rgba(77,140,101,.25);}
+.sb-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sb-icon svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;}
+.sb-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:50px;}
+.sb-user{padding:16px;border-top:1px solid rgba(255,255,255,.06);}
+.user-row{display:flex;align-items:center;gap:11px;padding:11px 12px;background:rgba(255,255,255,.06);border-radius:12px;cursor:pointer;transition:background .18s;}
+.user-row:hover{background:rgba(255,255,255,.09);}
+.u-avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--sage),var(--sage-light));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.u-avatar svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.8;}
+.u-name{font-size:13px;font-weight:600;color:#fff;}
+.u-role{font-size:11px;color:rgba(255,255,255,.4);}
+.u-logout{margin-left:auto;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.3);font-size:14px;transition:color .2s;padding:4px;}
+.u-logout:hover{color:rgba(255,255,255,.7);}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+
+/* TOPBAR */
+.topbar{
+  background:rgba(250,247,242,.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:14px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.tb-title h2{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:-.3px;}
+.tb-title p{font-size:12px;color:var(--mid);margin-top:1px;font-weight:300;}
+.tb-right{display:flex;align-items:center;gap:12px;}
+.relative-pick{
+  display:flex;align-items:center;gap:8px;
+  background:var(--warm-white);border:1.5px solid var(--border);
+  border-radius:10px;padding:8px 16px;cursor:pointer;
+  font-size:13px;font-weight:500;color:var(--ink);
+  transition:border-color .2s;
+}
+.relative-pick:hover{border-color:var(--sage);}
+.notif-btn{
+  width:38px;height:38px;background:var(--warm-white);
+  border:1.5px solid var(--border);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  position:relative;transition:all .2s;
+}
+.notif-btn:hover{border-color:var(--sage);background:var(--sage-mist);}
+.notif-btn svg{width:17px;height:17px;stroke:var(--ink);fill:none;stroke-width:1.8;}
+.n-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--red);border:2px solid var(--cream);}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:28px 32px;}
+
+/* TABS */
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* STATUS BANNER */
+.status-banner{
+  background:linear-gradient(135deg,var(--forest) 0%,var(--forest-mid) 100%);
+  border-radius:20px;padding:24px 28px;
+  display:flex;align-items:center;gap:20px;
+  margin-bottom:24px;
+  box-shadow:0 16px 48px rgba(26,46,34,.25);
+  position:relative;overflow:hidden;
+}
+.status-banner::after{
+  content:'';position:absolute;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(77,140,101,.15),transparent);
+  right:-40px;top:-40px;
+}
+.status-shield{
+  width:56px;height:56px;border-radius:50%;
+  background:rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.status-shield svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:1.8;}
+.sb-info{flex:1;}
+.sb-lbl{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
+.sb-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#fff;margin-bottom:8px;}
+.sb-meta{display:flex;gap:18px;}
+.sb-meta-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.65);font-weight:300;}
+.sb-meta-item svg{width:14px;height:14px;stroke:rgba(255,255,255,.5);fill:none;stroke-width:2;}
+.sb-actions{display:flex;gap:8px;flex-direction:column;}
+.sb-btn{padding:9px 20px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:9px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.sb-btn:hover{background:rgba(255,255,255,.2);}
+
+/* METRICS */
+.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.metric{background:var(--warm-white);border:1px solid var(--border);border-radius:16px;padding:20px;transition:all .2s;}
+.metric:hover{box-shadow:0 8px 28px rgba(0,0,0,.07);transform:translateY(-1px);}
+.metric-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.m-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;}
+.m-icon svg{width:20px;height:20px;fill:none;stroke-width:1.8;}
+.m-icon.green{background:var(--sage-mist);}
+.m-icon.green svg{stroke:var(--sage);}
+.m-icon.amber{background:#fef3c7;}
+.m-icon.amber svg{stroke:var(--amber);}
+.m-icon.blue{background:#dbeafe;}
+.m-icon.blue svg{stroke:var(--blue);}
+.m-trend{font-size:11px;font-weight:600;padding:3px 8px;border-radius:50px;}
+.trend-up{background:#dcfce7;color:#16a34a;}
+.trend-neutral{background:var(--sage-mist);color:var(--sage);}
+.m-val{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:var(--ink);line-height:1;margin-bottom:4px;}
+.m-lbl{font-size:12px;color:var(--mid);font-weight:300;}
+
+/* GRID LAYOUTS */
+.grid-main{display:grid;grid-template-columns:3fr 2fr;gap:20px;margin-bottom:24px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
+
+/* CARD */
+.card{background:var(--warm-white);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px 0;}
+.card-title{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;}
+.card-title svg{width:16px;height:16px;stroke:var(--sage);fill:none;stroke-width:2;}
+.card-link{font-size:12px;color:var(--sage);font-weight:500;cursor:pointer;text-decoration:none;}
+.card-link:hover{text-decoration:underline;}
+.card-body{padding:16px 22px 20px;}
+
+/* EVENTS */
+.ev-list{display:flex;flex-direction:column;gap:2px;}
+.ev-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;transition:background .15s;}
+.ev-row:hover{background:var(--stone);}
+.ev-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.ev-dot.red{background:var(--red);box-shadow:0 0 6px rgba(239,68,68,.4);}
+.ev-dot.amber{background:var(--amber);box-shadow:0 0 6px rgba(245,158,11,.4);}
+.ev-dot.green{background:var(--sage);}
+.ev-dot.blue{background:var(--blue);}
+.ev-icon-bg{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ev-icon-bg svg{width:16px;height:16px;fill:none;stroke-width:1.9;}
+.ev-icon-bg.green{background:var(--sage-mist);}
+.ev-icon-bg.green svg{stroke:var(--sage);}
+.ev-icon-bg.amber{background:#fef3c7;}
+.ev-icon-bg.amber svg{stroke:var(--amber);}
+.ev-icon-bg.red{background:#fee2e2;}
+.ev-icon-bg.red svg{stroke:var(--red);}
+.ev-icon-bg.blue{background:#dbeafe;}
+.ev-icon-bg.blue svg{stroke:var(--blue);}
+.ev-info{flex:1;}
+.ev-title{font-size:13px;font-weight:500;color:var(--ink);}
+.ev-sub{font-size:11px;color:var(--mid);margin-top:1px;font-weight:300;}
+.ev-time{font-size:11px;color:var(--mid);white-space:nowrap;}
+
+/* MAP */
+.map-wrap{
+  margin:0 22px 20px;
+  background:linear-gradient(145deg,#d4e8da,#e8f2eb);
+  border-radius:14px;height:210px;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
+}
+.map-grid-bg{
+  position:absolute;inset:0;opacity:.35;
+  background-image:linear-gradient(rgba(77,140,101,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(77,140,101,.25) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.map-pin-icon{font-size:36px;z-index:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.15));animation:mapbounce 2.5s ease-in-out infinite;}
+@keyframes mapbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.map-label{z-index:1;background:var(--warm-white);border:1px solid var(--border);border-radius:10px;padding:7px 16px;font-size:13px;font-weight:500;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+.map-badge{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--sage);backdrop-filter:blur(10px);}
+
+/* CHART */
+.chart-area{padding:0 22px 20px;}
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:80px;margin-bottom:8px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;}
+.bar{width:100%;border-radius:6px 6px 0 0;transition:all .3s;cursor:pointer;position:relative;}
+.bar.high{background:var(--sage);}
+.bar.mid-bar{background:var(--sage-mist);border:1px solid rgba(77,140,101,.2);}
+.bar.low{background:#fee2e2;border:1px solid rgba(239,68,68,.15);}
+.bar:hover{filter:brightness(.88);}
+.bar-lbl{font-size:10px;color:var(--mid);font-weight:400;}
+.chart-legend{display:flex;gap:14px;margin-top:8px;}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mid);}
+.leg-dot{width:8px;height:8px;border-radius:2px;}
+
+/* RECOMMENDATIONS */
+.rec-list{display:flex;flex-direction:column;gap:8px;}
+.rec{
+  display:flex;align-items:flex-start;gap:12px;padding:13px 14px;
+  background:var(--stone);border:1px solid var(--border);border-radius:12px;
+  cursor:pointer;transition:all .2s;
+}
+.rec:hover{border-color:var(--sage);background:var(--sage-mist);}
+.rec-ico{width:32px;height:32px;border-radius:9px;background:var(--warm-white);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 1px 6px rgba(0,0,0,.06);}
+.rec-ico svg{width:16px;height:16px;fill:none;stroke:var(--sage);stroke-width:2;}
+.rec-text{font-size:13px;font-weight:400;color:var(--ink);line-height:1.5;flex:1;}
+.rec-tag{flex-shrink:0;font-size:10px;font-weight:600;padding:3px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;align-self:flex-start;}
+.tag-ai{background:var(--gold-light);color:#8a6520;}
+.tag-warn{background:#fee2e2;color:#b91c1c;}
+
+/* DEVICES */
+.dev-list{display:flex;flex-direction:column;gap:7px;}
+.dev{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--stone);border:1px solid var(--border);border-radius:12px;}
+.dev-ico{width:36px;height:36px;border-radius:10px;background:var(--warm-white);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+.dev-ico svg{width:18px;height:18px;fill:none;stroke:var(--sage);stroke-width:1.8;}
+.dev-ico.off svg{stroke:var(--mid);}
+.dev-name{font-size:13px;font-weight:500;flex:1;}
+.dev-status{font-size:11px;color:var(--mid);font-weight:300;}
+.dev-dot{width:8px;height:8px;border-radius:50%;}
+.dev-dot.on{background:#4ade80;box-shadow:0 0 6px rgba(74,222,128,.5);}
+.dev-dot.off{background:#d1d5db;}
+.dev-dot.warn{background:var(--amber);box-shadow:0 0 6px rgba(245,158,11,.5);}
+
+/* EVENTS PAGE */
+.events-filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.filter-btn{padding:7px 16px;border-radius:50px;border:1.5px solid var(--border);background:var(--warm-white);font-size:13px;font-weight:400;color:var(--mid);cursor:pointer;transition:all .2s;}
+.filter-btn.active,.filter-btn:hover{background:var(--sage);border-color:var(--sage);color:#fff;}
+.events-full{display:flex;flex-direction:column;gap:4px;}
+.event-full-row{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--warm-white);border:1px solid var(--border);border-radius:14px;transition:all .2s;cursor:pointer;}
+.event-full-row:hover{border-color:var(--sage);background:var(--sage-mist);}
+
+/* MAP PAGE */
+.map-page-wrap{
+  background:linear-gradient(145deg,#d4e8da,#e6f2ec);
+  border-radius:18px;height:420px;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;
+  margin-bottom:20px;
+}
+.map-page-wrap .map-grid-bg{background-size:36px 36px;}
+.map-page-wrap .map-pin-icon{font-size:48px;}
+.location-detail{background:var(--warm-white);border:1px solid var(--border);border-radius:16px;padding:20px 24px;}
+.loc-row{display:flex;gap:24px;}
+.loc-item{flex:1;}
+.loc-label{font-size:11px;color:var(--mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.loc-value{font-size:15px;font-weight:600;color:var(--ink);}
+
+/* ANALYTICS PAGE */
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.analytics-card{background:var(--warm-white);border:1px solid var(--border);border-radius:18px;padding:24px;}
+.analytics-card h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:16px;}
+.big-chart{height:120px;display:flex;align-items:flex-end;gap:6px;}
+.week-labels{display:flex;gap:6px;margin-top:6px;}
+.week-lbl{flex:1;text-align:center;font-size:10px;color:var(--mid);}
+.activity-score{text-align:center;padding:20px 0;}
+.score-num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:600;color:var(--sage);line-height:1;}
+.score-label{font-size:13px;color:var(--mid);margin-top:4px;}
+.score-bar-wrap{margin-top:16px;background:var(--stone);border-radius:50px;height:8px;overflow:hidden;}
+.score-bar{height:100%;background:linear-gradient(90deg,var(--sage),var(--sage-light));border-radius:50px;transition:width .8s cubic-bezier(.16,1,.3,1);}
+.insight-list{display:flex;flex-direction:column;gap:10px;}
+.insight{display:flex;gap:10px;padding:12px;background:var(--stone);border-radius:12px;font-size:13px;color:var(--ink);font-weight:300;line-height:1.5;}
+.insight-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:5px;}
+.sleep-bars{display:flex;flex-direction:column;gap:8px;}
+.sleep-row{display:flex;align-items:center;gap:12px;font-size:12px;}
+.sleep-day{width:24px;color:var(--mid);}
+.sleep-bar-bg{flex:1;background:var(--stone);border-radius:50px;height:8px;overflow:hidden;}
+.sleep-bar-fill{height:100%;background:linear-gradient(90deg,#6ba882,#4d8c65);border-radius:50px;}
+.sleep-hours{color:var(--mid);font-size:11px;width:28px;text-align:right;}
+
+/* PAGE TITLE */
+.page-header{margin-bottom:24px;}
+.page-header h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;letter-spacing:-.5px;margin-bottom:4px;}
+.page-header p{font-size:14px;color:var(--mid);font-weight:300;}
+
+@media(max-width:900px){
+  .sidebar{display:none;}
+  .content{padding:20px 16px;}
+  .metrics-row,.grid-main,.grid-2,.analytics-grid{grid-template-columns:1fr;}
+  .topbar{padding:14px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <a href="index.html" class="sb-logo">
+    <div class="sb-logo-mark" style="background:transparent;border:none;width:auto;height:auto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" width="40" height="28" style="display:block"><defs><linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c870"/><stop offset="50%" stop-color="#c8a84b"/><stop offset="100%" stop-color="#a07830"/></linearGradient></defs><circle cx="160" cy="28" r="18" fill="url(#ag)"/><path d="M152 44 Q148 60 145 75 Q150 82 160 84 Q170 82 175 75 Q172 60 168 44Z" fill="url(#ag)"/><path d="M148 68 C138 62,118 52,95 42 C75 33,48 24,25 18 C10 13,-2 12,0 22 C2 30,16 34,32 38 C50 43,72 46,90 54 C108 62,120 72,130 82 C136 88,142 94,148 100 C150 88,150 78,148 68Z" fill="url(#ag)"/><path d="M148 80 C135 76,110 65,82 58 C58 52,30 48,12 52 C4 54,0 60,4 66 C8 72,20 74,38 72 C60 70,90 74,115 85 C130 91,142 100,148 110 C150 100,150 90,148 80Z" fill="url(#ag)" opacity="0.8"/><path d="M172 68 C182 62,202 52,225 42 C245 33,272 24,295 18 C310 13,322 12,320 22 C318 30,304 34,288 38 C270 43,248 46,230 54 C212 62,200 72,190 82 C184 88,178 94,172 100 C170 88,170 78,172 68Z" fill="url(#ag)"/><path d="M172 80 C185 76,210 65,238 58 C262 52,290 48,308 52 C316 54,320 60,316 66 C312 72,300 74,282 72 C260 70,230 74,205 85 C190 91,178 100,172 110 C170 100,170 90,172 80Z" fill="url(#ag)" opacity="0.8"/><path d="M160 210 C160 210,118 185,110 165 C102 148,106 135,116 130 C124 126,133 129,140 136 C146 142,150 150,155 158 L160 165 L165 158 C170 150,174 142,180 136 C187 129,196 126,204 130 C214 135,218 148,210 165 C202 185,160 210,160 210Z" fill="url(#ag)"/><path d="M148 82 C145 95,143 108,145 122 C148 130,152 135,155 140 Q158 145,160 150 Q162 145,165 140 C168 135,172 130,175 122 C177 108,175 95,172 82 Q166 78,160 77 Q154 78,148 82Z" fill="url(#ag)"/></svg></div>
+    <span class="sb-logo-name">Домашний ангел</span>
+  </a>
+
+  <nav class="sb-nav">
+    <div class="sb-section">Главное</div>
+    <div class="sb-item active" onclick="switchTab('dashboard', this)">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+      Обзор
+    </div>
+    <div class="sb-item" onclick="switchTab('events', this)">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+      События
+      <span class="sb-badge">3</span>
+    </div>
+    <div class="sb-item" onclick="switchTab('map', this)">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+      Карта
+    </div>
+    <div class="sb-item" onclick="switchTab('analytics', this)">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      Аналитика
+    </div>
+    <div class="sb-item" onclick="switchTab('ai', this)">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.3"/></svg></div>
+      ИИ-ассистент
+      <span style="margin-left:auto;background:linear-gradient(135deg,#c8a84b,#a07830);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:50px;letter-spacing:.3px">NEW</span>
+    </div>
+    <div class="sb-section">Система</div>
+    <div class="sb-item" onclick="switchTab('devices', this)">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      Устройства
+    </div>
+    <div class="sb-item">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg></div>
+      Настройки
+    </div>
+    <div class="sb-item">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+      Семья
+    </div>
+  </nav>
+
+  <div class="sb-user">
+    <div class="user-row">
+      <div class="u-avatar">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <div>
+        <div class="u-name">Мария Соколова</div>
+        <div class="u-role">Дочь · Родственник</div>
+      </div>
+      <button class="u-logout" onclick="handleLogout()" title="Выйти">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="tb-title">
+      <h2 id="page-title">Обзор</h2>
+      <p id="current-date">Среда, 11 марта 2025</p>
+    </div>
+    <div class="tb-right">
+      <div class="relative-pick">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Галина Ивановна (мама)
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="notif-btn">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <div class="n-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ═══ TAB: DASHBOARD ═══ -->
+    <div class="tab-pane active" id="tab-dashboard">
+
+      <div class="status-banner">
+        <div class="status-shield">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="sb-info">
+          <div class="sb-lbl">Статус безопасности</div>
+          <div class="sb-val">Всё в порядке</div>
+          <div class="sb-meta">
+            <span class="sb-meta-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>Дома</span>
+            <span class="sb-meta-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Активна в 10:32</span>
+            <span class="sb-meta-item"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>Часы 84%</span>
+          </div>
+        </div>
+        <div class="sb-actions">
+          <button class="sb-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;margin-right:6px;vertical-align:-2px"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 7.81 19.79 19.79 0 01.22 3.18 2 2 0 012.18 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.1a16 16 0 006 6l1.43-1.44a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+            Позвонить
+          </button>
+          <button class="sb-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;margin-right:6px;vertical-align:-2px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Отчёт
+          </button>
+        </div>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric">
+          <div class="metric-head">
+            <div class="m-icon green"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <span class="m-trend trend-up">+12%</span>
+          </div>
+          <div class="m-val">87%</div>
+          <div class="m-lbl">Активность сегодня</div>
+        </div>
+        <div class="metric">
+          <div class="metric-head">
+            <div class="m-icon amber"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
+            <span class="m-trend trend-neutral">норма</span>
+          </div>
+          <div class="m-val">7.5ч</div>
+          <div class="m-lbl">Сон прошлой ночью</div>
+        </div>
+        <div class="metric">
+          <div class="metric-head">
+            <div class="m-icon blue"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+            <span class="m-trend trend-neutral">7 дней</span>
+          </div>
+          <div class="m-val">2</div>
+          <div class="m-lbl">Уведомления на неделе</div>
+        </div>
+      </div>
+
+      <div class="grid-main">
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Последние события</span>
+            <a class="card-link" onclick="switchTab('events', document.querySelectorAll('.sb-item')[1])">Все события →</a>
+          </div>
+          <div class="card-body">
+            <div class="ev-list">
+              <div class="ev-row">
+                <div class="ev-dot green"></div>
+                <div class="ev-icon-bg green"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                <div class="ev-info"><div class="ev-title">Обнаружено движение в коридоре</div><div class="ev-sub">Датчик движения #1</div></div>
+                <div class="ev-time">10:32</div>
+              </div>
+              <div class="ev-row">
+                <div class="ev-dot green"></div>
+                <div class="ev-icon-bg green"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+                <div class="ev-info"><div class="ev-title">Дверь открыта и закрыта</div><div class="ev-sub">Датчик двери</div></div>
+                <div class="ev-time">09:15</div>
+              </div>
+              <div class="ev-row">
+                <div class="ev-dot blue"></div>
+                <div class="ev-icon-bg blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="ev-info"><div class="ev-title">Начало утренней активности</div><div class="ev-sub">Аналитика системы</div></div>
+                <div class="ev-time">08:47</div>
+              </div>
+              <div class="ev-row">
+                <div class="ev-dot amber"></div>
+                <div class="ev-icon-bg amber"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                <div class="ev-info"><div class="ev-title">Нет движения более 2 часов</div><div class="ev-sub">Дневной отдых — норма</div></div>
+                <div class="ev-time">Вчера 14:30</div>
+              </div>
+              <div class="ev-row">
+                <div class="ev-dot green"></div>
+                <div class="ev-icon-bg green"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <div class="ev-info"><div class="ev-title">Ежедневный отчёт сформирован</div><div class="ev-sub">Сводка за вчера</div></div>
+                <div class="ev-time">Вчера 00:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="card">
+            <div class="card-head">
+              <span class="card-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>Местоположение</span>
+              <a class="card-link" onclick="switchTab('map', document.querySelectorAll('.sb-item')[2])">На карте →</a>
+            </div>
+            <div class="map-wrap">
+              <div class="map-grid-bg"></div>
+              <div class="map-pin-icon">📍</div>
+              <div class="map-label">ул. Ленина 24, кв. 7</div>
+              <div class="map-badge">Дома · 10:42</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <span class="card-title"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Рекомендации ИИ</span>
+              <a class="card-link">Все →</a>
+            </div>
+            <div class="card-body">
+              <div class="rec-list">
+                <div class="rec">
+                  <div class="rec-ico"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
+                  <span class="rec-text">Обычно в это время принимают лекарства</span>
+                  <span class="rec-tag tag-ai">ИИ</span>
+                </div>
+                <div class="rec">
+                  <div class="rec-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                  <span class="rec-text">Активность ниже нормы 2 дня</span>
+                  <span class="rec-tag tag-warn">⚠</span>
+                </div>
+                <div class="rec">
+                  <div class="rec-ico"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
+                  <span class="rec-text">Отличный режим сна на неделе</span>
+                  <span class="rec-tag tag-ai">ИИ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Активность за неделю</span>
+            <a class="card-link" onclick="switchTab('analytics', document.querySelectorAll('.sb-item')[3])">Подробнее →</a>
+          </div>
+          <div class="chart-area">
+            <div class="chart-bars">
+              <div class="bar-col"><div class="bar mid-bar" style="height:55%"></div><span class="bar-lbl">Пн</span></div>
+              <div class="bar-col"><div class="bar mid-bar" style="height:70%"></div><span class="bar-lbl">Вт</span></div>
+              <div class="bar-col"><div class="bar low" style="height:32%"></div><span class="bar-lbl">Ср</span></div>
+              <div class="bar-col"><div class="bar mid-bar" style="height:78%"></div><span class="bar-lbl">Чт</span></div>
+              <div class="bar-col"><div class="bar high" style="height:91%"></div><span class="bar-lbl">Пт</span></div>
+              <div class="bar-col"><div class="bar mid-bar" style="height:65%"></div><span class="bar-lbl">Сб</span></div>
+              <div class="bar-col"><div class="bar high" style="height:87%"></div><span class="bar-lbl">Сег</span></div>
+            </div>
+            <div class="chart-legend">
+              <div class="leg"><div class="leg-dot" style="background:var(--sage)"></div>Высокая</div>
+              <div class="leg"><div class="leg-dot" style="background:var(--sage-mist);border:1px solid var(--sage)"></div>Норма</div>
+              <div class="leg"><div class="leg-dot" style="background:#fee2e2;border:1px solid #f87171"></div>Низкая</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Устройства</span>
+            <a class="card-link" onclick="switchTab('devices', document.querySelectorAll('.sb-item')[4])">Управление →</a>
+          </div>
+          <div class="card-body">
+            <div class="dev-list">
+              <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="dev-name">GPS-часы</div><div class="dev-status">Онлайн · 🔋 84%</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+              <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="dev-name">Датчики движения (×2)</div><div class="dev-status">Коридор, кухня · Активны</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+              <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><div><div class="dev-name">Датчик двери</div><div class="dev-status">Закрыта · Норма</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+              <div class="dev"><div class="dev-ico off"><svg viewBox="0 0 24 24"><path d="M8.56 2.9A7 7 0 0119 9v4l2 2v1H3v-1l2-2V9a7 7 0 011-3.6"/></svg></div><div><div class="dev-name">Датчик газа</div><div class="dev-status">⚠ Низкий заряд</div></div><div class="dev-dot warn" style="margin-left:auto"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAB: EVENTS ═══ -->
+    <div class="tab-pane" id="tab-events">
+      <div class="page-header"><h2>История событий</h2><p>Все зафиксированные события и уведомления</p></div>
+      <div class="events-filters">
+        <button class="filter-btn active">Все</button>
+        <button class="filter-btn">Тревоги</button>
+        <button class="filter-btn">Предупреждения</button>
+        <button class="filter-btn">Информация</button>
+      </div>
+      <div class="events-full">
+        <div class="event-full-row">
+          <div class="ev-dot green"></div>
+          <div class="ev-icon-bg green" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--sage)" stroke-width="1.9"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="ev-info" style="flex:1"><div class="ev-title">Обнаружено движение в коридоре</div><div class="ev-sub">Датчик движения #1 · Сегодня</div></div>
+          <div class="ev-time">10:32</div>
+        </div>
+        <div class="event-full-row">
+          <div class="ev-dot green"></div>
+          <div class="ev-icon-bg green" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--sage)" stroke-width="1.9"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+          <div class="ev-info" style="flex:1"><div class="ev-title">Дверь открыта и закрыта</div><div class="ev-sub">Датчик двери · Сегодня</div></div>
+          <div class="ev-time">09:15</div>
+        </div>
+        <div class="event-full-row">
+          <div class="ev-dot amber"></div>
+          <div class="ev-icon-bg amber" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.9"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="ev-info" style="flex:1"><div class="ev-title">Нет движения более 2 часов</div><div class="ev-sub">Дневной отдых — норма · Вчера</div></div>
+          <div class="ev-time">14:30</div>
+        </div>
+        <div class="event-full-row">
+          <div class="ev-dot red"></div>
+          <div class="ev-icon-bg red" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.9"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="ev-info" style="flex:1"><div class="ev-title">Нет движения более 5 часов</div><div class="ev-sub">Требовало внимания · 3 дня назад</div></div>
+          <div class="ev-time">12:10</div>
+        </div>
+        <div class="event-full-row">
+          <div class="ev-dot green"></div>
+          <div class="ev-icon-bg green" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--sage)" stroke-width="1.9"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="ev-info" style="flex:1"><div class="ev-title">Ежедневный отчёт сформирован</div><div class="ev-sub">Аналитика · 3 дня назад</div></div>
+          <div class="ev-time">00:00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAB: MAP ═══ -->
+    <div class="tab-pane" id="tab-map">
+      <div class="page-header"><h2>Карта местоположения</h2><p>Текущее положение и история маршрутов</p></div>
+      <div class="map-page-wrap">
+        <div class="map-grid-bg"></div>
+        <div class="map-pin-icon">📍</div>
+        <div class="map-label" style="font-size:15px;padding:10px 20px">ул. Ленина 24, кв. 7 — Дома</div>
+        <div class="map-badge" style="font-size:12px;padding:6px 14px">Обновлено: 10:42</div>
+      </div>
+      <div class="location-detail">
+        <div class="loc-row">
+          <div class="loc-item"><div class="loc-label">Статус</div><div class="loc-value">🏠 Дома</div></div>
+          <div class="loc-item"><div class="loc-label">Адрес</div><div class="loc-value">ул. Ленина 24, кв. 7</div></div>
+          <div class="loc-item"><div class="loc-label">Обновление</div><div class="loc-value">10:42 сегодня</div></div>
+          <div class="loc-item"><div class="loc-label">GPS-точность</div><div class="loc-value">±15 м</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAB: ANALYTICS ═══ -->
+    <div class="tab-pane" id="tab-analytics">
+      <div class="page-header"><h2>Аналитика активности</h2><p>Данные за последние 7 дней</p></div>
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <h3>Активность по дням</h3>
+          <div class="big-chart">
+            <div class="bar-col"><div class="bar mid-bar" style="height:55%"></div></div>
+            <div class="bar-col"><div class="bar mid-bar" style="height:70%"></div></div>
+            <div class="bar-col"><div class="bar low" style="height:32%"></div></div>
+            <div class="bar-col"><div class="bar mid-bar" style="height:78%"></div></div>
+            <div class="bar-col"><div class="bar high" style="height:91%"></div></div>
+            <div class="bar-col"><div class="bar mid-bar" style="height:65%"></div></div>
+            <div class="bar-col"><div class="bar high" style="height:87%"></div></div>
+          </div>
+          <div class="week-labels">
+            <div class="week-lbl">Пн</div><div class="week-lbl">Вт</div><div class="week-lbl">Ср</div>
+            <div class="week-lbl">Чт</div><div class="week-lbl">Пт</div><div class="week-lbl">Сб</div><div class="week-lbl">Вс</div>
+          </div>
+        </div>
+        <div class="analytics-card">
+          <h3>Общий балл</h3>
+          <div class="activity-score">
+            <div class="score-num">87</div>
+            <div class="score-label">из 100 — хорошо</div>
+            <div class="score-bar-wrap" style="margin-top:16px"><div class="score-bar" style="width:87%"></div></div>
+          </div>
+        </div>
+        <div class="analytics-card">
+          <h3>Сон по дням</h3>
+          <div class="sleep-bars">
+            <div class="sleep-row"><span class="sleep-day">Пн</span><div class="sleep-bar-bg"><div class="sleep-bar-fill" style="width:85%"></div></div><span class="sleep-hours">7.2ч</span></div>
+            <div class="sleep-row"><span class="sleep-day">Вт</span><div class="sleep-bar-bg"><div class="sleep-bar-fill" style="width:90%"></div></div><span class="sleep-hours">7.8ч</span></div>
+            <div class="sleep-row"><span class="sleep-day">Ср</span><div class="sleep-bar-bg"><div class="sleep-bar-fill" style="width:68%"></div></div><span class="sleep-hours">5.8ч</span></div>
+            <div class="sleep-row"><span class="sleep-day">Чт</span><div class="sleep-bar-bg"><div class="sleep-bar-fill" style="width:92%"></div></div><span class="sleep-hours">7.9ч</span></div>
+            <div class="sleep-row"><span class="sleep-day">Пт</span><div class="sleep-bar-bg"><div class="sleep-bar-fill" style="width:88%"></div></div><span class="sleep-hours">7.5ч</span></div>
+            <div class="sleep-row"><span class="sleep-day">Сб</span><div class="sleep-bar-bg"><div class="sleep-bar-fill" style="width:95%"></div></div><span class="sleep-hours">8.1ч</span></div>
+            <div class="sleep-row"><span class="sleep-day">Вс</span><div class="sleep-bar-bg"><div class="sleep-bar-fill" style="width:87%"></div></div><span class="sleep-hours">7.4ч</span></div>
+          </div>
+        </div>
+        <div class="analytics-card">
+          <h3>Инсайты системы</h3>
+          <div class="insight-list">
+            <div class="insight"><div class="insight-dot"></div>Режим сна стабильный, среднее время — 7.4ч, что соответствует норме.</div>
+            <div class="insight"><div class="insight-dot"></div>В среду наблюдалась сниженная активность и короткий сон — возможно, усталость.</div>
+            <div class="insight"><div class="insight-dot"></div>Утренняя рутина стабильна: активность начинается в 08:30–09:00.</div>
+            <div class="insight"><div class="insight-dot"></div>Рекомендуется лёгкая прогулка в дни с низкой активностью.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAB: DEVICES ═══ -->
+    <div class="tab-pane" id="tab-devices">
+      <div class="page-header"><h2>Устройства</h2><p>Статус и управление всеми устройствами системы</p></div>
+      <div class="card">
+        <div class="card-body" style="padding-top:20px">
+          <div class="dev-list">
+            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="dev-name">GPS-часы с кнопкой SOS</div><div class="dev-status">Онлайн · Заряд 84% · Обновлено 10:32</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="dev-name">Датчик движения #1</div><div class="dev-status">Коридор · Активен · Последнее срабатывание 10:32</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="dev-name">Датчик движения #2</div><div class="dev-status">Кухня · Активен · Последнее срабатывание 08:50</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="dev-name">Датчик открытия двери</div><div class="dev-status">Входная дверь · Закрыта · Норма</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg></div><div><div class="dev-name">Датчик утечки воды</div><div class="dev-status">Ванная · Утечек не обнаружено</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+            <div class="dev"><div class="dev-ico off"><svg viewBox="0 0 24 24" style="stroke:var(--mid)"><path d="M8.56 2.9A7 7 0 0119 9v4l2 2v1H3v-1l2-2V9a7 7 0 011-3.6"/></svg></div><div><div class="dev-name">Датчик утечки газа</div><div class="dev-status" style="color:var(--amber)">⚠ Низкий заряд — требует замены батарейки</div></div><div class="dev-dot warn" style="margin-left:auto"></div></div>
+            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div><div class="dev-name">Zigbee-хаб</div><div class="dev-status">Онлайн · 6 устройств подключено</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAB: AI ASSISTANT ═══ -->
+    <div class="tab-pane" id="tab-ai">
+      <div class="page-header">
+        <h2>ИИ-ассистент</h2>
+        <p>Анализ активности, отчёты и ответы на вопросы — в реальном времени</p>
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px" id="quick-actions">
+        <button class="ai-quick-btn" onclick="runQuickPrompt('report')">
+          <div class="aq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="aq-text">
+            <div class="aq-title">Отчёт за неделю</div>
+            <div class="aq-sub">Сводка активности и сна</div>
+          </div>
+        </button>
+        <button class="ai-quick-btn" onclick="runQuickPrompt('risks')">
+          <div class="aq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="aq-text">
+            <div class="aq-title">Анализ рисков</div>
+            <div class="aq-sub">Что требует внимания</div>
+          </div>
+        </button>
+        <button class="ai-quick-btn" onclick="runQuickPrompt('recommendations')">
+          <div class="aq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <div class="aq-text">
+            <div class="aq-title">Рекомендации</div>
+            <div class="aq-sub">Персональные советы</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- CHAT AREA -->
+      <div class="ai-chat-wrap">
+        <div class="ai-chat-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="ai-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:14px">Домашний ангел ИИ</div>
+              <div style="font-size:11px;color:var(--mid);display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block"></span>Готов к работе</div>
+            </div>
+          </div>
+          <button onclick="clearChat()" style="background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--mid);cursor:pointer;font-family:'DM Sans',sans-serif;">Очистить</button>
+        </div>
+
+        <div class="ai-messages" id="ai-messages">
+          <div class="ai-msg ai-msg-bot">
+            <div class="ai-msg-avatar bot-av">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/></svg>
+            </div>
+            <div class="ai-msg-bubble bot-bubble">
+              <p>Здравствуйте! Я ИИ-ассистент системы «Домашний ангел».</p>
+              <p style="margin-top:8px">Я анализирую данные о вашем близком и могу помочь:</p>
+              <ul style="margin:8px 0 0 16px;display:flex;flex-direction:column;gap:4px">
+                <li>Составить отчёт об активности за неделю</li>
+                <li>Объяснить аномалии или отклонения</li>
+                <li>Дать персональные рекомендации</li>
+                <li>Ответить на любые вопросы о состоянии</li>
+              </ul>
+              <p style="margin-top:8px">Используйте быстрые кнопки выше или задайте свой вопрос.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Setup notice - shown only when keys not configured -->
+        <div class="ai-key-notice" id="ai-config-notice" style="display:none!important">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" style="width:18px;height:18px;flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px">Настройте Supabase</div>
+            <div style="font-size:12px;color:var(--mid)">Supabase подключён</div>
+          </div>
+        </div>
+
+        <div class="ai-input-row">
+          <input type="text" id="ai-input" placeholder="Задайте вопрос о состоянии Галины Ивановны..." onkeydown="if(event.key==='Enter')sendMessage()">
+          <button class="ai-send-btn" onclick="sendMessage()" id="ai-send-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<style>
+/* AI TAB STYLES */
+.ai-quick-btn{
+  display:flex;align-items:center;gap:14px;
+  background:var(--warm-white);border:1.5px solid var(--border);border-radius:16px;
+  padding:16px 18px;cursor:pointer;transition:all .2s;text-align:left;
+  font-family:'DM Sans',sans-serif;
+}
+.ai-quick-btn:hover{border-color:var(--sage);background:var(--sage-mist);transform:translateY(-1px);box-shadow:0 6px 20px rgba(77,140,101,.1);}
+.aq-icon{width:40px;height:40px;border-radius:11px;background:var(--stone);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.aq-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+.aq-sub{font-size:11px;color:var(--mid);font-weight:300;}
+
+.ai-chat-wrap{
+  background:var(--warm-white);border:1px solid var(--border);border-radius:20px;
+  overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 4px 24px rgba(0,0,0,.05);
+}
+.ai-chat-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 22px;border-bottom:1px solid var(--border);
+  background:var(--cream);
+}
+.ai-avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--forest),var(--sage));display:flex;align-items:center;justify-content:center;}
+.ai-messages{
+  flex:1;padding:20px;display:flex;flex-direction:column;gap:16px;
+  min-height:320px;max-height:420px;overflow-y:auto;
+  scroll-behavior:smooth;
+}
+.ai-messages::-webkit-scrollbar{width:4px;}
+.ai-messages::-webkit-scrollbar-track{background:transparent;}
+.ai-messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+
+.ai-msg{display:flex;align-items:flex-start;gap:10px;}
+.ai-msg-user{flex-direction:row-reverse;}
+.ai-msg-avatar{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.bot-av{background:linear-gradient(135deg,var(--forest),var(--sage));}
+.user-av{background:linear-gradient(135deg,var(--gold),#a07830);}
+.ai-msg-bubble{padding:12px 16px;border-radius:14px;font-size:14px;line-height:1.65;max-width:80%;font-weight:300;}
+.bot-bubble{background:var(--stone);color:var(--ink);border-radius:4px 14px 14px 14px;}
+.user-bubble{background:linear-gradient(135deg,var(--forest),var(--forest-mid));color:#fff;border-radius:14px 4px 14px 14px;}
+.ai-msg-bubble p{margin:0;}
+.ai-msg-bubble ul li{font-size:13px;}
+
+.ai-typing{display:flex;align-items:center;gap:5px;padding:14px 16px;}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--mid);animation:typingPulse 1.2s ease-in-out infinite;}
+.typing-dot:nth-child(2){animation-delay:.2s;}
+.typing-dot:nth-child(3){animation-delay:.4s;}
+@keyframes typingPulse{0%,60%,100%{opacity:.3;transform:scale(1)}30%{opacity:1;transform:scale(1.2)}}
+
+.ai-key-notice{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 20px;background:var(--gold-light);border-top:1px solid rgba(200,168,75,.2);
+  flex-wrap:wrap;
+}
+.ai-key-notice.hidden{display:none;}
+
+.ai-input-row{
+  display:flex;gap:10px;padding:16px 20px;border-top:1px solid var(--border);background:var(--cream);
+}
+#ai-input{
+  flex:1;padding:12px 18px;
+  background:var(--warm-white);border:1.5px solid var(--border);border-radius:12px;
+  font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;
+  transition:border-color .2s;
+}
+#ai-input:focus{border-color:var(--sage);}
+#ai-input::placeholder{color:#bbb;}
+.ai-send-btn{
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg,var(--forest),var(--sage));
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;flex-shrink:0;
+}
+.ai-send-btn:hover{transform:scale(1.05);box-shadow:0 4px 16px rgba(77,140,101,.4);}
+.ai-send-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+</style>
+
+<script>
+// Date
+const now = new Date();
+const days = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
+const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+document.getElementById('current-date').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+
+const pageTitles = {
+  dashboard: 'Обзор', events: 'История событий',
+  map: 'Карта', analytics: 'Аналитика',
+  devices: 'Устройства', ai: 'ИИ-ассистент'
+};
+
+function switchTab(name, el) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if(el) el.classList.add('active');
+  document.getElementById('page-title').textContent = pageTitles[name] || name;
+  document.querySelector('.content').scrollTop = 0;
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ══════════════════════════════════════════
+// AI ASSISTANT
+// ══════════════════════════════════════════
+
+// Simulated device data (in real app — comes from API)
+const deviceData = {
+  person: 'Галина Ивановна',
+  age: 72,
+  week_activity: [55, 70, 32, 78, 91, 65, 87],
+  week_days: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+  sleep_hours: [7.2, 7.8, 5.8, 7.9, 7.5, 8.1, 7.4],
+  activity_score: 87,
+  last_seen: '10:32 сегодня',
+  location: 'Дома (ул. Ленина 24, кв. 7)',
+  gps_battery: 84,
+  recent_events: [
+    { time: '10:32', type: 'ok', text: 'Движение в коридоре' },
+    { time: '09:15', type: 'ok', text: 'Дверь открыта и закрыта' },
+    { time: '08:47', type: 'ok', text: 'Начало утренней активности' },
+    { time: 'Вчера 14:30', type: 'warning', text: 'Нет движения 2 часа (дневной отдых)' }
+  ],
+  devices: {
+    gps_watch: 'онлайн, заряд 84%',
+    motion_1: 'активен (коридор)',
+    motion_2: 'активен (кухня)',
+    door: 'активен, дверь закрыта',
+    water: 'активен, утечек нет',
+    gas: 'низкий заряд ⚠',
+    hub: 'онлайн, 6 устройств'
+  },
+  notifications_week: 2
+};
+
+const systemPrompt = `Ты — ИИ-ассистент системы «Домашний ангел», помогающий родственникам следить за безопасностью пожилых близких.
+Отвечай на русском языке, тепло и по-человечески, но конкретно. Используй данные из системы.
+
+Текущие данные о подопечном:
+Имя: ${deviceData.person}, возраст: ${deviceData.age} лет
+Активность за неделю (пн-вс, %): ${deviceData.week_activity.join(', ')}
+Сон за неделю (часов): ${deviceData.sleep_hours.join(', ')}
+Общий балл активности: ${deviceData.activity_score}/100
+Местоположение: ${deviceData.location}
+Последняя активность: ${deviceData.last_seen}
+Заряд GPS-часов: ${deviceData.gps_battery}%
+Уведомлений за неделю: ${deviceData.notifications_week}
+Последние события: ${deviceData.recent_events.map(e => e.time + ' — ' + e.text).join('; ')}
+Датчики: ${Object.entries(deviceData.devices).map(([k,v]) => k + ': ' + v).join('; ')}
+
+Когда пишешь отчёт — структурируй его: общее состояние, активность, сон, риски, рекомендации.
+Будь честным: если что-то вызывает беспокойство — скажи об этом деликатно.`;
+
+let chatHistory = [];
+
+// ── Supabase init ──
+// ✏️  REPLACE these two values with yours from supabase.com → Settings → API
+const SUPABASE_URL  = 'https://yexbqwnjvvykdvasocwy.supabase.co';   // e.g. https://xxxx.supabase.co
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlleGJxd25qdnZ5a2R2YXNvY3d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI1MjcsImV4cCI6MjA4ODc5ODUyN30.yerONdeuyE1J1giL7_MpcQBSTFKSO8iEA8gvD_EzlXY';       // starts with eyJ...
+
+let supabaseClient = null;
+
+async function initSupabase() {
+  try {
+    const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
+    supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    // Check if keys are still placeholders
+    if (SUPABASE_URL === 'https://yexbqwnjvvykdvasocwy.supabase.co') {
+      document.getElementById('ai-config-notice').style.display = 'flex';
+      return;
+    }
+
+    // Check auth session
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (!session) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    // Show user name
+    const email = session.user.email;
+    document.querySelector('.u-name').textContent = email.split('@')[0];
+
+    addBotMessage('<p>Авторизация прошла успешно. Готов к работе!</p>');
+  } catch(e) {
+    console.warn('Supabase init error:', e);
+    document.getElementById('ai-config-notice').style.display = 'flex';
+  }
+}
+
+initSupabase();
+
+function clearChat() {
+  chatHistory = [];
+  const msgs = document.getElementById('ai-messages');
+  msgs.innerHTML = `<div class="ai-msg ai-msg-bot">
+    <div class="ai-msg-avatar bot-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/></svg></div>
+    <div class="ai-msg-bubble bot-bubble"><p>Чат очищен. Чем могу помочь?</p></div>
+  </div>`;
+}
+
+function addUserMessage(text) {
+  const msgs = document.getElementById('ai-messages');
+  const div = document.createElement('div');
+  div.className = 'ai-msg ai-msg-user';
+  div.innerHTML = `
+    <div class="ai-msg-bubble user-bubble"><p>${escHtml(text)}</p></div>
+    <div class="ai-msg-avatar user-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function addBotMessage(html) {
+  const msgs = document.getElementById('ai-messages');
+  const div = document.createElement('div');
+  div.className = 'ai-msg ai-msg-bot';
+  div.innerHTML = `
+    <div class="ai-msg-avatar bot-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/></svg></div>
+    <div class="ai-msg-bubble bot-bubble">${html}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('ai-messages');
+  const div = document.createElement('div');
+  div.className = 'ai-msg ai-msg-bot';
+  div.id = 'typing-indicator';
+  div.innerHTML = `
+    <div class="ai-msg-avatar bot-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/></svg></div>
+    <div class="ai-msg-bubble bot-bubble ai-typing">
+      <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+    </div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function formatResponse(text) {
+  // Convert markdown-like to HTML
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/\n\n/g, '</p><p style="margin-top:8px">')
+    .replace(/\n([•\-])\s/g, '</p><ul style="margin:8px 0 0 16px"><li>')
+    .replace(/\n/g, '<br>')
+    .replace(/^/, '<p>')
+    .replace(/$/, '</p>');
+}
+
+const quickPrompts = {
+  report: 'Составь подробный отчёт об активности Галины Ивановны за прошедшую неделю. Включи анализ сна, активности по дням, общую оценку состояния и рекомендации.',
+  risks: 'Проанализируй данные за неделю и расскажи, есть ли что-то, что требует внимания или вызывает беспокойство. Будь честным.',
+  recommendations: 'Дай персональные рекомендации для поддержания здоровья и активности на основе данных за неделю.'
+};
+
+function runQuickPrompt(type) {
+  const text = quickPrompts[type];
+  addUserMessage(text);
+  askAI(text);
+}
+
+async function sendMessage() {
+  const input = document.getElementById('ai-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addUserMessage(text);
+  await askAI(text);
+}
+
+async function askAI(userMessage) {
+  // Guard: keys not configured yet
+  if (SUPABASE_URL === 'https://yexbqwnjvvykdvasocwy.supabase.co') {
+    addBotMessage('<p>Пожалуйста, вставьте ваши ключи Supabase в начало файла dashboard.html.</p>');
+    return;
+  }
+
+  const btn = document.getElementById('ai-send-btn');
+  btn.disabled = true;
+  showTyping();
+
+  chatHistory.push({ role: 'user', content: userMessage });
+
+  try {
+    // ── Call your Supabase Edge Function (not Anthropic directly) ──
+    // Your API key stays safe on the server — users never see it
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_ANON}`
+      },
+      body: JSON.stringify({
+        messages: chatHistory,
+        systemPrompt: systemPrompt
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || data.error) {
+      removeTyping();
+      const msg = data.error?.message || `HTTP ${response.status}`;
+      addBotMessage(`<p style="color:var(--red)">Ошибка: ${escHtml(msg)}</p>`);
+      chatHistory.pop();
+      btn.disabled = false;
+      return;
+    }
+
+    const reply = data.content[0].text;
+    chatHistory.push({ role: 'assistant', content: reply });
+
+    removeTyping();
+    addBotMessage(formatResponse(reply));
+
+  } catch (err) {
+    removeTyping();
+    addBotMessage('<p style="color:var(--red)">Не удалось подключиться. Проверьте настройки Supabase.</p>');
+    chatHistory.pop();
+  }
+
+  btn.disabled = false;
+}
+
+
+// Logout
+async function handleLogout() {
+  if (supabaseClient) {
+    await supabaseClient.auth.signOut();
+  }
+  window.location.href = 'login.html';
+}
+</script>
+</body>
+</html>
