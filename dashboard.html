@@ -16,8 +16,8 @@
   --sidebar:260px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;overflow:hidden;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);display:flex;}
+html,body{height:100%;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);display:flex;overflow:hidden;}
 
 /* SIDEBAR */
 .sidebar{
@@ -489,7 +489,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
         <div class="card">
           <div class="card-head">
             <span class="card-title"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Последние события</span>
-            <a class="card-link" onclick="switchTab('events', document.querySelectorAll('.sb-item')[1])">Все события →</a>
+            <a class="card-link" onclick="switchTab('events', document.querySelector('[onclick*=\'events\']'))">Все события →</a>
           </div>
           <div class="card-body">
             <div class="ev-list">
@@ -531,7 +531,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
           <div class="card">
             <div class="card-head">
               <span class="card-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>Местоположение</span>
-              <a class="card-link" onclick="switchTab('map', document.querySelectorAll('.sb-item')[2])">На карте →</a>
+              <a class="card-link" onclick="switchTab('map', document.querySelector('[onclick*=\'map\']'))">На карте →</a>
             </div>
             <div class="map-wrap">
               <div class="map-grid-bg"></div>
@@ -543,21 +543,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
           <div class="card">
             <div class="card-head">
               <span class="card-title"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Рекомендации ИИ</span>
-              <a class="card-link">Все →</a>
+              <a class="card-link" onclick="switchTab('ai', document.querySelector('[onclick*=\'ai\']'))">ИИ-ассистент →</a>
             </div>
             <div class="card-body">
               <div class="rec-list">
-                <div class="rec">
+                <div class="rec" onclick="switchTab('ai', document.querySelector('[onclick*=\'ai\']'))">
                   <div class="rec-ico"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
                   <span class="rec-text">Обычно в это время принимают лекарства</span>
                   <span class="rec-tag tag-ai">ИИ</span>
                 </div>
-                <div class="rec">
+                <div class="rec" onclick="openModal('ev-idle')">
                   <div class="rec-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
                   <span class="rec-text">Активность ниже нормы 2 дня</span>
                   <span class="rec-tag tag-warn">⚠</span>
                 </div>
-                <div class="rec">
+                <div class="rec" onclick="switchTab('analytics', document.querySelector('[onclick*=\'analytics\']'))">
                   <div class="rec-ico"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
                   <span class="rec-text">Отличный режим сна на неделе</span>
                   <span class="rec-tag tag-ai">ИИ</span>
@@ -572,7 +572,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
         <div class="card">
           <div class="card-head">
             <span class="card-title"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Активность за неделю</span>
-            <a class="card-link" onclick="switchTab('analytics', document.querySelectorAll('.sb-item')[3])">Подробнее →</a>
+            <a class="card-link" onclick="switchTab('analytics', document.querySelector('[onclick*=\'analytics\']'))">Подробнее →</a>
           </div>
           <div class="chart-area">
             <div class="chart-bars">
@@ -594,7 +594,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
         <div class="card">
           <div class="card-head">
             <span class="card-title"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Устройства</span>
-            <a class="card-link" onclick="switchTab('devices', document.querySelectorAll('.sb-item')[4])">Управление →</a>
+            <a class="card-link" onclick="switchTab('devices', document.querySelector('[onclick*=\'devices\']'))">Управление →</a>
           </div>
           <div class="card-body">
             <div class="dev-list">
@@ -612,41 +612,53 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
     <div class="tab-pane" id="tab-events">
       <div class="page-header"><h2>История событий</h2><p>Все зафиксированные события и уведомления</p></div>
       <div class="events-filters">
-        <button class="filter-btn active">Все</button>
-        <button class="filter-btn">Тревоги</button>
-        <button class="filter-btn">Предупреждения</button>
-        <button class="filter-btn">Информация</button>
+        <button class="filter-btn active" onclick="filterEvents('all', this)">Все</button>
+        <button class="filter-btn" onclick="filterEvents('red', this)">Тревоги</button>
+        <button class="filter-btn" onclick="filterEvents('amber', this)">Предупреждения</button>
+        <button class="filter-btn" onclick="filterEvents('green', this)">Информация</button>
       </div>
-      <div class="events-full">
-        <div class="event-full-row">
+      <div class="events-full" id="events-full">
+        <div class="event-full-row" data-type="green" onclick="openModal('ev-motion')" style="cursor:pointer">
           <div class="ev-dot green"></div>
           <div class="ev-icon-bg green" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--sage)" stroke-width="1.9"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
           <div class="ev-info" style="flex:1"><div class="ev-title">Обнаружено движение в коридоре</div><div class="ev-sub">Датчик движения #1 · Сегодня</div></div>
           <div class="ev-time">10:32</div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
-        <div class="event-full-row">
+        <div class="event-full-row" data-type="green" onclick="openModal('ev-door')" style="cursor:pointer">
           <div class="ev-dot green"></div>
           <div class="ev-icon-bg green" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--sage)" stroke-width="1.9"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
           <div class="ev-info" style="flex:1"><div class="ev-title">Дверь открыта и закрыта</div><div class="ev-sub">Датчик двери · Сегодня</div></div>
           <div class="ev-time">09:15</div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
-        <div class="event-full-row">
+        <div class="event-full-row" data-type="green" onclick="openModal('ev-morning')" style="cursor:pointer">
+          <div class="ev-dot green"></div>
+          <div class="ev-icon-bg green" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--sage)" stroke-width="1.9"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="ev-info" style="flex:1"><div class="ev-title">Начало утренней активности</div><div class="ev-sub">Аналитика системы · Сегодня</div></div>
+          <div class="ev-time">08:47</div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="event-full-row" data-type="amber" onclick="openModal('ev-idle')" style="cursor:pointer">
           <div class="ev-dot amber"></div>
           <div class="ev-icon-bg amber" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.9"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
           <div class="ev-info" style="flex:1"><div class="ev-title">Нет движения более 2 часов</div><div class="ev-sub">Дневной отдых — норма · Вчера</div></div>
           <div class="ev-time">14:30</div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
-        <div class="event-full-row">
+        <div class="event-full-row" data-type="red" onclick="openModal('ev-idle')" style="cursor:pointer">
           <div class="ev-dot red"></div>
           <div class="ev-icon-bg red" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--red)" stroke-width="1.9"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
           <div class="ev-info" style="flex:1"><div class="ev-title">Нет движения более 5 часов</div><div class="ev-sub">Требовало внимания · 3 дня назад</div></div>
           <div class="ev-time">12:10</div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
-        <div class="event-full-row">
+        <div class="event-full-row" data-type="green" onclick="openModal('ev-report')" style="cursor:pointer">
           <div class="ev-dot green"></div>
           <div class="ev-icon-bg green" style="width:38px;height:38px;border-radius:10px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--sage)" stroke-width="1.9"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <div class="ev-info" style="flex:1"><div class="ev-title">Ежедневный отчёт сформирован</div><div class="ev-sub">Аналитика · 3 дня назад</div></div>
           <div class="ev-time">00:00</div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="2" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
       </div>
     </div>
@@ -722,19 +734,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
       </div>
     </div>
 
-    <!-- ═══ TAB: DEVICES ═══ -->
     <div class="tab-pane" id="tab-devices">
       <div class="page-header"><h2>Устройства</h2><p>Статус и управление всеми устройствами системы</p></div>
       <div class="card">
         <div class="card-body" style="padding-top:20px">
           <div class="dev-list">
-            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="dev-name">GPS-часы с кнопкой SOS</div><div class="dev-status">Онлайн · Заряд 84% · Обновлено 10:32</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
-            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="dev-name">Датчик движения #1</div><div class="dev-status">Коридор · Активен · Последнее срабатывание 10:32</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
-            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="dev-name">Датчик движения #2</div><div class="dev-status">Кухня · Активен · Последнее срабатывание 08:50</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
-            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="dev-name">Датчик открытия двери</div><div class="dev-status">Входная дверь · Закрыта · Норма</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
-            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg></div><div><div class="dev-name">Датчик утечки воды</div><div class="dev-status">Ванная · Утечек не обнаружено</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
-            <div class="dev"><div class="dev-ico off"><svg viewBox="0 0 24 24" style="stroke:var(--mid)"><path d="M8.56 2.9A7 7 0 0119 9v4l2 2v1H3v-1l2-2V9a7 7 0 011-3.6"/></svg></div><div><div class="dev-name">Датчик утечки газа</div><div class="dev-status" style="color:var(--amber)">⚠ Низкий заряд — требует замены батарейки</div></div><div class="dev-dot warn" style="margin-left:auto"></div></div>
-            <div class="dev"><div class="dev-ico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div><div class="dev-name">Zigbee-хаб</div><div class="dev-status">Онлайн · 6 устройств подключено</div></div><div class="dev-dot on" style="margin-left:auto"></div></div>
+            <div class="dev" style="cursor:pointer" onclick="openModal('dev-watch')"><div class="dev-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div style="flex:1"><div class="dev-name">GPS-часы с кнопкой SOS</div><div class="dev-status">Онлайн · Заряд 84% · Обновлено 10:32</div></div><div class="dev-dot on"></div></div>
+            <div class="dev" style="cursor:pointer" onclick="openModal('dev-motion')"><div class="dev-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div style="flex:1"><div class="dev-name">Датчик движения #1</div><div class="dev-status">Коридор · Активен · Последнее срабатывание 10:32</div></div><div class="dev-dot on"></div></div>
+            <div class="dev" style="cursor:pointer" onclick="openModal('dev-motion')"><div class="dev-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div style="flex:1"><div class="dev-name">Датчик движения #2</div><div class="dev-status">Кухня · Активен · Последнее срабатывание 08:50</div></div><div class="dev-dot on"></div></div>
+            <div class="dev" style="cursor:pointer" onclick="openModal('dev-door')"><div class="dev-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div style="flex:1"><div class="dev-name">Датчик открытия двери</div><div class="dev-status">Входная дверь · Закрыта · Норма</div></div><div class="dev-dot on"></div></div>
+            <div class="dev" style="cursor:pointer" onclick="openModal('dev-water')"><div class="dev-ico"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg></div><div style="flex:1"><div class="dev-name">Датчик утечки воды</div><div class="dev-status">Ванная · Утечек не обнаружено</div></div><div class="dev-dot on"></div></div>
+            <div class="dev" style="cursor:pointer" onclick="openModal('dev-gas')"><div class="dev-ico off"><svg viewBox="0 0 24 24" style="stroke:var(--amber)"><path d="M8.56 2.9A7 7 0 0119 9v4l2 2v1H3v-1l2-2V9a7 7 0 011-3.6"/></svg></div><div style="flex:1"><div class="dev-name">Датчик утечки газа</div><div class="dev-status" style="color:var(--amber)">⚠ Низкий заряд — требует замены батарейки</div></div><div class="dev-dot warn"></div></div>
+            <div class="dev" style="cursor:pointer" onclick="openModal('dev-hub')"><div class="dev-ico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div style="flex:1"><div class="dev-name">Zigbee-хаб</div><div class="dev-status">Онлайн · 6 устройств подключено</div></div><div class="dev-dot on"></div></div>
           </div>
         </div>
       </div>
@@ -963,7 +974,18 @@ function closeMobileSidebar() {
   document.getElementById('sidebar-overlay').style.display = 'none';
 }
 
-// Date
+// Filter events
+function filterEvents(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.event-full-row').forEach(row => {
+    if (type === 'all') { row.style.display = ''; return; }
+    const map = { red: 'red', amber: 'amber', green: 'green' };
+    row.style.display = row.dataset.type === map[type] ? '' : 'none';
+  });
+}
+
+// Date - use real current date
 const now = new Date();
 const days = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
 const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
@@ -980,10 +1002,18 @@ function switchTab(name, el) {
   document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
   const tab = document.getElementById('tab-' + name);
   if (tab) tab.classList.add('active');
-  if (el) el.classList.add('active');
+  // Find matching sidebar item by onclick attribute content
+  if (!el) {
+    document.querySelectorAll('.sb-item').forEach(item => {
+      if (item.getAttribute('onclick') && item.getAttribute('onclick').includes("'" + name + "'")) {
+        item.classList.add('active');
+      }
+    });
+  } else {
+    el.classList.add('active');
+  }
   document.getElementById('page-title').textContent = pageTitles[name] || name;
   document.querySelector('.content').scrollTop = 0;
-  // close panels
   document.getElementById('notif-panel').style.display = 'none';
   document.getElementById('profile-menu').style.display = 'none';
   closeMobileSidebar();
@@ -1081,7 +1111,13 @@ const modals = {
     </div>`
   },
   'memberDetail': { title: 'Участник семьи', body: `<div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Имя</span><strong>Алексей Соколов</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Роль</span><strong>Брат</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Доступ</span><strong>Только уведомления</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;font-size:14px"><span style="color:var(--mid)">Статус</span><strong style="color:var(--sage)">Активен</strong></div></div><button onclick="closeModal()" style="margin-top:16px;width:100%;padding:10px;background:var(--stone);border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;color:var(--red)">Удалить из семьи</button>` },
-  'saved': { title: 'Сохранено', body: `<div style="text-align:center;padding:8px 0"><div style="font-size:40px;margin-bottom:12px">✓</div><p style="font-size:15px;color:var(--ink);font-weight:500;margin-bottom:6px">Готово!</p><p style="font-size:13px;color:var(--mid)">Изменения сохранены успешно.</p><button onclick="closeModal()" style="margin-top:20px;padding:10px 28px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer">Закрыть</button></div>` }
+  'saved': { title: 'Сохранено', body: `<div style="text-align:center;padding:8px 0"><div style="font-size:40px;margin-bottom:12px">✓</div><p style="font-size:15px;color:var(--ink);font-weight:500;margin-bottom:6px">Готово!</p><p style="font-size:13px;color:var(--mid)">Изменения сохранены успешно.</p><button onclick="closeModal()" style="margin-top:20px;padding:10px 28px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer">Закрыть</button></div>` },
+  'dev-watch': { title: 'GPS-часы', body: `<div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Статус</span><span style="background:#dcfce7;color:#16a34a;font-size:11px;font-weight:600;padding:3px 8px;border-radius:50px">Онлайн</span></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Заряд</span><strong>84% 🔋</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Последний сигнал</span><strong>10:32 сегодня</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">GPS-точность</span><strong>±15 м</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;font-size:14px"><span style="color:var(--mid)">Прошивка</span><strong>v2.1.4</strong></div></div><div style="display:flex;gap:8px;margin-top:16px"><button onclick="openModal('call')" style="flex:1;padding:10px;background:var(--forest);border:none;border-radius:10px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer">Позвонить</button><button onclick="closeModal()" style="flex:1;padding:10px;background:var(--stone);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Закрыть</button></div>` },
+  'dev-motion': { title: 'Датчик движения', body: `<div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Статус</span><span style="background:#dcfce7;color:#16a34a;font-size:11px;font-weight:600;padding:3px 8px;border-radius:50px">Активен</span></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Последнее срабатывание</span><strong>10:32 сегодня</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;font-size:14px"><span style="color:var(--mid)">Заряд батареи</span><strong>92%</strong></div></div><button onclick="closeModal()" style="margin-top:16px;width:100%;padding:10px;background:var(--stone);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Закрыть</button>` },
+  'dev-door': { title: 'Датчик двери', body: `<div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Состояние</span><span style="background:#dcfce7;color:#16a34a;font-size:11px;font-weight:600;padding:3px 8px;border-radius:50px">Закрыта</span></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Последнее открытие</span><strong>09:15 сегодня</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;font-size:14px"><span style="color:var(--mid)">Заряд батареи</span><strong>78%</strong></div></div><button onclick="closeModal()" style="margin-top:16px;width:100%;padding:10px;background:var(--stone);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Закрыть</button>` },
+  'dev-water': { title: 'Датчик воды', body: `<div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Статус</span><span style="background:#dcfce7;color:#16a34a;font-size:11px;font-weight:600;padding:3px 8px;border-radius:50px">Норма</span></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Утечек обнаружено</span><strong>0</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;font-size:14px"><span style="color:var(--mid)">Заряд батареи</span><strong>88%</strong></div></div><button onclick="closeModal()" style="margin-top:16px;width:100%;padding:10px;background:var(--stone);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Закрыть</button>` },
+  'dev-gas': { title: 'Датчик газа', body: `<div style="background:#fef3c7;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#92400e;font-weight:500">⚠ Низкий заряд батареи — требует замены</div><div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Статус датчика</span><span style="background:#dcfce7;color:#16a34a;font-size:11px;font-weight:600;padding:3px 8px;border-radius:50px">Активен</span></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Заряд батареи</span><strong style="color:var(--amber)">12% ⚠</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;font-size:14px"><span style="color:var(--mid)">Утечек обнаружено</span><strong>0</strong></div></div><button onclick="closeModal()" style="margin-top:16px;width:100%;padding:10px;background:var(--stone);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Понятно</button>` },
+  'dev-hub': { title: 'Zigbee-хаб', body: `<div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Статус</span><span style="background:#dcfce7;color:#16a34a;font-size:11px;font-weight:600;padding:3px 8px;border-radius:50px">Онлайн</span></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Устройств подключено</span><strong>6 из 8</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Интернет</span><strong>Есть</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;font-size:14px"><span style="color:var(--mid)">Прошивка</span><strong>v1.8.2 (актуальна)</strong></div></div><button onclick="closeModal()" style="margin-top:16px;width:100%;padding:10px;background:var(--stone);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Закрыть</button>` }
 };
 
 function openModal(key) {
