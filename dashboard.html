@@ -1125,7 +1125,7 @@ async function askAI(msg){
       ? [{role:'user',parts:[{text:systemPrompt + '\n\nПервый вопрос: ' + msg}]}]
       : [{role:'user',parts:[{text:systemPrompt}]}, {role:'model',parts:[{text:'Понял, готов помочь!'}]}, ...chatHistory];
     
-    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDpfZq7DIUNNESEEhPcpfIwgi_XvEatuZM`,{
+    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBm6ovVYzII8XfX4Kw3Mu5SmqaJVsPQQmA`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({contents:msgs, generationConfig:{maxOutputTokens:1024,temperature:0.7}})
