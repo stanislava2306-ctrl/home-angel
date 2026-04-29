@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Добро пожаловать — Домашний ангел</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f1a14;--forest:#1a2e22;--forest-mid:#243d2e;
+  --sage:#4d8c65;--sage-light:#6ba882;--sage-mist:#e6f0ea;
+  --gold:#c8a84b;--gold-light:#f5edcc;
+  --cream:#faf7f2;--warm-white:#fffef9;--stone:#f0ece4;
+  --mid:#7a7a72;--border:rgba(0,0,0,0.07);
+  --red:#ef4444;--amber:#f59e0b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+
+/* ─── Layout ─── */
+.ob-wrap{display:grid;grid-template-columns:340px 1fr;min-height:100vh;}
+
+/* ─── Left panel ─── */
+.ob-left{background:var(--forest);padding:48px 40px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow:hidden;}
+.ob-logo{display:flex;align-items:center;gap:10px;margin-bottom:56px;}
+.ob-logo-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;}
+.ob-left h1{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,36px);font-weight:500;color:#fff;line-height:1.25;margin-bottom:14px;}
+.ob-left h1 em{font-style:italic;color:var(--gold);}
+.ob-left-sub{font-size:14px;color:rgba(255,255,255,.55);line-height:1.7;font-weight:300;margin-bottom:48px;}
+
+/* Progress steps */
+.ob-steps{display:flex;flex-direction:column;gap:0;flex:1;}
+.ob-step{display:flex;align-items:flex-start;gap:16px;padding:14px 0;position:relative;}
+.ob-step:not(:last-child)::after{content:'';position:absolute;left:15px;top:44px;width:1.5px;height:calc(100% - 14px);background:rgba(255,255,255,.1);}
+.ob-step.done::after{background:rgba(77,140,101,.5);}
+.ob-step-circle{width:32px;height:32px;min-width:32px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:rgba(255,255,255,.4);background:transparent;transition:all .3s;position:relative;z-index:1;}
+.ob-step.done .ob-step-circle{background:var(--sage);border-color:var(--sage);color:#fff;}
+.ob-step.active .ob-step-circle{background:var(--gold);border-color:var(--gold);color:#fff;box-shadow:0 0 0 4px rgba(200,168,75,.2);}
+.ob-step-content{}
+.ob-step-label{font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:3px;transition:color .3s;}
+.ob-step.done .ob-step-label,.ob-step.active .ob-step-label{color:rgba(255,255,255,.55);}
+.ob-step-title{font-size:14px;font-weight:500;color:rgba(255,255,255,.35);transition:color .3s;}
+.ob-step.done .ob-step-title{color:rgba(255,255,255,.5);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.2);}
+.ob-step.active .ob-step-title{color:#fff;}
+
+.ob-left-footer{margin-top:auto;padding-top:32px;font-size:12px;color:rgba(255,255,255,.25);line-height:1.6;}
+.ob-left-footer a{color:rgba(255,255,255,.35);text-decoration:none;}
+.ob-left-footer a:hover{color:rgba(255,255,255,.6);}
+
+/* ─── Right panel ─── */
+.ob-right{padding:0;display:flex;flex-direction:column;overflow-y:auto;max-height:100vh;}
+.ob-right-inner{flex:1;display:flex;flex-direction:column;padding:56px 64px;max-width:680px;}
+
+/* Progress bar */
+.ob-progress{height:3px;background:var(--stone);margin-bottom:48px;border-radius:2px;overflow:hidden;}
+.ob-progress-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--sage-light));border-radius:2px;transition:width .5s cubic-bezier(.16,1,.3,1);}
+
+/* Step pane */
+.step-pane{display:none;}
+.step-pane.active{display:block;animation:fadeUp .35s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.step-eyebrow{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--sage);margin-bottom:10px;}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,38px);font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:10px;}
+.step-sub{font-size:15px;color:var(--mid);font-weight:300;line-height:1.7;margin-bottom:36px;max-width:500px;}
+
+/* Form elements */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-row.full{grid-template-columns:1fr;}
+.form-group{display:flex;flex-direction:column;gap:7px;}
+.form-label{font-size:12px;font-weight:600;color:var(--ink);letter-spacing:.2px;}
+.form-label span{font-weight:300;color:var(--mid);margin-left:4px;}
+.form-input,.form-select,.form-textarea{
+  padding:12px 15px;
+  border:1.5px solid var(--border);
+  border-radius:11px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  color:var(--ink);
+  background:var(--warm-white);
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  width:100%;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:var(--sage);
+  box-shadow:0 0 0 3px rgba(77,140,101,.1);
+}
+.form-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237a7a72' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;}
+.form-textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.form-hint{font-size:12px;color:var(--mid);font-weight:300;line-height:1.5;}
+
+/* Chips / multi-select */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.chip{padding:8px 14px;border:1.5px solid var(--border);border-radius:50px;font-size:13px;font-weight:400;color:var(--ink);background:var(--warm-white);cursor:pointer;transition:all .18s;user-select:none;display:flex;align-items:center;gap:6px;}
+.chip:hover{border-color:var(--sage);background:var(--sage-mist);}
+.chip.selected{border-color:var(--sage);background:var(--sage-mist);color:var(--forest);font-weight:500;}
+.chip.selected::before{content:'✓';font-size:11px;color:var(--sage);}
+.chip-icon{font-size:14px;}
+
+/* Radio group */
+.radio-group{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+.radio-option{display:flex;align-items:center;gap:14px;padding:14px 18px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all .18s;background:var(--warm-white);}
+.radio-option:hover{border-color:var(--sage);background:var(--sage-mist);}
+.radio-option.selected{border-color:var(--sage);background:var(--sage-mist);}
+.radio-dot{width:18px;height:18px;min-width:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.radio-option.selected .radio-dot{border-color:var(--sage);background:var(--sage);}
+.radio-option.selected .radio-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff;}
+.radio-option-icon{font-size:20px;line-height:1;}
+.radio-option-label{font-size:14px;font-weight:500;color:var(--ink);}
+.radio-option-sub{font-size:12px;color:var(--mid);font-weight:300;margin-top:2px;}
+
+/* Time picker row */
+.time-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.time-card{background:var(--warm-white);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .18s;}
+.time-card:hover{border-color:var(--sage);}
+.time-card.selected{border-color:var(--sage);background:var(--sage-mist);}
+.time-card-icon{font-size:20px;margin-bottom:6px;}
+.time-card-label{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:10px;}
+.time-card select{width:100%;padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;background:var(--cream);color:var(--ink);outline:none;cursor:pointer;}
+
+/* Notification setup */
+.notif-item{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--warm-white);border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;transition:border-color .2s;}
+.notif-item.critical{border-color:rgba(239,68,68,.2);background:#fef2f2;}
+.notif-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+.notif-icon.red-bg{background:#fee2e2;}
+.notif-icon.amber-bg{background:#fef3c7;}
+.notif-icon.blue-bg{background:#dbeafe;}
+.notif-icon.green-bg{background:var(--sage-mist);}
+.notif-text{flex:1;}
+.notif-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.notif-desc{font-size:12px;color:var(--mid);font-weight:300;}
+.toggle{position:relative;width:42px;height:24px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;position:absolute;}
+.toggle-track{position:absolute;inset:0;background:#d1d5db;border-radius:50px;cursor:pointer;transition:background .2s;}
+.toggle input:checked+.toggle-track{background:var(--sage);}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s;}
+.toggle input:checked~.toggle-thumb{transform:translateX(18px);}
+
+/* Family member row */
+.family-member{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--warm-white);border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;}
+.family-avatar{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--sage),var(--sage-light));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.family-info{flex:1;}
+.family-name-input{width:100%;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);outline:none;}
+.family-name-input::placeholder{color:#bbb;}
+.family-role{font-size:12px;color:var(--mid);margin-top:2px;}
+
+/* Section divider */
+.ob-divider{height:1px;background:var(--border);margin:28px 0;}
+.ob-section-head{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--mid);margin-bottom:14px;margin-top:28px;}
+.ob-section-head:first-child{margin-top:0;}
+
+/* Summary / review */
+.summary-block{background:var(--warm-white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;}
+.summary-section-head{padding:13px 18px;background:var(--stone);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--mid);display:flex;align-items:center;gap:8px;}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;border-top:1px solid var(--border);font-size:14px;}
+.summary-row:first-of-type{border-top:none;}
+.summary-key{color:var(--mid);font-weight:300;}
+.summary-val{font-weight:500;color:var(--ink);text-align:right;max-width:55%;}
+.summary-chips{display:flex;flex-wrap:wrap;gap:5px;justify-content:flex-end;}
+.summary-chip{padding:3px 9px;background:var(--sage-mist);color:var(--forest);border-radius:20px;font-size:12px;font-weight:500;}
+
+/* Navigation */
+.ob-nav{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:40px;border-top:1px solid var(--border);}
+.ob-nav-left{display:flex;align-items:center;gap:8px;}
+.btn-back{padding:10px 20px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--mid);background:transparent;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px;}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.btn-skip{padding:10px 16px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;color:var(--mid);background:transparent;cursor:pointer;transition:color .2s;}
+.btn-skip:hover{color:var(--ink);}
+.btn-next{padding:12px 28px;background:var(--forest);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:#fff;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;}
+.btn-next:hover{background:var(--forest-mid,#243d2e);transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,46,34,.25);}
+.btn-next svg,.btn-back svg{width:14px;height:14px;flex-shrink:0;}
+.btn-finish{background:linear-gradient(135deg,var(--sage),var(--sage-light));padding:14px 36px;font-size:15px;}
+.btn-finish:hover{box-shadow:0 8px 24px rgba(77,140,101,.35);}
+
+/* Step counter */
+.step-counter{font-size:12px;color:var(--mid);font-weight:300;}
+
+/* Welcome illustration */
+.welcome-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:32px 0;}
+.welcome-card{background:var(--warm-white);border:1px solid var(--border);border-radius:14px;padding:20px 16px;text-align:center;transition:all .2s;}
+.welcome-card:hover{border-color:var(--sage);transform:translateY(-2px);}
+.welcome-card-icon{font-size:24px;margin-bottom:10px;}
+.welcome-card-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:5px;}
+.welcome-card-desc{font-size:12px;color:var(--mid);font-weight:300;line-height:1.5;}
+
+/* Alert box */
+.ob-alert{display:flex;gap:12px;padding:14px 18px;border-radius:12px;font-size:13px;line-height:1.6;margin-bottom:20px;}
+.ob-alert.green{background:var(--sage-mist);border:1px solid rgba(77,140,101,.2);color:var(--forest);}
+.ob-alert.amber{background:#fef3c7;border:1px solid rgba(245,158,11,.2);color:#78350f;}
+.ob-alert svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;}
+
+/* ─── Responsive ─── */
+@media(max-width:860px){
+  .ob-wrap{grid-template-columns:1fr;}
+  .ob-left{display:none;}
+  .ob-right-inner{padding:36px 24px;}
+  .form-row{grid-template-columns:1fr;}
+  .time-row{grid-template-columns:1fr;}
+  .welcome-cards{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:480px){
+  .welcome-cards{grid-template-columns:1fr;}
+  .ob-right-inner{padding:28px 20px;}
+}
+</style>
+</head>
+<body>
+
+<div class="ob-wrap">
+
+  <!-- ─── LEFT ─── -->
+  <aside class="ob-left">
+    <div class="ob-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" width="38" height="27"><defs><linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c870"/><stop offset="100%" stop-color="#a07830"/></linearGradient></defs><circle cx="160" cy="28" r="18" fill="url(#ag)"/><path d="M152 44 Q148 60 145 75 Q150 82 160 84 Q170 82 175 75 Q172 60 168 44Z" fill="url(#ag)"/><path d="M148 68 C138 62,118 52,95 42 C75 33,48 24,25 18 C10 13,-2 12,0 22 C2 30,16 34,32 38 C50 43,72 46,90 54 C108 62,120 72,130 82 C136 88,142 94,148 100 C150 88,150 78,148 68Z" fill="url(#ag)"/><path d="M172 68 C182 62,202 52,225 42 C245 33,272 24,295 18 C310 13,322 12,320 22 C318 30,304 34,288 38 C270 43,248 46,230 54 C212 62,200 72,190 82 C184 88,178 94,172 100 C170 88,170 78,172 68Z" fill="url(#ag)"/><path d="M160 210 C160 210,118 185,110 165 C102 148,106 135,116 130 C124 126,133 129,140 136 C146 142,150 150,155 158 L160 165 L165 158 C170 150,174 142,180 136 C187 129,196 126,204 130 C214 135,218 148,210 165 C202 185,160 210,160 210Z" fill="url(#ag)"/><path d="M148 82 C145 95,143 108,145 122 C148 130,152 135,155 140 Q158 145,160 150 Q162 145,165 140 C168 135,172 130,175 122 C177 108,175 95,172 82 Q166 78,160 77 Q154 78,148 82Z" fill="url(#ag)"/></svg>
+      <span class="ob-logo-name">Домашний ангел</span>
+    </div>
+
+    <h1>Настроим систему<br>под <em>вашего</em> близкого</h1>
+    <p class="ob-left-sub">5 коротких шагов — и ИИ-аналитика будет знать особенности вашего близкого с первого дня.</p>
+
+    <div class="ob-steps" id="sidebar-steps">
+      <div class="ob-step active" data-step="1">
+        <div class="ob-step-circle">1</div>
+        <div class="ob-step-content">
+          <div class="ob-step-label">Шаг 1</div>
+          <div class="ob-step-title">Знакомство</div>
+        </div>
+      </div>
+      <div class="ob-step" data-step="2">
+        <div class="ob-step-circle">2</div>
+        <div class="ob-step-content">
+          <div class="ob-step-label">Шаг 2</div>
+          <div class="ob-step-title">Профиль близкого</div>
+        </div>
+      </div>
+      <div class="ob-step" data-step="3">
+        <div class="ob-step-circle">3</div>
+        <div class="ob-step-content">
+          <div class="ob-step-label">Шаг 3</div>
+          <div class="ob-step-title">Здоровье и анамнез</div>
+        </div>
+      </div>
+      <div class="ob-step" data-step="4">
+        <div class="ob-step-circle">4</div>
+        <div class="ob-step-content">
+          <div class="ob-step-label">Шаг 4</div>
+          <div class="ob-step-title">Распорядок дня</div>
+        </div>
+      </div>
+      <div class="ob-step" data-step="5">
+        <div class="ob-step-circle">5</div>
+        <div class="ob-step-content">
+          <div class="ob-step-label">Шаг 5</div>
+          <div class="ob-step-title">Семья и уведомления</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ob-left-footer">
+      Уже есть аккаунт? <a href="login.html">Войти</a><br>
+      <a href="index.html">← Вернуться на сайт</a>
+    </div>
+  </aside>
+
+  <!-- ─── RIGHT ─── -->
+  <div class="ob-right">
+    <div class="ob-right-inner">
+
+      <div class="ob-progress">
+        <div class="ob-progress-fill" id="progress-fill" style="width:20%"></div>
+      </div>
+
+      <!-- ══════ STEP 1: WELCOME ══════ -->
+      <div class="step-pane active" id="step-1">
+        <div class="step-eyebrow">Добро пожаловать</div>
+        <h2 class="step-title">Рады вас видеть,<br>давайте познакомимся</h2>
+        <p class="step-sub">Расскажите немного о себе — это поможет настроить систему правильно.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Ваше имя</label>
+            <input type="text" class="form-input" placeholder="Например, Мария" id="user-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ваш телефон <span>(для экстренных уведомлений)</span></label>
+            <input type="tel" class="form-input" placeholder="+7 (900) 000-00-00" id="user-phone">
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label class="form-label">Кем вы приходитесь близкому?</label>
+            <div class="radio-group">
+              <label class="radio-option" onclick="selectRadio(this,'relation')">
+                <div class="radio-dot"></div>
+                <span class="radio-option-icon">👧</span>
+                <div><div class="radio-option-label">Дочь или сын</div><div class="radio-option-sub">Взрослый ребёнок, живущий отдельно</div></div>
+              </label>
+              <label class="radio-option" onclick="selectRadio(this,'relation')">
+                <div class="radio-dot"></div>
+                <span class="radio-option-icon">💑</span>
+                <div><div class="radio-option-label">Супруг / супруга</div><div class="radio-option-sub">Живём вместе или отдельно</div></div>
+              </label>
+              <label class="radio-option" onclick="selectRadio(this,'relation')">
+                <div class="radio-dot"></div>
+                <span class="radio-option-icon">👥</span>
+                <div><div class="radio-option-label">Другой родственник</div><div class="radio-option-sub">Внук, племянник, брат, сестра...</div></div>
+              </label>
+              <label class="radio-option" onclick="selectRadio(this,'relation')">
+                <div class="radio-dot"></div>
+                <span class="radio-option-icon">🏥</span>
+                <div><div class="radio-option-label">Социальный работник / опекун</div><div class="radio-option-sub">Профессиональный уход</div></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="welcome-cards">
+          <div class="welcome-card">
+            <div class="welcome-card-icon">🔒</div>
+            <div class="welcome-card-title">Приватность</div>
+            <div class="welcome-card-desc">Все данные хранятся в России и не передаются третьим лицам</div>
+          </div>
+          <div class="welcome-card">
+            <div class="welcome-card-icon">🧠</div>
+            <div class="welcome-card-title">ИИ обучается</div>
+            <div class="welcome-card-desc">Чем больше вы расскажете — тем точнее будут рекомендации</div>
+          </div>
+          <div class="welcome-card">
+            <div class="welcome-card-icon">✏️</div>
+            <div class="welcome-card-title">Всё можно изменить</div>
+            <div class="welcome-card-desc">Настройки доступны в любое время в личном кабинете</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ STEP 2: PROFILE ══════ -->
+      <div class="step-pane" id="step-2">
+        <div class="step-eyebrow">Профиль близкого</div>
+        <h2 class="step-title">Расскажите о том,<br>за кем вы следите</h2>
+        <p class="step-sub">Эти данные помогут ИИ правильно интерпретировать активность и уведомлять вас о важном.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Имя <span>(как обращаться в интерфейсе)</span></label>
+            <input type="text" class="form-input" placeholder="Например, Галина Ивановна" id="elder-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Возраст</label>
+            <input type="number" class="form-input" placeholder="72" min="50" max="110" id="elder-age">
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label class="form-label">Условия проживания</label>
+            <div class="radio-group">
+              <label class="radio-option" onclick="selectRadio(this,'living')">
+                <div class="radio-dot"></div>
+                <span class="radio-option-icon">🏠</span>
+                <div><div class="radio-option-label">Живёт один / одна</div><div class="radio-option-sub">Самостоятельно, без постоянного сопровождения</div></div>
+              </label>
+              <label class="radio-option" onclick="selectRadio(this,'living')">
+                <div class="radio-dot"></div>
+                <span class="radio-option-icon">👫</span>
+                <div><div class="radio-option-label">Живёт с супругом / супругой</div><div class="radio-option-sub">Оба пожилые, следим за одним или обоими</div></div>
+              </label>
+              <label class="radio-option" onclick="selectRadio(this,'living')">
+                <div class="radio-dot"></div>
+                <span class="radio-option-icon">👨‍👩‍👧</span>
+                <div><div class="radio-option-label">Живёт с родственниками</div><div class="radio-option-sub">В одном доме с детьми или внуками</div></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row full" style="margin-top:8px">
+          <div class="form-group">
+            <label class="form-label">Уровень самостоятельности</label>
+            <select class="form-select" id="elder-independence">
+              <option value="">— Выберите —</option>
+              <option>Полностью самостоятельный — ведёт активный образ жизни</option>
+              <option>В основном самостоятельный — иногда нужна помощь</option>
+              <option>Частично зависимый — нужна регулярная помощь</option>
+              <option>Требует постоянного наблюдения</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label class="form-label">Адрес проживания <span>(для правильной работы карты)</span></label>
+            <input type="text" class="form-input" placeholder="Москва, ул. Ленина, д. 24, кв. 7" id="elder-address">
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ STEP 3: HEALTH ══════ -->
+      <div class="step-pane" id="step-3">
+        <div class="step-eyebrow">Здоровье и анамнез</div>
+        <h2 class="step-title">Помогите ИИ понять<br>особенности здоровья</h2>
+        <p class="step-sub">Эти данные конфиденциальны и используются только для более точного анализа отклонений от нормы. Пропустите всё что не считаете нужным.</p>
+
+        <div class="ob-alert amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div>Данные о здоровье <strong>не передаются третьим лицам</strong> и не используются для медицинских диагнозов. Только для персонализации уведомлений системы.</div>
+        </div>
+
+        <div class="ob-section-head">Хронические заболевания <span style="font-weight:300;text-transform:none;letter-spacing:0;color:var(--mid)">— выберите все подходящие</span></div>
+        <div class="chips" id="conditions-chips">
+          <div class="chip" onclick="toggleChip(this,'conditions')"><span class="chip-icon">❤️</span>Сердечно-сосудистые</div>
+          <div class="chip" onclick="toggleChip(this,'conditions')"><span class="chip-icon">🫁</span>Дыхательные</div>
+          <div class="chip" onclick="toggleChip(this,'conditions')"><span class="chip-icon">🩸</span>Диабет</div>
+          <div class="chip" onclick="toggleChip(this,'conditions')"><span class="chip-icon">🦴</span>Заболевания суставов</div>
+          <div class="chip" onclick="toggleChip(this,'conditions')"><span class="chip-icon">🧠</span>Неврологические</div>
+          <div class="chip" onclick="toggleChip(this,'conditions')"><span class="chip-icon">👁️</span>Проблемы со зрением</div>
+          <div class="chip" onclick="toggleChip(this,'conditions')"><span class="chip-icon">👂</span>Проблемы со слухом</div>
+          <div class="chip" onclick="toggleChip(this,'conditions')"><span class="chip-icon">🤸</span>Проблемы с равновесием</div>
+          <div class="chip" onclick="toggleChip(this,'conditions')"><span class="chip-icon">💊</span>Принимает несколько лекарств</div>
+          <div class="chip" onclick="toggleChip(this,'conditions')">Нет хронических заболеваний</div>
+        </div>
+
+        <div class="ob-divider"></div>
+
+        <div class="ob-section-head">Падения в прошлом</div>
+        <div class="radio-group" style="flex-direction:row;flex-wrap:wrap;gap:10px">
+          <label class="radio-option" style="flex:1;min-width:160px" onclick="selectRadio(this,'falls')">
+            <div class="radio-dot"></div>
+            <div><div class="radio-option-label">Не было</div></div>
+          </label>
+          <label class="radio-option" style="flex:1;min-width:160px" onclick="selectRadio(this,'falls')">
+            <div class="radio-dot"></div>
+            <div><div class="radio-option-label">1–2 раза</div></div>
+          </label>
+          <label class="radio-option" style="flex:1;min-width:160px" onclick="selectRadio(this,'falls')">
+            <div class="radio-dot"></div>
+            <div><div class="radio-option-label">Несколько раз</div></div>
+          </label>
+          <label class="radio-option" style="flex:1;min-width:160px" onclick="selectRadio(this,'falls')">
+            <div class="radio-dot"></div>
+            <div><div class="radio-option-label">Часто</div></div>
+          </label>
+        </div>
+
+        <div class="ob-divider"></div>
+
+        <div class="ob-section-head">Когнитивное состояние</div>
+        <select class="form-select" id="cognitive" style="margin-bottom:20px">
+          <option value="">— Выберите —</option>
+          <option>Ясное мышление, хорошая память</option>
+          <option>Небольшая забывчивость — возрастная норма</option>
+          <option>Лёгкое когнитивное снижение</option>
+          <option>Деменция начальной стадии</option>
+          <option>Деменция средней или тяжёлой стадии</option>
+        </select>
+
+        <div class="ob-section-head">Регулярные лекарства <span style="font-weight:300;text-transform:none;letter-spacing:0;color:var(--mid)">— выберите время приёма</span></div>
+        <div class="chips" id="meds-chips">
+          <div class="chip" onclick="toggleChip(this,'meds')">🌅 Утром</div>
+          <div class="chip" onclick="toggleChip(this,'meds')">☀️ В обед</div>
+          <div class="chip" onclick="toggleChip(this,'meds')">🌆 Вечером</div>
+          <div class="chip" onclick="toggleChip(this,'meds')">🌙 На ночь</div>
+          <div class="chip" onclick="toggleChip(this,'meds')">Лекарств нет</div>
+        </div>
+
+        <div class="ob-divider"></div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label class="form-label">Особенности и важные детали <span>(по желанию)</span></label>
+            <textarea class="form-textarea" id="health-notes" placeholder="Например: аллергия на аспирин, плохо переносит жару, боится замкнутых пространств, после операции на колене избегает лестниц..."></textarea>
+            <div class="form-hint">Эту информацию видит только ваша семья. ИИ учтёт её при анализе активности.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ STEP 4: ROUTINE ══════ -->
+      <div class="step-pane" id="step-4">
+        <div class="step-eyebrow">Распорядок дня</div>
+        <h2 class="step-title">Как выглядит<br>обычный день?</h2>
+        <p class="step-sub">ИИ использует эти данные как «базовую линию» — любое значимое отклонение от привычного распорядка станет сигналом для вас.</p>
+
+        <div class="ob-alert green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          <div>Система сама уточнит распорядок в первые 2 недели наблюдения. Сейчас достаточно примерных данных.</div>
+        </div>
+
+        <div class="ob-section-head">Основные события дня</div>
+        <div class="time-row">
+          <div class="time-card">
+            <div class="time-card-icon">🌅</div>
+            <div class="time-card-label">Обычный подъём</div>
+            <select class="form-select" id="wake-time" style="margin-top:0">
+              <option>до 07:00</option>
+              <option selected>07:00 – 08:00</option>
+              <option>08:00 – 09:00</option>
+              <option>09:00 – 10:00</option>
+              <option>после 10:00</option>
+            </select>
+          </div>
+          <div class="time-card">
+            <div class="time-card-icon">🌙</div>
+            <div class="time-card-label">Обычное засыпание</div>
+            <select class="form-select" id="sleep-time">
+              <option>до 21:00</option>
+              <option>21:00 – 22:00</option>
+              <option selected>22:00 – 23:00</option>
+              <option>23:00 – 00:00</option>
+              <option>после полуночи</option>
+            </select>
+          </div>
+          <div class="time-card">
+            <div class="time-card-icon">🛌</div>
+            <div class="time-card-label">Дневной сон</div>
+            <select class="form-select" id="nap-time">
+              <option>Не спит днём</option>
+              <option>Иногда, 30–60 мин</option>
+              <option selected>Регулярно, 13:00–15:00</option>
+              <option>Долгий дневной сон</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ob-divider"></div>
+        <div class="ob-section-head">Прогулки и физическая активность</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Как часто выходит на улицу?</label>
+            <select class="form-select" id="walk-freq">
+              <option>Каждый день</option>
+              <option selected>4–5 раз в неделю</option>
+              <option>2–3 раза в неделю</option>
+              <option>Редко</option>
+              <option>Не выходит самостоятельно</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Обычное время прогулки</label>
+            <select class="form-select" id="walk-time">
+              <option>Утром (09:00–11:00)</option>
+              <option selected>В первой половине дня</option>
+              <option>Днём (12:00–15:00)</option>
+              <option>Вечером (17:00–20:00)</option>
+              <option>Нет привычного времени</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label class="form-label">Двигательная активность — выберите подходящее</label>
+            <div class="chips" id="activity-chips">
+              <div class="chip" onclick="toggleChip(this,'activity')">🚶 Ходит самостоятельно</div>
+              <div class="chip" onclick="toggleChip(this,'activity')">🦯 Использует трость</div>
+              <div class="chip" onclick="toggleChip(this,'activity')">♿ Коляска иногда</div>
+              <div class="chip" onclick="toggleChip(this,'activity')">🏃 Активный образ жизни</div>
+              <div class="chip" onclick="toggleChip(this,'activity')">🌿 Лёгкая гимнастика</div>
+              <div class="chip" onclick="toggleChip(this,'activity')">🏊 Бассейн</div>
+              <div class="chip" onclick="toggleChip(this,'activity')">🌻 Дача / огород</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ob-divider"></div>
+        <div class="ob-section-head">Привычки и важные моменты дня</div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label class="form-label">Что важно для ежедневного контроля? <span>— выберите приоритеты</span></label>
+            <div class="chips" id="priority-chips">
+              <div class="chip" onclick="toggleChip(this,'priority')">💊 Приём лекарств</div>
+              <div class="chip" onclick="toggleChip(this,'priority')">🍽 Режим питания</div>
+              <div class="chip" onclick="toggleChip(this,'priority')">🚿 Гигиена и ванная</div>
+              <div class="chip" onclick="toggleChip(this,'priority')">📞 Общение с близкими</div>
+              <div class="chip" onclick="toggleChip(this,'priority')">🚪 Выход из дома</div>
+              <div class="chip" onclick="toggleChip(this,'priority')">🌡 Физическое состояние</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ STEP 5: FAMILY ══════ -->
+      <div class="step-pane" id="step-5">
+        <div class="step-eyebrow">Семья и уведомления</div>
+        <h2 class="step-title">Кто ещё должен<br>знать, что происходит?</h2>
+        <p class="step-sub">Добавьте родственников — они будут получать уведомления. На тарифе «Семья» можно добавить до 5 человек.</p>
+
+        <div class="ob-section-head">Члены семьи с доступом</div>
+        <div id="family-list">
+          <div class="family-member">
+            <div class="family-avatar" id="user-avatar-display">МС</div>
+            <div class="family-info">
+              <input type="text" class="family-name-input" id="family-me" placeholder="Ваше имя" value="">
+              <div class="family-role">Вы · Администратор</div>
+            </div>
+          </div>
+          <div class="family-member" id="family-member-2" style="display:none">
+            <div class="family-avatar" style="background:linear-gradient(135deg,#1565A6,#378ADD)">—</div>
+            <div class="family-info">
+              <input type="email" class="family-name-input" id="family-email-2" placeholder="Email второго родственника">
+              <div class="family-role">Получит приглашение</div>
+            </div>
+          </div>
+          <div class="family-member" id="family-member-3" style="display:none">
+            <div class="family-avatar" style="background:linear-gradient(135deg,#C9A84C,#a07830)">—</div>
+            <div class="family-info">
+              <input type="email" class="family-name-input" id="family-email-3" placeholder="Email третьего родственника">
+              <div class="family-role">Получит приглашение</div>
+            </div>
+          </div>
+        </div>
+        <button onclick="addFamilyMember()" id="add-family-btn" style="display:flex;align-items:center;gap:8px;padding:10px 16px;background:transparent;border:1.5px dashed var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--mid);cursor:pointer;margin-top:4px;transition:all .2s;width:100%;justify-content:center" onmouseover="this.style.borderColor='var(--sage)';this.style.color='var(--sage)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--mid)'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Добавить родственника
+        </button>
+
+        <div class="ob-divider"></div>
+        <div class="ob-section-head">Настройка уведомлений</div>
+
+        <div class="notif-item critical">
+          <div class="notif-icon red-bg">🆘</div>
+          <div class="notif-text">
+            <div class="notif-name">Кнопка SOS / обнаружение падения</div>
+            <div class="notif-desc">Push + SMS · мгновенно · нельзя отключить</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked disabled><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+        </div>
+        <div class="notif-item critical">
+          <div class="notif-icon red-bg">💨</div>
+          <div class="notif-text">
+            <div class="notif-name">Утечка газа или воды</div>
+            <div class="notif-desc">Push + SMS + звонок · нельзя отключить</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked disabled><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon amber-bg">🌙</div>
+          <div class="notif-text">
+            <div class="notif-name">Дверь открылась ночью</div>
+            <div class="notif-desc">Push · с 23:00 до 06:00</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked id="notif-door"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon amber-bg">⏰</div>
+          <div class="notif-text">
+            <div class="notif-name">Нет движения длительное время</div>
+            <div class="notif-desc">Push · настраиваемый порог (сейчас 5 часов)</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked id="notif-idle"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon green-bg">📊</div>
+          <div class="notif-text">
+            <div class="notif-name">Еженедельный отчёт по активности</div>
+            <div class="notif-desc">Email · каждое воскресенье в 09:00</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked id="notif-report"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon blue-bg">💊</div>
+          <div class="notif-text">
+            <div class="notif-name">Напоминание о лекарствах</div>
+            <div class="notif-desc">Push · если активность не зафиксирована в нужное время</div>
+          </div>
+          <label class="toggle"><input type="checkbox" id="notif-meds"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+        </div>
+
+        <div class="ob-divider"></div>
+
+        <!-- Summary preview -->
+        <div class="ob-section-head">Краткое резюме профиля</div>
+        <div class="summary-block">
+          <div class="summary-section-head">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Профиль близкого
+          </div>
+          <div class="summary-row"><span class="summary-key">Имя</span><span class="summary-val" id="sum-name">—</span></div>
+          <div class="summary-row"><span class="summary-key">Возраст</span><span class="summary-val" id="sum-age">—</span></div>
+          <div class="summary-row"><span class="summary-key">Проживание</span><span class="summary-val" id="sum-living">—</span></div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-section-head">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Здоровье и распорядок
+          </div>
+          <div class="summary-row"><span class="summary-key">Хронические заболевания</span><span class="summary-val" id="sum-conditions">—</span></div>
+          <div class="summary-row"><span class="summary-key">Подъём</span><span class="summary-val" id="sum-wake">—</span></div>
+          <div class="summary-row"><span class="summary-key">Прогулки</span><span class="summary-val" id="sum-walks">—</span></div>
+        </div>
+      </div>
+
+      <!-- ═══════ NAVIGATION ═══════ -->
+      <div class="ob-nav">
+        <div class="ob-nav-left">
+          <button class="btn-back" id="btn-back" onclick="goBack()" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            Назад
+          </button>
+          <button class="btn-skip" id="btn-skip" onclick="goNext()">Пропустить шаг</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="step-counter" id="step-counter">1 из 5</span>
+          <button class="btn-next" id="btn-next" onclick="goNext()">
+            Продолжить
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+let currentStep = 1;
+const TOTAL = 5;
+
+const progressPct = [20, 40, 60, 80, 100];
+
+function goNext() {
+  if (currentStep < TOTAL) {
+    setStep(currentStep + 1);
+  } else {
+    finish();
+  }
+}
+function goBack() {
+  if (currentStep > 1) setStep(currentStep - 1);
+}
+
+function setStep(n) {
+  // Hide current
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  // Update sidebar
+  const prev = document.querySelector(`.ob-step[data-step="${currentStep}"]`);
+  if (prev) { prev.classList.remove('active'); prev.classList.add('done'); }
+
+  currentStep = n;
+
+  // Show new
+  const pane = document.getElementById('step-' + currentStep);
+  pane.classList.add('active');
+  pane.scrollIntoView({behavior:'smooth', block:'start'});
+
+  // Sidebar
+  document.querySelectorAll('.ob-step').forEach(s => {
+    const sn = parseInt(s.dataset.step);
+    s.classList.remove('active','done');
+    if (sn < currentStep) s.classList.add('done');
+    if (sn === currentStep) s.classList.add('active');
+  });
+
+  // Progress
+  document.getElementById('progress-fill').style.width = progressPct[currentStep-1] + '%';
+
+  // Nav
+  document.getElementById('btn-back').style.display = currentStep > 1 ? 'flex' : 'none';
+  document.getElementById('step-counter').textContent = currentStep + ' из ' + TOTAL;
+  document.getElementById('btn-skip').style.display = currentStep === 5 ? 'none' : 'inline-block';
+
+  const nextBtn = document.getElementById('btn-next');
+  if (currentStep === TOTAL) {
+    nextBtn.innerHTML = 'Перейти в кабинет <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>';
+    nextBtn.classList.add('btn-finish');
+    // Build summary
+    buildSummary();
+  } else {
+    nextBtn.innerHTML = 'Продолжить <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>';
+    nextBtn.classList.remove('btn-finish');
+  }
+  // Scroll right panel to top
+  document.querySelector('.ob-right').scrollTop = 0;
+}
+
+function selectRadio(el, group) {
+  document.querySelectorAll('.radio-option[data-group="' + group + '"], #step-' + currentStep + ' .radio-option').forEach(r => {
+    r.classList.remove('selected');
+  });
+  el.classList.add('selected');
+}
+
+function toggleChip(el, group) {
+  // "Нет" chips deselect others
+  const isNone = el.textContent.trim().startsWith('Нет') || el.textContent.trim().startsWith('Лекарств');
+  if (isNone) {
+    el.closest('.chips').querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  } else {
+    el.closest('.chips').querySelectorAll('.chip').forEach(c => {
+      if (c.textContent.trim().startsWith('Нет') || c.textContent.trim().startsWith('Лекарств')) c.classList.remove('selected');
+    });
+  }
+  el.classList.toggle('selected');
+}
+
+function addFamilyMember() {
+  const m2 = document.getElementById('family-member-2');
+  const m3 = document.getElementById('family-member-3');
+  if (m2.style.display === 'none') { m2.style.display = 'flex'; return; }
+  if (m3.style.display === 'none') { m3.style.display = 'flex'; document.getElementById('add-family-btn').style.display = 'none'; }
+}
+
+function buildSummary() {
+  const name = document.getElementById('elder-name').value || '—';
+  const age = document.getElementById('elder-age').value;
+  const living = document.querySelector('#step-2 .radio-option.selected .radio-option-label');
+  const wake = document.getElementById('wake-time').value;
+  const walks = document.getElementById('walk-freq').value;
+
+  document.getElementById('sum-name').textContent = name;
+  document.getElementById('sum-age').textContent = age ? age + ' лет' : '—';
+  document.getElementById('sum-living').textContent = living ? living.textContent : '—';
+  document.getElementById('sum-wake').textContent = wake;
+  document.getElementById('sum-walks').textContent = walks;
+
+  const conditions = [...document.querySelectorAll('#conditions-chips .chip.selected')].map(c => c.textContent.trim().replace(/^[^\w]+/, ''));
+  const sumCond = document.getElementById('sum-conditions');
+  if (conditions.length) {
+    sumCond.innerHTML = '<div class="summary-chips">' + conditions.slice(0,3).map(c => `<span class="summary-chip">${c}</span>`).join('') + (conditions.length > 3 ? `<span class="summary-chip">+${conditions.length-3}</span>` : '') + '</div>';
+  } else { sumCond.textContent = 'Не указано'; }
+
+  // Update user avatar initials
+  const userName = document.getElementById('user-name').value;
+  if (userName) {
+    const parts = userName.trim().split(' ');
+    const initials = parts.map(p => p[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('user-avatar-display').textContent = initials;
+    const inp = document.getElementById('family-me');
+    if (!inp.value) inp.value = userName;
+  }
+}
+
+function finish() {
+  // Save to localStorage for dashboard to read
+  const profile = {
+    userName: document.getElementById('user-name').value,
+    elderName: document.getElementById('elder-name').value || 'Близкий',
+    elderAge: document.getElementById('elder-age').value,
+    elderAddress: document.getElementById('elder-address').value,
+    conditions: [...document.querySelectorAll('#conditions-chips .chip.selected')].map(c => c.textContent.trim()),
+    wakeTime: document.getElementById('wake-time').value,
+    walkFreq: document.getElementById('walk-freq').value,
+    onboardingDone: true,
+    completedAt: new Date().toISOString()
+  };
+  try { localStorage.setItem('da_profile', JSON.stringify(profile)); } catch(e){}
+
+  // Animate finish
+  const btn = document.getElementById('btn-next');
+  btn.textContent = '✓ Настроено!';
+  btn.style.background = '#16a34a';
+  btn.disabled = true;
+  setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
+}
+
+// Auto-fill name from step 1 to family list
+document.getElementById('user-name').addEventListener('input', function() {
+  const parts = this.value.trim().split(' ');
+  const initials = parts.map(p => p[0]||'').join('').toUpperCase().slice(0,2);
+  if (initials) document.getElementById('user-avatar-display').textContent = initials;
+});
+</script>
+</body>
+</html>
