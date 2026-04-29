@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Страница не найдена — Домашний ангел</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f1a14;--forest:#1a2e22;--sage:#4d8c65;--sage-mist:#e6f0ea;--cream:#faf7f2;--warm-white:#fffef9;--stone:#f0ece4;--mid:#7a7a72;--border:rgba(0,0,0,.07);--gold:#c8a84b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 5%;text-align:center;}
+.num{font-family:'Cormorant Garamond',serif;font-size:clamp(6rem,20vw,10rem);font-weight:300;color:var(--forest);line-height:1;opacity:.12;letter-spacing:-.02em;margin-bottom:-24px;user-select:none;}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--forest);margin-bottom:32px;}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:500;color:var(--forest);margin-bottom:12px;}
+p{font-size:.95rem;color:var(--mid);max-width:400px;line-height:1.7;margin-bottom:40px;}
+.links{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:320px;}
+.btn-main{display:block;width:100%;padding:13px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;text-decoration:none;transition:all .2s;}
+.btn-main:hover{background:#243d2e;transform:translateY(-1px);}
+.btn-sec{display:block;width:100%;padding:11px;background:transparent;border:1.5px solid var(--border);border-radius:12px;color:var(--mid);font-family:'DM Sans',sans-serif;font-size:.9rem;text-decoration:none;transition:all .2s;}
+.btn-sec:hover{border-color:var(--forest);color:var(--forest);}
+.divider{height:.5px;background:var(--border);width:100%;margin:8px 0;}
+.quick-links{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
+.quick-links a{font-size:.85rem;color:var(--sage);text-decoration:none;}
+.quick-links a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<div class="num">404</div>
+<div class="logo">Домашний ангел</div>
+
+<h1>Страница не найдена</h1>
+<p>Возможно, ссылка устарела или адрес введён с ошибкой. Не переживайте — вот куда можно перейти:</p>
+
+<div class="links">
+  <a href="index.html" class="btn-main">На главную страницу</a>
+  <a href="login.html" class="btn-sec">Войти в кабинет</a>
+  <div class="divider"></div>
+  <div class="quick-links">
+    <a href="index.html#pricing">Тарифы</a>
+    <a href="index.html#how">Как работает</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="privacy.html">Конфиденциальность</a>
+  </div>
+</div>
+
+<script>
+// Auto-redirect after 10s
+let t = 10;
+const msg = document.createElement('p');
+msg.style.cssText = 'margin-top:28px;font-size:.8rem;color:var(--mid)';
+msg.textContent = `Автоматический переход на главную через ${t} сек.`;
+document.body.appendChild(msg);
+const interval = setInterval(() => {
+  t--;
+  msg.textContent = `Автоматический переход на главную через ${t} сек.`;
+  if (t <= 0) { clearInterval(interval); window.location.href = 'index.html'; }
+}, 1000);
+</script>
+</body>
+</html>

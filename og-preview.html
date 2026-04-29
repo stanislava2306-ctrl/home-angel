@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:630px;background:#1a2e22;font-family:'DM Sans',Georgia,sans-serif;overflow:hidden;display:flex;}
+.left{flex:1;padding:72px 64px;display:flex;flex-direction:column;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:14px;margin-bottom:auto;}
+.logo-text{font-family:Georgia,serif;font-size:22px;font-weight:600;color:#fff;letter-spacing:-.3px;}
+.main{padding:40px 0;}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#c8a84b;margin-bottom:18px;}
+h1{font-family:Georgia,serif;font-size:52px;font-weight:400;color:#fff;line-height:1.15;margin-bottom:20px;}
+h1 em{font-style:italic;color:#c8a84b;}
+p{font-size:20px;color:rgba(255,255,255,.55);line-height:1.6;max-width:520px;}
+.stats{display:flex;gap:40px;margin-top:48px;}
+.stat span{display:block;font-family:Georgia,serif;font-size:32px;font-weight:500;color:#fff;margin-bottom:4px;}
+.stat p{font-size:13px;color:rgba(255,255,255,.45);margin:0;max-width:none;}
+.right{width:420px;background:rgba(255,255,255,.04);border-left:.5px solid rgba(255,255,255,.08);padding:48px 40px;display:flex;flex-direction:column;gap:12px;}
+.card{background:rgba(255,255,255,.07);border-radius:14px;padding:18px 20px;border:.5px solid rgba(255,255,255,.1);}
+.card-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px;}
+.card-value{font-size:22px;font-weight:500;color:#fff;}
+.card-sub{font-size:13px;color:rgba(255,255,255,.45);margin-top:4px;}
+.card.green .card-value{color:#6dd68a;}
+.notifs{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+.notif{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.6);}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot.red{background:#ef4444;}
+.dot.amber{background:#f59e0b;}
+.dot.green{background:#4ade80;}
+</style>
+</head>
+<body>
+<div class="left">
+  <div class="logo">
+    <svg width="32" height="22" viewBox="0 0 320 220"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c870"/><stop offset="100%" stop-color="#a07830"/></linearGradient></defs><circle cx="160" cy="28" r="18" fill="url(#g)"/><path d="M152 44 Q148 60 145 75 Q150 82 160 84 Q170 82 175 75 Q172 60 168 44Z" fill="url(#g)"/><path d="M148 68 C138 62,118 52,95 42 C75 33,48 24,25 18 C10 13,-2 12,0 22 C2 30,16 34,32 38 C50 43,72 46,90 54 C108 62,120 72,130 82 C136 88,142 94,148 100 C150 88,150 78,148 68Z" fill="url(#g)"/><path d="M172 68 C182 62,202 52,225 42 C245 33,272 24,295 18 C310 13,322 12,320 22 C318 30,304 34,288 38 C270 43,248 46,230 54 C212 62,200 72,190 82 C184 88,178 94,172 100 C170 88,170 78,172 68Z" fill="url(#g)"/><path d="M160 210 C160 210,118 185,110 165 C102 148,106 135,116 130 C124 126,133 129,140 136 L160 165 L180 136 C187 129,196 126,204 130 C214 135,218 148,210 165 C202 185,160 210,160 210Z" fill="url(#g)"/></svg>
+    <span class="logo-text">Домашний ангел</span>
+  </div>
+  <div class="main">
+    <div class="eyebrow">Система заботы о пожилых</div>
+    <h1>Близкий в<br>безопасности —<br>вы <em>спокойны</em></h1>
+    <p>GPS-часы, умные датчики и ИИ-аналитика. Подписка от 990 ₽/мес.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><span>7/24</span><p>мониторинг</p></div>
+    <div class="stat"><span>990 ₽</span><p>от /мес</p></div>
+    <div class="stat"><span>5 мин</span><p>до настройки</p></div>
+  </div>
+</div>
+<div class="right">
+  <div class="card green">
+    <div class="card-label">Статус безопасности</div>
+    <div class="card-value">✓ Всё в порядке</div>
+    <div class="card-sub">📍 Дома · Активна в 10:32</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Аналитика · сегодня</div>
+    <div class="card-value">87%</div>
+    <div class="card-sub">активность в норме</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Уведомления</div>
+    <div class="notifs">
+      <div class="notif"><span class="dot green"></span>Утренняя рутина в 08:47</div>
+      <div class="notif"><span class="dot green"></span>Дверь открыта и закрыта</div>
+      <div class="notif"><span class="dot amber"></span>Напоминание о лекарствах</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

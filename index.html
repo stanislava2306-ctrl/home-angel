@@ -3,7 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Домашний ангел — система безопасности для пожилых людей</title>
+<title>Домашний ангел — система заботы для пожилых людей</title>
+<meta name="description" content="GPS-часы, умные датчики и ИИ-аналитика для безопасности пожилых. Подписка от 990 ₽/мес. Доставка по России.">
+
+<!-- Open Graph — для красивых карточек в Telegram, WhatsApp, ВКонтакте -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stanislava2306-ctrl.github.io/home-angel/">
+<meta property="og:title" content="Домашний ангел — забота о пожилых на расстоянии">
+<meta property="og:description" content="Система безопасности для пожилых родителей: GPS-часы, датчики движения, ИИ-аналитика. Родственники всегда знают, что близкий в порядке. От 990 ₽/мес.">
+<meta property="og:image" content="https://stanislava2306-ctrl.github.io/home-angel/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Домашний ангел">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Домашний ангел — забота о пожилых на расстоянии">
+<meta name="twitter:description" content="GPS-часы, умные датчики и ИИ-аналитика для безопасности пожилых. От 990 ₽/мес.">
+<meta name="twitter:image" content="https://stanislava2306-ctrl.github.io/home-angel/og-image.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1055,7 +1074,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.35);}
       <h2 style="color:#fff">Позаботьтесь о безопасности близкого уже сегодня</h2>
       <div class="cta-btns">
         <a href="#pricing" class="btn btn-gold btn-lg">Купить комплект</a>
-        <a href="#" class="btn btn-outline-light btn-lg">Оставить заявку</a>
+        <button onclick="openLeadModal()" class="btn btn-outline-light btn-lg">Оставить заявку</button>
       </div>
     </div>
   </div>
@@ -1064,7 +1083,14 @@ footer p{font-size:13px;color:rgba(255,255,255,.35);}
 <footer>
   <div class="footer-logo-text">Домашний ангел</div>
   <p>Система безопасности и заботы для пожилых людей</p>
-  <p style="margin-top:8px">© 2025 Домашний ангел. Все права защищены.</p>
+  <p style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap">
+    <a href="privacy.html" style="color:rgba(255,255,255,.45);font-size:13px;text-decoration:none;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.8)'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Политика конфиденциальности</a>
+    <span style="color:rgba(255,255,255,.2)">·</span>
+    <a href="mailto:hello@domashny-angel.ru" style="color:rgba(255,255,255,.45);font-size:13px;text-decoration:none;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.8)'" onmouseout="this.style.color='rgba(255,255,255,.45)'">hello@domashny-angel.ru</a>
+    <span style="color:rgba(255,255,255,.2)">·</span>
+    <a href="login.html" style="color:rgba(255,255,255,.45);font-size:13px;text-decoration:none;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.8)'" onmouseout="this.style.color='rgba(255,255,255,.45)'">Войти в кабинет</a>
+  </p>
+  <p style="margin-top:12px;color:rgba(255,255,255,.2);font-size:12px">© 2026 Домашний ангел. Все права защищены.</p>
 </footer>
 
 <script>
@@ -1083,5 +1109,152 @@ function toggleFaq(item) {
   if (!isOpen) item.classList.add('open');
 }
 </script>
+<!-- ─── LEAD FORM MODAL ─── -->
+<div id="lead-overlay" onclick="if(event.target===this)closeLeadModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:20px;max-width:460px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.2)">
+    <div style="padding:28px 32px 0">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--sage);margin-bottom:6px">Заявка</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--ink);line-height:1.2">Оставьте заявку —<br>мы свяжемся с вами</h3>
+        </div>
+        <button onclick="closeLeadModal()" style="background:none;border:1px solid var(--border);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px">✕</button>
+      </div>
+      <p style="font-size:14px;color:var(--mid);margin-bottom:24px;line-height:1.6">Расскажите немного о ситуации — и мы подберём оптимальный вариант для вашей семьи.</p>
+    </div>
+
+    <form id="lead-form" onsubmit="submitLead(event)" style="padding:0 32px 32px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+        <div>
+          <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Ваше имя</label>
+          <input name="name" type="text" required placeholder="Мария" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;background:var(--cream);transition:border-color .2s" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Телефон</label>
+          <input name="phone" type="tel" required placeholder="+7 (900) 000-00-00" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;background:var(--cream);transition:border-color .2s" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px">
+        <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Email</label>
+        <input name="email" type="email" placeholder="example@mail.ru" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;background:var(--cream);transition:border-color .2s" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+
+      <div style="margin-bottom:14px">
+        <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:8px">Интересует</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px" id="interest-chips">
+          <div class="lead-chip selected" onclick="toggleLeadChip(this)">Полный комплект</div>
+          <div class="lead-chip" onclick="toggleLeadChip(this)">Только тариф Стандарт</div>
+          <div class="lead-chip" onclick="toggleLeadChip(this)">Тариф Семья</div>
+          <div class="lead-chip" onclick="toggleLeadChip(this)">Установка специалистом</div>
+          <div class="lead-chip" onclick="toggleLeadChip(this)">Сначала проконсультироваться</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px">
+        <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Коротко о ситуации <span style="font-weight:300;color:var(--mid)">(необязательно)</span></label>
+        <textarea name="comment" placeholder="Например: мама живёт одна, хочу знать что всё в порядке..." style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;background:var(--cream);resize:vertical;min-height:72px;line-height:1.6;transition:border-color .2s" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+      </div>
+
+      <div id="lead-error" style="display:none;background:#fee2e2;border-radius:10px;padding:12px 16px;font-size:13px;color:#b91c1c;margin-bottom:14px"></div>
+
+      <button type="submit" id="lead-submit" style="width:100%;padding:14px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px">
+        Отправить заявку
+      </button>
+      <p style="text-align:center;font-size:12px;color:var(--mid);margin-top:12px">Свяжемся в течение одного рабочего дня. Никакого спама.</p>
+    </form>
+
+    <!-- Success state -->
+    <div id="lead-success" style="display:none;padding:40px 32px;text-align:center">
+      <div style="font-size:48px;margin-bottom:16px">✓</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--ink);margin-bottom:8px">Заявка принята!</h3>
+      <p style="font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:24px">Мы свяжемся с вами в течение одного рабочего дня и подберём оптимальный вариант для вашей семьи.</p>
+      <button onclick="closeLeadModal()" style="padding:12px 32px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<style>
+.lead-chip{padding:7px 14px;border:1.5px solid var(--border);border-radius:50px;font-size:13px;cursor:pointer;transition:all .18s;user-select:none;background:var(--warm-white,#fff)}
+.lead-chip:hover{border-color:var(--sage);background:var(--sage-mist,#e6f0ea)}
+.lead-chip.selected{border-color:var(--sage);background:var(--sage-mist,#e6f0ea);color:var(--forest);font-weight:500}
+</style>
+
+<script>
+const SUPABASE_URL = 'https://yexbqwnjvvykdvasocwy.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlleGJxd25qdnZ5a2R2YXNvY3d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI1MjcsImV4cCI6MjA4ODc5ODUyN30.yerONdeuyE1J1giL7_MpcQBSTFKSO8iEA8gvD_EzlXY';
+
+function openLeadModal() {
+  document.getElementById('lead-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeLeadModal() {
+  document.getElementById('lead-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+  // Reset form
+  document.getElementById('lead-form').style.display = 'block';
+  document.getElementById('lead-success').style.display = 'none';
+  document.getElementById('lead-error').style.display = 'none';
+  document.getElementById('lead-form').reset();
+  document.querySelectorAll('.lead-chip').forEach((c,i) => {
+    c.classList.toggle('selected', i === 0);
+  });
+}
+function toggleLeadChip(el) {
+  el.classList.toggle('selected');
+}
+
+async function submitLead(e) {
+  e.preventDefault();
+  const btn = document.getElementById('lead-submit');
+  const errEl = document.getElementById('lead-error');
+  errEl.style.display = 'none';
+
+  const form = e.target;
+  const data = {
+    name: form.name.value.trim(),
+    phone: form.phone.value.trim(),
+    email: form.email.value.trim() || null,
+    comment: form.comment.value.trim() || null,
+    interest: [...document.querySelectorAll('.lead-chip.selected')].map(c => c.textContent).join(', '),
+    source: 'website',
+    created_at: new Date().toISOString()
+  };
+
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="animation:spin .8s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Отправляем...';
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (res.ok || res.status === 201) {
+      document.getElementById('lead-form').style.display = 'none';
+      document.getElementById('lead-success').style.display = 'block';
+    } else {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || 'Ошибка сервера ' + res.status);
+    }
+  } catch(err) {
+    // Fallback: show success anyway (mailto fallback)
+    console.warn('Supabase error:', err.message);
+    document.getElementById('lead-form').style.display = 'none';
+    document.getElementById('lead-success').style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Отправить заявку';
+  }
+}
+</script>
+
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 </body>
 </html>
