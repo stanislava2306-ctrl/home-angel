@@ -180,13 +180,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);min-height:100vh;d
 
 <script type="module">
 // ✏️  REPLACE these two values — same as in dashboard.html
-const SUPABASE_URL  = 'https://yexbqwnjvvykdvasocwy.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlleGJxd25qdnZ5a2R2YXNvY3d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI1MjcsImV4cCI6MjA4ODc5ODUyN30.yerONdeuyE1J1giL7_MpcQBSTFKSO8iEA8gvD_EzlXY';
+const SUPABASE_URL  = 'https://ntvrlegynsciyjyzbsq.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjExNDIyNCwiZXhwIjoyMDg3NjkwMjI0fQ.X5QoBpqWQ7aOseMyB0KaulxjnQzXGEQsQ3bymoyYAIo';
 
 let supabase = null;
 
 async function init() {
-  if (SUPABASE_URL === 'https://yexbqwnjvvykdvasocwy.supabase.co') {
+  if (SUPABASE_URL === 'https://ntvrlegynsciyjyzbsq.supabase.co') {
     // Keys not set — demo mode, just redirect
     return;
   }
@@ -253,7 +253,7 @@ window.handleLogin = async function() {
 }
 
 window.handleDemo = async function() {
-  if (!supabase || SUPABASE_URL === 'https://yexbqwnjvvykdvasocwy.supabase.co') {
+  if (!supabase || SUPABASE_URL === 'https://ntvrlegynsciyjyzbsq.supabase.co') {
     window.location.href = 'dashboard.html';
     return;
   }

@@ -1094,8 +1094,8 @@ function simulateCall(btn){
 }
 
 // ── AI ──
-const SUPABASE_URL='https://yexbqwnjvvykdvasocwy.supabase.co';
-const SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlleGJxd25qdnZ5a2R2YXNvY3d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI1MjcsImV4cCI6MjA4ODc5ODUyN30.yerONdeuyE1J1giL7_MpcQBSTFKSO8iEA8gvD_EzlXY';
+const SUPABASE_URL='https://ntvrlegynsciyjyzbsq.supabase.co';
+const SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjExNDIyNCwiZXhwIjoyMDg3NjkwMjI0fQ.X5QoBpqWQ7aOseMyB0KaulxjnQzXGEQsQ3bymoyYAIo';
 const systemPrompt=`Ты — ИИ-ассистент системы «Домашний ангел». Отвечай тепло и по-человечески на русском языке.
 Данные: Галина Ивановна, 72 года. Активность: 55,70,32,78,91,65,87%. Сон: 7.2,7.8,5.8,7.9,7.5,8.1,7.4ч. Балл: 87/100. Дома. Заряд часов 84%. Уведомлений за неделю: 2. Датчик газа: низкий заряд.`;
 let chatHistory=[];
@@ -1118,12 +1118,23 @@ function runQuickPrompt(k){addUserMsg(qp[k]);askAI(qp[k]);}
 async function sendMessage(){const i=document.getElementById('ai-input');const t=i.value.trim();if(!t)return;i.value='';addUserMsg(t);await askAI(t);}
 async function askAI(msg){
   const btn=document.getElementById('ai-send-btn');btn.disabled=true;showTyping();
-  chatHistory.push({role:'user',content:msg});
+  chatHistory.push({role:'user',parts:[{text:msg}]});
   try{
-    const r=await fetch(`${SUPABASE_URL}/functions/v1/ai-chat`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${SUPABASE_ANON}`},body:JSON.stringify({messages:chatHistory,systemPrompt})});
+    // Build context with system prompt as first user message
+    const msgs = chatHistory.length === 1 
+      ? [{role:'user',parts:[{text:systemPrompt + '\n\nПервый вопрос: ' + msg}]}]
+      : [{role:'user',parts:[{text:systemPrompt}]}, {role:'model',parts:[{text:'Понял, готов помочь!'}]}, ...chatHistory];
+    
+    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDpfZq7DIUNNESEEhPcpfIwgi_XvEatuZM`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:msgs, generationConfig:{maxOutputTokens:1024,temperature:0.7}})
+    });
     const d=await r.json();
-    if(!r.ok||d.error){removeTyping();addBotMsg(`<p style="color:var(--red)">Ошибка подключения к ИИ. Убедитесь что Supabase настроен.</p>`);chatHistory.pop();btn.disabled=false;return;}
-    const reply=d.content[0].text;chatHistory.push({role:'assistant',content:reply});removeTyping();addBotMsg(fmtReply(reply));
+    if(!r.ok||d.error){removeTyping();addBotMsg(`<p style="color:var(--red)">${d.error?.message||'Ошибка ИИ'}</p>`);chatHistory.pop();btn.disabled=false;return;}
+    const reply=d.candidates?.[0]?.content?.parts?.[0]?.text||'Нет ответа';
+    chatHistory.push({role:'model',parts:[{text:reply}]});
+    removeTyping();addBotMsg(fmtReply(reply));
   }catch(e){removeTyping();addBotMsg('<p style="color:var(--red)">Не удалось подключиться к ИИ-ассистенту.</p>');chatHistory.pop();}
   btn.disabled=false;
 }
