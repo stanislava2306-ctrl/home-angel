@@ -1118,24 +1118,40 @@ function runQuickPrompt(k){addUserMsg(qp[k]);askAI(qp[k]);}
 async function sendMessage(){const i=document.getElementById('ai-input');const t=i.value.trim();if(!t)return;i.value='';addUserMsg(t);await askAI(t);}
 async function askAI(msg){
   const btn=document.getElementById('ai-send-btn');btn.disabled=true;showTyping();
-  chatHistory.push({role:'user',parts:[{text:msg}]});
+  chatHistory.push({role:'user',content:msg});
   try{
-    // Build context with system prompt as first user message
-    const msgs = chatHistory.length === 1 
-      ? [{role:'user',parts:[{text:systemPrompt + '\n\nПервый вопрос: ' + msg}]}]
-      : [{role:'user',parts:[{text:systemPrompt}]}, {role:'model',parts:[{text:'Понял, готов помочь!'}]}, ...chatHistory];
-    
-    const r=await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=AIzaSyBm6ovVYzII8XfX4Kw3Mu5SmqaJVsPQQmA`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:msgs, generationConfig:{maxOutputTokens:1024,temperature:0.7}})
+    const messages = [
+      {role:'system', content: systemPrompt},
+      ...chatHistory
+    ];
+    const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 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',
+        'HTTP-Referer': 'https://stanislava2306-ctrl.github.io',
+        'X-Title': 'Домашний ангел'
+      },
+      body: JSON.stringify({
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        messages: messages,
+        max_tokens: 1024
+      })
     });
-    const d=await r.json();
-    if(!r.ok||d.error){removeTyping();addBotMsg(`<p style="color:var(--red)">${d.error?.message||'Ошибка ИИ'}</p>`);chatHistory.pop();btn.disabled=false;return;}
-    const reply=d.candidates?.[0]?.content?.parts?.[0]?.text||'Нет ответа';
-    chatHistory.push({role:'model',parts:[{text:reply}]});
-    removeTyping();addBotMsg(fmtReply(reply));
-  }catch(e){removeTyping();addBotMsg('<p style="color:var(--red)">Не удалось подключиться к ИИ-ассистенту.</p>');chatHistory.pop();}
+    const d = await r.json();
+    if(!r.ok || d.error){
+      removeTyping();
+      addBotMsg(`<p style="color:var(--red)">${d.error?.message || 'Ошибка ИИ: ' + r.status}</p>`);
+      chatHistory.pop(); btn.disabled=false; return;
+    }
+    const reply = d.choices?.[0]?.message?.content || 'Нет ответа';
+    chatHistory.push({role:'assistant', content:reply});
+    removeTyping(); addBotMsg(fmtReply(reply));
+  }catch(e){
+    removeTyping();
+    addBotMsg('<p style="color:var(--red)">Не удалось подключиться к ИИ-ассистенту.</p>');
+    chatHistory.pop();
+  }
   btn.disabled=false;
 }
 async function handleLogout(){if(supabaseClient)await supabaseClient.auth.signOut();window.location.href='login.html';}
