@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Домашний ангел</title>
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Дом. ангел">
+<meta name="theme-color" content="#1a2e22">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+
+/* ── Splash ── */
+#splash{
+  position:fixed;inset:0;
+  background:#1a2e22;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  z-index:100;
+  transition:opacity .5s ease, transform .5s ease;
+}
+#splash.hide{opacity:0;transform:scale(1.05);pointer-events:none;}
+.splash-logo{
+  display:flex;flex-direction:column;align-items:center;gap:20px;
+  animation:splashIn .8s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes splashIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.splash-icon{
+  width:88px;height:88px;border-radius:24px;
+  background:rgba(200,168,75,.15);
+  border:1px solid rgba(200,168,75,.3);
+  display:flex;align-items:center;justify-content:center;
+}
+.splash-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:500;color:#fff;letter-spacing:-.3px;
+}
+.splash-tagline{
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:300;color:rgba(255,255,255,.45);
+  margin-top:-10px;
+}
+.splash-loader{
+  position:absolute;bottom:60px;
+  width:40px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;
+}
+.splash-loader-fill{
+  height:100%;background:var(--gold,#c8a84b);border-radius:2px;
+  animation:load 1.2s ease forwards;
+}
+@keyframes load{from{width:0}to{width:100%}}
+
+/* ── Auth screen ── */
+#auth{
+  position:fixed;inset:0;
+  background:#faf7f2;
+  display:none;flex-direction:column;
+  overflow-y:auto;
+}
+#auth.show{display:flex;}
+
+.auth-top{
+  background:#1a2e22;
+  padding:env(safe-area-inset-top,20px) 24px 40px;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;min-height:280px;justify-content:flex-end;
+  border-radius:0 0 32px 32px;
+}
+.auth-logo-wrap{
+  width:64px;height:64px;border-radius:18px;
+  background:rgba(200,168,75,.2);border:1px solid rgba(200,168,75,.35);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;
+}
+.auth-top h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:500;color:#fff;
+  margin-bottom:6px;line-height:1.25;
+}
+.auth-top p{
+  font-size:13px;color:rgba(255,255,255,.5);
+  font-family:'DM Sans',sans-serif;font-weight:300;
+}
+
+.auth-body{padding:32px 24px;flex:1;}
+
+/* Tabs */
+.auth-tabs{display:flex;background:#f0ece4;border-radius:12px;padding:4px;margin-bottom:28px;}
+.auth-tab{
+  flex:1;padding:9px;text-align:center;border-radius:9px;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
+  color:#7a7a72;cursor:pointer;transition:all .2s;border:none;background:transparent;
+}
+.auth-tab.active{background:#fff;color:#1a2e22;box-shadow:0 1px 4px rgba(0,0,0,.1);}
+
+/* Form */
+.form-group{margin-bottom:16px;}
+.form-label{font-size:12px;font-weight:600;color:#1a2e22;display:block;margin-bottom:6px;font-family:'DM Sans',sans-serif;}
+.form-input{
+  width:100%;padding:14px 16px;
+  border:1.5px solid rgba(0,0,0,.08);border-radius:12px;
+  font-family:'DM Sans',sans-serif;font-size:15px;color:#1a2e22;
+  background:#fff;outline:none;
+  transition:border-color .2s;
+  -webkit-appearance:none;
+}
+.form-input:focus{border-color:#4d8c65;}
+.form-input::placeholder{color:#bbb;}
+
+.btn-auth{
+  width:100%;padding:16px;
+  background:#1a2e22;border:none;border-radius:14px;
+  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:#fff;
+  cursor:pointer;transition:all .2s;margin-top:8px;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn-auth:active{transform:scale(.98);background:#243d2e;}
+
+.auth-divider{
+  display:flex;align-items:center;gap:12px;margin:20px 0;
+  font-size:13px;color:#bbb;font-family:'DM Sans',sans-serif;
+}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:.5px;background:rgba(0,0,0,.08);}
+
+.btn-demo{
+  width:100%;padding:14px;
+  background:transparent;border:1.5px solid rgba(0,0,0,.1);border-radius:14px;
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;color:#7a7a72;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn-demo:active{background:#f0ece4;}
+
+.auth-footer{
+  padding:0 24px 32px;
+  text-align:center;font-size:12px;color:#bbb;
+  font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.6;
+}
+.auth-footer a{color:#4d8c65;text-decoration:none;}
+
+.auth-error{
+  background:#fee2e2;border-radius:10px;
+  padding:11px 14px;font-size:13px;color:#b91c1c;
+  font-family:'DM Sans',sans-serif;margin-bottom:14px;
+  display:none;
+}
+.auth-error.show{display:block;}
+</style>
+</head>
+<body>
+
+<!-- ── SPLASH ── -->
+<div id="splash">
+  <div class="splash-logo">
+    <div class="splash-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" width="52" height="37">
+        <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c870"/><stop offset="100%" stop-color="#a07830"/></linearGradient></defs>
+        <circle cx="160" cy="28" r="18" fill="url(#g)"/>
+        <path d="M152 44 Q148 60 145 75 Q150 82 160 84 Q170 82 175 75 Q172 60 168 44Z" fill="url(#g)"/>
+        <path d="M148 68 C138 62,118 52,95 42 C75 33,48 24,25 18 C10 13,-2 12,0 22 C2 30,16 34,32 38 C50 43,72 46,90 54 C108 62,120 72,130 82 C136 88,142 94,148 100 C150 88,150 78,148 68Z" fill="url(#g)"/>
+        <path d="M172 68 C182 62,202 52,225 42 C245 33,272 24,295 18 C310 13,322 12,320 22 C318 30,304 34,288 38 C270 43,248 46,230 54 C212 62,200 72,190 82 C184 88,178 94,172 100 C170 88,170 78,172 68Z" fill="url(#g)"/>
+        <path d="M160 210 C160 210,118 185,110 165 C102 148,106 135,116 130 C124 126,133 129,140 136 L160 165 L180 136 C187 129,196 126,204 130 C214 135,218 148,210 165 C202 185,160 210,160 210Z" fill="url(#g)"/>
+        <path d="M148 82 C145 95,143 108,145 122 C148 130,152 135,155 140 Q158 145,160 150 Q162 145,165 140 C168 135,172 130,175 122 C177 108,175 95,172 82 Q166 78,160 77 Q154 78,148 82Z" fill="url(#g)"/>
+      </svg>
+    </div>
+    <div class="splash-name">Домашний ангел</div>
+    <div class="splash-tagline">Забота на расстоянии</div>
+  </div>
+  <div class="splash-loader"><div class="splash-loader-fill"></div></div>
+</div>
+
+<!-- ── AUTH ── -->
+<div id="auth">
+  <div class="auth-top">
+    <div class="auth-logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" width="40" height="28">
+        <defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c870"/><stop offset="100%" stop-color="#a07830"/></linearGradient></defs>
+        <circle cx="160" cy="28" r="18" fill="url(#g2)"/>
+        <path d="M152 44 Q148 60 145 75 Q150 82 160 84 Q170 82 175 75 Q172 60 168 44Z" fill="url(#g2)"/>
+        <path d="M148 68 C138 62,118 52,95 42 C75 33,48 24,25 18 C10 13,-2 12,0 22 C2 30,16 34,32 38 C50 43,72 46,90 54 C108 62,120 72,130 82 C136 88,142 94,148 100 C150 88,150 78,148 68Z" fill="url(#g2)"/>
+        <path d="M172 68 C182 62,202 52,225 42 C245 33,272 24,295 18 C310 13,322 12,320 22 C318 30,304 34,288 38 C270 43,248 46,230 54 C212 62,200 72,190 82 C184 88,178 94,172 100 C170 88,170 78,172 68Z" fill="url(#g2)"/>
+        <path d="M160 210 C160 210,118 185,110 165 C102 148,106 135,116 130 C124 126,133 129,140 136 L160 165 L180 136 C187 129,196 126,204 130 C214 135,218 148,210 165 C202 185,160 210,160 210Z" fill="url(#g2)"/>
+        <path d="M148 82 C145 95,143 108,145 122 C148 130,152 135,155 140 Q158 145,160 150 Q162 145,165 140 C168 135,172 130,175 122 C177 108,175 95,172 82 Q166 78,160 77 Q154 78,148 82Z" fill="url(#g2)"/>
+      </svg>
+    </div>
+    <h1>Добро пожаловать</h1>
+    <p>Войдите чтобы следить<br>за безопасностью близкого</p>
+  </div>
+
+  <div class="auth-body">
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="showTab('login')">Войти</button>
+      <button class="auth-tab" onclick="showTab('register')">Регистрация</button>
+    </div>
+
+    <div id="auth-error" class="auth-error"></div>
+
+    <!-- Login -->
+    <div id="tab-login">
+      <div class="form-group">
+        <label class="form-label">Email или телефон</label>
+        <input type="email" class="form-input" id="login-email" placeholder="example@mail.ru" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Пароль</label>
+        <input type="password" class="form-input" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn-auth" onclick="doLogin()" id="btn-login">Войти</button>
+    </div>
+
+    <!-- Register -->
+    <div id="tab-register" style="display:none">
+      <div class="form-group">
+        <label class="form-label">Ваше имя</label>
+        <input type="text" class="form-input" id="reg-name" placeholder="Мария" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="reg-email" placeholder="example@mail.ru" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Пароль</label>
+        <input type="password" class="form-input" id="reg-pass" placeholder="Минимум 6 символов" autocomplete="new-password">
+      </div>
+      <button class="btn-auth" onclick="doRegister()" id="btn-register">Создать аккаунт</button>
+    </div>
+
+    <div class="auth-divider">или</div>
+    <button class="btn-demo" onclick="goDemo()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      Демо-режим (без регистрации)
+    </button>
+  </div>
+
+  <div class="auth-footer">
+    Продолжая, вы соглашаетесь с<br>
+    <a href="privacy.html">политикой конфиденциальности</a>
+  </div>
+</div>
+
+<script>
+// ── Splash ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      // Check if already logged in
+      try {
+        const s = localStorage.getItem('da_session');
+        if (s) { go('dashboard.html'); return; }
+      } catch(e){}
+      document.getElementById('auth').classList.add('show');
+    }, 500);
+  }, 1400);
+});
+
+function showTab(t) {
+  document.querySelectorAll('.auth-tab').forEach((b,i) => b.classList.toggle('active', (i===0&&t==='login')||(i===1&&t==='register')));
+  document.getElementById('tab-login').style.display = t==='login' ? 'block' : 'none';
+  document.getElementById('tab-register').style.display = t==='register' ? 'block' : 'none';
+  document.getElementById('auth-error').classList.remove('show');
+}
+
+function showError(msg) {
+  const el = document.getElementById('auth-error');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function setLoading(btn, loading) {
+  const el = document.getElementById(btn);
+  el.disabled = loading;
+  if (loading) { el.style.opacity='.6'; el.textContent='Подождите...'; }
+}
+
+function go(url) {
+  window.location.href = url;
+}
+
+function goDemo() {
+  try {
+    const p = JSON.parse(localStorage.getItem('da_profile') || '{}');
+    localStorage.setItem('da_session', JSON.stringify({demo: true, ts: Date.now()}));
+    if (p.onboardingDone) { go('dashboard.html'); }
+    else { go('onboarding.html'); }
+  } catch(e) { go('dashboard.html'); }
+}
+
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  if (!email || !pass) { showError('Введите email и пароль'); return; }
+
+  setLoading('btn-login', true);
+  const SUPABASE_URL = 'https://ntvrlegynsciyjyzbsq.supabase.co';
+  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMTQyMjQsImV4cCI6MjA4NzY5MDIyNH0.YZyKOESVamzPk7QM3pivANwkj4a7Us1X0JkKC7FUEd0';
+
+  try {
+    const r = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','apikey':ANON_KEY},
+      body: JSON.stringify({email, password: pass})
+    });
+    const d = await r.json();
+    if (!r.ok) { showError(d.error_description || 'Неверный email или пароль'); setLoading('btn-login',false); return; }
+    localStorage.setItem('da_session', JSON.stringify({access_token: d.access_token, user: d.user}));
+    go('dashboard.html');
+  } catch(e) {
+    // Fallback to demo if Supabase unavailable
+    localStorage.setItem('da_session', JSON.stringify({demo:true, email, ts:Date.now()}));
+    go('dashboard.html');
+  }
+}
+
+async function doRegister() {
+  const name  = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pass  = document.getElementById('reg-pass').value;
+  if (!name || !email || !pass) { showError('Заполните все поля'); return; }
+  if (pass.length < 6) { showError('Пароль минимум 6 символов'); return; }
+
+  setLoading('btn-register', true);
+  const SUPABASE_URL = 'https://ntvrlegynsciyjyzbsq.supabase.co';
+  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMTQyMjQsImV4cCI6MjA4NzY5MDIyNH0.YZyKOESVamzPk7QM3pivANwkj4a7Us1X0JkKC7FUEd0';
+
+  try {
+    const r = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','apikey':ANON_KEY},
+      body: JSON.stringify({email, password: pass, data:{full_name:name}})
+    });
+    const d = await r.json();
+    if (!r.ok) { showError(d.error_description || 'Ошибка регистрации'); setLoading('btn-register',false); return; }
+    // Save profile name
+    try { const p=JSON.parse(localStorage.getItem('da_profile')||'{}'); p.userName=name; localStorage.setItem('da_profile',JSON.stringify(p)); } catch(e){}
+    localStorage.setItem('da_session', JSON.stringify({access_token: d.access_token, user: d.user}));
+    go('onboarding.html');
+  } catch(e) {
+    // Fallback
+    try { const p=JSON.parse(localStorage.getItem('da_profile')||'{}'); p.userName=name; localStorage.setItem('da_profile',JSON.stringify(p)); } catch(err){}
+    localStorage.setItem('da_session', JSON.stringify({demo:true, name, email, ts:Date.now()}));
+    go('onboarding.html');
+  }
+}
+
+// Enter key support
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const loginVisible = document.getElementById('tab-login').style.display !== 'none';
+    if (loginVisible) doLogin(); else doRegister();
+  }
+});
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/home-angel/sw.js', {scope:'/home-angel/'}).catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>

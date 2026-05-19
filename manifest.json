@@ -2,7 +2,7 @@
   "name": "Домашний ангел",
   "short_name": "Дом. ангел",
   "description": "Система заботы и безопасности для пожилых близких",
-  "start_url": "/home-angel/dashboard.html",
+  "start_url": "/home-angel/splash.html",
   "scope": "/home-angel/",
   "display": "standalone",
   "orientation": "portrait",
