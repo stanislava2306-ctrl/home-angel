@@ -1,0 +1,44 @@
+{
+  "name": "Домашний ангел",
+  "short_name": "Дом. ангел",
+  "description": "Система заботы и безопасности для пожилых близких",
+  "start_url": "/home-angel/dashboard.html",
+  "scope": "/home-angel/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#faf7f2",
+  "theme_color": "#1a2e22",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Обзор",
+      "url": "/home-angel/dashboard.html",
+      "description": "Статус безопасности близкого"
+    },
+    {
+      "name": "События",
+      "url": "/home-angel/dashboard.html",
+      "description": "История событий"
+    },
+    {
+      "name": "ИИ-ассистент",
+      "url": "/home-angel/dashboard.html",
+      "description": "Анализ активности"
+    }
+  ]
+}

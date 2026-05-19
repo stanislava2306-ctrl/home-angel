@@ -2,6 +2,13 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Дом. ангел">
+<meta name="theme-color" content="#1a2e22">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Домашний ангел — система заботы для пожилых людей</title>
 <meta name="description" content="GPS-часы, умные датчики и ИИ-аналитика для безопасности пожилых. Подписка от 990 ₽/мес. Доставка по России.">
@@ -1256,5 +1263,14 @@ async function submitLead(e) {
 </script>
 
 <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/home-angel/sw.js', {scope: '/home-angel/'})
+      .then(r => console.log('SW registered'))
+      .catch(e => console.log('SW error:', e));
+  });
+}
+</script>
 </body>
 </html>
