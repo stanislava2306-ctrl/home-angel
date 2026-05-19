@@ -1047,6 +1047,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
 </style>
 
 <script>
+// ── Auth guard — redirect to splash if not logged in ──
+(function authGuard() {
+  try {
+    const s = localStorage.getItem('da_session');
+    if (!s) { window.location.replace('splash.html'); return; }
+    const session = JSON.parse(s);
+    // Check if session is too old (7 days)
+    if (session.ts && Date.now() - session.ts > 7 * 24 * 60 * 60 * 1000) {
+      localStorage.removeItem('da_session');
+      window.location.replace('splash.html'); return;
+    }
+  } catch(e) {
+    window.location.replace('splash.html');
+  }
+})();
+
 // ── Load onboarding profile ──
 (function loadProfile() {
   try {
@@ -1277,7 +1293,10 @@ async function askAI(msg){
   }
   btn.disabled=false;
 }
-async function handleLogout(){if(supabaseClient)await supabaseClient.auth.signOut();window.location.href='login.html';}
+async function handleLogout(){
+  try { localStorage.removeItem('da_session'); } catch(e){}
+  window.location.replace('splash.html');
+}
 </script>
 <script>
 if ('serviceWorker' in navigator) {
