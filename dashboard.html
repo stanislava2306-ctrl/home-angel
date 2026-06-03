@@ -338,6 +338,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
       <span style="margin-left:auto;background:linear-gradient(135deg,#c8a84b,#a07830);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:50px">NEW</span>
     </div>
     <div class="sb-section">Система</div>
+    <div class="sb-item" onclick="switchTab('meds',this)">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>Лекарства
+    </div>
     <div class="sb-item" onclick="switchTab('devices',this)">
       <div class="sb-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>Устройства
     </div>
@@ -712,6 +715,177 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
       </div>
     </div>
   </div>
+
+  <!-- ═══ ЛЕКАРСТВА ═══ -->
+  <div class="tab-pane" id="tab-meds">
+    <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div><h2>Лекарства</h2><p>Расписание, дозировки и остатки препаратов</p></div>
+      <button onclick="openAddMed()" style="display:flex;align-items:center;gap:6px;padding:9px 16px;background:var(--sage);border:none;border-radius:10px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Добавить
+      </button>
+    </div>
+
+    <!-- Статистика -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px">
+      <div class="metric" style="cursor:default">
+        <div class="m-icon" style="background:#d1fae5"><svg viewBox="0 0 24 24" style="stroke:#059669"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="m-val" id="meds-taken-today">2/3</div>
+        <div class="m-lbl">Принято сегодня</div>
+      </div>
+      <div class="metric" style="cursor:default">
+        <div class="m-icon" style="background:#fef3c7"><svg viewBox="0 0 24 24" style="stroke:#d97706"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="m-val" id="meds-low-count">1</div>
+        <div class="m-lbl">Заканчивается</div>
+      </div>
+      <div class="metric" style="cursor:default">
+        <div class="m-icon" style="background:#ede9fe"><svg viewBox="0 0 24 24" style="stroke:#7c3aed"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="m-val">97%</div>
+        <div class="m-lbl">Соблюдение за мес.</div>
+      </div>
+    </div>
+
+    <!-- Список лекарств -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head"><span class="card-title">Препараты Галины Ивановны</span></div>
+      <div class="card-body" id="meds-list" style="display:flex;flex-direction:column;gap:0">
+
+        <!-- Лекарство 1 -->
+        <div class="med-item" id="med-1" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:.5px solid var(--border)">
+          <div style="width:44px;height:44px;border-radius:12px;background:#dbeafe;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v2.5"/><path d="M14 19.5c0 2.49 4 2.49 4 0s-4-2.49-4 0z" transform="translate(0 0)"/><path d="M18 16v7"/></svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px;font-weight:600;color:var(--ink)">Амлодипин</div>
+            <div style="font-size:12px;color:var(--mid);margin-top:2px">5 мг · 1 таблетка утром</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+              <div style="font-size:11px;background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:20px;font-weight:500">✓ Принято в 08:30</div>
+              <div style="font-size:11px;color:var(--mid)">Осталось: 18 таб.</div>
+            </div>
+          </div>
+          <button onclick="confirmMed('med-1','Амлодипин')" style="width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center" title="Отметить приём">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Лекарство 2 -->
+        <div class="med-item" id="med-2" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:.5px solid var(--border)">
+          <div style="width:44px;height:44px;border-radius:12px;background:#dbeafe;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v2.5"/><path d="M14 19.5c0 2.49 4 2.49 4 0s-4-2.49-4 0z" transform="translate(0 0)"/><path d="M18 16v7"/></svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px;font-weight:600;color:var(--ink)">Метформин</div>
+            <div style="font-size:12px;color:var(--mid);margin-top:2px">500 мг · 2 раза в день (еда)</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+              <div style="font-size:11px;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:20px;font-weight:500">⏰ Следующий в 14:00</div>
+              <div style="font-size:11px;color:var(--mid)">Осталось: 24 таб.</div>
+            </div>
+          </div>
+          <button onclick="confirmMed('med-2','Метформин')" style="width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center" title="Отметить приём">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Лекарство 3 — заканчивается -->
+        <div class="med-item" id="med-3" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:.5px solid var(--border)">
+          <div style="width:44px;height:44px;border-radius:12px;background:#fef3c7;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="1.8"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v2.5"/><path d="M14 19.5c0 2.49 4 2.49 4 0s-4-2.49-4 0z" transform="translate(0 0)"/><path d="M18 16v7"/></svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px;font-weight:600;color:var(--ink)">Конкор</div>
+            <div style="font-size:12px;color:var(--mid);margin-top:2px">2.5 мг · 1 таблетка вечером</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap">
+              <div style="font-size:11px;background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:20px;font-weight:500">⚠ Осталось 4 таб. — купить!</div>
+            </div>
+          </div>
+          <button onclick="confirmMed('med-3','Конкор')" style="width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center" title="Отметить приём">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Лекарство 4 -->
+        <div class="med-item" id="med-4" style="display:flex;align-items:center;gap:12px;padding:14px 0">
+          <div style="width:44px;height:44px;border-radius:12px;background:#ede9fe;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.8"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v2.5"/><path d="M14 19.5c0 2.49 4 2.49 4 0s-4-2.49-4 0z" transform="translate(0 0)"/><path d="M18 16v7"/></svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px;font-weight:600;color:var(--ink)">Витамин D3</div>
+            <div style="font-size:12px;color:var(--mid);margin-top:2px">2000 МЕ · 1 капсула утром</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+              <div style="font-size:11px;background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:20px;font-weight:500">✓ Принято в 08:30</div>
+              <div style="font-size:11px;color:var(--mid)">Осталось: 45 капс.</div>
+            </div>
+          </div>
+          <button onclick="confirmMed('med-4','Витамин D3')" style="width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center" title="Отметить приём">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Уведомление о закупке -->
+    <div style="background:#fef3c7;border:1px solid #fbbf24;border-radius:14px;padding:16px 18px;display:flex;align-items:flex-start;gap:12px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:600;color:#92400e;margin-bottom:4px">Нужно купить: Конкор 2.5 мг</div>
+        <div style="font-size:12px;color:#a16207">Осталось примерно на 4 дня. Рекомендуется купить в ближайшие 2 дня.</div>
+        <button onclick="markBought()" style="margin-top:10px;padding:6px 14px;background:#d97706;border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">Уже купила ✓</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Модалка: добавить лекарство -->
+  <div id="add-med-overlay" onclick="if(event.target===this)closeAddMed()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;align-items:flex-end;justify-content:center;padding:0">
+    <div style="background:var(--warm-white);border-radius:20px 20px 0 0;width:100%;max-width:500px;padding:24px 24px 40px;max-height:90vh;overflow-y:auto">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--ink)">Новое лекарство</h3>
+        <button onclick="closeAddMed()" style="background:none;border:1px solid var(--border);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:14px;color:var(--mid)">✕</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div>
+          <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Название препарата</label>
+          <input id="new-med-name" type="text" placeholder="Например: Лозартан" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Дозировка</label>
+            <input id="new-med-dose" type="text" placeholder="5 мг" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Кол-во в упаковке</label>
+            <input id="new-med-count" type="number" placeholder="30" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:8px">Время приёма</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap" id="time-chips">
+            <div class="time-chip selected" onclick="toggleChip(this)">Утром</div>
+            <div class="time-chip" onclick="toggleChip(this)">В обед</div>
+            <div class="time-chip" onclick="toggleChip(this)">Вечером</div>
+            <div class="time-chip" onclick="toggleChip(this)">Перед сном</div>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Предупредить когда останется</label>
+          <select id="new-med-alert" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:var(--cream);cursor:pointer">
+            <option value="3">3 дня</option>
+            <option value="5" selected>5 дней</option>
+            <option value="7">7 дней</option>
+            <option value="14">2 недели</option>
+          </select>
+        </div>
+        <button onclick="saveMed()" style="width:100%;padding:14px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;margin-top:4px">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+  .time-chip{padding:7px 14px;border:1.5px solid var(--border);border-radius:50px;font-size:13px;cursor:pointer;transition:all .15s;user-select:none;font-family:'DM Sans',sans-serif;background:var(--warm-white)}
+  .time-chip:hover{border-color:var(--sage)}
+  .time-chip.selected{border-color:var(--sage);background:var(--sage-mist);color:var(--forest);font-weight:500}
+  </style>
 
   <!-- ═══ DEVICES ═══ -->
   <div class="tab-pane" id="tab-devices">
@@ -1093,7 +1267,7 @@ const days=['Воскресенье','Понедельник','Вторник','
 const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 document.getElementById('current-date').textContent=`${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
 
-const pageTitles={dashboard:'Обзор',events:'История событий',map:'Карта',analytics:'Аналитика',devices:'Устройства',family:'Семья',settings:'Настройки',ai:'ИИ-ассистент'};
+const pageTitles={dashboard:'Обзор',events:'История событий',map:'Карта',analytics:'Аналитика',ai:'ИИ-ассистент',meds:'Лекарства',devices:'Устройства',family:'Семья',settings:'Настройки'};
 
 // ── Tab switching ──
 function switchTab(name,el){
@@ -1293,6 +1467,118 @@ async function askAI(msg){
   }
   btn.disabled=false;
 }
+// ── Medications module ──────────────────────────────
+function openAddMed() {
+  const o = document.getElementById('add-med-overlay');
+  o.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeAddMed() {
+  document.getElementById('add-med-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function toggleChip(el) { el.classList.toggle('selected'); }
+
+function confirmMed(id, name) {
+  const item = document.getElementById(id);
+  if (!item) return;
+  const statusDivs = item.querySelectorAll('[style*="background:#fef3c7"],[style*="background:#fee2e2"]');
+  statusDivs.forEach(d => {
+    d.style.background = '#d1fae5';
+    d.style.color = '#065f46';
+    const now = new Date();
+    d.textContent = `✓ Принято в ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+  });
+  // Обновляем счётчик
+  const counter = document.getElementById('meds-taken-today');
+  if (counter) {
+    const parts = counter.textContent.split('/');
+    const taken = Math.min(parseInt(parts[0]) + 1, parseInt(parts[1]));
+    counter.textContent = taken + '/' + parts[1];
+  }
+  // Toast
+  showToast && showToast({ color:'green', title: name + ' принят', sub: 'Запись добавлена в историю' });
+}
+
+function markBought() {
+  const btn = event.target;
+  const banner = btn.closest('[style*="background:#fef3c7"]');
+  if (banner) {
+    banner.style.background = '#d1fae5';
+    banner.style.borderColor = '#6ee7b7';
+    banner.querySelector('div').innerHTML = '<div style="font-size:13px;font-weight:600;color:#065f46;margin-bottom:4px">Конкор куплен ✓</div><div style="font-size:12px;color:#047857">Отлично! Счётчик обновлён.</div>';
+    const lowCount = document.getElementById('meds-low-count');
+    if (lowCount) lowCount.textContent = '0';
+  }
+}
+
+function saveMed() {
+  const name  = document.getElementById('new-med-name').value.trim();
+  const dose  = document.getElementById('new-med-dose').value.trim();
+  const count = document.getElementById('new-med-count').value.trim();
+  if (!name) { document.getElementById('new-med-name').focus(); return; }
+
+  const times = [...document.querySelectorAll('.time-chip.selected')].map(c => c.textContent).join(', ');
+  const list  = document.getElementById('meds-list');
+  const id    = 'med-' + Date.now();
+
+  const item = document.createElement('div');
+  item.className = 'med-item';
+  item.id = id;
+  item.style.cssText = 'display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:.5px solid var(--border);animation:fadeSlideIn .35s ease';
+  item.innerHTML = `
+    <div style="width:44px;height:44px;border-radius:12px;background:#dbeafe;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v2.5"/></svg>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:14px;font-weight:600;color:var(--ink)">${name}</div>
+      <div style="font-size:12px;color:var(--mid);margin-top:2px">${dose ? dose + ' · ' : ''}${times || 'По расписанию'}</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+        <div style="font-size:11px;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:20px;font-weight:500">⏰ Ожидает приёма</div>
+        ${count ? `<div style="font-size:11px;color:var(--mid)">Осталось: ${count} шт.</div>` : ''}
+      </div>
+    </div>
+    <button onclick="confirmMed('${id}','${name}')" style="width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+    </button>
+  `;
+  list.appendChild(item);
+  closeAddMed();
+
+  // Обновляем счётчик
+  const counter = document.getElementById('meds-taken-today');
+  if (counter) {
+    const parts = counter.textContent.split('/');
+    counter.textContent = parts[0] + '/' + (parseInt(parts[1]) + 1);
+  }
+  showToast && showToast({ color:'blue', title: name + ' добавлен', sub: 'Расписание настроено' });
+}
+
+// Уведомление о лекарствах — через 45 мин после открытия
+setTimeout(() => {
+  if (typeof sendPush === 'function') {
+    sendPush({
+      title: '💊 Напоминание: Метформин',
+      body: 'Галине Ивановне нужно принять Метформин 500 мг в 14:00',
+      tag: 'med-reminder',
+      vibrate: [200, 100, 200],
+    });
+  }
+  if (typeof showToast === 'function') {
+    showToast({ color:'amber', title:'Время принять Метформин', sub:'14:00 — Метформин 500 мг с едой' });
+  }
+  // Обновляем статус в карточке
+  const met = document.getElementById('med-2');
+  if (met) {
+    const badge = met.querySelector('[style*="background:#fef3c7"]');
+    if (badge) {
+      badge.style.background = '#fee2e2';
+      badge.style.color = '#991b1b';
+      badge.textContent = '⚠ Пропущен приём в 14:00';
+    }
+  }
+}, 45 * 60 * 1000);
+
 async function handleLogout(){
   try { localStorage.removeItem('da_session'); } catch(e){}
   window.location.replace('splash.html');
