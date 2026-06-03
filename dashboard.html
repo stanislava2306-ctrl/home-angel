@@ -609,50 +609,133 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
     </div>
   </div>
 
-  <!-- ═══ MAP ═══ -->
+  <!-- ═══ MAP / LIVE MONITOR ═══ -->
   <div class="tab-pane" id="tab-map">
-    <div class="page-header"><h2>Карта местоположения</h2><p>Текущее положение и история маршрутов</p></div>
-    <div class="map-page-wrap">
-      <div class="map-grid-bg"></div>
-      <!-- Route history dots -->
-      <div style="position:absolute;top:35%;left:40%;width:8px;height:8px;border-radius:50%;background:rgba(77,140,101,.4);z-index:2" title="10:15 — прогулка"></div>
-      <div style="position:absolute;top:42%;left:35%;width:8px;height:8px;border-radius:50%;background:rgba(77,140,101,.4);z-index:2"></div>
-      <div style="position:absolute;top:38%;left:30%;width:8px;height:8px;border-radius:50%;background:rgba(77,140,101,.35);z-index:2"></div>
-      <div style="position:absolute;top:32%;left:36%;width:6px;height:6px;border-radius:50%;background:rgba(77,140,101,.25);z-index:2"></div>
-      <div class="map-pin-icon" style="font-size:44px">📍</div>
-      <div class="map-label" style="font-size:15px;padding:10px 20px">ул. Ленина 24, кв. 7 — Дома</div>
-      <div class="map-badge" style="font-size:12px;padding:6px 14px">Обновлено: 10:42</div>
-      <div style="position:absolute;top:12px;left:12px;background:rgba(255,255,255,.9);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--sage);border:1px solid var(--border)">● Маршруты за сегодня</div>
-    </div>
-    <div class="location-detail">
-      <div class="loc-row">
-        <div class="loc-item"><div class="loc-label">Статус</div><div class="loc-value">🏠 Дома</div></div>
-        <div class="loc-item"><div class="loc-label">Адрес</div><div class="loc-value">ул. Ленина 24</div></div>
-        <div class="loc-item"><div class="loc-label">Обновление</div><div class="loc-value">10:42 сегодня</div></div>
-        <div class="loc-item"><div class="loc-label">GPS-точность</div><div class="loc-value">±15 м</div></div>
+    <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <div><h2>Живой мониторинг</h2><p>Местоположение и активность в реальном времени</p></div>
+      <div style="display:flex;align-items:center;gap:6px;background:#d1fae5;border:1px solid #6ee7b7;border-radius:20px;padding:5px 12px">
+        <div style="width:7px;height:7px;border-radius:50%;background:#059669;animation:livePulse 1.5s ease-in-out infinite"></div>
+        <span style="font-size:12px;font-weight:600;color:#065f46" id="live-status-label">Онлайн · обновлено сейчас</span>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px">
-      <div class="card" style="cursor:pointer" onclick="openModal('route-today')">
-        <div class="card-body" style="text-align:center;padding:20px 16px">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--ink)">1</div>
-          <div style="font-size:12px;color:var(--mid);margin-top:4px">прогулка сегодня</div>
-          <div style="font-size:11px;color:var(--sage);margin-top:4px;font-weight:500">09:10 – 09:55</div>
+
+    <!-- Карта -->
+    <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 24px rgba(0,0,0,.08)">
+      <!-- Фон карты — улицы SVG -->
+      <svg width="100%" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#e8f0e9">
+        <!-- Фон -->
+        <rect width="400" height="260" fill="#e8f0e9"/>
+        <!-- Кварталы -->
+        <rect x="20" y="20" width="80" height="60" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="115" y="20" width="70" height="60" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="200" y="20" width="90" height="60" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="305" y="20" width="75" height="60" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="20" y="110" width="80" height="70" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="115" y="110" width="70" height="70" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="200" y="110" width="90" height="70" rx="4" fill="#cfe0cf" stroke="#b8ccb8" stroke-width="0.5"/>
+        <rect x="305" y="110" width="75" height="70" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="20" y="200" width="80" height="45" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="115" y="200" width="70" height="45" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="200" y="200" width="90" height="45" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <rect x="305" y="200" width="75" height="45" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
+        <!-- Улицы горизонтальные -->
+        <rect x="0" y="92" width="400" height="10" fill="#f5f5f2"/>
+        <rect x="0" y="188" width="400" height="10" fill="#f5f5f2"/>
+        <!-- Улицы вертикальные -->
+        <rect x="102" y="0" width="10" height="260" fill="#f5f5f2"/>
+        <rect x="193" y="0" width="10" height="260" fill="#f5f5f2"/>
+        <rect x="295" y="0" width="10" height="260" fill="#f5f5f2"/>
+        <!-- Главная улица (ул. Ленина) -->
+        <rect x="0" y="130" width="400" height="14" fill="#fff" opacity="0.7"/>
+        <text x="12" y="141" font-size="7" fill="#888" font-family="sans-serif">ул. Ленина</text>
+        <!-- Парк -->
+        <ellipse cx="245" cy="148" rx="35" ry="28" fill="#b5d5b5" opacity="0.6"/>
+        <text x="232" y="152" font-size="7" fill="#4a7a4a" font-family="sans-serif">Парк</text>
+        <!-- Маршрут сегодня (пунктир) -->
+        <polyline id="route-path" points="200,137 215,125 230,118 248,112 260,118 268,130 260,142 248,148"
+          fill="none" stroke="#4d8c65" stroke-width="2.5" stroke-dasharray="5,4" stroke-linecap="round" opacity="0.7"/>
+        <!-- Точки маршрута -->
+        <circle cx="215" cy="125" r="3.5" fill="#4d8c65" opacity="0.5"/>
+        <circle cx="248" cy="112" r="3.5" fill="#4d8c65" opacity="0.5"/>
+        <circle cx="268" cy="130" r="3.5" fill="#4d8c65" opacity="0.5"/>
+        <!-- Пульсирующий круг вокруг позиции -->
+        <circle id="loc-pulse" cx="200" cy="137" r="18" fill="#4d8c65" fill-opacity="0.12">
+          <animate attributeName="r" values="14;22;14" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="fill-opacity" values="0.15;0.04;0.15" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Точка местоположения -->
+        <circle id="loc-dot" cx="200" cy="137" r="9" fill="#1a2e22" stroke="#fff" stroke-width="2.5"/>
+        <circle cx="200" cy="137" r="4" fill="#4d8c65"/>
+        <!-- Подпись дома -->
+        <rect x="148" y="118" width="44" height="16" rx="4" fill="#fff" opacity="0.9"/>
+        <text x="152" y="130" font-size="7.5" fill="#1a2e22" font-family="sans-serif" font-weight="600">🏠 Дом</text>
+        <!-- Метка текущей позиции -->
+        <rect id="loc-label-bg" x="134" y="148" width="62" height="18" rx="5" fill="#1a2e22"/>
+        <text id="loc-label-text" x="138" y="161" font-size="8" fill="#fff" font-family="sans-serif" font-weight="500">Дома · сейчас</text>
+      </svg>
+
+      <!-- Оверлей: время обновления -->
+      <div style="position:absolute;top:10px;right:10px;background:rgba(255,255,255,.92);border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--sage);backdrop-filter:blur(8px)" id="map-update-time">
+        Обновлено: <span id="map-time-val">только что</span>
+      </div>
+
+      <!-- GPS точность -->
+      <div style="position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,.9);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--mid);border:1px solid var(--border)">
+        GPS ±12 м
+      </div>
+    </div>
+
+    <!-- Статус карточки -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div class="card">
+        <div class="card-body" style="padding:16px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-bottom:8px">Местоположение</div>
+          <div style="font-size:16px;font-weight:600;color:var(--ink)" id="live-location">🏠 Дома</div>
+          <div style="font-size:12px;color:var(--mid);margin-top:3px">ул. Ленина 24, кв. 7</div>
         </div>
       </div>
-      <div class="card" style="cursor:pointer" onclick="openModal('route-today')">
-        <div class="card-body" style="text-align:center;padding:20px 16px">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--ink)">45 мин</div>
-          <div style="font-size:12px;color:var(--mid);margin-top:4px">время на улице</div>
-          <div style="font-size:11px;color:var(--sage);margin-top:4px;font-weight:500">↑ обычно 30 мин</div>
+      <div class="card">
+        <div class="card-body" style="padding:16px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-bottom:8px">Активность</div>
+          <div style="font-size:16px;font-weight:600;color:var(--ink)" id="live-activity">В движении</div>
+          <div style="font-size:12px;color:var(--mid);margin-top:3px" id="live-activity-time">Последнее: <span id="live-last-time">10:32</span></div>
         </div>
       </div>
-      <div class="card" style="cursor:pointer" onclick="openModal('route-today')">
-        <div class="card-body" style="text-align:center;padding:20px 16px">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--ink)">1.2 км</div>
-          <div style="font-size:12px;color:var(--mid);margin-top:4px">примерный маршрут</div>
-          <div style="font-size:11px;color:var(--sage);margin-top:4px;font-weight:500">в пределах района</div>
+    </div>
+
+    <!-- Лента событий реального времени -->
+    <div class="card">
+      <div class="card-head" style="display:flex;align-items:center;justify-content:space-between">
+        <span class="card-title">События сегодня</span>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--sage)">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--sage);animation:livePulse 1.5s ease-in-out infinite"></div>
+          Живая лента
         </div>
+      </div>
+      <div class="card-body" id="live-feed" style="display:flex;flex-direction:column;gap:4px;max-height:280px;overflow-y:auto">
+        <div class="ev-row"><div class="ev-dot green"></div><div class="ev-icon-bg green"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="ev-info"><div class="ev-title">Движение на кухне</div><div class="ev-sub">Завтрак — норма</div></div><div class="ev-time">10:32</div></div>
+        <div class="ev-row"><div class="ev-dot green"></div><div class="ev-icon-bg green"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><div class="ev-info"><div class="ev-title">Вернулась домой</div><div class="ev-sub">Прогулка 45 мин · 1.2 км</div></div><div class="ev-time">09:55</div></div>
+        <div class="ev-row"><div class="ev-dot blue"></div><div class="ev-icon-bg blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="ev-info"><div class="ev-title">Вышла на прогулку</div><div class="ev-sub">Маршрут в парке</div></div><div class="ev-time">09:10</div></div>
+        <div class="ev-row"><div class="ev-dot green"></div><div class="ev-icon-bg green"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="ev-info"><div class="ev-title">Утренняя активность</div><div class="ev-sub">Начало дня — норма</div></div><div class="ev-time">08:47</div></div>
+      </div>
+    </div>
+
+    <!-- Статистика дня -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px">
+      <div class="metric" style="cursor:default">
+        <div class="m-icon" style="background:#d1fae5"><svg viewBox="0 0 24 24" style="stroke:#059669"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="m-val" id="live-steps">1 247</div>
+        <div class="m-lbl">Шагов сегодня</div>
+      </div>
+      <div class="metric" style="cursor:default">
+        <div class="m-icon" style="background:#dbeafe"><svg viewBox="0 0 24 24" style="stroke:#2563eb"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="m-val" id="live-outside">45 мин</div>
+        <div class="m-lbl">На улице</div>
+      </div>
+      <div class="metric" style="cursor:default">
+        <div class="m-icon" style="background:#ede9fe"><svg viewBox="0 0 24 24" style="stroke:#7c3aed"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="m-val">1.2 км</div>
+        <div class="m-lbl">Маршрут</div>
       </div>
     </div>
   </div>
@@ -1467,7 +1550,135 @@ async function askAI(msg){
   }
   btn.disabled=false;
 }
-// ── Medications module ──────────────────────────────
+// ── Live Monitoring Simulation ──────────────────────
+(function liveMonitor() {
+  // Маршруты точки на SVG карте [cx, cy]
+  const positions = [
+    { cx: 200, cy: 137, label: 'Дома · сейчас',    status: '🏠 Дома',         activity: 'Дома — спокойно' },
+    { cx: 215, cy: 125, label: 'Выходит из дома',  status: '🚶 На улице',     activity: 'Начало прогулки' },
+    { cx: 230, cy: 118, label: 'Ул. Ленина',       status: '🚶 На улице',     activity: 'В движении' },
+    { cx: 248, cy: 112, label: 'В парке',          status: '🌳 Парк',         activity: 'Активная прогулка' },
+    { cx: 260, cy: 118, label: 'В парке',          status: '🌳 Парк',         activity: 'Прогулка' },
+    { cx: 268, cy: 130, label: 'Возвращается',     status: '🚶 На улице',     activity: 'Идёт домой' },
+    { cx: 260, cy: 142, label: 'Почти дома',       status: '🚶 На улице',     activity: 'Почти дома' },
+    { cx: 248, cy: 148, label: 'У подъезда',       status: '🏠 Рядом с домом', activity: 'Входит домой' },
+    { cx: 200, cy: 137, label: 'Дома · сейчас',   status: '🏠 Дома',         activity: 'Вернулась домой' },
+  ];
+
+  let posIdx = 0;
+  let steps = 1247;
+
+  function fmtNow() {
+    const n = new Date();
+    return n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
+  }
+
+  function moveDot() {
+    posIdx = (posIdx + 1) % positions.length;
+    const pos = positions[posIdx];
+
+    // Двигаем SVG точку плавно через CSS transition
+    const dot = document.getElementById('loc-dot');
+    const pulse = document.getElementById('loc-pulse');
+    const labelBg = document.getElementById('loc-label-bg');
+    const labelText = document.getElementById('loc-label-text');
+
+    if (dot) {
+      dot.style.transition = 'cx 1.2s ease, cy 1.2s ease';
+      dot.setAttribute('cx', pos.cx);
+      dot.setAttribute('cy', pos.cy);
+    }
+    if (pulse) {
+      pulse.setAttribute('cx', pos.cx);
+      pulse.setAttribute('cy', pos.cy);
+    }
+    if (labelBg) {
+      labelBg.setAttribute('x', pos.cx - 34);
+      labelBg.setAttribute('y', pos.cy + 12);
+    }
+    if (labelText) {
+      labelText.setAttribute('x', pos.cx - 30);
+      labelText.setAttribute('y', pos.cy + 24);
+      labelText.textContent = pos.label;
+    }
+
+    // Обновляем карточки статуса
+    const locEl = document.getElementById('live-location');
+    const actEl = document.getElementById('live-activity');
+    const lastEl = document.getElementById('live-last-time');
+    const statusLabel = document.getElementById('live-status-label');
+
+    if (locEl) locEl.textContent = pos.status;
+    if (actEl) actEl.textContent = pos.activity;
+    if (lastEl) lastEl.textContent = fmtNow();
+    if (statusLabel) statusLabel.textContent = 'Онлайн · обновлено ' + fmtNow();
+
+    // Обновляем время на карте
+    const mapTime = document.getElementById('map-time-val');
+    if (mapTime) mapTime.textContent = fmtNow();
+
+    // Шаги растут
+    if (pos.status.includes('улице') || pos.status.includes('Парк')) {
+      steps += Math.floor(Math.random() * 80 + 40);
+      const stepsEl = document.getElementById('live-steps');
+      if (stepsEl) stepsEl.textContent = steps.toLocaleString('ru-RU');
+    }
+
+    // Добавляем событие в живую ленту (только при смене статуса)
+    if (posIdx % 2 === 0) {
+      addLiveFeedEvent(pos);
+    }
+
+    // Обновляем статус главного экрана
+    const statusLoc = document.getElementById('status-loc');
+    if (statusLoc) statusLoc.textContent = pos.status.replace(/[🏠🚶🌳]/g, '').trim();
+    const statusTime = document.getElementById('status-time');
+    if (statusTime) statusTime.textContent = 'Активна в ' + fmtNow();
+  }
+
+  function addLiveFeedEvent(pos) {
+    const feed = document.getElementById('live-feed');
+    if (!feed) return;
+
+    const colors = { '🏠': 'green', '🚶': 'blue', '🌳': 'green' };
+    const color = Object.entries(colors).find(([k]) => pos.status.includes(k))?.[1] || 'green';
+    const icons = {
+      green: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+      blue:  '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    };
+
+    const row = document.createElement('div');
+    row.className = 'ev-row';
+    row.style.animation = 'fadeSlideIn .35s ease';
+    row.innerHTML = `
+      <div class="ev-dot ${color}"></div>
+      <div class="ev-icon-bg ${color}"><svg viewBox="0 0 24 24">${icons[color]}</svg></div>
+      <div class="ev-info"><div class="ev-title">${pos.activity}</div><div class="ev-sub">GPS · автоматически</div></div>
+      <div class="ev-time">${fmtNow()}</div>
+    `;
+    feed.insertBefore(row, feed.firstChild);
+    while (feed.children.length > 10) feed.removeChild(feed.lastChild);
+  }
+
+  // Обновление каждые 25 секунд (только когда вкладка Мониторинг активна)
+  setInterval(() => {
+    const mapTab = document.getElementById('tab-map');
+    if (mapTab && mapTab.classList.contains('active')) {
+      moveDot();
+    }
+  }, 25000);
+
+  // Обновление времени каждую секунду
+  setInterval(() => {
+    const mapTime = document.getElementById('map-time-val');
+    if (mapTime) {
+      const sec = new Date().getSeconds();
+      if (sec < 5) mapTime.textContent = 'только что';
+      else mapTime.textContent = fmtNow();
+    }
+  }, 5000);
+
+})();
 function openAddMed() {
   const o = document.getElementById('add-med-overlay');
   o.style.display = 'flex';
@@ -1779,7 +1990,11 @@ async function handleLogout(){
   // ── Добавляем CSS анимацию ──────────────────────────
   const style = document.createElement('style');
   style.textContent = `
-    @keyframes fadeSlideIn {
+    @keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(1.2); }
+}
+@keyframes fadeSlideIn {
       from { opacity:0; transform:translateY(-8px); }
       to   { opacity:1; transform:translateY(0); }
     }
