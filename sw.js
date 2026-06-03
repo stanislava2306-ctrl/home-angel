@@ -1,5 +1,5 @@
-// Домашний ангел · Service Worker
-const CACHE = 'da-v1';
+// Домашний ангел · Service Worker v2
+const CACHE = 'da-v2';
 const OFFLINE_URLS = [
   '/home-angel/',
   '/home-angel/index.html',
@@ -9,7 +9,6 @@ const OFFLINE_URLS = [
   '/home-angel/manifest.json',
 ];
 
-// Установка — кешируем основные страницы
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE).then(cache => cache.addAll(OFFLINE_URLS))
@@ -17,7 +16,6 @@ self.addEventListener('install', e => {
   self.skipWaiting();
 });
 
-// Активация — удаляем старые кеши
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
@@ -27,19 +25,15 @@ self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
-// Fetch — сначала сеть, при ошибке кеш
 self.addEventListener('fetch', e => {
-  // Не кешируем API запросы
   if (e.request.url.includes('supabase') ||
       e.request.url.includes('openrouter') ||
       e.request.url.includes('googleapis')) {
     return;
   }
-
   e.respondWith(
     fetch(e.request)
       .then(response => {
-        // Сохраняем свежую копию в кеш
         if (response.ok) {
           const copy = response.clone();
           caches.open(CACHE).then(cache => cache.put(e.request, copy));
@@ -50,21 +44,45 @@ self.addEventListener('fetch', e => {
   );
 });
 
-// Push уведомления (задел на будущее)
+// ── Push от сервера (на будущее) ──────────────────────
 self.addEventListener('push', e => {
   const data = e.data?.json() || {};
-  e.waitUntil(
-    self.registration.showNotification(data.title || 'Домашний ангел', {
-      body: data.body || 'Новое событие',
-      icon: '/home-angel/icon-192.png',
-      badge: '/home-angel/icon-192.png',
-      tag: data.tag || 'da-notification',
-      data: { url: data.url || '/home-angel/dashboard.html' }
-    })
-  );
+  e.waitUntil(showNotif(data));
 });
+
+// ── Push от самого приложения (локальный) ────────────
+self.addEventListener('message', e => {
+  if (e.data?.type === 'LOCAL_PUSH') {
+    showNotif(e.data.payload);
+  }
+});
+
+function showNotif(data) {
+  const colors = { green: '#2d6a4f', amber: '#b45309', blue: '#1d4ed8', red: '#dc2626' };
+  return self.registration.showNotification(data.title || 'Домашний ангел', {
+    body:    data.body  || 'Новое событие',
+    icon:    '/home-angel/icon-192.png',
+    badge:   '/home-angel/icon-192.png',
+    tag:     data.tag   || 'da-' + Date.now(),
+    vibrate: data.vibrate || [200, 100, 200],
+    data:    { url: data.url || '/home-angel/dashboard.html' },
+    actions: data.actions || [],
+    silent:  false,
+  });
+}
 
 self.addEventListener('notificationclick', e => {
   e.notification.close();
-  e.waitUntil(clients.openWindow(e.notification.data.url));
+  e.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+      // Если приложение уже открыто — фокусируем
+      for (const client of list) {
+        if (client.url.includes('/home-angel/') && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // Иначе открываем
+      return clients.openWindow(e.notification.data?.url || '/home-angel/dashboard.html');
+    })
+  );
 });
