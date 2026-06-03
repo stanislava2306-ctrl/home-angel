@@ -1297,6 +1297,214 @@ async function handleLogout(){
   try { localStorage.removeItem('da_session'); } catch(e){}
   window.location.replace('splash.html');
 }
+
+// ══════════════════════════════════════════════════════
+// LIVE SIMULATION ENGINE — «Домашний ангел»
+// Имитирует реальную активность пожилого пользователя
+// ══════════════════════════════════════════════════════
+
+(function startSimulation() {
+
+  // ── Банк событий ────────────────────────────────────
+  const eventBank = [
+    // Зелёные — норма
+    { color:'green', icon:'motion',  title:'Движение в гостиной',        sub:'Датчик движения #2',   msg:'Галина Ивановна активна — зафиксировано движение в гостиной.' },
+    { color:'green', icon:'door',    title:'Дверь открыта',               sub:'Датчик входной двери', msg:'Входная дверь открыта. Возможно, Галина Ивановна вышла на прогулку.' },
+    { color:'green', icon:'door',    title:'Дверь закрыта',               sub:'Датчик входной двери', msg:'Входная дверь закрыта. Галина Ивановна вернулась домой.' },
+    { color:'green', icon:'motion',  title:'Движение на кухне',           sub:'Датчик движения #3',   msg:'Активность на кухне — вероятно, приём пищи или приготовление чая.' },
+    { color:'green', icon:'clock',   title:'Утренняя рутина выполнена',   sub:'Аналитика системы',   msg:'Утренняя рутина Галины Ивановны соответствует норме — всё идёт по расписанию.' },
+    { color:'green', icon:'shield',  title:'Ежечасная проверка — ОК',    sub:'Автоматическая система', msg:'Плановая проверка пройдена. Активность в норме.' },
+    { color:'green', icon:'motion',  title:'Движение в спальне',          sub:'Датчик движения #1',   msg:'Зафиксировано движение в спальне.' },
+    { color:'green', icon:'clock',   title:'Напоминание принято',         sub:'Голосовой ассистент',  msg:'Галина Ивановна подтвердила приём лекарств через голосовой ассистент.' },
+    // Синие — информационные
+    { color:'blue',  icon:'ai',      title:'ИИ сформировал дневной отчёт', sub:'Аналитика ИИ',       msg:'Дневной отчёт готов. Активность сегодня выше среднего на 12%. Рекомендуется прогулка после 17:00.' },
+    { color:'blue',  icon:'battery', title:'Заряд часов 68%',             sub:'GPS-часы',             msg:'Уровень заряда GPS-часов 68%. Рекомендуется зарядка перед сном.' },
+    { color:'blue',  icon:'clock',   title:'Начало дневного отдыха',      sub:'Аналитика системы',   msg:'Активность снизилась — предположительно дневной отдых. Это соответствует обычному распорядку.' },
+    // Жёлтые — требуют внимания
+    { color:'amber', icon:'idle',    title:'Нет движения 45 минут',       sub:'Датчик движения #1',   msg:'Внимание: в течение 45 минут не зафиксировано движения. Если это необычно — рекомендуется позвонить.' },
+    { color:'amber', icon:'clock',   title:'Пропущено напоминание о лекарствах', sub:'Система напоминаний', msg:'Галина Ивановна не подтвердила приём лекарств в 14:00. Рекомендуется напомнить.' },
+  ];
+
+  const icons = {
+    motion:  '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+    door:    '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>',
+    clock:   '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    shield:  '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    ai:      '<circle cx="12" cy="12" r="10"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>',
+    battery: '<rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/>',
+    idle:    '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+  };
+
+  // ── Состояние симуляции ──────────────────────────────
+  let simActivity = 87;
+  let simBattery  = 84;
+  let simNotifCount = 3;
+  let lastEventTime = new Date();
+  lastEventTime.setMinutes(lastEventTime.getMinutes() - 8);
+
+  // ── Форматирование времени ───────────────────────────
+  function fmtTime(d) {
+    return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+  }
+
+  // ── Toast уведомление ────────────────────────────────
+  function showToast(ev) {
+    // Удаляем старый если есть
+    document.querySelectorAll('.sim-toast').forEach(t => t.remove());
+
+    const colors = { green:'#2d6a4f', amber:'#b45309', blue:'#1d4ed8' };
+    const toast = document.createElement('div');
+    toast.className = 'sim-toast';
+    toast.style.cssText = `
+      position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px);
+      background:#fff; border-radius:16px; padding:12px 16px;
+      box-shadow:0 8px 32px rgba(0,0,0,.18); z-index:9999;
+      display:flex; align-items:center; gap:10px; max-width:320px; width:90%;
+      opacity:0; transition:all .35s cubic-bezier(.16,1,.3,1);
+      border-left:4px solid ${colors[ev.color] || '#2d6a4f'};
+    `;
+    toast.innerHTML = `
+      <div style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:${colors[ev.color]||'#2d6a4f'}"></div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;color:#0f1a14;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ev.title}</div>
+        <div style="font-size:11px;color:#7a7a72">${ev.sub}</div>
+      </div>
+      <div style="font-size:11px;color:#7a7a72;flex-shrink:0">${fmtTime(new Date())}</div>
+    `;
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+    });
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(20px)';
+      setTimeout(() => toast.remove(), 400);
+    }, 4500);
+  }
+
+  // ── Добавить событие в ленту ────────────────────────
+  function addEvent(ev) {
+    const now = new Date();
+    const timeStr = fmtTime(now);
+
+    // Dash events (main screen)
+    const dashList = document.getElementById('dash-events');
+    if (dashList) {
+      const row = document.createElement('div');
+      row.className = 'ev-row';
+      row.style.cssText = 'animation:fadeSlideIn .4s ease;';
+      row.innerHTML = `
+        <div class="ev-dot ${ev.color}"></div>
+        <div class="ev-icon-bg ${ev.color}"><svg viewBox="0 0 24 24">${icons[ev.icon]||icons.motion}</svg></div>
+        <div class="ev-info"><div class="ev-title">${ev.title}</div><div class="ev-sub">${ev.sub}</div></div>
+        <div class="ev-time">${timeStr}</div>
+      `;
+      dashList.insertBefore(row, dashList.firstChild);
+      // Ограничиваем до 8 событий
+      while (dashList.children.length > 8) dashList.removeChild(dashList.lastChild);
+    }
+
+    // Full events list
+    const fullList = document.getElementById('events-list');
+    if (fullList) {
+      const row2 = document.createElement('div');
+      row2.className = 'ev-row';
+      row2.style.cssText = 'animation:fadeSlideIn .4s ease;';
+      row2.innerHTML = `
+        <div class="ev-dot ${ev.color}"></div>
+        <div class="ev-icon-bg ${ev.color}"><svg viewBox="0 0 24 24">${icons[ev.icon]||icons.motion}</svg></div>
+        <div class="ev-info"><div class="ev-title">${ev.title}</div><div class="ev-sub">${ev.sub}</div></div>
+        <div class="ev-time">${timeStr}</div>
+      `;
+      fullList.insertBefore(row2, fullList.firstChild);
+      while (fullList.children.length > 20) fullList.removeChild(fullList.lastChild);
+    }
+
+    // Обновляем счётчик уведомлений
+    simNotifCount++;
+    const badge = document.getElementById('notif-badge');
+    if (badge) { badge.textContent = simNotifCount; badge.style.display = 'flex'; }
+
+    // Обновляем время в статусе
+    const st = document.getElementById('status-time');
+    if (st) st.textContent = `Активна в ${timeStr}`;
+
+    // Badge на кнопке События в боковом меню
+    const evBadge = document.querySelector('.sb-item[onclick*="events"] .sb-badge');
+    if (evBadge) evBadge.textContent = simNotifCount > 9 ? '9+' : simNotifCount;
+
+    showToast(ev);
+  }
+
+  // ── Обновить метрики ────────────────────────────────
+  function updateMetrics() {
+    // Активность ±2%
+    simActivity = Math.min(99, Math.max(72, simActivity + (Math.random() > 0.5 ? 1 : -1)));
+    const actEl = document.querySelector('.m-val');
+    if (actEl && actEl.nextElementSibling?.textContent?.includes('Активность')) {
+      actEl.textContent = simActivity + '%';
+    }
+
+    // Заряд часов -1% примерно раз в 3 тика
+    if (Math.random() < 0.35) simBattery = Math.max(10, simBattery - 1);
+    const battEl = document.getElementById('battery-val');
+    if (battEl) battEl.textContent = simBattery + '%';
+
+    // Статус метаданные
+    const locEl = document.getElementById('status-loc');
+    if (locEl && Math.random() < 0.05) {
+      locEl.textContent = Math.random() > 0.5 ? 'Дома' : 'На прогулке';
+    }
+
+    // Score bar
+    const scoreBar = document.getElementById('score-bar');
+    if (scoreBar) scoreBar.style.width = simActivity + '%';
+  }
+
+  // ── Основной цикл ───────────────────────────────────
+  function tick() {
+    // Выбираем случайное событие (зелёные чаще)
+    const weights = eventBank.map((e, i) => e.color === 'green' ? 4 : e.color === 'blue' ? 2 : 1);
+    const total = weights.reduce((a, b) => a + b, 0);
+    let r = Math.random() * total;
+    let chosen = eventBank[0];
+    for (let i = 0; i < eventBank.length; i++) {
+      r -= weights[i];
+      if (r <= 0) { chosen = eventBank[i]; break; }
+    }
+
+    addEvent(chosen);
+    updateMetrics();
+
+    // Следующий тик через 35-75 секунд
+    const next = 35000 + Math.random() * 40000;
+    setTimeout(tick, next);
+  }
+
+  // ── Добавляем CSS анимацию ──────────────────────────
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeSlideIn {
+      from { opacity:0; transform:translateY(-8px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ── Запуск: первое событие через 20 секунд ──────────
+  setTimeout(() => {
+    tick();
+  }, 20000);
+
+  // ── Обновляем время каждую минуту ───────────────────
+  setInterval(() => {
+    const n = new Date();
+    const badge = document.getElementById('map-badge-dash');
+    if (badge) badge.textContent = `Дома · ${fmtTime(n)}`;
+  }, 60000);
+
+})();
 </script>
 <script>
 if ('serviceWorker' in navigator) {
