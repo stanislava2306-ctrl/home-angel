@@ -622,56 +622,78 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
     <!-- Карта -->
     <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 24px rgba(0,0,0,.08)">
       <!-- Фон карты — улицы SVG -->
-      <svg width="100%" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#e8f0e9">
+      <svg width="100%" viewBox="0 0 380 240" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#edf2ed">
         <!-- Фон -->
-        <rect width="400" height="260" fill="#e8f0e9"/>
-        <!-- Кварталы -->
-        <rect x="20" y="20" width="80" height="60" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="115" y="20" width="70" height="60" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="200" y="20" width="90" height="60" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="305" y="20" width="75" height="60" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="20" y="110" width="80" height="70" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="115" y="110" width="70" height="70" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="200" y="110" width="90" height="70" rx="4" fill="#cfe0cf" stroke="#b8ccb8" stroke-width="0.5"/>
-        <rect x="305" y="110" width="75" height="70" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="20" y="200" width="80" height="45" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="115" y="200" width="70" height="45" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="200" y="200" width="90" height="45" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <rect x="305" y="200" width="75" height="45" rx="4" fill="#d4e8d5" stroke="#c4d8c5" stroke-width="0.5"/>
-        <!-- Улицы горизонтальные -->
-        <rect x="0" y="92" width="400" height="10" fill="#f5f5f2"/>
-        <rect x="0" y="188" width="400" height="10" fill="#f5f5f2"/>
-        <!-- Улицы вертикальные -->
-        <rect x="102" y="0" width="10" height="260" fill="#f5f5f2"/>
-        <rect x="193" y="0" width="10" height="260" fill="#f5f5f2"/>
-        <rect x="295" y="0" width="10" height="260" fill="#f5f5f2"/>
-        <!-- Главная улица (ул. Ленина) -->
-        <rect x="0" y="130" width="400" height="14" fill="#fff" opacity="0.7"/>
-        <text x="12" y="141" font-size="7" fill="#888" font-family="sans-serif">ул. Ленина</text>
-        <!-- Парк -->
-        <ellipse cx="245" cy="148" rx="35" ry="28" fill="#b5d5b5" opacity="0.6"/>
-        <text x="232" y="152" font-size="7" fill="#4a7a4a" font-family="sans-serif">Парк</text>
-        <!-- Маршрут сегодня (пунктир) -->
-        <polyline id="route-path" points="200,137 215,125 230,118 248,112 260,118 268,130 260,142 248,148"
-          fill="none" stroke="#4d8c65" stroke-width="2.5" stroke-dasharray="5,4" stroke-linecap="round" opacity="0.7"/>
+        <rect width="380" height="240" fill="#edf2ed"/>
+
+        <!-- Кварталы верхний ряд -->
+        <rect x="8"   y="8"  width="72" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="90"  y="8"  width="62" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="162" y="8"  width="72" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="244" y="8"  width="62" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="316" y="8"  width="56" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+
+        <!-- Улица горизонтальная 1 -->
+        <rect x="0" y="62" width="380" height="9" fill="#f8f6f0"/>
+        <text x="6" y="69" font-size="6" fill="#aaa" font-family="sans-serif">ул. Садовая</text>
+
+        <!-- Кварталы средний ряд -->
+        <rect x="8"   y="73" width="72" height="56" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="90"  y="73" width="62" height="56" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <!-- Парк вместо квартала -->
+        <rect x="162" y="73" width="72" height="56" rx="5" fill="#c5dfc5" stroke="#aecfae" stroke-width="0.8"/>
+        <text x="178" y="99" font-size="7.5" fill="#4a7a4a" font-family="sans-serif" font-weight="600">🌳 Парк</text>
+        <rect x="244" y="73" width="62" height="56" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="316" y="73" width="56" height="56" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+
+        <!-- Главная улица (ул. Ленина) — шире -->
+        <rect x="0" y="131" width="380" height="13" fill="#fff" opacity="0.85"/>
+        <text x="6" y="141" font-size="7" fill="#888" font-family="sans-serif" font-weight="500">ул. Ленина</text>
+
+        <!-- Кварталы нижний ряд -->
+        <rect x="8"   y="147" width="72" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="90"  y="147" width="62" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="162" y="147" width="72" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="244" y="147" width="62" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+        <rect x="316" y="147" width="56" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
+
+        <!-- Улица нижняя -->
+        <rect x="0" y="201" width="380" height="9" fill="#f8f6f0"/>
+
+        <!-- Вертикальные улицы -->
+        <rect x="82"  y="0" width="7" height="240" fill="#f8f6f0"/>
+        <rect x="154" y="0" width="7" height="240" fill="#f8f6f0"/>
+        <rect x="236" y="0" width="7" height="240" fill="#f8f6f0"/>
+        <rect x="308" y="0" width="7" height="240" fill="#f8f6f0"/>
+
+        <!-- Дом — иконка на квартале где живёт -->
+        <rect x="100" y="80" width="38" height="16" rx="4" fill="#fff" opacity="0.95"/>
+        <text x="103" y="92" font-size="8" fill="#1a2e22" font-family="sans-serif" font-weight="700">🏠 Дом</text>
+
+        <!-- Маршрут прогулки — компактный, не выходит за края -->
+        <polyline id="route-path"
+          points="119,137 140,120 163,108 198,101 220,108 235,120 228,134 210,140"
+          fill="none" stroke="#4d8c65" stroke-width="2.5"
+          stroke-dasharray="5,4" stroke-linecap="round" opacity="0.75"/>
+
         <!-- Точки маршрута -->
-        <circle cx="215" cy="125" r="3.5" fill="#4d8c65" opacity="0.5"/>
-        <circle cx="248" cy="112" r="3.5" fill="#4d8c65" opacity="0.5"/>
-        <circle cx="268" cy="130" r="3.5" fill="#4d8c65" opacity="0.5"/>
-        <!-- Пульсирующий круг вокруг позиции -->
-        <circle id="loc-pulse" cx="200" cy="137" r="18" fill="#4d8c65" fill-opacity="0.12">
-          <animate attributeName="r" values="14;22;14" dur="2.5s" repeatCount="indefinite"/>
+        <circle cx="140" cy="120" r="3" fill="#4d8c65" opacity="0.55"/>
+        <circle cx="198" cy="101" r="3" fill="#4d8c65" opacity="0.55"/>
+        <circle cx="235" cy="120" r="3" fill="#4d8c65" opacity="0.55"/>
+
+        <!-- Пульсирующий круг -->
+        <circle id="loc-pulse" cx="119" cy="137" r="16" fill="#4d8c65" fill-opacity="0.12">
+          <animate attributeName="r" values="12;20;12" dur="2.5s" repeatCount="indefinite"/>
           <animate attributeName="fill-opacity" values="0.15;0.04;0.15" dur="2.5s" repeatCount="indefinite"/>
         </circle>
+
         <!-- Точка местоположения -->
-        <circle id="loc-dot" cx="200" cy="137" r="9" fill="#1a2e22" stroke="#fff" stroke-width="2.5"/>
-        <circle cx="200" cy="137" r="4" fill="#4d8c65"/>
-        <!-- Подпись дома -->
-        <rect x="148" y="118" width="44" height="16" rx="4" fill="#fff" opacity="0.9"/>
-        <text x="152" y="130" font-size="7.5" fill="#1a2e22" font-family="sans-serif" font-weight="600">🏠 Дом</text>
-        <!-- Метка текущей позиции -->
-        <rect id="loc-label-bg" x="134" y="148" width="62" height="18" rx="5" fill="#1a2e22"/>
-        <text id="loc-label-text" x="138" y="161" font-size="8" fill="#fff" font-family="sans-serif" font-weight="500">Дома · сейчас</text>
+        <circle id="loc-dot" cx="119" cy="137" r="10" fill="#1a2e22" stroke="#fff" stroke-width="2.5"/>
+        <circle cx="119" cy="137" r="4.5" fill="#4d8c65"/>
+
+        <!-- Метка позиции -->
+        <rect id="loc-label-bg" x="84" y="150" width="70" height="18" rx="6" fill="#1a2e22"/>
+        <text id="loc-label-text" x="88" y="163" font-size="8.5" fill="#fff" font-family="sans-serif" font-weight="500">Дома · сейчас</text>
       </svg>
 
       <!-- Оверлей: время обновления -->
@@ -1729,15 +1751,14 @@ function openFullReport() {
 (function liveMonitor() {
   // Маршруты точки на SVG карте [cx, cy]
   const positions = [
-    { cx: 200, cy: 137, label: 'Дома · сейчас',    status: '🏠 Дома',         activity: 'Дома — спокойно' },
-    { cx: 215, cy: 125, label: 'Выходит из дома',  status: '🚶 На улице',     activity: 'Начало прогулки' },
-    { cx: 230, cy: 118, label: 'Ул. Ленина',       status: '🚶 На улице',     activity: 'В движении' },
-    { cx: 248, cy: 112, label: 'В парке',          status: '🌳 Парк',         activity: 'Активная прогулка' },
-    { cx: 260, cy: 118, label: 'В парке',          status: '🌳 Парк',         activity: 'Прогулка' },
-    { cx: 268, cy: 130, label: 'Возвращается',     status: '🚶 На улице',     activity: 'Идёт домой' },
-    { cx: 260, cy: 142, label: 'Почти дома',       status: '🚶 На улице',     activity: 'Почти дома' },
-    { cx: 248, cy: 148, label: 'У подъезда',       status: '🏠 Рядом с домом', activity: 'Входит домой' },
-    { cx: 200, cy: 137, label: 'Дома · сейчас',   status: '🏠 Дома',         activity: 'Вернулась домой' },
+    { cx: 119, cy: 137, label: 'Дома · сейчас',    status: '🏠 Дома',         activity: 'Дома — спокойно' },
+    { cx: 140, cy: 120, label: 'Выходит из дома',  status: '🚶 На улице',     activity: 'Начало прогулки' },
+    { cx: 163, cy: 108, label: 'Ул. Садовая',      status: '🚶 На улице',     activity: 'В движении' },
+    { cx: 198, cy: 101, label: 'В парке',           status: '🌳 Парк',         activity: 'Активная прогулка' },
+    { cx: 220, cy: 108, label: 'В парке',           status: '🌳 Парк',         activity: 'Прогулка' },
+    { cx: 235, cy: 120, label: 'Возвращается',      status: '🚶 На улице',     activity: 'Идёт домой' },
+    { cx: 228, cy: 134, label: 'Ул. Ленина',        status: '🚶 На улице',     activity: 'Почти дома' },
+    { cx: 119, cy: 137, label: 'Дома · сейчас',    status: '🏠 Дома',         activity: 'Вернулась домой' },
   ];
 
   let posIdx = 0;
