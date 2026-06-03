@@ -378,16 +378,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
         <span id="active-profile-name">Галина Ивановна (мама)</span>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         <div id="profile-menu" style="display:none;position:absolute;top:calc(100% + 8px);left:0;background:var(--warm-white);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:99;min-width:220px;overflow:hidden">
-          <div onclick="selectProfile('Галина Ивановна (мама)','Дома · активна в 10:32',event)" style="display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;background:var(--sage-mist)" onmouseover="this.style.background='#d4eadb'" onmouseout="this.style.background='var(--sage-mist)'">
-            <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--sage),var(--sage-light));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">ГИ</div>
-            <div><div style="font-size:13px;font-weight:500">Галина Ивановна</div><div style="font-size:11px;color:var(--mid)">Мама · Дома</div></div>
-            <div style="margin-left:auto;width:7px;height:7px;border-radius:50%;background:#4ade80"></div>
+          <div onclick="selectProfile('Галина Ивановна (мама)','Дома · активна в 10:32',event)" style="display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;background:var(--sage-mist)" onmouseover="this.style.background='#d4eadb'" onmouseout="this.style.background='var(--sage-mist)'">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0">👵</div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--ink)">Галина Ивановна</div><div style="font-size:11px;color:var(--mid)">Мама · 72 года · 🏠 Дома</div></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0"></div>
           </div>
-          <div style="height:1px;background:var(--border)"></div>
-          <div onclick="selectProfile('Сергей Иванович (папа)','На прогулке · с 10:15',event)" style="display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer" onmouseover="this.style.background='var(--stone)'" onmouseout="this.style.background=''">
-            <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#1565A6,#378ADD);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">СИ</div>
-            <div><div style="font-size:13px;font-weight:500">Сергей Иванович</div><div style="font-size:11px;color:var(--mid)">Папа · На прогулке</div></div>
-            <div style="margin-left:auto;width:7px;height:7px;border-radius:50%;background:var(--amber)"></div>
+          <div style="height:.5px;background:var(--border)"></div>
+          <div onclick="selectProfile('Сергей Иванович (папа)','На прогулке · с 10:15',event)" style="display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer" onmouseover="this.style.background='var(--stone)'" onmouseout="this.style.background=''">
+            <div style="width:36px;height:36px;border-radius:50%;background:#2563eb;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0">👴</div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--ink)">Сергей Иванович</div><div style="font-size:11px;color:var(--mid)">Папа · 74 года · 🚶 На прогулке</div></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
           </div>
           <div style="height:1px;background:var(--border)"></div>
           <div onclick="openModal('addProfile')" style="display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;font-size:13px;color:var(--sage);font-weight:500" onmouseover="this.style.background='var(--sage-mist)'" onmouseout="this.style.background=''">
@@ -1385,27 +1385,134 @@ function toggleProfileMenu(){
   const m=document.getElementById('profile-menu');
   m.style.display=m.style.display==='none'?'block':'none';
 }
-function selectProfile(name,status,e){
+// ── Profiles data ──────────────────────────────────
+const profiles = {
+  'Галина Ивановна (мама)': {
+    name: 'Галина Ивановна',
+    relation: 'Мама',
+    status: '✓ Всё в порядке',
+    statusColor: 'var(--sage)',
+    loc: 'Дома',
+    time: 'Активна в 10:32',
+    mapLabel: 'ул. Ленина 24, кв. 7 — Дома',
+    mapBadge: 'Дома · 10:42',
+    activity: '87%',
+    sleep: '7.5ч',
+    battery: '84%',
+    age: '72 года',
+    icon: '👵',
+    events: [
+      { color:'green', icon:'motion', title:'Движение на кухне',       sub:'Датчик движения #3', time:'10:32' },
+      { color:'green', icon:'door',   title:'Дверь открыта и закрыта', sub:'Датчик двери',       time:'09:15' },
+      { color:'blue',  icon:'clock',  title:'Утренняя активность',     sub:'Аналитика системы',  time:'08:47' },
+      { color:'amber', icon:'idle',   title:'Нет движения 2 часа',     sub:'Дневной отдых — норма', time:'Вчера 14:30' },
+    ],
+    meds: 'Амлодипин, Метформин, Конкор, Витамин D3',
+    medsStatus: '2/3 принято',
+    aiPlaceholder: 'Задайте вопрос о состоянии Галины Ивановны...',
+  },
+  'Сергей Иванович (папа)': {
+    name: 'Сергей Иванович',
+    relation: 'Папа',
+    status: '📍 На прогулке',
+    statusColor: '#2563eb',
+    loc: 'На прогулке',
+    time: 'Вышел в 10:15',
+    mapLabel: 'Парк Горького — прогулка',
+    mapBadge: 'На улице · 10:42',
+    activity: '94%',
+    sleep: '6.8ч',
+    battery: '61%',
+    age: '74 года',
+    icon: '👴',
+    events: [
+      { color:'blue',  icon:'door',    title:'Вышел на прогулку',        sub:'Датчик входной двери', time:'10:15' },
+      { color:'green', icon:'motion',  title:'Движение в коридоре',      sub:'Датчик движения #1',  time:'09:50' },
+      { color:'green', icon:'clock',   title:'Завтрак — норма',          sub:'Аналитика системы',   time:'09:10' },
+      { color:'green', icon:'motion',  title:'Проснулся — движение',     sub:'Датчик спальни',      time:'08:20' },
+    ],
+    meds: 'Лозартан, Аторвастатин, Аспирин',
+    medsStatus: '1/2 принято',
+    aiPlaceholder: 'Задайте вопрос о состоянии Сергея Ивановича...',
+  },
+};
+
+let activeProfile = 'Галина Ивановна (мама)';
+
+function selectProfile(name, status, e) {
   e.stopPropagation();
-  document.getElementById('active-profile-name').textContent=name;
-  document.getElementById('profile-menu').style.display='none';
-  // Update status banner
-  const person=name.split(' (')[0];
-  document.getElementById('status-label').textContent='Статус безопасности · '+person;
-  if(name.includes('папа')){
-    document.getElementById('status-val').textContent='📍 На прогулке';
-    document.getElementById('status-loc').textContent='На прогулке';
-    document.getElementById('status-time').textContent='Вышел в 10:15';
-    document.getElementById('map-label-dash').textContent='Парк Горького — прогулка';
-    document.getElementById('map-badge-dash').textContent='На улице · 10:42';
-  } else {
-    document.getElementById('status-val').textContent='✓ Всё в порядке';
-    document.getElementById('status-loc').textContent='Дома';
-    document.getElementById('status-time').textContent='Активна в 10:32';
-    document.getElementById('map-label-dash').textContent='ул. Ленина 24, кв. 7';
-    document.getElementById('map-badge-dash').textContent='Дома · 10:42';
+  activeProfile = name;
+  const p = profiles[name];
+  if (!p) return;
+
+  document.getElementById('active-profile-name').textContent = name;
+  document.getElementById('profile-menu').style.display = 'none';
+
+  // Статус-баннер
+  document.getElementById('status-label').textContent = 'Статус безопасности · ' + p.name;
+  document.getElementById('status-val').textContent = p.status;
+  document.getElementById('status-val').style.color = p.statusColor || 'var(--ink)';
+  document.getElementById('status-loc').textContent = p.loc;
+  document.getElementById('status-time').textContent = p.time;
+
+  // Карта на дашборде
+  const ml = document.getElementById('map-label-dash');
+  const mb = document.getElementById('map-badge-dash');
+  if (ml) ml.textContent = p.mapLabel;
+  if (mb) mb.textContent = p.mapBadge;
+
+  // Метрики (первые два .m-val)
+  const mVals = document.querySelectorAll('.m-val');
+  if (mVals[0]) mVals[0].textContent = p.activity;
+  if (mVals[1]) mVals[1].textContent = p.sleep;
+
+  // Батарея часов
+  const battEl = document.getElementById('battery-val');
+  if (battEl) battEl.textContent = p.battery;
+
+  // Лента событий на главной
+  const dashEvents = document.getElementById('dash-events');
+  if (dashEvents) {
+    dashEvents.innerHTML = '';
+    const iconPaths = {
+      motion: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+      door:   '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>',
+      clock:  '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+      idle:   '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+    };
+    p.events.forEach(ev => {
+      const row = document.createElement('div');
+      row.className = 'ev-row';
+      row.style.animation = 'fadeSlideIn .3s ease';
+      row.innerHTML = `<div class="ev-dot ${ev.color}"></div><div class="ev-icon-bg ${ev.color}"><svg viewBox="0 0 24 24">${iconPaths[ev.icon]||iconPaths.motion}</svg></div><div class="ev-info"><div class="ev-title">${ev.title}</div><div class="ev-sub">${ev.sub}</div></div><div class="ev-time">${ev.time}</div>`;
+      dashEvents.appendChild(row);
+    });
   }
+
+  // Заголовок лекарств
+  const medsTitle = document.querySelector('#tab-meds .card-head .card-title');
+  if (medsTitle) medsTitle.textContent = 'Препараты ' + p.name.split(' ')[0] + ' ' + p.name.split(' ')[1];
+
+  // Счётчик лекарств
+  const medsTaken = document.getElementById('meds-taken-today');
+  if (medsTaken) medsTaken.textContent = p.medsStatus;
+
+  // AI placeholder
+  const aiInput = document.getElementById('ai-input');
+  if (aiInput) aiInput.placeholder = p.aiPlaceholder;
+
+  // Показываем тост
+  if (typeof showToast === 'function') {
+    showToast({ color:'blue', title: 'Профиль: ' + p.name, sub: p.relation + ' · ' + p.age + ' · ' + p.loc });
+  }
+
+  // Обновляем живой мониторинг
+  const liveLoc = document.getElementById('live-location');
+  const liveAct = document.getElementById('live-activity');
+  if (liveLoc) liveLoc.textContent = p.status.replace(/[✓📍]/g,'').trim();
+  if (liveAct) liveAct.textContent = p.loc;
 }
+
 
 // ── Notifications ──
 function toggleNotifPanel(){
