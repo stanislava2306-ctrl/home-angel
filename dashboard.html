@@ -2508,6 +2508,8 @@ function finishConnect() {
   }
 }
 </script>
+<script>
+if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/home-angel/sw.js', {scope: '/home-angel/'})
       .then(r => console.log('SW registered'))
