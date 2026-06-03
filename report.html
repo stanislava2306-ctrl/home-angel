@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Недельный отчёт — Домашний ангел</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0f1a14;--forest:#1a2e22;--sage:#4d8c65;--sage-mist:#e6f0ea;
+  --cream:#faf7f2;--stone:#f0ece4;--mid:#7a7a72;--border:rgba(0,0,0,.07);
+  --amber:#b45309;--red:#dc2626;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+
+/* ── Toolbar ── */
+.toolbar{background:var(--forest);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tb-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:#fff;display:flex;align-items:center;gap:10px}
+.tb-actions{display:flex;gap:10px}
+.btn-print{padding:8px 20px;background:#c8a84b;border:none;border-radius:8px;color:#1a2e22;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px}
+.btn-back{padding:8px 16px;background:rgba(255,255,255,.12);border:none;border-radius:8px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer}
+
+/* ── Report ── */
+.report{max-width:680px;margin:0 auto;padding:32px 24px 60px}
+
+.rep-header{background:var(--forest);border-radius:20px;padding:28px 32px;margin-bottom:24px;color:#fff}
+.rep-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px}
+.rep-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin-bottom:4px}
+.rep-sub{font-size:13px;color:rgba(255,255,255,.55)}
+.rep-badges{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.rep-badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-green{background:rgba(74,222,128,.2);color:#4ade80}
+.badge-amber{background:rgba(251,191,36,.2);color:#fbbf24}
+.badge-blue{background:rgba(96,165,250,.2);color:#60a5fa}
+
+/* ── Score ── */
+.score-section{background:#fff;border-radius:16px;padding:24px;margin-bottom:16px;border:.5px solid var(--border)}
+.score-big{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:600;color:var(--sage);line-height:1}
+.score-label{font-size:12px;color:var(--mid);margin-top:4px}
+.score-bar-wrap{background:var(--stone);border-radius:20px;height:10px;margin-top:16px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--sage),#6ee7b7)}
+
+/* ── Stats grid ── */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.stat-card{background:#fff;border-radius:14px;padding:16px;border:.5px solid var(--border)}
+.stat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--ink);line-height:1.1}
+.stat-lbl{font-size:11px;color:var(--mid);margin-top:3px}
+.stat-trend{font-size:11px;font-weight:600;margin-top:6px}
+.trend-up{color:var(--sage)}
+.trend-down{color:var(--amber)}
+
+/* ── Daily chart ── */
+.chart-section{background:#fff;border-radius:16px;padding:20px 24px;margin-bottom:16px;border:.5px solid var(--border)}
+.section-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:16px}
+.bars{display:flex;align-items:flex-end;gap:6px;height:80px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:100%;border-radius:4px 4px 0 0;transition:height .3s}
+.bar-lbl{font-size:10px;color:var(--mid)}
+.bar-val{font-size:9px;color:var(--mid);font-weight:500}
+
+/* ── Events list ── */
+.events-section{background:#fff;border-radius:16px;padding:20px 24px;margin-bottom:16px;border:.5px solid var(--border)}
+.ev-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:.5px solid var(--border)}
+.ev-item:last-child{border-bottom:none}
+.ev-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ev-dot.green{background:var(--sage)}
+.ev-dot.amber{background:var(--amber)}
+.ev-dot.blue{background:#2563eb}
+.ev-text{flex:1;font-size:13px;color:var(--ink)}
+.ev-time{font-size:11px;color:var(--mid)}
+
+/* ── Meds ── */
+.meds-section{background:#fff;border-radius:16px;padding:20px 24px;margin-bottom:16px;border:.5px solid var(--border)}
+.med-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px}
+.med-row:last-child{border-bottom:none}
+.med-name{font-weight:500;color:var(--ink)}
+.med-compliance{font-size:12px;font-weight:600}
+
+/* ── Recommendations ── */
+.rec-section{background:var(--forest);border-radius:16px;padding:20px 24px;margin-bottom:16px}
+.rec-title{font-size:13px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:14px;text-transform:uppercase;letter-spacing:.06em}
+.rec-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.rec-num{width:22px;height:22px;border-radius:50%;background:rgba(200,168,75,.3);color:#c8a84b;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.rec-text{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5}
+
+/* ── Footer ── */
+.rep-footer{text-align:center;font-size:11px;color:var(--mid);margin-top:24px;padding-top:20px;border-top:.5px solid var(--border)}
+
+/* ── Print ── */
+@media print{
+  .toolbar{display:none}
+  body{background:#fff}
+  .report{padding:0}
+  .rep-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rec-section{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .stat-icon{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media(max-width:500px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .score-big{font-size:44px}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="tb-logo">
+    <svg width="20" height="14" viewBox="0 0 320 220"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8c870"/><stop offset="100%" stop-color="#a07830"/></linearGradient></defs><circle cx="160" cy="28" r="18" fill="url(#g)"/><path d="M152 44Q148 60 145 75Q150 82 160 84Q170 82 175 75Q172 60 168 44Z" fill="url(#g)"/><path d="M148 68C138 62,118 52,95 42C75 33,48 24,25 18C10 13,-2 12,0 22C2 30,16 34,32 38C50 43,72 46,90 54C108 62,120 72,130 82C136 88,142 94,148 100C150 88,150 78,148 68Z" fill="url(#g)"/><path d="M172 68C182 62,202 52,225 42C245 33,272 24,295 18C310 13,322 12,320 22C318 30,304 34,288 38C270 43,248 46,230 54C212 62,200 72,190 82C184 88,178 94,172 100C170 88,170 78,172 68Z" fill="url(#g)"/><path d="M160 210C160 210,118 185,110 165C102 148,106 135,116 130C124 126,133 129,140 136L160 165L180 136C187 129,196 126,204 130C214 135,218 148,210 165C202 185,160 210,160 210Z" fill="url(#g)"/></svg>
+    Домашний ангел
+  </div>
+  <div class="tb-actions">
+    <button class="btn-back" onclick="window.close()||history.back()">← Назад</button>
+    <button class="btn-print" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Скачать PDF
+    </button>
+  </div>
+</div>
+
+<div class="report" id="report-content">
+
+  <!-- Шапка -->
+  <div class="rep-header">
+    <div class="rep-eyebrow">Еженедельный отчёт · Домашний ангел</div>
+    <div class="rep-title" id="rep-person-title">Галина Ивановна</div>
+    <div class="rep-sub" id="rep-period">7–13 апреля 2026 · составлен ИИ-аналитикой</div>
+    <div class="rep-badges">
+      <div class="rep-badge badge-green">✓ Неделя без инцидентов</div>
+      <div class="rep-badge badge-amber">↓ Прогулки реже нормы</div>
+      <div class="rep-badge badge-blue">97% соблюдение лекарств</div>
+    </div>
+  </div>
+
+  <!-- Общий балл -->
+  <div class="score-section">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:6px">Общий балл недели</div>
+        <div class="score-big" id="rep-score">87</div>
+        <div class="score-label">из 100 · <span style="color:var(--sage);font-weight:500">хорошо</span></div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px;color:var(--mid)">Прошлая неделя</div>
+        <div style="font-size:22px;font-weight:600;color:var(--mid)">82</div>
+        <div style="font-size:11px;color:var(--sage);font-weight:500">↑ +5 баллов</div>
+      </div>
+    </div>
+    <div class="score-bar-wrap" style="margin-top:16px">
+      <div class="score-bar-fill" id="rep-score-bar" style="width:87%"></div>
+    </div>
+  </div>
+
+  <!-- Статистика -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#d1fae5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="stat-val" id="rep-activity">87%</div>
+      <div class="stat-lbl">Активность</div>
+      <div class="stat-trend trend-up">↑ выше нормы</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#ede9fe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M17 18a5 5 0 00-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg></div>
+      <div class="stat-val" id="rep-sleep">7.5ч</div>
+      <div class="stat-lbl">Сон в среднем</div>
+      <div class="stat-trend trend-up">↑ норма</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#fef3c7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="stat-val">3</div>
+      <div class="stat-lbl">Прогулки</div>
+      <div class="stat-trend trend-down">↓ из 7 дней</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#d1fae5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <div class="stat-val">0</div>
+      <div class="stat-lbl">Тревог</div>
+      <div class="stat-trend trend-up">↑ отлично</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#dbeafe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="stat-val">5</div>
+      <div class="stat-lbl">Км пройдено</div>
+      <div class="stat-trend trend-up">↑ хорошо</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#d1fae5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
+      <div class="stat-val">97%</div>
+      <div class="stat-lbl">Лекарства</div>
+      <div class="stat-trend trend-up">↑ отлично</div>
+    </div>
+  </div>
+
+  <!-- График активности по дням -->
+  <div class="chart-section">
+    <div class="section-title">Активность по дням недели</div>
+    <div class="bars" id="rep-bars">
+      <!-- Заполняется JS -->
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:6px" id="rep-bar-labels"></div>
+  </div>
+
+  <!-- Ключевые события -->
+  <div class="events-section">
+    <div class="section-title">Ключевые события недели</div>
+    <div class="ev-item"><div class="ev-dot green"></div><div class="ev-text">Стабильная утренняя рутина — все 7 дней просыпалась в 08:30–09:00</div><div class="ev-time">Ежедневно</div></div>
+    <div class="ev-item"><div class="ev-dot amber"></div><div class="ev-text">Пропущены 2 прогулки — вторник и четверг. Возможно, плохая погода</div><div class="ev-time">Вт, Чт</div></div>
+    <div class="ev-item"><div class="ev-dot amber"></div><div class="ev-text">Нет движения 3 часа в среду днём — вероятно, дневной сон</div><div class="ev-time">Ср 13:00</div></div>
+    <div class="ev-item"><div class="ev-dot green"></div><div class="ev-text">Пропущен приём Метформина 1 раз — в пятницу вечером</div><div class="ev-time">Пт 20:00</div></div>
+    <div class="ev-item"><div class="ev-dot blue"></div><div class="ev-text">Суббота — повышенная активность, долгая прогулка 1.8 км</div><div class="ev-time">Сб</div></div>
+  </div>
+
+  <!-- Лекарства -->
+  <div class="meds-section">
+    <div class="section-title">Соблюдение приёма лекарств</div>
+    <div class="med-row"><div class="med-name">Амлодипин 5 мг</div><div style="font-size:11px;color:var(--mid)">7/7 дней</div><div class="med-compliance" style="color:var(--sage)">100%</div></div>
+    <div class="med-row"><div class="med-name">Метформин 500 мг</div><div style="font-size:11px;color:var(--mid)">13/14 приёмов</div><div class="med-compliance" style="color:var(--amber)">93%</div></div>
+    <div class="med-row"><div class="med-name">Конкор 2.5 мг</div><div style="font-size:11px;color:var(--mid)">7/7 дней</div><div class="med-compliance" style="color:var(--sage)">100%</div></div>
+    <div class="med-row"><div class="med-name">Витамин D3 2000 МЕ</div><div style="font-size:11px;color:var(--mid)">7/7 дней</div><div class="med-compliance" style="color:var(--sage)">100%</div></div>
+    <div style="margin-top:12px;padding:10px 14px;background:var(--stone);border-radius:10px;font-size:12px;color:var(--mid)">
+      ⚠ Конкор заканчивается — осталось примерно на 4 дня. Рекомендуется купить в ближайшие 2 дня.
+    </div>
+  </div>
+
+  <!-- Рекомендации ИИ -->
+  <div class="rec-section">
+    <div class="rec-title">Рекомендации ИИ-аналитики</div>
+    <div class="rec-item">
+      <div class="rec-num">1</div>
+      <div class="rec-text">Увеличить количество прогулок до 5–6 раз в неделю. На этой неделе было только 3, тогда как обычно 5. Возможно, стоит уточнить у Галины Ивановны причину.</div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">2</div>
+      <div class="rec-text">Купить Конкор 2.5 мг в течение 2 ближайших дней. Оставшегося запаса хватит примерно до <span id="buy-by-date"></span>.</div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">3</div>
+      <div class="rec-text">Дневные периоды без движения (3+ часа) в норме для возраста 72 лет при условии что ночной сон стабильный. Мониторинг продолжается в штатном режиме.</div>
+    </div>
+  </div>
+
+  <!-- Подпись -->
+  <div class="rep-footer">
+    <div style="font-weight:600;color:var(--ink);margin-bottom:4px">Домашний ангел · ИИ-аналитика</div>
+    <div>Отчёт сформирован автоматически на основе данных датчиков и GPS-часов</div>
+    <div style="margin-top:4px" id="rep-generated"></div>
+  </div>
+
+</div>
+
+<script>
+// Подставляем данные из профиля
+const params = new URLSearchParams(location.search);
+const person = params.get('person') || 'Галина Ивановна';
+const activity = params.get('activity') || '87';
+const sleep = params.get('sleep') || '7.5ч';
+const score = params.get('score') || '87';
+
+document.getElementById('rep-person-title').textContent = person;
+document.getElementById('rep-activity').textContent = activity + '%';
+document.getElementById('rep-sleep').textContent = sleep;
+document.getElementById('rep-score').textContent = score;
+document.getElementById('rep-score-bar').style.width = score + '%';
+
+// Период — прошлая неделя
+const now = new Date();
+const monday = new Date(now);
+monday.setDate(now.getDate() - now.getDay() - 6);
+const sunday = new Date(monday);
+sunday.setDate(monday.getDate() + 6);
+const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+document.getElementById('rep-period').textContent =
+  `${monday.getDate()} – ${sunday.getDate()} ${months[sunday.getMonth()]} ${sunday.getFullYear()} · составлен ИИ-аналитикой`;
+
+// Дата покупки лекарства
+const buyBy = new Date();
+buyBy.setDate(buyBy.getDate() + 4);
+document.getElementById('buy-by-date').textContent =
+  buyBy.getDate() + ' ' + months[buyBy.getMonth()];
+
+// Дата генерации
+document.getElementById('rep-generated').textContent =
+  'Сформирован: ' + now.toLocaleDateString('ru-RU') + ' в ' +
+  now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+
+// График активности
+const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const vals = [82, 70, 65, 72, 88, 95, 87];
+const colors = ['#4d8c65','#4d8c65','#b45309','#4d8c65','#4d8c65','#4d8c65','#4d8c65'];
+const barsEl = document.getElementById('rep-bars');
+const labelsEl = document.getElementById('rep-bar-labels');
+
+vals.forEach((v, i) => {
+  const wrap = document.createElement('div');
+  wrap.className = 'bar-wrap';
+  wrap.innerHTML = `
+    <div style="font-size:9px;color:var(--mid);font-weight:500">${v}%</div>
+    <div class="bar" style="height:${v * 0.72}px;background:${colors[i]};opacity:${i===2?'0.6':'0.85'}"></div>
+  `;
+  barsEl.appendChild(wrap);
+
+  const lbl = document.createElement('div');
+  lbl.style.cssText = 'font-size:10px;color:var(--mid);text-align:center;flex:1';
+  lbl.textContent = days[i];
+  labelsEl.appendChild(lbl);
+});
+</script>
+</body>
+</html>
