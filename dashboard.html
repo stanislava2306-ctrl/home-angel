@@ -972,7 +972,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
 
   <!-- ═══ DEVICES ═══ -->
   <div class="tab-pane" id="tab-devices">
-    <div class="page-header"><h2>Устройства</h2><p>Статус и управление всеми устройствами системы</p></div>
+    <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div><h2>Устройства</h2><p>Статус и управление всеми устройствами системы</p></div>
+      <button onclick="openConnectDevice()" style="display:flex;align-items:center;gap:6px;padding:9px 16px;background:var(--sage);border:none;border-radius:10px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Добавить устройство
+      </button>
+    </div>
     <div style="background:#fef3c7;border:1px solid #fbbf24;border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="openModal('dev-gas')">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       <span style="font-size:14px;font-weight:500;color:#92400e">Датчик газа требует замены батарейки — батарея на 12%</span>
@@ -1664,15 +1670,33 @@ function runQuickPrompt(k){addUserMsg(qp[k]);askAI(qp[k]);}
 async function sendMessage(){const i=document.getElementById('ai-input');const t=i.value.trim();if(!t)return;i.value='';addUserMsg(t);await askAI(t);}
 async function askAI(msg){
   const btn=document.getElementById('ai-send-btn');btn.disabled=true;showTyping();
+
+  // Добавляем контекст текущего профиля в системный промпт
+  const p = profiles[activeProfile] || profiles['Галина Ивановна (мама)'];
+  const contextPrompt = systemPrompt + `\n\nТекущий профиль: ${p.name}, ${p.age}, ${p.relation}.
+Статус: ${p.loc}. Активность: ${p.activity}. Сон: ${p.sleep}. Заряд часов: ${p.battery}.
+Лекарства: ${p.meds}. Приём: ${p.medsStatus}.
+Отвечай конкретно по этому человеку, используй его имя.`;
+
   chatHistory.push({role:'user',content:msg});
   try{
-    const r = await fetch('https://ntvrlegynsciyjyzbsq.supabase.co/functions/v1/ai-chat', {
+    const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMTQyMjQsImV4cCI6MjA4NzY5MDIyNH0.YZyKOESVamzPk7QM3pivANwkj4a7Us1X0JkKC7FUEd0'
+        'Authorization': 'Bearer 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',
+        'HTTP-Referer': 'https://stanislava2306-ctrl.github.io',
+        'X-Title': 'Домашний ангел'
       },
-      body: JSON.stringify({messages: chatHistory, systemPrompt})
+      body: JSON.stringify({
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        messages: [
+          {role:'system', content: contextPrompt},
+          ...chatHistory
+        ],
+        max_tokens: 800,
+        temperature: 0.7
+      })
     });
     const d = await r.json();
     if(!r.ok || d.error){
@@ -1680,7 +1704,7 @@ async function askAI(msg){
       addBotMsg(`<p style="color:var(--red)">${d.error?.message || 'Ошибка ' + r.status}</p>`);
       chatHistory.pop(); btn.disabled=false; return;
     }
-    const reply = d.content[0].text;
+    const reply = d.choices?.[0]?.message?.content || 'Нет ответа';
     chatHistory.push({role:'assistant', content:reply});
     removeTyping(); addBotMsg(fmtReply(reply));
   }catch(e){
@@ -2230,8 +2254,260 @@ async function handleLogout(){
 
 })();
 </script>
+<!-- ═══ CONNECT DEVICE MODAL ═══ -->
+<div id="connect-dev-overlay" onclick="if(event.target===this)closeConnectDevice()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:flex-end;justify-content:center;padding:0">
+  <div style="background:var(--warm-white);border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:92vh;overflow-y:auto" id="connect-dev-box">
+
+    <!-- Шаг 1: Выбор типа устройства -->
+    <div id="cd-step-1">
+      <div style="padding:20px 20px 0;display:flex;align-items:center;justify-content:space-between">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--ink)">Добавить устройство</h3>
+        <button onclick="closeConnectDevice()" style="background:none;border:1px solid var(--border);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:14px;color:var(--mid)">✕</button>
+      </div>
+      <p style="padding:6px 20px 16px;font-size:13px;color:var(--mid)">Выберите тип устройства для подключения</p>
+
+      <div style="padding:0 16px 24px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div onclick="selectDeviceType('motion','Датчик движения','Zigbee · до 8 м','📡')" class="dev-type-card" style="border:1.5px solid var(--border);border-radius:14px;padding:16px 14px;cursor:pointer;transition:all .2s;text-align:center" onmouseover="this.style.borderColor='var(--sage)';this.style.background='var(--sage-mist)'" onmouseout="this.style.borderColor='var(--border)';this.style.background=''">
+          <div style="font-size:28px;margin-bottom:8px">📡</div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink)">Датчик движения</div>
+          <div style="font-size:11px;color:var(--mid);margin-top:3px">Zigbee · до 8 м</div>
+        </div>
+        <div onclick="selectDeviceType('door','Датчик двери','Zigbee · открытие/закрытие','🚪')" class="dev-type-card" style="border:1.5px solid var(--border);border-radius:14px;padding:16px 14px;cursor:pointer;transition:all .2s;text-align:center" onmouseover="this.style.borderColor='var(--sage)';this.style.background='var(--sage-mist)'" onmouseout="this.style.borderColor='var(--border)';this.style.background=''">
+          <div style="font-size:28px;margin-bottom:8px">🚪</div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink)">Датчик двери</div>
+          <div style="font-size:11px;color:var(--mid);margin-top:3px">Zigbee · открытие/закрытие</div>
+        </div>
+        <div onclick="selectDeviceType('watch','GPS-часы','Bluetooth + GPS','⌚')" class="dev-type-card" style="border:1.5px solid var(--border);border-radius:14px;padding:16px 14px;cursor:pointer;transition:all .2s;text-align:center" onmouseover="this.style.borderColor='var(--sage)';this.style.background='var(--sage-mist)'" onmouseout="this.style.borderColor='var(--border)';this.style.background=''">
+          <div style="font-size:28px;margin-bottom:8px">⌚</div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink)">GPS-часы</div>
+          <div style="font-size:11px;color:var(--mid);margin-top:3px">Bluetooth + GPS</div>
+        </div>
+        <div onclick="selectDeviceType('hub','Zigbee-хаб','WiFi · основной шлюз','📶')" class="dev-type-card" style="border:1.5px solid var(--border);border-radius:14px;padding:16px 14px;cursor:pointer;transition:all .2s;text-align:center" onmouseover="this.style.borderColor='var(--sage)';this.style.background='var(--sage-mist)'" onmouseout="this.style.borderColor='var(--border)';this.style.background=''">
+          <div style="font-size:28px;margin-bottom:8px">📶</div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink)">Zigbee-хаб</div>
+          <div style="font-size:11px;color:var(--mid);margin-top:3px">WiFi · основной шлюз</div>
+        </div>
+        <div onclick="selectDeviceType('water','Датчик воды','Zigbee · утечка','💧')" class="dev-type-card" style="border:1.5px solid var(--border);border-radius:14px;padding:16px 14px;cursor:pointer;transition:all .2s;text-align:center" onmouseover="this.style.borderColor='var(--sage)';this.style.background='var(--sage-mist)'" onmouseout="this.style.borderColor='var(--border)';this.style.background=''">
+          <div style="font-size:28px;margin-bottom:8px">💧</div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink)">Датчик воды</div>
+          <div style="font-size:11px;color:var(--mid);margin-top:3px">Zigbee · утечка</div>
+        </div>
+        <div onclick="selectDeviceType('gas','Датчик газа','Zigbee · угарный газ','🔥')" class="dev-type-card" style="border:1.5px solid var(--border);border-radius:14px;padding:16px 14px;cursor:pointer;transition:all .2s;text-align:center" onmouseover="this.style.borderColor='var(--sage)';this.style.background='var(--sage-mist)'" onmouseout="this.style.borderColor='var(--border)';this.style.background=''">
+          <div style="font-size:28px;margin-bottom:8px">🔥</div>
+          <div style="font-size:13px;font-weight:600;color:var(--ink)">Датчик газа</div>
+          <div style="font-size:11px;color:var(--mid);margin-top:3px">Zigbee · угарный газ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Шаг 2: Подключение WiFi -->
+    <div id="cd-step-2" style="display:none;padding:20px 20px 32px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <button onclick="showCdStep(1)" style="background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:12px;color:var(--mid)">← Назад</button>
+        <div style="font-size:12px;color:var(--mid)">Шаг 2 из 3</div>
+      </div>
+      <div style="text-align:center;margin-bottom:20px">
+        <div id="cd-device-icon" style="font-size:48px;margin-bottom:8px">📡</div>
+        <div id="cd-device-name" style="font-size:16px;font-weight:600;color:var(--ink)">Датчик движения</div>
+        <div id="cd-device-desc" style="font-size:12px;color:var(--mid);margin-top:3px">Zigbee · до 8 м</div>
+      </div>
+      <div style="background:var(--stone);border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--mid);line-height:1.6">
+        <div style="font-weight:600;color:var(--ink);margin-bottom:6px">Инструкция:</div>
+        <div id="cd-instruction">1. Включите устройство (кнопка сбоку)<br>2. Удерживайте кнопку 3 секунды до мигания<br>3. Введите пароль WiFi вашего дома</div>
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Сеть WiFi</label>
+        <input id="cd-wifi-name" type="text" value="HomeNetwork_2G" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div style="margin-bottom:20px">
+        <label style="font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Пароль WiFi</label>
+        <input id="cd-wifi-pass" type="password" placeholder="Пароль от вашей сети" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <button onclick="startConnecting()" style="width:100%;padding:14px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer">
+        Начать подключение
+      </button>
+    </div>
+
+    <!-- Шаг 3: Процесс подключения -->
+    <div id="cd-step-3" style="display:none;padding:24px 20px 40px">
+      <div style="text-align:center">
+        <div id="cd-connect-icon" style="font-size:52px;margin-bottom:16px">📡</div>
+        <div id="cd-connect-status" style="font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px">Поиск устройства...</div>
+        <div id="cd-connect-sub" style="font-size:13px;color:var(--mid);margin-bottom:24px">Убедитесь что устройство мигает</div>
+
+        <!-- Прогресс шагов -->
+        <div style="text-align:left;display:flex;flex-direction:column;gap:10px;margin-bottom:24px" id="cd-steps-list">
+          <div class="cd-step-item" id="cds-1" style="display:flex;align-items:center;gap:10px">
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--stone);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px" id="cds-1-icon">1</div>
+            <span style="font-size:13px;color:var(--mid)" id="cds-1-text">Поиск устройств в сети...</span>
+          </div>
+          <div class="cd-step-item" id="cds-2" style="display:flex;align-items:center;gap:10px">
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--stone);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px" id="cds-2-icon">2</div>
+            <span style="font-size:13px;color:var(--mid)" id="cds-2-text">Подключение к хабу...</span>
+          </div>
+          <div class="cd-step-item" id="cds-3" style="display:flex;align-items:center;gap:10px">
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--stone);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px" id="cds-3-icon">3</div>
+            <span style="font-size:13px;color:var(--mid)" id="cds-3-text">Настройка и калибровка...</span>
+          </div>
+          <div class="cd-step-item" id="cds-4" style="display:flex;align-items:center;gap:10px">
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--stone);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px" id="cds-4-icon">4</div>
+            <span style="font-size:13px;color:var(--mid)" id="cds-4-text">Добавление в кабинет...</span>
+          </div>
+        </div>
+
+        <div id="cd-progress-bar" style="background:var(--stone);border-radius:20px;height:6px;overflow:hidden;margin-bottom:20px">
+          <div id="cd-progress-fill" style="height:100%;background:var(--sage);border-radius:20px;width:0%;transition:width .5s ease"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Шаг 4: Успех -->
+    <div id="cd-step-4" style="display:none;padding:32px 20px 40px;text-align:center">
+      <div style="width:72px;height:72px;border-radius:50%;background:#d1fae5;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px">✓</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--ink);margin-bottom:8px" id="cd-success-title">Датчик подключён!</h3>
+      <p style="font-size:13px;color:var(--mid);margin-bottom:6px" id="cd-success-sub">Датчик движения успешно добавлен в систему</p>
+      <p style="font-size:12px;color:var(--sage);font-weight:500;margin-bottom:28px">Устройство уже отслеживает активность</p>
+      <div style="background:var(--sage-mist);border-radius:12px;padding:14px 16px;margin-bottom:24px;text-align:left">
+        <div style="font-size:12px;font-weight:600;color:var(--sage);margin-bottom:8px">ДОБАВЛЕНО В СИСТЕМУ</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div id="cd-new-dev-icon" style="font-size:28px">📡</div>
+          <div>
+            <div id="cd-new-dev-name" style="font-size:14px;font-weight:600;color:var(--ink)">Датчик движения #4</div>
+            <div style="font-size:12px;color:var(--mid)">Онлайн · Заряд 100% · только что</div>
+          </div>
+          <div style="margin-left:auto;width:10px;height:10px;border-radius:50%;background:#4ade80"></div>
+        </div>
+      </div>
+      <button onclick="finishConnect()" style="width:100%;padding:14px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer">
+        Готово
+      </button>
+    </div>
+
+  </div>
+</div>
+
 <script>
-if ('serviceWorker' in navigator) {
+// ── Device Connection Flow ──────────────────────────
+let selectedDevice = {};
+
+function openConnectDevice() {
+  showCdStep(1);
+  document.getElementById('connect-dev-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeConnectDevice() {
+  document.getElementById('connect-dev-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function showCdStep(n) {
+  [1,2,3,4].forEach(i => {
+    document.getElementById('cd-step-'+i).style.display = i===n ? 'block' : 'none';
+  });
+}
+
+function selectDeviceType(type, name, desc, icon) {
+  selectedDevice = { type, name, desc, icon };
+  document.getElementById('cd-device-icon').textContent = icon;
+  document.getElementById('cd-device-name').textContent = name;
+  document.getElementById('cd-device-desc').textContent = desc;
+
+  const instructions = {
+    motion: '1. Включите устройство (кнопка сбоку)\n2. Удерживайте 3 сек до мигания LED\n3. Введите пароль WiFi вашего дома',
+    door:   '1. Разъедините магниты датчика\n2. Кнопка сзади — удержите 3 сек\n3. Введите пароль WiFi',
+    watch:  '1. Включите часы (боковая кнопка)\n2. В меню часов выберите «Подключить»\n3. Введите пароль WiFi',
+    hub:    '1. Подключите хаб к розетке\n2. Дождитесь мигания (30 сек)\n3. Введите пароль WiFi',
+    water:  '1. Вставьте батарейки CR2032\n2. Удержите кнопку 3 сек\n3. Введите пароль WiFi',
+    gas:    '1. Подключите к розетке 220В\n2. Удержите кнопку 5 сек до звукового сигнала\n3. Введите пароль WiFi',
+  };
+  document.getElementById('cd-instruction').innerHTML =
+    (instructions[type] || instructions.motion).replace(/\n/g, '<br>');
+  showCdStep(2);
+}
+
+function startConnecting() {
+  document.getElementById('cd-connect-icon').textContent = selectedDevice.icon;
+  showCdStep(3);
+
+  const steps = [
+    { id:1, text:'Устройство найдено в сети ✓', delay:1500,  progress:25 },
+    { id:2, text:'Подключено к Zigbee-хабу ✓',  delay:3200,  progress:55 },
+    { id:3, text:'Калибровка завершена ✓',       delay:5200,  progress:80 },
+    { id:4, text:'Добавлено в кабинет ✓',        delay:6800,  progress:100 },
+  ];
+
+  steps.forEach(s => {
+    setTimeout(() => {
+      const icon = document.getElementById('cds-'+s.id+'-icon');
+      const text = document.getElementById('cds-'+s.id+'-text');
+      if (icon) { icon.textContent='✓'; icon.style.background='#d1fae5'; icon.style.color='#059669'; }
+      if (text) { text.style.color='var(--ink)'; text.style.fontWeight='500'; text.textContent=s.text; }
+      document.getElementById('cd-progress-fill').style.width = s.progress + '%';
+      if (s.progress < 100) {
+        document.getElementById('cd-connect-status').textContent = s.text.replace(' ✓','...');
+      }
+    }, s.delay);
+  });
+
+  // Финальный шаг — успех
+  setTimeout(() => {
+    const devCount = document.querySelectorAll('#tab-devices .dev').length + 1;
+    document.getElementById('cd-success-title').textContent = selectedDevice.name + ' подключён!';
+    document.getElementById('cd-success-sub').textContent = selectedDevice.name + ' успешно добавлен в систему мониторинга';
+    document.getElementById('cd-new-dev-icon').textContent = selectedDevice.icon;
+    document.getElementById('cd-new-dev-name').textContent = selectedDevice.name + ' #' + devCount;
+    showCdStep(4);
+  }, 8000);
+}
+
+function finishConnect() {
+  // Добавляем устройство в список
+  const devList = document.querySelector('#tab-devices .dev-list');
+  if (devList) {
+    const devCount = devList.querySelectorAll('.dev').length + 1;
+    const icons = {
+      motion: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+      door:   '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+      watch:  '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+      hub:    '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+      water:  '<path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>',
+      gas:    '<path d="M8.56 2.9A7 7 0 0119 9v4l2 2v1H3v-1l2-2V9a7 7 0 011-3.6"/>',
+    };
+    const newDev = document.createElement('div');
+    newDev.className = 'dev';
+    newDev.style.cssText = 'cursor:pointer;animation:fadeSlideIn .4s ease';
+    newDev.innerHTML = `
+      <div class="dev-ico"><svg viewBox="0 0 24 24">${icons[selectedDevice.type]||icons.motion}</svg></div>
+      <div>
+        <div class="dev-name">${selectedDevice.name} #${devCount}</div>
+        <div class="dev-status">Онлайн · Заряд 100% · только что подключён</div>
+      </div>
+      <div class="dev-dot on" style="margin-left:auto"></div>
+    `;
+    devList.insertBefore(newDev, devList.firstChild);
+  }
+
+  closeConnectDevice();
+
+  // Сброс шагов для следующего раза
+  setTimeout(() => {
+    [1,2,3,4].forEach(i => {
+      const icon = document.getElementById('cds-'+i+'-icon');
+      const text = document.getElementById('cds-'+i+'-text');
+      if (icon) { icon.textContent=i; icon.style.background='var(--stone)'; icon.style.color=''; }
+    });
+    document.getElementById('cd-progress-fill').style.width = '0%';
+    [1,2,3,4].forEach(i => {
+      const texts = ['Поиск устройств в сети...','Подключение к хабу...','Настройка и калибровка...','Добавление в кабинет...'];
+      const t = document.getElementById('cds-'+i+'-text');
+      if (t) { t.style.color='var(--mid)'; t.style.fontWeight=''; t.textContent=texts[i-1]; }
+    });
+  }, 500);
+
+  if (typeof showToast === 'function') {
+    showToast({ color:'green', title: selectedDevice.name + ' подключён', sub: 'Устройство активно и отслеживает данные' });
+  }
+}
+</script>
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/home-angel/sw.js', {scope: '/home-angel/'})
       .then(r => console.log('SW registered'))
