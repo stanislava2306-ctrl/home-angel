@@ -11,6 +11,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Личный кабинет — Домашний ангел</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -619,90 +620,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
       </div>
     </div>
 
-    <!-- Карта -->
-    <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 24px rgba(0,0,0,.08)">
-      <!-- Фон карты — улицы SVG -->
-      <svg width="100%" viewBox="0 0 380 240" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#edf2ed">
-        <!-- Фон -->
-        <rect width="380" height="240" fill="#edf2ed"/>
+    <!-- Карта — Leaflet + OpenStreetMap -->
+    <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 24px rgba(0,0,0,.1)">
+      <div id="leaflet-map" style="width:100%;height:320px"></div>
 
-        <!-- Кварталы верхний ряд -->
-        <rect x="8"   y="8"  width="72" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="90"  y="8"  width="62" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="162" y="8"  width="72" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="244" y="8"  width="62" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="316" y="8"  width="56" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-
-        <!-- Улица горизонтальная 1 -->
-        <rect x="0" y="62" width="380" height="9" fill="#f8f6f0"/>
-        <text x="6" y="69" font-size="6" fill="#aaa" font-family="sans-serif">ул. Садовая</text>
-
-        <!-- Кварталы средний ряд -->
-        <rect x="8"   y="73" width="72" height="56" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="90"  y="73" width="62" height="56" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <!-- Парк вместо квартала -->
-        <rect x="162" y="73" width="72" height="56" rx="5" fill="#c5dfc5" stroke="#aecfae" stroke-width="0.8"/>
-        <text x="178" y="99" font-size="7.5" fill="#4a7a4a" font-family="sans-serif" font-weight="600">🌳 Парк</text>
-        <rect x="244" y="73" width="62" height="56" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="316" y="73" width="56" height="56" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-
-        <!-- Главная улица (ул. Ленина) — шире -->
-        <rect x="0" y="131" width="380" height="13" fill="#fff" opacity="0.85"/>
-        <text x="6" y="141" font-size="7" fill="#888" font-family="sans-serif" font-weight="500">ул. Ленина</text>
-
-        <!-- Кварталы нижний ряд -->
-        <rect x="8"   y="147" width="72" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="90"  y="147" width="62" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="162" y="147" width="72" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="244" y="147" width="62" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-        <rect x="316" y="147" width="56" height="52" rx="5" fill="#daeada" stroke="#c8d8c8" stroke-width="0.8"/>
-
-        <!-- Улица нижняя -->
-        <rect x="0" y="201" width="380" height="9" fill="#f8f6f0"/>
-
-        <!-- Вертикальные улицы -->
-        <rect x="82"  y="0" width="7" height="240" fill="#f8f6f0"/>
-        <rect x="154" y="0" width="7" height="240" fill="#f8f6f0"/>
-        <rect x="236" y="0" width="7" height="240" fill="#f8f6f0"/>
-        <rect x="308" y="0" width="7" height="240" fill="#f8f6f0"/>
-
-        <!-- Дом — иконка на квартале где живёт -->
-        <rect x="100" y="80" width="38" height="16" rx="4" fill="#fff" opacity="0.95"/>
-        <text x="103" y="92" font-size="8" fill="#1a2e22" font-family="sans-serif" font-weight="700">🏠 Дом</text>
-
-        <!-- Маршрут прогулки — компактный, не выходит за края -->
-        <polyline id="route-path"
-          points="119,137 140,120 163,108 198,101 220,108 235,120 228,134 210,140"
-          fill="none" stroke="#4d8c65" stroke-width="2.5"
-          stroke-dasharray="5,4" stroke-linecap="round" opacity="0.75"/>
-
-        <!-- Точки маршрута -->
-        <circle cx="140" cy="120" r="3" fill="#4d8c65" opacity="0.55"/>
-        <circle cx="198" cy="101" r="3" fill="#4d8c65" opacity="0.55"/>
-        <circle cx="235" cy="120" r="3" fill="#4d8c65" opacity="0.55"/>
-
-        <!-- Пульсирующий круг -->
-        <circle id="loc-pulse" cx="119" cy="137" r="16" fill="#4d8c65" fill-opacity="0.12">
-          <animate attributeName="r" values="12;20;12" dur="2.5s" repeatCount="indefinite"/>
-          <animate attributeName="fill-opacity" values="0.15;0.04;0.15" dur="2.5s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- Точка местоположения -->
-        <circle id="loc-dot" cx="119" cy="137" r="10" fill="#1a2e22" stroke="#fff" stroke-width="2.5"/>
-        <circle cx="119" cy="137" r="4.5" fill="#4d8c65"/>
-
-        <!-- Метка позиции -->
-        <rect id="loc-label-bg" x="84" y="150" width="70" height="18" rx="6" fill="#1a2e22"/>
-        <text id="loc-label-text" x="88" y="163" font-size="8.5" fill="#fff" font-family="sans-serif" font-weight="500">Дома · сейчас</text>
-      </svg>
-
-      <!-- Оверлей: время обновления -->
-      <div style="position:absolute;top:10px;right:10px;background:rgba(255,255,255,.92);border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--sage);backdrop-filter:blur(8px)" id="map-update-time">
+      <!-- Статус онлайн -->
+      <div style="position:absolute;top:10px;right:10px;background:rgba(255,255,255,.95);border:1px solid var(--border);border-radius:10px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--sage);backdrop-filter:blur(8px);z-index:999">
         Обновлено: <span id="map-time-val">только что</span>
       </div>
 
-      <!-- GPS точность -->
-      <div style="position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,.9);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--mid);border:1px solid var(--border)">
+      <!-- GPS -->
+      <div style="position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,.92);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--mid);border:1px solid var(--border);z-index:999">
         GPS ±12 м
       </div>
     </div>
@@ -2529,8 +2457,169 @@ function finishConnect() {
   }
 }
 </script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-if ('serviceWorker' in navigator) {
+// ── Leaflet реальная карта ──────────────────────────
+(function initLeafletMap() {
+
+  // Москва, Тверской район — реальные координаты
+  const HOME     = [55.7652, 37.6050];   // Тверская ул.
+  const PARK     = [55.7680, 37.6120];   // Тверской бульвар
+  const ROUTE    = [
+    [55.7652, 37.6050],
+    [55.7660, 37.6070],
+    [55.7668, 37.6090],
+    [55.7675, 37.6110],
+    [55.7680, 37.6120],
+    [55.7672, 37.6105],
+    [55.7663, 37.6085],
+    [55.7652, 37.6050],
+  ];
+
+  let map = null;
+  let liveMarker = null;
+  let routePolyline = null;
+  let routeIdx = 0;
+  let mapInited = false;
+
+  function createMarkerIcon(pulsing) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="
+        width:20px;height:20px;border-radius:50%;
+        background:#1a2e22;border:3px solid #fff;
+        box-shadow:0 2px 8px rgba(0,0,0,.35);
+        position:relative;
+        ${pulsing ? 'animation:mapDotPulse 2s ease-in-out infinite;' : ''}
+      ">
+        <div style="
+          position:absolute;top:50%;left:50%;
+          transform:translate(-50%,-50%);
+          width:8px;height:8px;border-radius:50%;
+          background:#4d8c65;
+        "></div>
+      </div>`,
+      iconSize: [20, 20],
+      iconAnchor: [10, 10],
+    });
+  }
+
+  function initMap() {
+    if (mapInited) return;
+    const container = document.getElementById('leaflet-map');
+    if (!container) return;
+
+    mapInited = true;
+
+    map = L.map('leaflet-map', {
+      center: HOME,
+      zoom: 16,
+      zoomControl: true,
+      scrollWheelZoom: false,
+      attributionControl: false,
+    });
+
+    // OpenStreetMap тайлы
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Attribution маленький
+    L.control.attribution({ prefix: false, position: 'bottomright' }).addTo(map);
+
+    // Маршрут — пунктирная линия
+    routePolyline = L.polyline(ROUTE, {
+      color: '#4d8c65',
+      weight: 3,
+      dashArray: '8 6',
+      opacity: 0.7,
+    }).addTo(map);
+
+    // Маркер дома
+    const homeIcon = L.divIcon({
+      className: '',
+      html: `<div style="
+        background:#fff;border:2px solid #1a2e22;border-radius:10px;
+        padding:4px 8px;font-size:12px;font-weight:700;color:#1a2e22;
+        white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.15);
+      ">🏠 Дом</div>`,
+      iconAnchor: [30, 10],
+    });
+    L.marker([55.7648, 37.6042], { icon: homeIcon }).addTo(map);
+
+    // Живой маркер позиции
+    liveMarker = L.marker(HOME, { icon: createMarkerIcon(true) }).addTo(map);
+
+    // Popup при клике
+    liveMarker.bindPopup(`
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;padding:4px">
+        <b>Галина Ивановна</b><br>
+        <span style="color:#4d8c65">● Онлайн</span> · Тверская ул.<br>
+        <span style="color:#888;font-size:11px">GPS ±12 м</span>
+      </div>
+    `, { closeButton: false });
+  }
+
+  // Двигаем маркер по маршруту
+  function moveMarker() {
+    if (!map || !liveMarker) return;
+    routeIdx = (routeIdx + 1) % ROUTE.length;
+    const pos = ROUTE[routeIdx];
+    liveMarker.setLatLng(pos);
+
+    // Обновляем popup
+    const labels = ['Дома','Выходит','Ул. Тверская','К бульвару','Тверской бульвар','Возвращается','Почти дома','Дома'];
+    liveMarker.getPopup().setContent(`
+      <div style="font-family:'DM Sans',sans-serif;font-size:13px;padding:4px">
+        <b>Галина Ивановна</b><br>
+        <span style="color:#4d8c65">● Онлайн</span> · ${labels[routeIdx]}<br>
+        <span style="color:#888;font-size:11px">GPS ±12 м</span>
+      </div>
+    `);
+
+    // Обновляем время
+    const n = new Date();
+    const t = n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
+    const tv = document.getElementById('map-time-val');
+    if (tv) tv.textContent = t;
+  }
+
+  // Инициализируем когда вкладка Карта становится активной
+  const origSwitchTab = window.switchTab;
+  window.switchTab = function(tab, el) {
+    origSwitchTab && origSwitchTab(tab, el);
+    if (tab === 'map') {
+      setTimeout(() => {
+        initMap();
+        if (map) map.invalidateSize();
+      }, 100);
+    }
+  };
+
+  // Движение каждые 25 секунд
+  setInterval(() => {
+    const mapTab = document.getElementById('tab-map');
+    if (mapTab && mapTab.classList.contains('active')) {
+      moveMarker();
+    }
+  }, 25000);
+
+  // CSS анимация пульса маркера
+  const s = document.createElement('style');
+  s.textContent = `
+    @keyframes mapDotPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(77,140,101,.5), 0 2px 8px rgba(0,0,0,.35); }
+      50%      { box-shadow: 0 0 0 10px rgba(77,140,101,0), 0 2px 8px rgba(0,0,0,.35); }
+    }
+    .leaflet-container { font-family: 'DM Sans',sans-serif; }
+    .leaflet-popup-content-wrapper { border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+    .leaflet-popup-tip { display:none; }
+  `;
+  document.head.appendChild(s);
+
+})();
+</script>
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/home-angel/sw.js', {scope: '/home-angel/'})
       .then(r => console.log('SW registered'))
