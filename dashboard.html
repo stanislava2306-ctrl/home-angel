@@ -345,6 +345,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
     <div class="sb-item" onclick="switchTab('devices',this)">
       <div class="sb-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>Устройства
     </div>
+    <div class="sb-item" onclick="switchTab('profile',this)">
+      <div class="sb-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>Профиль
+    </div>
     <div class="sb-item" onclick="switchTab('family',this)">
       <div class="sb-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>Семья
     </div>
@@ -949,6 +952,177 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
     </div>
   </div>
 
+  <!-- ═══ ПРОФИЛЬ ПОЖИЛОГО ═══ -->
+  <div class="tab-pane" id="tab-profile">
+    <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div><h2 id="prof-title">Профиль Галины Ивановны</h2><p>Анамнез, распорядок и медицинские данные</p></div>
+      <button onclick="saveProfile()" style="display:flex;align-items:center;gap:6px;padding:9px 16px;background:var(--sage);border:none;border-radius:10px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Сохранить
+      </button>
+    </div>
+
+    <!-- Аватар и основное -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-body" style="padding:20px">
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--sage),#6ee7b7);display:flex;align-items:center;justify-content:center;font-size:34px;flex-shrink:0;cursor:pointer" onclick="changeAvatar()" title="Изменить фото" id="prof-avatar">👵</div>
+          <div style="flex:1;min-width:180px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div>
+                <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Имя</label>
+                <input id="prof-name" type="text" value="Галина Ивановна" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+              </div>
+              <div>
+                <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Фамилия</label>
+                <input id="prof-surname" type="text" value="Соколова" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+              </div>
+              <div>
+                <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Дата рождения</label>
+                <input id="prof-birth" type="date" value="1952-03-14" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+              </div>
+              <div>
+                <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Пол</label>
+                <select id="prof-gender" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)">
+                  <option value="f" selected>Женский</option>
+                  <option value="m">Мужской</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Адрес -->
+        <div style="margin-top:14px">
+          <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Адрес проживания</label>
+          <input id="prof-address" type="text" value="г. Москва, ул. Тверская, д. 24, кв. 7" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+      </div>
+    </div>
+
+    <!-- Медицинские данные -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head"><span class="card-title">🏥 Медицинские данные</span></div>
+      <div class="card-body" style="padding:16px 20px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Рост, см</label>
+            <input id="prof-height" type="number" value="163" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Вес, кг</label>
+            <input id="prof-weight" type="number" value="68" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Группа крови</label>
+            <select id="prof-blood" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)">
+              <option>I (O)+</option><option selected>II (A)+</option><option>III (B)+</option><option>IV (AB)+</option>
+              <option>I (O)−</option><option>II (A)−</option><option>III (B)−</option><option>IV (AB)−</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Хронические заболевания</label>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px" id="diagnoses-list">
+            <span class="diag-chip">Гипертония II ст. <span onclick="removeDiag(this)" style="cursor:pointer;opacity:.6;margin-left:3px">×</span></span>
+            <span class="diag-chip">Сахарный диабет 2 типа <span onclick="removeDiag(this)" style="cursor:pointer;opacity:.6;margin-left:3px">×</span></span>
+            <span class="diag-chip">Артрит коленного сустава <span onclick="removeDiag(this)" style="cursor:pointer;opacity:.6;margin-left:3px">×</span></span>
+          </div>
+          <div style="display:flex;gap:8px">
+            <input id="new-diag" type="text" placeholder="Добавить диагноз..." style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'" onkeydown="if(event.key==='Enter')addDiag()">
+            <button onclick="addDiag()" style="padding:8px 14px;background:var(--stone);border:1.5px solid var(--border);border-radius:9px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">+</button>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Аллергии</label>
+          <input id="prof-allergies" type="text" value="Пенициллин, аспирин" placeholder="Нет" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Лечащий врач</label>
+          <input id="prof-doctor" type="text" value="Петров А.В., терапевт — 8 (495) 123-45-67" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+      </div>
+    </div>
+
+    <!-- Распорядок дня -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head"><span class="card-title">🕐 Распорядок дня</span><span style="font-size:11px;color:var(--mid)">ИИ использует для анализа отклонений</span></div>
+      <div class="card-body" style="padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Подъём</label>
+            <input id="sched-wake" type="time" value="08:30" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Отход ко сну</label>
+            <input id="sched-sleep" type="time" value="22:30" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Обед</label>
+            <input id="sched-lunch" type="time" value="13:00" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Прогулка</label>
+            <input id="sched-walk" type="time" value="10:00" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream)" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:5px">Дневной отдых</label>
+          <div style="display:flex;align-items:center;gap:10px">
+            <input type="checkbox" id="sched-nap" checked style="width:16px;height:16px;accent-color:var(--sage)">
+            <label for="sched-nap" style="font-size:13px;color:var(--ink)">Обычно отдыхает после обеда</label>
+            <input id="sched-nap-time" type="time" value="14:00" style="padding:7px 10px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream);width:110px" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--mid);display:block;margin-bottom:8px">Уровень мобильности</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="radio" name="mobility" value="high" style="accent-color:var(--sage)"> Активный</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="radio" name="mobility" value="mid" checked style="accent-color:var(--sage)"> Умеренный</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="radio" name="mobility" value="low" style="accent-color:var(--sage)"> Ограниченный</label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="radio" name="mobility" value="wheelchair" style="accent-color:var(--sage)"> Кресло-каталка</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Экстренные контакты -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head"><span class="card-title">🚨 Экстренные контакты</span><a class="card-link" onclick="addEmergencyContact()">+ Добавить</a></div>
+      <div class="card-body" style="padding:0" id="emergency-contacts">
+        <div class="dev" style="padding:14px 20px">
+          <div class="dev-ico" style="background:#fee2e2"><svg viewBox="0 0 24 24" style="stroke:#dc2626"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.1 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
+          <div style="flex:1">
+            <div class="dev-name">Мария Соколова (дочь)</div>
+            <div class="dev-status">+7 (905) 123-45-67 · Основной</div>
+          </div>
+          <span style="font-size:11px;background:#d1fae5;color:#065f46;padding:3px 10px;border-radius:20px;font-weight:600">SOS 1</span>
+        </div>
+        <div class="dev" style="padding:14px 20px">
+          <div class="dev-ico" style="background:#dbeafe"><svg viewBox="0 0 24 24" style="stroke:#2563eb"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.1 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
+          <div style="flex:1">
+            <div class="dev-name">Алексей Соколов (сын)</div>
+            <div class="dev-status">+7 (916) 987-65-43 · Резервный</div>
+          </div>
+          <span style="font-size:11px;background:#dbeafe;color:#1d4ed8;padding:3px 10px;border-radius:20px;font-weight:600">SOS 2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Особые указания -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-head"><span class="card-title">📝 Особые указания для ИИ</span></div>
+      <div class="card-body" style="padding:16px 20px">
+        <textarea id="prof-notes" style="width:100%;min-height:90px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream);resize:vertical;line-height:1.5" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--border)'" placeholder="Например: мама боится громких звуков, иногда путается в датах, предпочитает не беспокоить раньше 9 утра...">Иногда ходит медленнее из-за артрита. По вторникам обычно выходит в магазин около 11:00. Не любит когда звонят после 21:00. Важно: не поднимается на 5 этаж без лифта.</textarea>
+        <div style="font-size:11px;color:var(--mid);margin-top:6px">ИИ учитывает эти заметки при анализе отклонений от нормы</div>
+      </div>
+    </div>
+
+  </div>
+
+  <style>
+  .diag-chip{display:inline-flex;align-items:center;padding:5px 10px;background:var(--stone);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--ink)}
+  </style>
+
   <!-- ═══ FAMILY ═══ -->
   <div class="tab-pane" id="tab-family">
     <div class="page-header"><h2>Семья</h2><p>Родственники с доступом к кабинету</p></div>
@@ -1339,7 +1513,7 @@ const days=['Воскресенье','Понедельник','Вторник','
 const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 document.getElementById('current-date').textContent=`${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
 
-const pageTitles={dashboard:'Обзор',events:'История событий',map:'Карта',analytics:'Аналитика',ai:'ИИ-ассистент',meds:'Лекарства',devices:'Устройства',family:'Семья',settings:'Настройки'};
+const pageTitles={dashboard:'Обзор',events:'История событий',map:'Карта',analytics:'Аналитика',ai:'ИИ-ассистент',meds:'Лекарства',devices:'Устройства',profile:'Профиль',family:'Семья',settings:'Настройки'};
 
 // ── Tab switching ──
 function switchTab(name,el){
@@ -2336,6 +2510,88 @@ async function handleLogout(){
 </div>
 
 <script>
+// ── Profile module ──────────────────────────────────
+function saveProfile() {
+  const name = document.getElementById('prof-name')?.value || '';
+  const surname = document.getElementById('prof-surname')?.value || '';
+
+  // Обновляем заголовок профиля
+  const title = document.getElementById('prof-title');
+  if (title) title.textContent = 'Профиль ' + name;
+
+  // Обновляем аватар-эмодзи по полу
+  const gender = document.getElementById('prof-gender')?.value;
+  const avatar = document.getElementById('prof-avatar');
+  if (avatar) avatar.textContent = gender === 'm' ? '👴' : '👵';
+
+  // Сохраняем в localStorage
+  try {
+    const data = {
+      name, surname,
+      birth: document.getElementById('prof-birth')?.value,
+      gender,
+      address: document.getElementById('prof-address')?.value,
+      height: document.getElementById('prof-height')?.value,
+      weight: document.getElementById('prof-weight')?.value,
+      blood: document.getElementById('prof-blood')?.value,
+      allergies: document.getElementById('prof-allergies')?.value,
+      doctor: document.getElementById('prof-doctor')?.value,
+      wake: document.getElementById('sched-wake')?.value,
+      sleep: document.getElementById('sched-sleep')?.value,
+      notes: document.getElementById('prof-notes')?.value,
+    };
+    localStorage.setItem('da_profile', JSON.stringify(data));
+  } catch(e) {}
+
+  if (typeof showToast === 'function') {
+    showToast({ color:'green', title:'Профиль сохранён', sub:'ИИ обновит аналитику с учётом новых данных' });
+  }
+}
+
+function addDiag() {
+  const input = document.getElementById('new-diag');
+  const val = input?.value.trim();
+  if (!val) return;
+  const list = document.getElementById('diagnoses-list');
+  if (!list) return;
+  const chip = document.createElement('span');
+  chip.className = 'diag-chip';
+  chip.innerHTML = val + ' <span onclick="removeDiag(this)" style="cursor:pointer;opacity:.6;margin-left:3px">×</span>';
+  list.appendChild(chip);
+  input.value = '';
+}
+
+function removeDiag(el) {
+  el.parentElement?.remove();
+}
+
+function changeAvatar() {
+  const avatars = ['👵','🧓','👩','🧑'];
+  const el = document.getElementById('prof-avatar');
+  if (!el) return;
+  const idx = avatars.indexOf(el.textContent);
+  el.textContent = avatars[(idx + 1) % avatars.length];
+}
+
+function addEmergencyContact() {
+  const name = prompt('Имя и кем приходится (например: Анна, сестра)');
+  if (!name) return;
+  const phone = prompt('Номер телефона');
+  if (!phone) return;
+  const list = document.getElementById('emergency-contacts');
+  if (!list) return;
+  const count = list.querySelectorAll('.dev').length + 1;
+  const item = document.createElement('div');
+  item.className = 'dev';
+  item.style.padding = '14px 20px';
+  item.innerHTML = `
+    <div class="dev-ico" style="background:#f3f4f6"><svg viewBox="0 0 24 24" style="stroke:var(--mid)"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.1 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
+    <div style="flex:1"><div class="dev-name">${name}</div><div class="dev-status">${phone}</div></div>
+    <span style="font-size:11px;background:var(--stone);color:var(--mid);padding:3px 10px;border-radius:20px;font-weight:600">SOS ${count}</span>
+  `;
+  list.appendChild(item);
+}
+
 // ── Device Connection Flow ──────────────────────────
 let selectedDevice = {};
 
