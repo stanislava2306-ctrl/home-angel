@@ -198,6 +198,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
 .ob-alert.amber{background:#fef3c7;border:1px solid rgba(245,158,11,.2);color:#78350f;}
 .ob-alert svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;}
 
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.chip:focus-visible,.radio-option:focus-visible{outline:2px solid var(--sage);outline-offset:2px;}
+.ob-step.done{cursor:pointer;}
+.ob-step.done:hover .ob-step-title{color:#fff;}
+.field-error{border-color:#ef4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.12)!important;}
+.field-error-hint{font-size:12px;color:#b91c1c;margin-top:6px;}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+
 /* ─── Responsive ─── */
 @media(max-width:860px){
   .ob-wrap{grid-template-columns:1fr;}
@@ -728,7 +737,29 @@ const TOTAL = 5;
 
 const progressPct = [20, 40, 60, 80, 100];
 
+let nameHintShown = false;
 function goNext() {
+  // Мягкая проверка: имя близкого на шаге 2 (один раз подсветим, но не блокируем навсегда)
+  if (currentStep === 2 && !nameHintShown) {
+    const nameEl = document.getElementById('elder-name');
+    if (nameEl && !nameEl.value.trim()) {
+      nameHintShown = true;
+      nameEl.classList.add('field-error');
+      nameEl.focus();
+      if (!document.getElementById('name-hint')) {
+        const hint = document.createElement('div');
+        hint.className = 'field-error-hint';
+        hint.id = 'name-hint';
+        hint.textContent = 'Подскажите имя — так уведомления и отчёты будут персональными. Или нажмите «Продолжить» ещё раз, чтобы заполнить позже.';
+        nameEl.insertAdjacentElement('afterend', hint);
+      }
+      nameEl.addEventListener('input', () => {
+        nameEl.classList.remove('field-error');
+        document.getElementById('name-hint')?.remove();
+      }, { once: true });
+      return;
+    }
+  }
   if (currentStep < TOTAL) {
     setStep(currentStep + 1);
   } else {
@@ -781,13 +812,13 @@ function setStep(n) {
   }
   // Scroll right panel to top
   document.querySelector('.ob-right').scrollTop = 0;
+  saveDraft();
 }
 
 function selectRadio(el, group) {
-  document.querySelectorAll('.radio-option[data-group="' + group + '"], #step-' + currentStep + ' .radio-option').forEach(r => {
-    r.classList.remove('selected');
-  });
+  el.closest('.radio-group').querySelectorAll('.radio-option').forEach(r => r.classList.remove('selected'));
   el.classList.add('selected');
+  saveDraft();
 }
 
 function toggleChip(el, group) {
@@ -801,6 +832,7 @@ function toggleChip(el, group) {
     });
   }
   el.classList.toggle('selected');
+  saveDraft();
 }
 
 function addFamilyMember() {
@@ -853,7 +885,10 @@ function finish() {
     onboardingDone: true,
     completedAt: new Date().toISOString()
   };
-  try { localStorage.setItem('da_profile', JSON.stringify(profile)); } catch(e){}
+  try {
+    localStorage.setItem('da_profile', JSON.stringify(profile));
+    localStorage.removeItem('da_onboarding_draft');
+  } catch(e){}
 
   // Animate finish
   const btn = document.getElementById('btn-next');
@@ -862,6 +897,60 @@ function finish() {
   btn.disabled = true;
   setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
 }
+
+// ── Клик по пройденному шагу в сайдбаре возвращает к нему ──
+document.querySelectorAll('.ob-step').forEach(st => {
+  st.addEventListener('click', () => {
+    const n = parseInt(st.dataset.step);
+    if (st.classList.contains('done') || n < currentStep) setStep(n);
+  });
+});
+
+// ── Автосохранение черновика: данные не теряются при закрытии страницы ──
+const DRAFT_KEY = 'da_onboarding_draft';
+function saveDraft() {
+  try {
+    const d = { fields: {}, chips: [], radios: [] };
+    document.querySelectorAll('input[id], select[id], textarea[id]').forEach(el => {
+      if (el.type === 'checkbox') d.fields[el.id] = el.checked;
+      else d.fields[el.id] = el.value;
+    });
+    document.querySelectorAll('.chip').forEach((c, i) => { if (c.classList.contains('selected')) d.chips.push(i); });
+    document.querySelectorAll('.radio-option').forEach((r, i) => { if (r.classList.contains('selected')) d.radios.push(i); });
+    d.step = currentStep;
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+  } catch(e) {}
+}
+function restoreDraft() {
+  try {
+    const d = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
+    if (!d) return;
+    Object.entries(d.fields || {}).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.type === 'checkbox') el.checked = !!val;
+      else if (val) el.value = val;
+    });
+    const chips = document.querySelectorAll('.chip');
+    (d.chips || []).forEach(i => chips[i]?.classList.add('selected'));
+    const radios = document.querySelectorAll('.radio-option');
+    if (d.radios && d.radios.length) {
+      // Сбрасываем дефолтные выделения и применяем сохранённые
+      radios.forEach(r => r.classList.remove('selected'));
+      d.radios.forEach(i => radios[i]?.classList.add('selected'));
+    }
+    if (d.step && d.step > 1 && d.step <= TOTAL) setStep(d.step);
+    const un = document.getElementById('user-name');
+    if (un && un.value) un.dispatchEvent(new Event('input'));
+  } catch(e) {}
+}
+document.addEventListener('input', e => {
+  if (e.target.matches('input, select, textarea')) saveDraft();
+});
+document.addEventListener('change', e => {
+  if (e.target.matches('input, select, textarea')) saveDraft();
+});
+restoreDraft();
 
 // Auto-fill name from step 1 to family list
 document.getElementById('user-name').addEventListener('input', function() {
