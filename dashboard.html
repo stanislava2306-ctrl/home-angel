@@ -307,6 +307,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
   .metrics-row,.grid-main,.grid-2,.analytics-grid{grid-template-columns:1fr 1fr;}
   .topbar{padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));}
 }
+
+/* ── Polish ── */
+.tab-pane.active{animation:paneIn .26s ease;}
+@keyframes paneIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.content::-webkit-scrollbar{width:8px;}
+.content::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border-radius:8px;}
+.content::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.22);}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[onclick]:focus-visible{outline:2px solid var(--sage);outline-offset:2px;}
+.status-shield{animation:shieldPulse 3.2s ease-in-out infinite;}
+@keyframes shieldPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.16)}50%{box-shadow:0 0 0 12px rgba(255,255,255,0)}}
+.search-input{
+  width:100%;max-width:340px;padding:9px 14px 9px 36px;
+  border:1.5px solid var(--border);border-radius:50px;
+  font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);
+  background:var(--warm-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237a7a72' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") no-repeat 13px center;
+  outline:none;transition:border-color .2s;
+}
+.search-input:focus{border-color:var(--sage);}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
 </style>
 </head>
 <body>
@@ -371,7 +392,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
 <div class="main">
   <div class="topbar">
     <div class="tb-title" style="display:flex;align-items:center;gap:12px">
-      <button id="menu-toggle" onclick="toggleMobileSidebar()" style="display:none;background:none;border:1px solid var(--border);border-radius:8px;width:36px;height:36px;cursor:pointer;align-items:center;justify-content:center;flex-shrink:0">
+      <button id="menu-toggle" aria-label="Открыть меню" onclick="toggleMobileSidebar()" style="display:none;background:none;border:1px solid var(--border);border-radius:8px;width:36px;height:36px;cursor:pointer;align-items:center;justify-content:center;flex-shrink:0">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div><h2 id="page-title">Обзор</h2><p id="current-date"></p></div>
@@ -402,7 +423,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
         </div>
       </div>
       <!-- Notifications -->
-      <div class="notif-btn" onclick="toggleNotifPanel()" style="position:relative">
+      <div class="notif-btn" onclick="toggleNotifPanel()" role="button" tabindex="0" aria-label="Уведомления" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleNotifPanel();}" style="position:relative">
         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
         <div class="n-dot" id="notif-dot"></div>
       </div>
@@ -568,6 +589,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
   <!-- ═══ EVENTS ═══ -->
   <div class="tab-pane" id="tab-events">
     <div class="page-header"><h2>История событий</h2><p>Все зафиксированные события и уведомления</p></div>
+    <input type="search" id="events-search" class="search-input" placeholder="Поиск по событиям..." oninput="searchEvents()" style="margin-bottom:14px" aria-label="Поиск по событиям">
     <div class="events-filters">
       <button class="filter-btn active" onclick="filterEvents('all',this)">Все</button>
       <button class="filter-btn" onclick="filterEvents('red',this)">Тревоги</button>
@@ -1223,10 +1245,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
           <div class="ai-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
           <div>
             <div style="font-weight:600;font-size:14px">Домашний ангел ИИ</div>
-            <div style="font-size:11px;color:var(--mid);display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>Готов к работе</div>
+            <div id="ai-status-line" style="font-size:11px;color:var(--mid);display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>Готов к работе</div>
           </div>
         </div>
-        <button onclick="clearChat()" style="background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--mid);cursor:pointer;font-family:'DM Sans',sans-serif">Очистить</button>
+        <div style="display:flex;gap:8px">
+          <button onclick="openModal('aiKey')" style="background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--mid);cursor:pointer;font-family:'DM Sans',sans-serif" title="Подключить свой ключ OpenRouter">Ключ ИИ</button>
+          <button onclick="clearChat()" style="background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--mid);cursor:pointer;font-family:'DM Sans',sans-serif">Очистить</button>
+        </div>
       </div>
       <div class="ai-messages" id="ai-messages">
         <div class="ai-msg ai-msg-bot">
@@ -1241,7 +1266,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
       <div class="ai-key-notice" id="ai-config-notice" style="display:none!important"></div>
       <div class="ai-input-row">
         <input type="text" id="ai-input" placeholder="Задайте вопрос о состоянии Галины Ивановны..." onkeydown="if(event.key==='Enter')sendMessage()">
-        <button class="ai-send-btn" onclick="sendMessage()" id="ai-send-btn">
+        <button class="ai-send-btn" onclick="sendMessage()" id="ai-send-btn" aria-label="Отправить сообщение">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
@@ -1338,6 +1363,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
 
   /* ── Cards & grids ── */
   .metrics-row{grid-template-columns:1fr 1fr;gap:10px;}
+  .metrics-row .metric:last-child:nth-child(odd){grid-column:1/-1;}
   .grid-main{grid-template-columns:1fr;gap:12px;}
   .grid-2{grid-template-columns:1fr;gap:12px;}
   .analytics-grid{grid-template-columns:1fr;gap:12px;}
@@ -1512,7 +1538,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);d
 const now = new Date();
 const days=['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
 const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-document.getElementById('current-date').textContent=`${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+const greetH=now.getHours();
+const greeting=greetH<5?'Доброй ночи':greetH<12?'Доброе утро':greetH<18?'Добрый день':'Добрый вечер';
+document.getElementById('current-date').textContent=`${greeting} · ${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
 
 const pageTitles={dashboard:'Обзор',events:'История событий',map:'Карта',analytics:'Аналитика',ai:'ИИ-ассистент',meds:'Лекарства',devices:'Устройства',profile:'Профиль',family:'Семья',settings:'Настройки'};
 
@@ -1523,15 +1551,38 @@ function switchTab(name,el){
   document.querySelectorAll('.bn-item').forEach(i=>i.classList.remove('active'));
   const tab=document.getElementById('tab-'+name);
   if(tab)tab.classList.add('active');
+  if(!el)el=document.querySelector(`.sb-item[onclick*="'${name}'"]`);
   if(el)el.classList.add('active');
   // Sync bottom nav
   const bn=document.querySelector(`.bn-item[data-tab="${name}"]`);
   if(bn)bn.classList.add('active');
   document.getElementById('page-title').textContent=pageTitles[name]||name;
   document.querySelector('.content').scrollTop=0;
+  try{history.replaceState(null,'','#'+name);}catch(e){}
   closeAllPanels();
   closeMobileSidebar();
 }
+
+// ── Восстановление вкладки из URL (#analytics, #meds и т.д.) ──
+window.addEventListener('DOMContentLoaded',()=>{
+  const name=(location.hash||'').replace('#','');
+  if(name&&name!=='dashboard'&&document.getElementById('tab-'+name))switchTab(name,null);
+});
+window.addEventListener('hashchange',()=>{
+  const n=(location.hash||'').replace('#','');
+  if(n&&document.getElementById('tab-'+n)&&!document.getElementById('tab-'+n).classList.contains('active'))switchTab(n,null);
+});
+
+// ── Esc закрывает модалы и панели ──
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    try{closeModal();}catch(_){}
+    try{closeAddMed();}catch(_){}
+    try{closeConnectDevice();}catch(_){}
+    try{closeAllPanels();}catch(_){}
+    try{closeMobileSidebar();}catch(_){}
+  }
+});
 
 // ── Mobile sidebar ──
 function toggleMobileSidebar(){
@@ -1553,6 +1604,7 @@ function toggleProfileMenu(){
 const profiles = {
   'Галина Ивановна (мама)': {
     name: 'Галина Ивановна',
+    nameGen: 'Галины Ивановны',
     relation: 'Мама',
     status: '✓ Всё в порядке',
     statusColor: 'var(--sage)',
@@ -1577,6 +1629,7 @@ const profiles = {
   },
   'Сергей Иванович (папа)': {
     name: 'Сергей Иванович',
+    nameGen: 'Сергея Ивановича',
     relation: 'Папа',
     status: '📍 На прогулке',
     statusColor: '#2563eb',
@@ -1655,7 +1708,7 @@ function selectProfile(name, status, e) {
 
   // Заголовок лекарств
   const medsTitle = document.querySelector('#tab-meds .card-head .card-title');
-  if (medsTitle) medsTitle.textContent = 'Препараты ' + p.name.split(' ')[0] + ' ' + p.name.split(' ')[1];
+  if (medsTitle) medsTitle.textContent = 'Препараты ' + (p.nameGen || p.name);
 
   // Счётчик лекарств
   const medsTaken = document.getElementById('meds-taken-today');
@@ -1699,24 +1752,68 @@ document.addEventListener('click',e=>{
     document.getElementById('profile-menu').style.display='none';
 });
 
-// ── Filters ──
+// ── Filters + search ──
+let currentEventFilter='all';
 function filterEvents(type,btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  currentEventFilter=type;
+  document.querySelectorAll('.events-filters .filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.event-full-row').forEach(row=>{
-    if(type==='all')row.style.display='flex';
-    else row.style.display=row.dataset.type===type?'flex':'none';
+  applyEventFilters();
+}
+function searchEvents(){applyEventFilters();}
+function applyEventFilters(){
+  const q=(document.getElementById('events-search')?.value||'').trim().toLowerCase();
+  let visible=0;
+  document.querySelectorAll('#events-list .event-full-row, #events-list .ev-row').forEach(row=>{
+    const typeOk=currentEventFilter==='all'||row.dataset.type===currentEventFilter;
+    const textOk=!q||row.textContent.toLowerCase().includes(q);
+    const show=typeOk&&textOk;
+    row.style.display=show?'flex':'none';
+    if(show)visible++;
   });
+  let empty=document.getElementById('events-empty');
+  if(!visible){
+    if(!empty){
+      empty=document.createElement('div');
+      empty.id='events-empty';
+      empty.style.cssText='padding:40px 20px;text-align:center;color:var(--mid);font-size:14px';
+      empty.innerHTML='Ничего не найдено.<br><span style="font-size:12px">Попробуйте изменить запрос или фильтр.</span>';
+      document.getElementById('events-list').appendChild(empty);
+    }
+    empty.style.display='block';
+  }else if(empty){empty.style.display='none';}
 }
 function setPeriod(p,btn){
-  document.querySelectorAll('.page-header .filter-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#tab-analytics .page-header .filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  // Swap data based on period
   const data={
-    week:{bars:[55,70,32,78,91,65,87],score:87,label:'из 100 — хорошо',bar:'87%'},
-    month:{bars:[60,55,72,80,45,68,90,77,65,82,70,88,55,75,85,78,63,70,85,92,77,80,68,72,88,90,75,82,70,77],score:79,label:'из 100 — норма',bar:'79%'}
+    week:{bars:[55,70,32,78,91,65,87],labels:['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
+      modals:['day-mon','day-tue','day-wed','day-thu','day-fri','day-sat','day-sun'],
+      score:87,label:'из 100 — хорошо',bar:'87%'},
+    month:{bars:[60,55,72,80,45,68,90,77,65,82,70,88,55,75,85,78,63,70,85,92,77,80,68,72,88,90,75,82,70,77],
+      score:79,label:'из 100 — норма',bar:'79%'}
   };
   const d=data[p];
+  const chart=document.getElementById('analytics-chart');
+  const labels=document.querySelector('#tab-analytics .week-labels');
+  if(chart){
+    chart.innerHTML='';
+    chart.style.gap=p==='month'?'3px':'6px';
+    d.bars.forEach((v,i)=>{
+      const col=document.createElement('div');col.className='bar-col';
+      const bar=document.createElement('div');
+      bar.className='bar '+(v>80?'high':v>=50?'mid-bar':'low');
+      bar.style.height=v+'%';
+      bar.title=(d.labels?d.labels[i]:'День '+(i+1))+' · '+v+'%';
+      if(d.modals){col.style.cursor='pointer';col.onclick=()=>openModal(d.modals[i]);}
+      col.appendChild(bar);chart.appendChild(col);
+    });
+  }
+  if(labels){
+    labels.innerHTML='';
+    const ls=d.labels||d.bars.map((_,i)=>((i+1)%5===0||i===0)?String(i+1):'');
+    ls.forEach(t=>{const s=document.createElement('div');s.className='week-lbl';s.textContent=t;labels.appendChild(s);});
+  }
   document.getElementById('score-num').textContent=d.score;
   document.getElementById('score-label').textContent=d.label;
   document.getElementById('score-bar').style.width=d.bar;
@@ -1755,6 +1852,8 @@ const modals={
   inviteFamily:{title:'Пригласить родственника',body:`<p style="color:var(--mid);font-size:13px;margin-bottom:16px">Введите email — придёт приглашение. Осталось 3 места.</p><div style="display:flex;flex-direction:column;gap:12px"><input type="email" placeholder="email@example.com" style="width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none"><select style="width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;background:var(--cream)"><option>Только уведомления</option><option>Полный доступ</option></select><button onclick="openModal('saved')" style="width:100%;padding:11px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer">Отправить приглашение</button></div>`},
   'member-maria':{title:'Мария Соколова',body:`<div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Роль</span><strong>Дочь · Администратор</strong></div><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Доступ</span><strong>Полный</strong></div><div style="display:flex;justify-content:space-between;padding:10px 0;font-size:14px"><span style="color:var(--mid)">Статус</span><strong style="color:var(--sage)">Онлайн</strong></div></div>`},
   'member-alexey':{title:'Алексей Соколов',body:`<div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Роль</span><strong>Брат</strong></div><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Доступ</span><strong>Только уведомления</strong></div><div style="display:flex;justify-content:space-between;padding:10px 0;font-size:14px"><span style="color:var(--mid)">Статус</span><strong style="color:var(--sage)">Онлайн</strong></div></div><button onclick="closeModal()" style="margin-top:16px;width:100%;padding:10px;background:var(--stone);border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;color:var(--red)">Удалить из семьи</button>`},
+  aiKey:{title:'Подключение ИИ',body:`<p style="color:var(--mid);font-size:13px;line-height:1.65;margin-bottom:14px">Вставьте ваш ключ OpenRouter — он сохранится <strong>только в этом браузере</strong> и используется напрямую для запросов к ИИ. Без ключа ассистент работает в демо-режиме: отвечает на основе данных системы.</p><input type="password" id="or-key-input" placeholder="sk-or-v1-..." autocomplete="off" style="width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-bottom:12px"><div style="display:flex;gap:10px"><button onclick="saveAiKeyFromModal()" style="flex:1;padding:11px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer">Сохранить</button><button onclick="removeAiKey()" style="flex:1;padding:11px;background:var(--stone);border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;color:var(--mid)">Отключить</button></div><a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="display:block;margin-top:12px;font-size:12px;color:var(--sage);text-decoration:none">Получить бесплатный ключ на openrouter.ai →</a>`},
+  addContact:{title:'Экстренный контакт',body:`<p style="color:var(--mid);font-size:13px;margin-bottom:14px">Контакт получит SMS и звонок при нажатии кнопки SOS.</p><div style="display:flex;flex-direction:column;gap:12px"><input type="text" id="ec-name" placeholder="Имя и кем приходится (Анна, сестра)" style="width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none"><input type="tel" id="ec-phone" placeholder="+7 (___) ___-__-__" style="width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none"><button onclick="saveContact()" style="width:100%;padding:11px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer">Добавить контакт</button></div>`},
   saved:{title:'Готово',body:`<div style="text-align:center;padding:8px 0"><div style="font-size:40px;margin-bottom:12px">✓</div><p style="font-size:15px;color:var(--ink);font-weight:500;margin-bottom:6px">Сохранено!</p><p style="font-size:13px;color:var(--mid)">Изменения применены успешно.</p><button onclick="closeModal()" style="margin-top:20px;padding:10px 28px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer">Закрыть</button></div>`}
 };
 
@@ -1763,6 +1862,10 @@ function openModal(key){
   document.getElementById('modal-title').textContent=m.title;
   document.getElementById('modal-body').innerHTML=m.body;
   document.getElementById('modal-overlay').style.display='flex';
+  if(key==='aiKey'){
+    const i=document.getElementById('or-key-input');
+    if(i&&getOrKey())i.placeholder='Ключ сохранён · вставьте новый для замены';
+  }
 }
 function closeModal(){document.getElementById('modal-overlay').style.display='none';}
 function simulateCall(btn){
@@ -1771,21 +1874,33 @@ function simulateCall(btn){
 }
 
 // ── AI ──
-const SUPABASE_URL='https://ntvrlegynsciyjyzbsq.supabase.co';
-const SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMTQyMjQsImV4cCI6MjA4NzY5MDIyNH0.YZyKOESVamzPk7QM3pivANwkj4a7Us1X0JkKC7FUEd0';
+// Ключ OpenRouter хранится только в браузере пользователя (localStorage)
+// и никогда не публикуется в коде. Без ключа работает офлайн-анализ.
+function getOrKey(){try{return localStorage.getItem('da_or_key')||'';}catch(e){return '';}}
+function setOrKey(k){try{k?localStorage.setItem('da_or_key',k):localStorage.removeItem('da_or_key');}catch(e){}updateAiStatus();}
+function updateAiStatus(){
+  const el=document.getElementById('ai-status-line');
+  if(!el)return;
+  el.innerHTML=getOrKey()
+    ?'<span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>Онлайн · подключён к ИИ'
+    :'<span style="width:6px;height:6px;background:var(--gold);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>Демо-режим · офлайн-анализ';
+}
+function saveAiKeyFromModal(){
+  const v=document.getElementById('or-key-input')?.value.trim()||'';
+  if(!v){document.getElementById('or-key-input')?.focus();return;}
+  setOrKey(v);closeModal();
+  if(typeof showToast==='function')showToast({color:'green',title:'Ключ ИИ подключён',sub:'Ассистент работает в онлайн-режиме'});
+}
+function removeAiKey(){
+  setOrKey('');closeModal();
+  if(typeof showToast==='function')showToast({color:'blue',title:'Ключ отключён',sub:'Ассистент перешёл в демо-режим'});
+}
+window.addEventListener('DOMContentLoaded',updateAiStatus);
 const systemPrompt=`Ты — ИИ-ассистент системы «Домашний ангел». Отвечай тепло и по-человечески на русском языке.
 Данные: Галина Ивановна, 72 года. Активность: 55,70,32,78,91,65,87%. Сон: 7.2,7.8,5.8,7.9,7.5,8.1,7.4ч. Балл: 87/100. Дома. Заряд часов 84%. Уведомлений за неделю: 2. Датчик газа: низкий заряд.`;
 let chatHistory=[];
-let supabaseClient=null;
-async function initSupabase(){
-  try{
-    const{createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
-    supabaseClient=createClient(SUPABASE_URL,SUPABASE_ANON);
-  }catch(e){}
-}
-initSupabase();
 function clearChat(){chatHistory=[];document.getElementById('ai-messages').innerHTML=`<div class="ai-msg ai-msg-bot"><div class="ai-msg-avatar bot-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/></svg></div><div class="ai-msg-bubble bot-bubble"><p>Чат очищен. Чем могу помочь?</p></div></div>`;}
-function addUserMsg(t){const m=document.getElementById('ai-messages');const d=document.createElement('div');d.className='ai-msg ai-msg-user';d.innerHTML=`<div class="ai-msg-bubble user-bubble"><p>${t.replace(/</g,'&lt;')}</p></div><div class="ai-msg-avatar user-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>`;m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function addUserMsg(t){const m=document.getElementById('ai-messages');const d=document.createElement('div');d.className='ai-msg ai-msg-user';d.innerHTML=`<div class="ai-msg-bubble user-bubble"><p>${t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</p></div><div class="ai-msg-avatar user-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>`;m.appendChild(d);m.scrollTop=m.scrollHeight;}
 function addBotMsg(html){const m=document.getElementById('ai-messages');const d=document.createElement('div');d.className='ai-msg ai-msg-bot';d.innerHTML=`<div class="ai-msg-avatar bot-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/></svg></div><div class="ai-msg-bubble bot-bubble">${html}</div>`;m.appendChild(d);m.scrollTop=m.scrollHeight;return d;}
 function showTyping(){const m=document.getElementById('ai-messages');const d=document.createElement('div');d.className='ai-msg ai-msg-bot';d.id='typing';d.innerHTML=`<div class="ai-msg-avatar bot-av"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/></svg></div><div class="ai-msg-bubble bot-bubble ai-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;m.appendChild(d);m.scrollTop=m.scrollHeight;}
 function removeTyping(){const t=document.getElementById('typing');if(t)t.remove();}
@@ -1804,40 +1919,117 @@ async function askAI(msg){
 Отвечай конкретно по этому человеку, используй его имя.`;
 
   chatHistory.push({role:'user',content:msg});
-  try{
-    const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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',
-        'HTTP-Referer': 'https://stanislava2306-ctrl.github.io',
-        'X-Title': 'Domashny Angel'
-      },
-      body: JSON.stringify({
-        model: 'meta-llama/llama-3.1-8b-instruct:free',
-        messages: [
-          {role:'system', content: contextPrompt},
-          ...chatHistory
-        ],
-        max_tokens: 800,
-        temperature: 0.7
-      })
-    });
-    const d = await r.json();
-    if(!r.ok || d.error){
-      removeTyping();
-      addBotMsg(`<p style="color:var(--red)">${d.error?.message || 'Ошибка ' + r.status}</p>`);
-      chatHistory.pop(); btn.disabled=false; return;
-    }
-    const reply = d.choices?.[0]?.message?.content || 'Нет ответа';
-    chatHistory.push({role:'assistant', content:reply});
-    removeTyping(); addBotMsg(fmtReply(reply));
-  }catch(e){
-    removeTyping();
-    addBotMsg('<p style="color:var(--red)">Ошибка: ' + e.message + '</p>');
-    chatHistory.pop();
+
+  const key=getOrKey();
+  if(key){
+    try{
+      const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + key,
+          'HTTP-Referer': 'https://stanislava2306-ctrl.github.io',
+          'X-Title': 'Domashny Angel'
+        },
+        body: JSON.stringify({
+          model: 'meta-llama/llama-3.1-8b-instruct:free',
+          messages: [{role:'system', content: contextPrompt}, ...chatHistory],
+          max_tokens: 800,
+          temperature: 0.7
+        })
+      });
+      const d = await r.json();
+      const reply = d.choices?.[0]?.message?.content;
+      if(r.ok && !d.error && reply){
+        chatHistory.push({role:'assistant', content:reply});
+        removeTyping(); addBotMsg(fmtReply(reply));
+        btn.disabled=false; return;
+      }
+    }catch(e){ /* падаем в офлайн-режим ниже */ }
   }
+
+  // ── Офлайн-анализ: ассистент работает всегда, даже без ключа и сети ──
+  await new Promise(res=>setTimeout(res, 650+Math.random()*650));
+  const reply = localAI(msg, p);
+  chatHistory.push({role:'assistant', content:reply});
+  removeTyping();
+  addBotMsg(fmtReply(reply)+'<div style="margin-top:10px;font-size:10px;color:var(--mid);opacity:.75">Офлайн-анализ по данным системы · для развёрнутых ответов подключите ключ ИИ (кнопка «Ключ ИИ» вверху)</div>');
   btn.disabled=false;
+}
+
+// ── Локальный ассистент: осмысленные ответы на основе данных профиля ──
+function localAI(msg, p){
+  const m=msg.toLowerCase();
+  const fem = p.relation==='Мама';
+  const she = fem?'она':'он', her = fem?'её':'его';
+  const verb = s => fem ? s : s.replace(/ла\b/g,'л');
+  const gen = p.nameGen || p.name;
+
+  if(/отч[её]т|свод|недел|итог/.test(m)) return `**Отчёт за неделю — ${p.name}**
+
+**Активность:** текущий балл ${p.activity} — хороший уровень. Лучший день — пятница (91%), самый спокойный — среда (32%, короткий сон накануне).
+
+**Сон:** в среднем ${p.sleep} за ночь, режим стабильный — засыпание около 22:30, подъём 07:00–07:30.
+
+**Прогулки:** 3 из 7 дней — ниже рекомендуемых 5. Стоит мягко предложить выходить чаще.
+
+**Безопасность:** тревожных событий 0. Сейчас ${she} ${p.loc.toLowerCase()}, часы заряжены на ${p.battery}.
+
+**Лекарства:** ${p.medsStatus}, соблюдение за месяц 97%.
+
+Итог: неделя спокойная, серьёзных отклонений нет.`;
+
+  if(/риск|беспоко|опас|тревож|вниман|проблем/.test(m)) return `Честно о том, что требует внимания у ${gen}:
+
+1. **Прогулки реже нормы** — 3 из 7 дней. Это главный фактор: регулярное движение напрямую влияет на самочувствие.
+2. **Среда выбивается** — активность 32% и сон всего 5.8ч. Один такой день не страшен, но если повторится — лучше позвонить и спросить о самочувствии.
+3. **Датчик газа** — заряд батарейки 12%, нужна замена CR2032 в ближайшие дни.
+
+Критичных рисков нет: SOS-связь активна, часы заряжены на ${p.battery}, режим дня стабильный.`;
+
+  if(/рекоменд|совет|что (с)?делать|улучшить/.test(m)) return `Три конкретные рекомендации на эту неделю для ${gen}:
+
+1. **Прогулки** — предложите выходить хотя бы на 20–30 минут в дни без планов. Можно привязать к приятному поводу: магазин, лавочка в парке, звонок во время прогулки.
+2. **Замените батарейку в датчике газа** (CR2032, заряд 12%) — занимает минуту, продаётся в любом супермаркете.
+3. **Следите за «средами»** — если снова будет день с низкой активностью и коротким сном, позвоните и уточните самочувствие. Лучше один лишний звонок, чем пропущенный сигнал.`;
+
+  if(/сон|спал|спит|высып/.test(m)) return `Сон у ${gen} в хорошей форме: в среднем **${p.sleep}** за ночь — это норма для ${her} возраста.
+
+По дням недели: Пн 7.2ч, Вт 7.8ч, Ср 5.8ч (короткая ночь), Чт 7.9ч, Пт 7.5ч, Сб 8.1ч, Вс 7.4ч.
+
+Режим стабильный: засыпание в 22:15–22:40, подъём около 07:00. Единственный сбой — среда, но ${she} ${verb('компенсировала')} это в следующие ночи.`;
+
+  if(/активн|шаг|движ|прогул|гуля/.test(m)) return `Активность ${gen} сегодня — **${p.activity}**, это хороший показатель.
+
+За неделю: Пн 55%, Вт 70%, Ср 32%, Чт 78%, Пт 91%, Сб 65%, сегодня ${p.activity}.
+
+Сейчас ${she} ${p.loc.toLowerCase()}. Прогулки были 3 из 7 дней — стоит постараться довести до 5: это лучшее, что можно сделать для здоровья в ${her} возрасте.`;
+
+  if(/лекарств|таблет|препарат|при[её]м|витамин/.test(m)) return `По лекарствам у ${gen}:
+
+**Принимает:** ${p.meds}.
+**Сегодня:** ${p.medsStatus}.
+**Соблюдение за месяц:** 97% — отличный показатель.
+
+${fem?'⚠ Конкор заканчивается — осталось примерно на 4 дня, лучше купить в ближайшие 2 дня.':'Запасы препаратов в норме.'} Полное расписание — во вкладке «Лекарства».`;
+
+  if(/батаре|заряд|час(ы|ов)|устройств|датчик/.test(m)) return `Состояние устройств:
+
+• **GPS-часы** — онлайн, заряд ${p.battery}. ${parseInt(p.battery)<30?'Стоит поставить на зарядку.':'Хватит до вечера, заряжайте на ночь.'}
+• **Датчики движения (×2)** — активны, работают штатно.
+• **Датчик двери и воды** — норма.
+• **⚠ Датчик газа** — заряд батарейки 12%, замените CR2032 в ближайшие дни.
+• **Zigbee-хаб** — онлайн, uptime 99.8%.`;
+
+  if(/где|местополож|карт|наход/.test(m)) return `${p.name} сейчас ${p.loc.toLowerCase()} — ${p.time.toLowerCase()}. ${fem?'Адрес: ул. Ленина 24, кв. 7.':''} Точность GPS ±12 м, данные обновляются автоматически. Посмотреть на карте можно во вкладке «Карта».`;
+
+  if(/привет|здравств|добр(ый|ое|ой)|спасибо|благодар/.test(m)) return `Здравствуйте! Рад помочь. У ${gen} сейчас всё в порядке: ${she} ${p.loc.toLowerCase()}, активность ${p.activity}, тревожных событий нет.
+
+Могу составить отчёт за неделю, разобрать риски или дать рекомендации — спросите или нажмите быструю кнопку выше.`;
+
+  return `По данным системы у ${p.name} сейчас всё спокойно: ${she} ${p.loc.toLowerCase()}, активность ${p.activity}, сон ${p.sleep}, часы заряжены на ${p.battery}.
+
+Я могу подробно рассказать про **сон**, **активность**, **лекарства**, **устройства** или **местоположение**, а также составить **отчёт за неделю** — просто спросите.`;
 }
 function openFullReport() {
   const p = profiles[activeProfile] || profiles['Галина Ивановна (мама)'];
@@ -2013,25 +2205,25 @@ function confirmMed(id, name) {
 function markBought() {
   const btn = event.target;
   const banner = btn.closest('[style*="background:#fef3c7"]');
-  if (banner) {
-    banner.style.background = '#d1fae5';
-    banner.style.borderColor = '#6ee7b7';
-    banner.querySelector('div').innerHTML = '<div style="font-size:13px;font-weight:600;color:#065f46;margin-bottom:4px">Конкор куплен ✓</div><div style="font-size:12px;color:#047857">Отлично! Счётчик обновлён.</div>';
-    const lowCount = document.getElementById('meds-low-count');
-    if (lowCount) lowCount.textContent = '0';
-  }
+  applyBoughtBanner(banner);
+  try { localStorage.setItem('da_konkor_bought','1'); } catch(e) {}
+}
+function applyBoughtBanner(banner) {
+  if (!banner) return;
+  banner.style.background = '#d1fae5';
+  banner.style.borderColor = '#6ee7b7';
+  banner.querySelector('div').innerHTML = '<div style="font-size:13px;font-weight:600;color:#065f46;margin-bottom:4px">Конкор куплен ✓</div><div style="font-size:12px;color:#047857">Отлично! Счётчик обновлён.</div>';
+  const lowCount = document.getElementById('meds-low-count');
+  if (lowCount) lowCount.textContent = '0';
 }
 
-function saveMed() {
-  const name  = document.getElementById('new-med-name').value.trim();
-  const dose  = document.getElementById('new-med-dose').value.trim();
-  const count = document.getElementById('new-med-count').value.trim();
-  if (!name) { document.getElementById('new-med-name').focus(); return; }
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-  const times = [...document.querySelectorAll('.time-chip.selected')].map(c => c.textContent).join(', ');
-  const list  = document.getElementById('meds-list');
-  const id    = 'med-' + Date.now();
-
+function renderMedItem(data) {
+  const list = document.getElementById('meds-list');
+  if (!list) return;
+  const id = data.id;
+  const name = escHtml(data.name), dose = escHtml(data.dose||''), count = escHtml(data.count||''), times = escHtml(data.times||'');
   const item = document.createElement('div');
   item.className = 'med-item';
   item.id = id;
@@ -2048,21 +2240,54 @@ function saveMed() {
         ${count ? `<div style="font-size:11px;color:var(--mid)">Осталось: ${count} шт.</div>` : ''}
       </div>
     </div>
-    <button onclick="confirmMed('${id}','${name}')" style="width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center">
+    <button onclick="confirmMed('${id}','${name}')" title="Отметить приём" style="width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
     </button>
   `;
   list.appendChild(item);
-  closeAddMed();
-
-  // Обновляем счётчик
+  // Обновляем знаменатель счётчика
   const counter = document.getElementById('meds-taken-today');
   if (counter) {
     const parts = counter.textContent.split('/');
     counter.textContent = parts[0] + '/' + (parseInt(parts[1]) + 1);
   }
+}
+
+function saveMed() {
+  const name  = document.getElementById('new-med-name').value.trim();
+  const dose  = document.getElementById('new-med-dose').value.trim();
+  const count = document.getElementById('new-med-count').value.trim();
+  if (!name) { document.getElementById('new-med-name').focus(); return; }
+
+  const times = [...document.querySelectorAll('.time-chip.selected')].map(c => c.textContent).join(', ');
+  const data = { id: 'med-' + Date.now(), name, dose, count, times };
+  renderMedItem(data);
+  // Сохраняем — лекарство останется после перезагрузки
+  try {
+    const saved = JSON.parse(localStorage.getItem('da_meds') || '[]');
+    saved.push(data);
+    localStorage.setItem('da_meds', JSON.stringify(saved));
+  } catch(e) {}
+  closeAddMed();
+  document.getElementById('new-med-name').value='';
+  document.getElementById('new-med-dose').value='';
+  document.getElementById('new-med-count').value='';
   showToast && showToast({ color:'blue', title: name + ' добавлен', sub: 'Расписание настроено' });
 }
+
+// ── Восстановление сохранённых лекарств и статусов ──
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    const saved = JSON.parse(localStorage.getItem('da_meds') || '[]');
+    saved.forEach(renderMedItem);
+  } catch(e) {}
+  try {
+    if (localStorage.getItem('da_konkor_bought') === '1') {
+      const btn = document.querySelector('button[onclick="markBought()"]');
+      applyBoughtBanner(btn?.closest('[style*="background:#fef3c7"]'));
+    }
+  } catch(e) {}
+});
 
 // Уведомление о лекарствах — через 45 мин после открытия
 setTimeout(() => {
@@ -2206,6 +2431,7 @@ async function handleLogout(){
     if (fullList) {
       const row2 = document.createElement('div');
       row2.className = 'ev-row';
+      row2.dataset.type = ev.color === 'blue' ? 'green' : ev.color;
       row2.style.cssText = 'animation:fadeSlideIn .4s ease;';
       row2.innerHTML = `
         <div class="ev-dot ${ev.color}"></div>
@@ -2365,6 +2591,10 @@ async function handleLogout(){
 
   // ── Запрашиваем разрешение через 8 секунд ────────────
   setTimeout(requestPushPermission, 8000);
+
+  // ── Делаем функции доступными всему приложению ──────
+  window.showToast = showToast;
+  window.sendPush  = sendPush;
 
   // ── Запуск: первое событие через 20 секунд ──────────
   setTimeout(tick, 20000);
@@ -2575,22 +2805,30 @@ function changeAvatar() {
 }
 
 function addEmergencyContact() {
-  const name = prompt('Имя и кем приходится (например: Анна, сестра)');
-  if (!name) return;
-  const phone = prompt('Номер телефона');
-  if (!phone) return;
+  openModal('addContact');
+}
+
+function saveContact() {
+  const nameEl = document.getElementById('ec-name');
+  const phoneEl = document.getElementById('ec-phone');
+  const name = nameEl?.value.trim() || '';
+  const phone = phoneEl?.value.trim() || '';
+  if (!name) { nameEl?.focus(); return; }
+  if (!phone) { phoneEl?.focus(); return; }
   const list = document.getElementById('emergency-contacts');
-  if (!list) return;
+  if (!list) { closeModal(); return; }
   const count = list.querySelectorAll('.dev').length + 1;
   const item = document.createElement('div');
   item.className = 'dev';
-  item.style.padding = '14px 20px';
+  item.style.cssText = 'padding:14px 20px;animation:fadeSlideIn .35s ease';
   item.innerHTML = `
     <div class="dev-ico" style="background:#f3f4f6"><svg viewBox="0 0 24 24" style="stroke:var(--mid)"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.1 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
-    <div style="flex:1"><div class="dev-name">${name}</div><div class="dev-status">${phone}</div></div>
+    <div style="flex:1"><div class="dev-name">${name.replace(/</g,'&lt;')}</div><div class="dev-status">${phone.replace(/</g,'&lt;')}</div></div>
     <span style="font-size:11px;background:var(--stone);color:var(--mid);padding:3px 10px;border-radius:20px;font-weight:600">SOS ${count}</span>
   `;
   list.appendChild(item);
+  closeModal();
+  if (typeof showToast === 'function') showToast({ color:'green', title:'Контакт добавлен', sub: name + ' · ' + phone });
 }
 
 // ── Device Connection Flow ──────────────────────────
