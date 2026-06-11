@@ -496,6 +496,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
   .review-stat-divider{width:auto;height:1px;align-self:auto;}
 }
 </style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   window.YM_ID = 'YM_COUNTER_ID';
+   if (/^\d+$/.test(window.YM_ID)) {
+     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+     m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+     ym(+window.YM_ID, "init", {clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});
+   }
+   window.ymGoal = function(g){ try{ if(/^\d+$/.test(String(window.YM_ID||''))) ym(+window.YM_ID,'reachGoal',g); }catch(e){} };
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/YM_COUNTER_ID" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -1258,10 +1271,12 @@ function toggleFaq(item) {
 </style>
 
 <script>
-const SUPABASE_URL='https://ntvrlegynsciyjyzbsq.supabase.co';
-const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMTQyMjQsImV4cCI6MjA4NzY5MDIyNH0.YZyKOESVamzPk7QM3pivANwkj4a7Us1X0JkKC7FUEd0';
+// ── Доставка заявок в Telegram: создайте бота у @BotFather и впишите данные ──
+const TG_BOT_TOKEN = 'TG_BOT_TOKEN_HERE';   // токен вида 123456:ABC-DEF...
+const TG_CHAT_ID   = 'TG_CHAT_ID_HERE';     // ваш chat_id (узнать: @userinfobot)
 
 function openLeadModal(interest) {
+  if (window.ymGoal) ymGoal('BUY_CLICK');
   document.getElementById('lead-overlay').style.display = 'flex';
   document.body.style.overflow = 'hidden';
   if (typeof interest === 'string' && interest) {
@@ -1310,28 +1325,33 @@ async function submitLead(e) {
   btn.disabled = true;
   btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="animation:spin .8s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Отправляем...';
 
+  // Локальная копия заявки (резерв)
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify(data)
-    });
+    const ls = JSON.parse(localStorage.getItem('da_leads') || '[]');
+    ls.push(data); localStorage.setItem('da_leads', JSON.stringify(ls));
+  } catch(e){}
 
-    if (res.ok || res.status === 201) {
-      document.getElementById('lead-form').style.display = 'none';
-      document.getElementById('lead-success').style.display = 'block';
-    } else {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || 'Ошибка сервера ' + res.status);
+  try {
+    if (TG_BOT_TOKEN && !TG_BOT_TOKEN.includes('HERE')) {
+      const text = '🔔 Новая заявка — Домашний ангел\n'
+        + '👤 ' + data.name + '\n'
+        + '📞 ' + data.phone + '\n'
+        + (data.email ? '✉️ ' + data.email + '\n' : '')
+        + '🛒 ' + (data.interest || '—') + '\n'
+        + (data.comment ? '💬 ' + data.comment + '\n' : '')
+        + '🌐 ' + (document.referrer || 'прямой заход') + ' · ' + location.search;
+      await fetch('https://api.telegram.org/bot' + TG_BOT_TOKEN + '/sendMessage', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({chat_id: TG_CHAT_ID, text})
+      });
     }
+    if (window.ymGoal) ymGoal('LEAD');
+    document.getElementById('lead-form').style.display = 'none';
+    document.getElementById('lead-success').style.display = 'block';
   } catch(err) {
-    // Fallback: show success anyway (mailto fallback)
-    console.warn('Supabase error:', err.message);
+    console.warn('Lead delivery:', err.message);
+    if (window.ymGoal) ymGoal('LEAD');
     document.getElementById('lead-form').style.display = 'none';
     document.getElementById('lead-success').style.display = 'block';
   } finally {
