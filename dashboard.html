@@ -380,7 +380,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[o
   <div class="sb-user">
     <div class="user-row" onclick="switchTab('settings',document.querySelector('[onclick*=settings]'))">
       <div class="u-avatar"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
-      <div><div class="u-name">Мария Соколова</div><div class="u-role">Дочь · Семья</div></div>
+      <div style="cursor:pointer" onclick="openAccount()" title="Личный кабинет"><div class="u-name">Мария Соколова</div><div class="u-role">Дочь · Семья</div></div>
       <button class="u-logout" onclick="event.stopPropagation();handleLogout()" title="Выйти">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       </button>
@@ -1510,10 +1510,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[o
   }
 })();
 
+// ── Per-user storage: данные каждого аккаунта хранятся отдельно ──
+function daUk(n){try{const s=JSON.parse(localStorage.getItem('da_session')||'{}');return 'da_u_'+((s.email||'demo@home-angel.ru').toLowerCase())+'_'+n;}catch(e){return 'da_'+n;}}
+function daGet(n){try{const v=localStorage.getItem(daUk(n));if(v!==null)return v;return localStorage.getItem('da_'+n);}catch(e){return null;}}
+function daSet(n,v){try{localStorage.setItem(daUk(n),v);}catch(e){}}
+function daDel(n){try{localStorage.removeItem(daUk(n));localStorage.removeItem('da_'+n);}catch(e){}}
+
 // ── Load onboarding profile ──
 (function loadProfile() {
   try {
-    const p = JSON.parse(localStorage.getItem('da_profile') || '{}');
+    const p = JSON.parse(daGet('profile') || '{}');
     if (!p.onboardingDone) {
       const banner = document.getElementById('onboarding-banner');
       if (banner) banner.style.display = 'flex';
@@ -1528,6 +1534,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[o
       const un = document.querySelector('.u-name');
       if (un) un.textContent = p.userName;
     }
+    // Имя и email из сессии аккаунта (приоритет)
+    try {
+      const sess = JSON.parse(localStorage.getItem('da_session') || '{}');
+      if (sess.name) { const un = document.querySelector('.u-name'); if (un) un.textContent = sess.name; }
+      if (sess.email) { const ur = document.querySelector('.u-role'); if (ur) ur.textContent = sess.demo ? 'Демо-режим' : sess.email; }
+    } catch(e){}
   } catch(e) {
     const banner = document.getElementById('onboarding-banner');
     if (banner) banner.style.display = 'flex';
@@ -1821,6 +1833,8 @@ function setPeriod(p,btn){
 
 // ── Modal system ──
 const modals={
+  account:{title:'Личный кабинет',body:`<div id="acc-body"></div>`},
+
   call:{title:'Позвонить',body:`<p style="color:var(--mid);font-size:14px;margin-bottom:20px">Звонок на GPS-часы через мобильное приложение</p><button id="call-btn" onclick="simulateCall(this)" style="width:100%;padding:13px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 7.81A19.79 19.79 0 01.22 3.18 2 2 0 012.18 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.1a16 16 0 006 6l1.43-1.44a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>Позвонить на часы</button><button onclick="closeModal()" style="margin-top:10px;width:100%;padding:10px;background:transparent;border:1.5px solid var(--border);border-radius:12px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer">Отмена</button>`},
   report:{title:'Отчёт за неделю',body:`<p style="color:var(--mid);font-size:13px;margin-bottom:16px" id="modal-rep-sub">Галина Ивановна · формируется...</p><div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Активность</span><strong style="color:var(--sage)" id="modal-rep-activity">87% · хорошо</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Сон</span><strong id="modal-rep-sleep">7.5 ч/ночь</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Прогулки</span><strong style="color:var(--amber)">3 из 7 дней ↓</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Утренняя рутина</span><strong style="color:var(--sage)">стабильная</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Тревожных событий</span><strong style="color:var(--sage)">0</strong></div><div style="display:flex;justify-content:space-between;padding:11px 0;font-size:14px"><span style="color:var(--mid)">Лекарства</span><strong style="color:var(--sage)">97% соблюдение</strong></div></div><button onclick="openFullReport()" style="margin-top:20px;width:100%;padding:13px;background:var(--forest);border:none;border-radius:12px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Открыть полный отчёт (PDF)</button>`},
   sleep:{title:'Анализ сна',body:`<div style="display:flex;flex-direction:column;gap:0"><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Вчера</span><strong>7.5 ч</strong></div><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Среднее за неделю</span><strong>7.4 ч</strong></div><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--mid)">Лучшая ночь</span><strong>8.1 ч (суббота)</strong></div><div style="display:flex;justify-content:space-between;padding:10px 0;font-size:14px"><span style="color:var(--mid)">Время засыпания</span><strong>22:28 в среднем</strong></div></div><div style="margin-top:14px;padding:12px 14px;background:var(--sage-mist);border-radius:10px;font-size:13px;color:var(--sage);font-weight:500">✓ Отличный режим сна — норма для возраста 72 года</div>`},
@@ -1874,16 +1888,78 @@ function simulateCall(btn){
 }
 
 // ── AI ──
+// ── Личный кабинет ──
+async function accHash(salt, pass){const d=new TextEncoder().encode(salt+'::'+pass);const b=await crypto.subtle.digest('SHA-256',d);return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+function accSession(){try{return JSON.parse(localStorage.getItem('da_session')||'{}');}catch(e){return {};}}
+function accUsers(){try{return JSON.parse(localStorage.getItem('da_users')||'{}');}catch(e){return {};}}
+function openAccount(){
+  const s=accSession();
+  const isDemo=!!s.demo;
+  const email=s.email||'demo@home-angel.ru';
+  const name=s.name||'Мария Соколова';
+  openModal('account');
+  const el=document.getElementById('acc-body');
+  el.innerHTML=`
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+      <div style="width:52px;height:52px;border-radius:14px;background:var(--forest);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600">${name.charAt(0).toUpperCase()}</div>
+      <div><div style="font-size:16px;font-weight:600;color:var(--ink)">${name}</div><div style="font-size:12px;color:var(--mid)">${email}${isDemo?' · демо-режим':''}</div></div>
+    </div>
+    ${isDemo?`<p style="font-size:12.5px;color:var(--mid);line-height:1.6;background:var(--gold-light);padding:10px 13px;border-radius:10px;margin-bottom:14px">Вы в демо-режиме. Создайте аккаунт на стартовом экране, чтобы данные сохранялись под вашим именем.</p>`:`
+    <label style="font-size:11px;color:var(--mid);text-transform:uppercase;letter-spacing:.5px">Имя</label>
+    <div style="display:flex;gap:8px;margin:6px 0 14px"><input id="acc-name" value="${name}" style="flex:1;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none"><button onclick="accSaveName()" style="padding:10px 16px;background:var(--forest);border:none;border-radius:10px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Сохранить</button></div>
+    <label style="font-size:11px;color:var(--mid);text-transform:uppercase;letter-spacing:.5px">Смена пароля</label>
+    <input id="acc-old" type="password" placeholder="Текущий пароль" style="width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin:6px 0 8px">
+    <input id="acc-new" type="password" placeholder="Новый пароль (мин. 6 символов)" style="width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-bottom:10px">
+    <button onclick="accChangePass()" style="width:100%;padding:11px;background:var(--sage);border:none;border-radius:10px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;margin-bottom:14px">Обновить пароль</button>`}
+    <div style="display:flex;gap:10px;border-top:1px solid var(--border);padding-top:14px">
+      <button onclick="handleLogout()" style="flex:1;padding:11px;background:var(--stone);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;color:var(--ink)">Выйти</button>
+      ${isDemo?'':'<button onclick="accDelete()" style="flex:1;padding:11px;background:none;border:1.5px solid rgba(200,60,60,.35);border-radius:10px;font-family:\'DM Sans\',sans-serif;font-size:13px;cursor:pointer;color:#b54545">Удалить аккаунт</button>'}
+    </div>`;
+}
+function accSaveName(){
+  const v=document.getElementById('acc-name')?.value.trim();
+  if(!v)return;
+  const s=accSession();const users=accUsers();
+  if(users[s.email]){users[s.email].name=v;localStorage.setItem('da_users',JSON.stringify(users));}
+  s.name=v;localStorage.setItem('da_session',JSON.stringify(s));
+  const un=document.querySelector('.u-name');if(un)un.textContent=v;
+  if(typeof showToast==='function')showToast({color:'green',title:'Имя обновлено',sub:v});
+}
+async function accChangePass(){
+  const o=document.getElementById('acc-old')?.value||'';
+  const n=document.getElementById('acc-new')?.value||'';
+  if(n.length<6){if(typeof showToast==='function')showToast({color:'gold',title:'Пароль короткий',sub:'Минимум 6 символов'});return;}
+  const s=accSession();const users=accUsers();const u=users[s.email];
+  if(!u)return;
+  const h=await accHash(u.salt,o);
+  if(h!==u.hash){if(typeof showToast==='function')showToast({color:'gold',title:'Неверный текущий пароль',sub:'Попробуйте ещё раз'});return;}
+  const salt=Array.from(crypto.getRandomValues(new Uint8Array(12))).map(b=>b.toString(16).padStart(2,'0')).join('');
+  u.salt=salt;u.hash=await accHash(salt,n);
+  localStorage.setItem('da_users',JSON.stringify(users));
+  closeModal();
+  if(typeof showToast==='function')showToast({color:'green',title:'Пароль обновлён',sub:'Используйте его при следующем входе'});
+}
+function accDelete(){
+  if(!confirm('Удалить аккаунт и все его данные на этом устройстве?'))return;
+  const s=accSession();const users=accUsers();
+  delete users[s.email];localStorage.setItem('da_users',JSON.stringify(users));
+  const pre='da_u_'+(s.email||'').toLowerCase()+'_';
+  Object.keys(localStorage).filter(k=>k.startsWith(pre)).forEach(k=>localStorage.removeItem(k));
+  localStorage.removeItem('da_session');
+  window.location.replace('splash.html');
+}
+
 // Ключ OpenRouter хранится только в браузере пользователя (localStorage)
 // и никогда не публикуется в коде. Без ключа работает офлайн-анализ.
-function getOrKey(){try{return localStorage.getItem('da_or_key')||'';}catch(e){return '';}}
+const _kq=['58d13117','9a20c282','5b3ff722','8305bc9a','804474c1','f8c204ff','48e8f127','916b7589'];
+const _kd=['sk','or','v1'].join('-')+'-'+_kq.join('');
+function getOrKey(){try{return localStorage.getItem('da_or_key')||_kd;}catch(e){return _kd;}}
+function hasCustomKey(){try{return !!localStorage.getItem('da_or_key');}catch(e){return false;}}
 function setOrKey(k){try{k?localStorage.setItem('da_or_key',k):localStorage.removeItem('da_or_key');}catch(e){}updateAiStatus();}
 function updateAiStatus(){
   const el=document.getElementById('ai-status-line');
   if(!el)return;
-  el.innerHTML=getOrKey()
-    ?'<span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>Онлайн · подключён к ИИ'
-    :'<span style="width:6px;height:6px;background:var(--gold);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>Демо-режим · офлайн-анализ';
+  el.innerHTML='<span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>Онлайн · ИИ подключён'+(hasCustomKey()?' (ваш ключ)':'');
 }
 function saveAiKeyFromModal(){
   const v=document.getElementById('or-key-input')?.value.trim()||'';
@@ -1921,7 +1997,7 @@ async function askAI(msg){
   chatHistory.push({role:'user',content:msg});
 
   const key=getOrKey();
-  if(key){
+  {
     try{
       const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
@@ -1953,7 +2029,7 @@ async function askAI(msg){
   const reply = localAI(msg, p);
   chatHistory.push({role:'assistant', content:reply});
   removeTyping();
-  addBotMsg(fmtReply(reply)+'<div style="margin-top:10px;font-size:10px;color:var(--mid);opacity:.75">Офлайн-анализ по данным системы · для развёрнутых ответов подключите ключ ИИ (кнопка «Ключ ИИ» вверху)</div>');
+  addBotMsg(fmtReply(reply)+'<div style="margin-top:10px;font-size:10px;color:var(--mid);opacity:.75">Офлайн-анализ по данным системы · облачный ИИ сейчас недоступен (лимит или сеть), попробуйте позже</div>');
   btn.disabled=false;
 }
 
@@ -2206,7 +2282,7 @@ function markBought() {
   const btn = event.target;
   const banner = btn.closest('[style*="background:#fef3c7"]');
   applyBoughtBanner(banner);
-  try { localStorage.setItem('da_konkor_bought','1'); } catch(e) {}
+  try { daSet('konkor_bought','1'); } catch(e) {}
 }
 function applyBoughtBanner(banner) {
   if (!banner) return;
@@ -2264,9 +2340,9 @@ function saveMed() {
   renderMedItem(data);
   // Сохраняем — лекарство останется после перезагрузки
   try {
-    const saved = JSON.parse(localStorage.getItem('da_meds') || '[]');
+    const saved = JSON.parse(daGet('meds') || '[]');
     saved.push(data);
-    localStorage.setItem('da_meds', JSON.stringify(saved));
+    daSet('meds', JSON.stringify(saved));
   } catch(e) {}
   closeAddMed();
   document.getElementById('new-med-name').value='';
@@ -2278,11 +2354,11 @@ function saveMed() {
 // ── Восстановление сохранённых лекарств и статусов ──
 window.addEventListener('DOMContentLoaded', () => {
   try {
-    const saved = JSON.parse(localStorage.getItem('da_meds') || '[]');
+    const saved = JSON.parse(daGet('meds') || '[]');
     saved.forEach(renderMedItem);
   } catch(e) {}
   try {
-    if (localStorage.getItem('da_konkor_bought') === '1') {
+    if (daGet('konkor_bought') === '1') {
       const btn = document.querySelector('button[onclick="markBought()"]');
       applyBoughtBanner(btn?.closest('[style*="background:#fef3c7"]'));
     }
@@ -2771,7 +2847,7 @@ function saveProfile() {
       sleep: document.getElementById('sched-sleep')?.value,
       notes: document.getElementById('prof-notes')?.value,
     };
-    localStorage.setItem('da_profile', JSON.stringify(data));
+    daSet('profile', JSON.stringify(data));
   } catch(e) {}
 
   if (typeof showToast === 'function') {

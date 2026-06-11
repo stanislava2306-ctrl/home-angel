@@ -886,7 +886,14 @@ function finish() {
     completedAt: new Date().toISOString()
   };
   try {
-    localStorage.setItem('da_profile', JSON.stringify(profile));
+    // Профиль сохраняется под аккаунтом текущего пользователя
+    let uk = 'da_profile';
+    try {
+      const s = JSON.parse(localStorage.getItem('da_session') || '{}');
+      uk = 'da_u_' + ((s.email || 'demo@home-angel.ru').toLowerCase()) + '_profile';
+    } catch(_){}
+    localStorage.setItem(uk, JSON.stringify(profile));
+    localStorage.setItem('da_profile', JSON.stringify(profile)); // legacy-копия
     localStorage.removeItem('da_onboarding_draft');
   } catch(e){}
 

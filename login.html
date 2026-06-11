@@ -181,42 +181,28 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);min-height:100vh;d
 
     <button class="btn-demo" onclick="handleDemo()">✦ Войти как демо-пользователь</button>
 
-    <div class="register-note">Ещё нет аккаунта? <a href="index.html#pricing">Купить комплект</a></div>
+    <div class="register-note">Ещё нет аккаунта? <a href="splash.html">Создать бесплатно</a></div>
   </div>
 </div>
 
-<script type="module">
-// ✏️  REPLACE these two values — same as in dashboard.html
-const SUPABASE_URL  = 'https://ntvrlegynsciyjyzbsq.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMTQyMjQsImV4cCI6MjA4NzY5MDIyNH0.YZyKOESVamzPk7QM3pivANwkj4a7Us1X0JkKC7FUEd0';
-
-let supabase = null;
-
-async function init() {
-  if (SUPABASE_URL === 'https://ntvrlegynsciyjyzbsq.supabase.co') {
-    // Keys not set — demo mode, just redirect
-    return;
-  }
-  try {
-    const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
-    supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
-
-    // If already logged in — go straight to dashboard
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) window.location.href = 'dashboard.html';
-  } catch(e) {
-    console.warn('Supabase not available, demo mode');
-  }
+<script>
+// ── Локальные аккаунты (как в splash.html) ──
+async function daHash(salt, pass) {
+  const data = new TextEncoder().encode(salt + '::' + pass);
+  const buf = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
+function daUsers() { try { return JSON.parse(localStorage.getItem('da_users') || '{}'); } catch(e) { return {}; } }
+function daKeyFor(email, name) { return 'da_u_' + (email||'demo').toLowerCase() + '_' + name; }
 
-init();
+// Уже вошли — сразу в кабинет
+try { if (localStorage.getItem('da_session')) window.location.replace('dashboard.html'); } catch(e){}
 
 function showError(msg) {
   const el = document.getElementById('login-error');
   el.textContent = msg;
   el.style.display = 'block';
 }
-
 function setLoading(loading) {
   const btn = document.getElementById('login-btn');
   btn.textContent = loading ? 'Входим...' : 'Войти в кабинет';
@@ -225,53 +211,29 @@ function setLoading(loading) {
 }
 
 window.handleLogin = async function() {
-  const email    = document.getElementById('email-input').value.trim();
+  const email = document.getElementById('email-input').value.trim().toLowerCase();
   const password = document.getElementById('pass-input').value;
-
-  if (!email || !password) {
-    showError('Введите email и пароль');
-    return;
-  }
-
-  // Demo / keys not set yet
-  if (!supabase) {
-    window.location.href = 'dashboard.html';
-    return;
-  }
-
+  if (!email || !password) { showError('Введите email и пароль'); return; }
   setLoading(true);
   document.getElementById('login-error').style.display = 'none';
+  const u = daUsers()[email];
+  if (!u) { setLoading(false); showError('Аккаунт не найден — создайте его на стартовом экране'); return; }
+  const h = await daHash(u.salt, password);
+  if (h !== u.hash) { setLoading(false); showError('Неверный email или пароль'); return; }
+  localStorage.setItem('da_session', JSON.stringify({email, name: u.name, ts: Date.now()}));
+  try {
+    const p = JSON.parse(localStorage.getItem(daKeyFor(email,'profile')) || '{}');
+    if (p.onboardingDone) { window.location.href = 'dashboard.html'; return; }
+  } catch(e){}
+  window.location.href = 'onboarding.html';
+}
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    setLoading(false);
-    if (error.message.includes('Invalid login')) {
-      showError('Неверный email или пароль');
-    } else if (error.message.includes('Email not confirmed')) {
-      showError('Подтвердите email — проверьте почту');
-    } else {
-      showError(error.message);
-    }
-    return;
-  }
-
+window.handleDemo = function() {
+  localStorage.setItem('da_session', JSON.stringify({demo:true, email:'demo@home-angel.ru', name:'Мария Соколова', ts: Date.now()}));
   window.location.href = 'dashboard.html';
 }
 
-window.handleDemo = async function() {
-  if (!supabase || SUPABASE_URL === 'https://ntvrlegynsciyjyzbsq.supabase.co') {
-    window.location.href = 'dashboard.html';
-    return;
-  }
-  // Demo account — sign in anonymously or redirect
-  window.location.href = 'dashboard.html';
-}
-
-// Allow Enter key to submit
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') window.handleLogin();
-});
+document.addEventListener('keydown', (e) => { if (e.key === 'Enter') window.handleLogin(); });
 </script>
 
 <script>

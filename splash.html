@@ -251,7 +251,6 @@ window.addEventListener('load', () => {
     document.getElementById('splash').classList.add('hide');
     setTimeout(() => {
       document.getElementById('splash').style.display = 'none';
-      // Check if already logged in
       try {
         const s = localStorage.getItem('da_session');
         if (s) { go('dashboard.html'); return; }
@@ -274,83 +273,77 @@ function showError(msg) {
   el.classList.add('show');
 }
 
-function setLoading(btn, loading) {
+function setLoading(btn, loading, text) {
   const el = document.getElementById(btn);
   el.disabled = loading;
-  if (loading) { el.style.opacity='.6'; el.textContent='Подождите...'; }
+  el.style.opacity = loading ? '.6' : '1';
+  if (loading) el.textContent = 'Подождите...';
+  else if (text) el.textContent = text;
 }
 
-function go(url) {
-  window.location.href = url;
+function go(url) { window.location.href = url; }
+
+// ── Локальные аккаунты: SHA-256 + соль, хранение в этом браузере ──
+async function daHash(salt, pass) {
+  const data = new TextEncoder().encode(salt + '::' + pass);
+  const buf = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
+function daUsers() { try { return JSON.parse(localStorage.getItem('da_users') || '{}'); } catch(e) { return {}; } }
+function daSaveUsers(u) { localStorage.setItem('da_users', JSON.stringify(u)); }
+function daSession(obj) { localStorage.setItem('da_session', JSON.stringify(Object.assign({ts: Date.now()}, obj))); }
+function daKeyFor(email, name) { return 'da_u_' + (email||'demo').toLowerCase() + '_' + name; }
 
 function goDemo() {
+  daSession({demo: true, email: 'demo@home-angel.ru', name: 'Мария Соколова'});
   try {
-    const p = JSON.parse(localStorage.getItem('da_profile') || '{}');
-    localStorage.setItem('da_session', JSON.stringify({demo: true, ts: Date.now()}));
-    if (p.onboardingDone) { go('dashboard.html'); }
-    else { go('onboarding.html'); }
-  } catch(e) { go('dashboard.html'); }
+    const p = JSON.parse(localStorage.getItem(daKeyFor('demo@home-angel.ru','profile')) || localStorage.getItem('da_profile') || '{}');
+    if (p.onboardingDone) { go('dashboard.html'); return; }
+  } catch(e){}
+  go('onboarding.html');
 }
 
 async function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
   const pass  = document.getElementById('login-pass').value;
   if (!email || !pass) { showError('Введите email и пароль'); return; }
-
   setLoading('btn-login', true);
-  const SUPABASE_URL = 'https://ntvrlegynsciyjyzbsq.supabase.co';
-  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMTQyMjQsImV4cCI6MjA4NzY5MDIyNH0.YZyKOESVamzPk7QM3pivANwkj4a7Us1X0JkKC7FUEd0';
-
+  const users = daUsers();
+  const u = users[email];
+  if (!u) { showError('Аккаунт не найден — зарегистрируйтесь'); setLoading('btn-login', false, 'Войти'); return; }
+  const h = await daHash(u.salt, pass);
+  if (h !== u.hash) { showError('Неверный email или пароль'); setLoading('btn-login', false, 'Войти'); return; }
+  daSession({email, name: u.name});
   try {
-    const r = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json','apikey':ANON_KEY},
-      body: JSON.stringify({email, password: pass})
-    });
-    const d = await r.json();
-    if (!r.ok) { showError(d.error_description || 'Неверный email или пароль'); setLoading('btn-login',false); return; }
-    localStorage.setItem('da_session', JSON.stringify({access_token: d.access_token, user: d.user}));
-    go('dashboard.html');
-  } catch(e) {
-    // Fallback to demo if Supabase unavailable
-    localStorage.setItem('da_session', JSON.stringify({demo:true, email, ts:Date.now()}));
-    go('dashboard.html');
-  }
+    const p = JSON.parse(localStorage.getItem(daKeyFor(email,'profile')) || '{}');
+    if (p.onboardingDone) { go('dashboard.html'); return; }
+  } catch(e){}
+  go('onboarding.html');
 }
 
 async function doRegister() {
   const name  = document.getElementById('reg-name').value.trim();
-  const email = document.getElementById('reg-email').value.trim();
+  const email = document.getElementById('reg-email').value.trim().toLowerCase();
   const pass  = document.getElementById('reg-pass').value;
   if (!name || !email || !pass) { showError('Заполните все поля'); return; }
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { showError('Проверьте формат email'); return; }
   if (pass.length < 6) { showError('Пароль минимум 6 символов'); return; }
-
   setLoading('btn-register', true);
-  const SUPABASE_URL = 'https://ntvrlegynsciyjyzbsq.supabase.co';
-  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dnJsZWdneW5zY2l5anl6YnNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMTQyMjQsImV4cCI6MjA4NzY5MDIyNH0.YZyKOESVamzPk7QM3pivANwkj4a7Us1X0JkKC7FUEd0';
-
+  const users = daUsers();
+  if (users[email]) { showError('Такой аккаунт уже есть — войдите'); setLoading('btn-register', false, 'Создать аккаунт'); return; }
+  const salt = Array.from(crypto.getRandomValues(new Uint8Array(12))).map(b=>b.toString(16).padStart(2,'0')).join('');
+  const hash = await daHash(salt, pass);
+  users[email] = {name, salt, hash, created: Date.now()};
+  daSaveUsers(users);
+  daSession({email, name});
   try {
-    const r = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json','apikey':ANON_KEY},
-      body: JSON.stringify({email, password: pass, data:{full_name:name}})
-    });
-    const d = await r.json();
-    if (!r.ok) { showError(d.error_description || 'Ошибка регистрации'); setLoading('btn-register',false); return; }
-    // Save profile name
-    try { const p=JSON.parse(localStorage.getItem('da_profile')||'{}'); p.userName=name; localStorage.setItem('da_profile',JSON.stringify(p)); } catch(e){}
-    localStorage.setItem('da_session', JSON.stringify({access_token: d.access_token, user: d.user}));
-    go('onboarding.html');
-  } catch(e) {
-    // Fallback
-    try { const p=JSON.parse(localStorage.getItem('da_profile')||'{}'); p.userName=name; localStorage.setItem('da_profile',JSON.stringify(p)); } catch(err){}
-    localStorage.setItem('da_session', JSON.stringify({demo:true, name, email, ts:Date.now()}));
-    go('onboarding.html');
-  }
+    const p = JSON.parse(localStorage.getItem(daKeyFor(email,'profile')) || '{}');
+    p.userName = name;
+    localStorage.setItem(daKeyFor(email,'profile'), JSON.stringify(p));
+  } catch(e){}
+  go('onboarding.html');
 }
 
-// Enter key support
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter') {
     const loginVisible = document.getElementById('tab-login').style.display !== 'none';
