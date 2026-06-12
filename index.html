@@ -1343,11 +1343,11 @@ async function submitLead(e) {
         + '🛒 ' + (data.interest || '—') + '\n'
         + (data.comment ? '💬 ' + data.comment + '\n' : '')
         + '🌐 ' + (document.referrer || 'прямой заход') + ' · ' + location.search;
-      await fetch('https://api.telegram.org/bot' + TG_BOT_TOKEN + '/sendMessage', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({chat_id: TG_CHAT_ID, text})
-      });
+      // GET без preflight — проходит из любого браузера; дублируем двумя каналами
+      const tgUrl = 'https://api.telegram.org/bot' + TG_BOT_TOKEN + '/sendMessage'
+        + '?chat_id=' + TG_CHAT_ID + '&text=' + encodeURIComponent(text);
+      try { new Image().src = tgUrl; } catch(e){}
+      try { await fetch(tgUrl, {keepalive: true}).then(r=>r.json()).then(j=>console.log('TG:', j.ok ? 'доставлено' : j)); } catch(e){ console.warn('TG fetch:', e.message); }
     }
     if (window.ymGoal) ymGoal('LEAD');
     document.getElementById('lead-form').style.display = 'none';
