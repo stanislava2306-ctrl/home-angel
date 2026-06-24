@@ -1401,8 +1401,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[o
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @media(max-width:900px){
   /* ── Layout ── */
-  .sidebar{position:fixed;left:0;top:0;bottom:0;z-index:50;transform:translateX(-100%);transition:transform .28s cubic-bezier(.16,1,.3,1);}
-  .sidebar.open{transform:translateX(0);}
+  .sidebar{display:flex!important;position:fixed;left:0;top:0;bottom:0;z-index:60;width:min(280px,86vw);max-width:86vw;overflow-y:auto;transform:translateX(-100%);transition:transform .28s cubic-bezier(.16,1,.3,1);}
+  .sidebar.open{transform:translateX(0);box-shadow:0 0 40px rgba(0,0,0,.35);}
   #menu-toggle{display:inline-flex!important;}
   .main{margin-left:0;}
 
@@ -1411,6 +1411,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[o
   .tb-title h2{font-size:18px;}
   .tb-title p{font-size:11px;}
   .relative-pick span{display:none;}
+  .relative-pick{padding:8px 12px;}
+  /* Профиль-меню: прижать к правому краю, чтобы не уходило за экран */
+  #profile-menu{left:auto!important;right:0!important;min-width:min(260px,calc(100vw - 24px));}
   #notif-panel{right:8px;left:8px;width:auto;top:72px;}
 
   /* ── Content ── */
@@ -1494,9 +1497,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[o
   .bar-col{min-width:0;}
   .bar-lbl{font-size:9px;}
 
-  /* ── Modal ── */
-  #modal-overlay{align-items:flex-end;padding:0;}
-  #modal-box{border-radius:20px 20px 0 0;max-width:100%;width:100%;max-height:92vh;}
+  /* ── Modal (нижний лист на телефоне) ── */
+  #modal-overlay{align-items:flex-end!important;padding:0!important;}
+  #modal-box{border-radius:20px 20px 0 0;max-width:100%;width:100%;max-height:92vh;padding-bottom:env(safe-area-inset-bottom);}
 
   /* ── Add med overlay ── */
   #add-med-overlay{align-items:flex-end;}
