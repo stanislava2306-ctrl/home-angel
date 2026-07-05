@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Исток — познай себя</title>
+<meta name="description" content="Исток — глубокий мультимодальный тест на 50 вопросов: найди паттерны из детства, которые управляют твоей жизнью сегодня.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0f1a;--bg2:#111422;--surface:#1a1e30;--surface2:#1f2438;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#e8e4f0;--text2:#9b96b0;--text3:#5e5a72;
+  --accent:#8b7fbe;--accent2:#6b5fa8;--accent3:#b8aee8;
+  --mist:rgba(139,127,190,0.12);--mist2:rgba(139,127,190,0.05);
+  --fd:'Cormorant Garamond',serif;--fb:'Jost',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:300;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.5;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.4rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s;}
+nav.scrolled{background:rgba(13,15,26,0.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.logo{font-family:var(--fd);font-size:1.5rem;font-weight:400;letter-spacing:.1em;color:var(--text);text-decoration:none;cursor:pointer;}
+.logo span{color:var(--accent3);}
+.nav-cta{padding:.5rem 1.5rem;border:1px solid var(--accent);color:var(--accent3);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:all .3s;font-family:var(--fb);cursor:pointer;background:transparent;}
+.nav-cta:hover{background:var(--mist);}
+
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden;}
+.hg{position:absolute;border-radius:50%;pointer-events:none;}
+.hg1{width:700px;height:700px;background:radial-gradient(circle,rgba(107,95,168,.13) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);}
+.hg2{width:350px;height:350px;background:radial-gradient(circle,rgba(184,174,232,.07) 0%,transparent 70%);top:25%;left:65%;animation:flt 9s ease-in-out infinite;}
+.hg3{width:200px;height:200px;background:radial-gradient(circle,rgba(139,127,190,.06) 0%,transparent 70%);top:65%;left:20%;animation:flt 12s ease-in-out infinite reverse;}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-24px)}}
+.eyebrow{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;opacity:0;animation:fu 1s ease forwards .3s;}
+h1.hero-h{font-family:var(--fd);font-size:clamp(3.5rem,9vw,7.5rem);font-weight:300;line-height:1.03;margin-bottom:1.5rem;opacity:0;animation:fu 1s ease forwards .5s;}
+h1.hero-h em{font-style:italic;color:var(--accent3);}
+.hero-sub{max-width:500px;font-size:1rem;line-height:1.85;color:var(--text2);margin-bottom:3rem;opacity:0;animation:fu 1s ease forwards .7s;}
+.hero-cta{display:inline-flex;align-items:center;gap:.75rem;padding:1rem 2.5rem;background:var(--accent2);color:#fff;font-family:var(--fb);font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;transition:all .3s;opacity:0;animation:fu 1s ease forwards .9s;cursor:pointer;border:none;}
+.hero-cta:hover{background:var(--accent);transform:translateY(-2px);}
+.hero-cta svg{width:16px;height:16px;transition:transform .3s;}
+.hero-cta:hover svg{transform:translateX(4px);}
+.sline-wrap{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fu 1s ease forwards 1.3s;}
+.sline{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--accent));animation:sa 2s ease-in-out infinite;}
+@keyframes sa{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
+.stxt{font-size:.62rem;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;}
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.sec{padding:8rem 3rem;}
+.sec-in{max-width:1060px;margin:0 auto;}
+.sec-lbl{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+.sec-ttl{font-family:var(--fd);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.2;margin-bottom:2.5rem;}
+.sec-ttl em{font-style:italic;color:var(--accent3);}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.abt-txt{font-size:.93rem;line-height:1.9;color:var(--text2);margin-bottom:1.25rem;}
+.abt-vis{position:relative;height:400px;}
+.acard{position:absolute;background:var(--surface);border:1px solid var(--border);padding:2rem;}
+.acard:nth-child(1){top:0;left:0;right:3rem;}
+.acard:nth-child(2){bottom:0;left:3rem;right:0;background:var(--surface2);}
+.cnum{font-family:var(--fd);font-size:3rem;color:var(--accent);opacity:.35;line-height:1;margin-bottom:.4rem;}
+.ctitle{font-size:.95rem;font-weight:400;margin-bottom:.4rem;}
+.cdesc{font-size:.82rem;color:var(--text2);line-height:1.7;}
+
+.sh{text-align:center;margin-bottom:4.5rem;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.step{padding:2.5rem 2rem;background:var(--surface);border:1px solid var(--border);transition:background .3s;}
+.step:hover{background:var(--surface2);}
+.step-n{font-size:.7rem;letter-spacing:.2em;color:var(--accent);margin-bottom:1.2rem;}
+.step-ico{width:38px;height:38px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;}
+.step-ico svg{width:18px;height:18px;stroke:var(--accent3);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.step h3{font-size:.95rem;font-weight:400;margin-bottom:.6rem;}
+.step p{font-size:.82rem;color:var(--text2);line-height:1.7;}
+
+.bgrids{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+.bcard{padding:2rem;background:var(--surface);border:1px solid var(--border);transition:all .3s;position:relative;overflow:hidden;}
+.bcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent2),var(--accent3));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.bcard:hover{background:var(--surface2);}
+.bcard:hover::before{transform:scaleX(1);}
+.btag{display:inline-block;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent2);padding:.22rem .7rem;margin-bottom:1rem;}
+.bcard h3{font-family:var(--fd);font-size:1.3rem;font-weight:300;margin-bottom:.5rem;}
+.bcard p{font-size:.8rem;color:var(--text2);line-height:1.7;}
+.cta-c{text-align:center;margin-top:3rem;}
+
+footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.flogo{font-family:var(--fd);font-size:1.2rem;color:var(--text2);}
+.flogo span{color:var(--accent3);}
+.fnote{font-size:.72rem;color:var(--text3);}
+
+/* ═══ TEST ═══ */
+#test-s{display:none;min-height:100vh;padding:5rem 2rem 5rem;justify-content:center;background:var(--bg);}
+#test-s.on{display:flex;}
+.tc{width:100%;max-width:700px;}
+.scr{animation:scrIn .5s cubic-bezier(.22,.8,.36,1) both;}
+@keyframes scrIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+.t-top{display:flex;align-items:center;gap:1.2rem;margin-bottom:2.5rem;}
+.t-bar{flex:1;height:1px;background:var(--border2);position:relative;}
+.t-fill{position:absolute;top:0;left:0;height:100%;background:var(--accent);transition:width .6s ease;}
+.t-lbl{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);white-space:nowrap;}
+.mus-btn{background:none;border:1px solid var(--border2);color:var(--text3);font-family:var(--fb);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .8rem;cursor:pointer;transition:all .25s;white-space:nowrap;display:flex;align-items:center;gap:.45rem;}
+.mus-btn:hover{color:var(--text2);border-color:var(--accent2);}
+.mus-btn.on{color:var(--accent3);border-color:var(--accent2);}
+.mus-btn .mus-ico{display:inline-flex;gap:2px;align-items:flex-end;height:10px;}
+.mus-btn .mus-ico i{width:2px;background:currentColor;border-radius:1px;height:4px;}
+.mus-btn.on .mus-ico i{animation:mbar 1s ease-in-out infinite;}
+.mus-btn.on .mus-ico i:nth-child(2){animation-delay:.25s;}
+.mus-btn.on .mus-ico i:nth-child(3){animation-delay:.5s;}
+@keyframes mbar{0%,100%{height:3px}50%{height:10px}}
+
+.t-blk{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+.t-q{font-family:var(--fd);font-size:clamp(1.5rem,3.5vw,2.3rem);font-weight:300;line-height:1.35;margin-bottom:.6rem;}
+.t-sub{font-size:.86rem;color:var(--text2);line-height:1.75;margin-bottom:2rem;}
+
+.t-opts{display:flex;flex-direction:column;gap:.65rem;margin-bottom:2.5rem;}
+.t-opt{padding:1rem 1.5rem;background:var(--surface);border:1px solid var(--border);color:var(--text2);font-family:var(--fb);font-size:.86rem;text-align:left;cursor:pointer;transition:all .2s;font-weight:300;line-height:1.5;}
+.t-opt:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.t-opt.sel{background:var(--mist);border-color:var(--accent);color:var(--text);}
+.t-opt.sel,.img-opt.sel,.col-sw.sel,.sc-btn.sel{animation:selp .3s ease;}
+@keyframes selp{0%{transform:scale(1)}45%{transform:scale(1.015)}100%{transform:scale(1)}}
+
+.t-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--border);margin-top:.5rem;}
+.btn-bk{font-size:.76rem;letter-spacing:.1em;color:var(--text3);background:none;border:none;cursor:pointer;font-family:var(--fb);transition:color .2s;}
+.btn-bk:hover{color:var(--text2);}
+.btn-nx{padding:.8rem 2rem;background:var(--accent2);color:#fff;border:none;font-family:var(--fb);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.btn-nx:hover:not(:disabled){background:var(--accent);}
+.btn-nx:disabled{opacity:.25;cursor:default;}
+
+.aud-pl{background:var(--surface);border:1px solid var(--border);padding:1.4rem 1.8rem;display:flex;align-items:center;gap:1.4rem;margin-bottom:1.5rem;cursor:pointer;transition:background .2s;}
+.aud-pl:hover{background:var(--surface2);}
+.play-c{width:46px;height:46px;border:1px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.play-c svg{width:13px;height:13px;fill:var(--accent3);margin-left:2px;}
+.awaves{flex:1;display:flex;align-items:center;gap:3px;height:28px;overflow:hidden;}
+.awaves span{width:2px;border-radius:1px;background:var(--accent);opacity:.35;transform-origin:center;}
+.awaves.on span{animation:wp .9s ease-in-out infinite;opacity:.8;}
+.awaves span:nth-child(2n){animation-delay:.12s;}
+.awaves span:nth-child(3n){animation-delay:.24s;}
+.awaves span:nth-child(5n){animation-delay:.06s;}
+@keyframes wp{0%,100%{transform:scaleY(.2)}50%{transform:scaleY(1)}}
+.aud-lbl{font-size:.73rem;color:var(--text3);}
+.aud-fact{margin-top:.6rem;padding:.7rem 1rem;background:var(--mist2);border-left:2px solid var(--accent2);font-size:.78rem;color:var(--text2);line-height:1.65;display:none;margin-bottom:1.5rem;}
+.aud-fact.on{display:block;}
+.aud-err{margin-bottom:1.5rem;padding:.7rem 1rem;background:rgba(196,160,96,.07);border-left:2px solid #c4a060;font-size:.78rem;color:var(--text2);line-height:1.65;display:none;}
+.aud-err.on{display:block;}
+
+.ill-wrap{display:flex;flex-direction:column;align-items:center;gap:.6rem;margin-bottom:1.8rem;}
+.ill-fr{border:1px solid var(--border2);background:var(--surface);display:flex;align-items:center;justify-content:center;position:relative;}
+.ill-hint{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);}
+
+.sent-list{display:flex;flex-direction:column;gap:.85rem;margin-bottom:2rem;}
+.sent-row{display:flex;flex-direction:column;gap:.4rem;padding:1.1rem 1.4rem;background:var(--surface);border:1px solid var(--border);transition:border-color .2s;}
+.sent-row:focus-within{border-color:var(--border2);}
+.sent-stem{font-size:.73rem;color:var(--text3);}
+.sent-inp{background:none;border:none;border-bottom:1px solid var(--border2);color:var(--text);font-family:var(--fb);font-size:.9rem;font-weight:300;padding:.35rem 0;outline:none;width:100%;transition:border-color .2s;}
+.sent-inp::placeholder{color:var(--text3);}
+.sent-inp:focus{border-color:var(--accent);}
+
+.col-pal{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin-bottom:2rem;}
+.col-sw{height:76px;cursor:pointer;border:2px solid transparent;transition:all .2s;position:relative;}
+.col-sw:hover{transform:scale(1.04);}
+.col-sw.sel{border-color:rgba(255,255,255,.75);}
+.col-sw-l{position:absolute;bottom:.35rem;left:50%;transform:translateX(-50%);font-size:.56rem;letter-spacing:.1em;color:rgba(255,255,255,.65);white-space:nowrap;}
+
+.img-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin-bottom:2rem;}
+.img-opt{background:var(--surface);border:1px solid var(--border);padding:1.4rem;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:.65rem;text-align:center;}
+.img-opt:hover{background:var(--surface2);border-color:var(--border2);}
+.img-opt.sel{background:var(--mist);border-color:var(--accent);}
+.img-opt svg{width:72px;height:72px;opacity:.65;}
+.img-opt span{font-size:.8rem;color:var(--text2);line-height:1.5;}
+
+.sc-list{display:flex;flex-direction:column;gap:1.5rem;margin-bottom:2rem;}
+.sc-q{font-size:.88rem;color:var(--text);margin-bottom:.5rem;line-height:1.5;}
+.sc-ends{display:flex;justify-content:space-between;font-size:.68rem;color:var(--text3);margin-bottom:.35rem;gap:1rem;}
+.sc-row{display:flex;gap:.4rem;}
+.sc-btn{flex:1;padding:.65rem .2rem;background:var(--surface);border:1px solid var(--border);color:var(--text3);font-family:var(--fb);font-size:.78rem;cursor:pointer;transition:all .2s;text-align:center;}
+.sc-btn:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.sc-btn.sel{background:var(--mist);border-color:var(--accent);color:var(--text);}
+
+.scen-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent2);padding:1.4rem 1.8rem;margin-bottom:1.8rem;font-size:.9rem;color:var(--text2);line-height:1.75;font-style:italic;}
+
+.br-sec{display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;gap:1.5rem;}
+.br-ring{width:130px;height:130px;border-radius:50%;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1rem;color:var(--text2);font-style:italic;transition:transform 4s ease-in-out,border-color 2s;cursor:pointer;}
+.br-ring.expand{transform:scale(1.45);border-color:var(--accent3);}
+.br-cnt{font-size:.72rem;color:var(--text3);letter-spacing:.1em;}
+
+.resume-box{margin-top:1.5rem;padding:1.2rem 1.5rem;background:var(--surface);border:1px solid var(--accent2);display:flex;flex-direction:column;gap:.9rem;}
+.resume-box p{font-size:.82rem;color:var(--text2);line-height:1.6;}
+.resume-row{display:flex;gap:.8rem;flex-wrap:wrap;}
+.btn-ghost{padding:.7rem 1.4rem;background:transparent;border:1px solid var(--border2);color:var(--text2);font-family:var(--fb);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .25s;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--text);}
+
+/* ═══ RESULTS ═══ */
+.res-head{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.res-ttl{font-family:var(--fd);font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:.5rem;}
+.res-sub{font-size:.86rem;color:var(--text2);line-height:1.7;}
+.lead-card{padding:2rem;background:linear-gradient(135deg,rgba(107,95,168,.18),rgba(139,127,190,.06));border:1px solid var(--accent2);margin-bottom:2rem;}
+.lead-lbl{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;}
+.lead-name{font-family:var(--fd);font-size:1.8rem;font-weight:300;margin-bottom:.5rem;}
+.lead-desc{font-size:.84rem;color:var(--text2);line-height:1.75;}
+.tc-card{padding:1.7rem 2rem;background:var(--surface);border:1px solid var(--border);margin-bottom:.9rem;transition:background .2s;}
+.tc-card:hover{background:var(--surface2);}
+.tc-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem;gap:1rem;}
+.tc-nm{font-size:.93rem;font-weight:400;}
+.tc-pct{font-size:.9rem;color:var(--accent3);font-family:var(--fd);font-style:italic;white-space:nowrap;}
+.tc-tier{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;}
+.tc-bg{height:1px;background:var(--border2);margin-bottom:.85rem;}
+.tc-fill{height:100%;background:linear-gradient(to right,var(--accent2),var(--accent3));transition:width 1.4s ease;width:0%;}
+.tc-desc{font-size:.82rem;color:var(--text2);line-height:1.75;}
+.dom-wrap{margin-top:2.5rem;}
+.dom-ttl{font-family:var(--fd);font-size:1.6rem;font-weight:300;margin-bottom:1.2rem;}
+.dom-ttl em{font-style:italic;color:var(--accent3);}
+.dom-sec{padding:1.5rem 1.8rem;background:var(--surface);border:1px solid var(--border);margin-bottom:.8rem;}
+.dom-nm{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+.dom-item{font-size:.82rem;color:var(--text2);line-height:1.75;padding-left:1rem;border-left:2px solid var(--accent2);margin-bottom:.9rem;}
+.dom-item:last-child{margin-bottom:0;}
+.dom-item b{color:var(--text);font-weight:400;}
+.res-col-line{margin-top:1.8rem;padding:1rem 1.4rem;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;gap:1rem;font-size:.82rem;color:var(--text2);line-height:1.6;}
+.res-col-dot{width:26px;height:26px;border-radius:50%;flex-shrink:0;border:1px solid rgba(255,255,255,.25);}
+.ins{margin-top:2rem;padding:2rem;border:1px solid var(--accent2);background:var(--mist2);position:relative;}
+.ins::before{content:'"';font-family:var(--fd);font-size:6rem;color:var(--accent2);opacity:.2;position:absolute;top:-1rem;left:1.5rem;line-height:1;}
+.ins-l{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.85rem;}
+.ins-t{font-family:var(--fd);font-size:1.05rem;font-style:italic;line-height:1.75;color:var(--text);}
+.res-cta{margin-top:2rem;padding:1.1rem 2rem;background:var(--accent2);color:#fff;border:none;font-family:var(--fb);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;width:100%;transition:background .3s;}
+.res-cta:hover{background:var(--accent);}
+.res-note{display:none;margin-top:1rem;padding:1rem 1.4rem;background:var(--mist2);border-left:2px solid var(--accent2);font-size:.8rem;color:var(--text2);line-height:1.7;}
+.res-note.on{display:block;}
+.res-foot{text-align:center;margin-top:1.8rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;}
+.res-disc{margin-top:2rem;font-size:.7rem;color:var(--text3);line-height:1.7;text-align:center;}
+
+@media(max-width:860px){
+  nav{padding:1rem 1.25rem;}
+  .sec{padding:4.5rem 1.5rem;}
+  .grid-2{grid-template-columns:1fr;gap:3rem;}
+  .abt-vis{height:auto;display:flex;flex-direction:column;gap:1rem;}
+  .acard{position:static;}
+  .acard:nth-child(1),.acard:nth-child(2){top:auto;left:auto;right:auto;bottom:auto;}
+  .steps{grid-template-columns:1fr;}
+  .bgrids{grid-template-columns:1fr;}
+  footer{flex-direction:column;text-align:center;}
+  #test-s{padding:4.2rem 1.1rem 4rem;}
+  .t-top{flex-wrap:wrap;gap:.8rem;}
+  .sc-btn{padding:.55rem .05rem;font-size:.68rem;}
+  .col-pal{grid-template-columns:repeat(4,1fr);gap:.45rem;}
+  .col-sw{height:64px;}
+  .img-grid{grid-template-columns:1fr 1fr;gap:.6rem;}
+  .aud-pl{padding:1rem 1.1rem;gap:.9rem;}
+  .aud-lbl{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <span class="logo" onclick="showLanding()"><span>И</span>СТОК</span>
+  <button class="nav-cta" onclick="startTest()">Пройти тест</button>
+</nav>
+
+<div id="landing">
+  <section id="hero">
+    <div class="hg hg1"></div><div class="hg hg2"></div><div class="hg hg3"></div>
+    <p class="eyebrow">Психология · самопознание · трансформация</p>
+    <h1 class="hero-h">Всё начинается<br>в <em>детстве</em></h1>
+    <p class="hero-sub">Исток помогает найти паттерны из прошлого, которые управляют твоей жизнью сегодня — и начать их менять.</p>
+    <button class="hero-cta" onclick="startTest()">Начать исследование <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    <div class="sline-wrap"><div class="sline"></div><span class="stxt">Листай</span></div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="sec-in grid-2">
+      <div>
+        <p class="sec-lbl">О проекте</p>
+        <h2 class="sec-ttl">Твои реакции —<br>это не <em>случайность</em></h2>
+        <p class="abt-txt">Почему ты замолкаешь когда нужно говорить. Почему уходишь когда нужно остаться. Почему снова и снова выбираешь одно и то же.</p>
+        <p class="abt-txt">Всё это — паттерны из детства. Они сформировались как способ выжить. Теперь они мешают жить.</p>
+        <p class="abt-txt">Исток — глубокий диагностический тест на 50 вопросов и 6 типов заданий. Не опросник. Зеркало.</p>
+      </div>
+      <div class="abt-vis">
+        <div class="acard"><div class="cnum">50</div><div class="ctitle">вопросов и заданий</div><div class="cdesc">Аудио-иллюзии, проективные картинки, незаконченные предложения, цвета, образы и шкалы воспоминаний. 20–30 минут реальной работы с собой.</div></div>
+        <div class="acard"><div class="cnum">5</div><div class="ctitle">паттернов детства</div><div class="cdesc">Тревога покинутости, внутренний критик, контроль как защита, эмоциональная закрытость, гиперответственность. Каждый оставляет след — и каждый можно проработать.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-in">
+      <div class="sh"><p class="sec-lbl">Как это работает</p><h2 class="sec-ttl" style="margin-bottom:0">Три шага к <em>себе</em></h2></div>
+      <div class="steps">
+        <div class="step"><div class="step-n">01</div><div class="step-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Пройди тест</h3><p>50 вопросов, 6 блоков. Аудио-иллюзии, визуальные образы, проективные техники. Фоновая музыка помогает отвечать честно.</p></div>
+        <div class="step"><div class="step-n">02</div><div class="step-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3>Получи аналитику</h3><p>Полный разбор паттернов. Что они значат, как влияют на отношения, карьеру, дружбу и саморазвитие. Тёплым человеческим языком.</p></div>
+        <div class="step"><div class="step-n">03</div><div class="step-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Прорабатывай каждый день</h3><p>Персональные задания под твой тип мышления. Реальные практики из КПТ, ACT и нарративной терапии.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="sec-in">
+      <div class="sh"><p class="sec-lbl">Структура теста</p><h2 class="sec-ttl" style="margin-bottom:0">Шесть способов <em>увидеть</em> себя</h2></div>
+      <div class="bgrids">
+        <div class="bcard"><span class="btag">Аудио · 4</span><h3>Что ты слышишь?</h3><p>Амбигуэнтные звуки — одна запись, которую слышат по-разному. Твоя реакция говорит больше, чем ответ.</p></div>
+        <div class="bcard"><span class="btag">Визуал · 6</span><h3>Что ты видишь?</h3><p>Проективные иллюзии и оптические образы. Что заметила первым — неосознанный сигнал о твоём внутреннем состоянии.</p></div>
+        <div class="bcard"><span class="btag">Предложения · 15</span><h3>Что ты чувствуешь?</h3><p>Незаконченные фразы из клинической практики. Первый импульс — самый честный ответ о себе.</p></div>
+        <div class="bcard"><span class="btag">Цвет · 5</span><h3>Что резонирует?</h3><p>Цветовые ассоциации и тест Люшера. Тихий язык бессознательного без слов и объяснений.</p></div>
+        <div class="bcard"><span class="btag">Образы · 10</span><h3>Кем ты себя видишь?</h3><p>Метафорические карты и сценарии из детства. Какой образ отражает тебя — и почему именно он.</p></div>
+        <div class="bcard"><span class="btag">Шкалы · 10</span><h3>Как ты оцениваешь?</h3><p>Шкальные вопросы о детских воспоминаниях. Цифры, которые ты даёшь себе, говорят многое.</p></div>
+      </div>
+      <div class="cta-c"><button class="hero-cta" onclick="startTest()">Начать тест <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="width:16px;height:16px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+    </div>
+  </section>
+
+  <footer><div class="flogo"><span>И</span>СТОК</div><div class="fnote">Инструмент самопознания. Не является терапией или медицинским диагнозом.</div></footer>
+</div>
+
+<div id="test-s"><div class="tc" id="tc"></div></div>
+
+<script>
+'use strict';
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
+
+/* ══════════════════════════════════════════════════════════
+   5 ПАТТЕРНОВ. Веса ответов: w:[ab, cr, ct, cl, hr]
+   ab — тревога покинутости      cr — внутренний критик
+   ct — контроль как защита      cl — эмоциональная закрытость
+   hr — гиперответственность
+   ══════════════════════════════════════════════════════════ */
+const PKEYS=['ab','cr','ct','cl','hr'];
+const PAT={
+ ab:{name:'Тревога покинутости',
+  low:'Тема покинутости не звучит в твоих ответах как ведущая. Похоже, у тебя есть базовое доверие к тому, что близкие остаются, — это опора, которую стоит замечать и беречь.',
+  mid:'Иногда ты предвосхищаешь уход раньше, чем что-то произошло: вслушиваешься в интонации, перепроверяешь, всё ли в порядке. Это не про сегодняшних людей — это старый радар, который когда-то был нужен.',
+  high:'Ты склонна готовиться к потере заранее — так, будто уход близких лишь вопрос времени. Отсюда и решение уходить первой, и осторожность в привязанности: если не подпускать близко, не будет так больно. Радар, который защищал тебя в детстве, теперь мешает получать то тепло, которое уже рядом.'},
+ cr:{name:'Внутренний критик',
+  low:'Внутренний критик у тебя не занимает много места. Ты умеешь ошибаться без самонаказания — это редкий и ценный навык.',
+  mid:'Внутри есть голос, который комментирует твои действия строже, чем ты когда-либо говорила бы с другим человеком. Чаще всего он включается после ошибок — и, что характерно, после похвалы: в моменты, когда ты видна.',
+  high:'Критика извне резонирует так глубоко, потому что внутри уже давно живёт голос, который критикует первым. Ты держишь себя в строгости там, где другим разрешаешь быть живыми. Этот голос когда-то был чужим — ты его выучила. А значит, можно выучить и другой.'},
+ ct:{name:'Контроль как защита',
+  low:'Непредсказуемость не пугает тебя сверх меры — ты умеешь отпускать то, что не в твоих руках.',
+  mid:'Когда ситуация выходит из-под контроля, тревога поднимается быстрее, чем того требует сама ситуация. План, порядок и предсказуемость — твои способы чувствовать себя в безопасности.',
+  high:'Стремление держать всё под контролем — не черта характера, а способ, которым ты когда-то справлялась с непредсказуемостью вокруг. Тогда это спасало. Сейчас это забирает силы: невозможно всё удержать, и каждая неожиданность ощущается как угроза, а не как жизнь.'},
+ cl:{name:'Эмоциональная закрытость',
+  low:'Тебе доступна уязвимость: ты можешь говорить о чувствах и просить о помощи. Это признак того, что открытость в твоём опыте была безопасной — или ты сама её себе вернула.',
+  mid:'Тебе проще дать, чем попросить. Часть чувств ты по привычке оставляешь при себе — особенно те, что могут показаться «неудобными». Люди рядом часто узнают о твоей боли последними.',
+  high:'Уязвимость кажется тебе опасной — когда-то её проигнорировали или использовали против тебя, и ты решила справляться сама. Ты закрываешься не потому, что тебе никто не нужен, а потому что открываться было больно. Но стена, которая защищает от боли, не пропускает и близость.'},
+ hr:{name:'Гиперответственность',
+  low:'Ты умеешь различать свою и чужую ответственность — брать своё и не тащить лишнее.',
+  mid:'Ты часто берёшь на себя больше, чем твоё: чужие настроения, общий результат, атмосферу в комнате. Отдыхать сложнее, чем работать — покой будто нужно заслужить.',
+  high:'Быть нужной, удобной, надёжной — роль, которую ты выучила в детстве, потому что так было безопаснее. Ты несёшь ответственность за других так давно, что уже не замечаешь веса. Усталость, которую ты игнорируешь, — не слабость. Это счёт, который копится.'}
+};
+
+const INSIGHT={
+ ab:'Ты перестанешь проверять, не собирается ли кто-то уйти, — и начнёшь замечать тех, кто остаётся. Близость перестанет быть ожиданием потери.',
+ cr:'Голос, который критикует первым, станет тише. Ты начнёшь говорить с собой так, как говоришь с теми, кого любишь, — и увидишь, сколько сил это освобождает.',
+ ct:'Ты научишься отличать заботу от контроля и план от брони. Неожиданность перестанет быть угрозой — и вернётся в жизнь как жизнь.',
+ cl:'Ты начнёшь просить о помощи — и получать её. Части себя, которые ты прятала, окажутся тем, за что тебя выберут.',
+ hr:'Ты положишь чужое там, где взяла, — и впервые почувствуешь, как легко твоё. Отдых перестанет требовать оправданий.'};
+
+const DOMAINS=[
+ {key:'rel',title:'Отношения',t:{
+  ab:'В близости ты можешь цепляться за сигналы отдаления и проверять связь — или отстраняться первой, чтобы не быть оставленной. Партнёру бывает сложно доказать, что он никуда не уходит.',
+  cr:'Рядом с партнёром ты порой чувствуешь себя «недостаточной» и заранее извиняешься за себя. Комплименты принимать труднее, чем упрёки.',
+  ct:'Тебе спокойнее, когда в отношениях всё ясно и по плану. Спонтанность партнёра может считываться как угроза, а не как игра.',
+  cl:'Ты рассказываешь о себе меньше, чем чувствуешь. Партнёр может годами не знать, что тебя ранит, — ты предпочитаешь «справиться сама».',
+  hr:'Ты берёшь на себя эмоциональное обслуживание отношений: мирить, сглаживать, угадывать настроение. Твои потребности при этом стоят в конце очереди.'}},
+ {key:'car',title:'Карьера',t:{
+  ab:'На работе тебе важно чувствовать себя «своей». Реорганизации, смены команд и молчание руководителя бьют сильнее, чем сами задачи.',
+  cr:'Синдром самозванца, переработки ради «достаточно хорошо», болезненная реакция на правки — твой критик особенно громок в профессиональной сфере.',
+  ct:'Ты сильна в планировании, но делегировать трудно: кажется, что без твоего контроля всё развалится. Форс-мажоры выматывают сильнее самой работы.',
+  cl:'Ты не показываешь коллегам сомнений и усталости, просишь о помощи в последнюю очередь. Со стороны ты «железная» — и это дорого стоит.',
+  hr:'Ты закрываешь чужие задачи, спасаешь горящие проекты и не умеешь говорить «это не моя зона». Выгорание для тебя не риск, а график.'}},
+ {key:'fri',title:'Дружба',t:{
+  ab:'Если друг долго не пишет, включается тревога: «что-то не так, я больше не нужна». Тебе сложно верить, что дружба выдерживает паузы.',
+  cr:'Тебе бывает страшно «навязываться», и ты ждёшь, что позовут. Внутри живёт сомнение — интересна ли ты сама по себе, без пользы, которую приносишь.',
+  ct:'Тебе комфортнее в проверенном узком кругу и по знакомому сценарию. Новые компании и спонтанные планы требуют усилия.',
+  cl:'Ты — тот друг, которому рассказывают всё, но кто редко рассказывает о себе. Дружба получается односторонней глубины.',
+  hr:'Ты — «служба спасения» своего круга: выслушать, помочь, организовать. Когда плохо тебе — ты не звонишь никому.'}},
+ {key:'dev',title:'Саморазвитие',t:{
+  ab:'В работе над собой тебе важны поддержка и отклик — в одиночку мотивация быстро тает. Ищи форматы с сопровождением, а не марафоны силы воли.',
+  cr:'Любая практика превращается в повод для самооценки: «медитирую неправильно», «опять сорвалась». Начни с самосострадания — без него остальные практики буксуют.',
+  ct:'Ты подходишь к развитию через дисциплину и систему — это твоя сила. Но настоящая зона роста — практики отпускания: телесные, дыхательные, спонтанные.',
+  cl:'Тебе проще читать о чувствах, чем чувствовать. Дневник эмоций и разговорные практики дадут больше, чем ещё одна книга.',
+  hr:'Первый навык для тебя — отдых без чувства вины. Замечать свои желания раньше чужих ожиданий — это и есть твоя главная практика.'}}
+];
+
+const RES_COLORS={
+ 'Жёлтый':'спонтанность и радость — разреши себе лёгкость без повода',
+ 'Оранжевый':'энергия живого контакта — тебя питает общение и движение',
+ 'Синий':'покой и глубина — твоя сила в тишине и сосредоточенности',
+ 'Зелёный':'устойчивость и рост — ты умеешь держать корни и тянуться вверх',
+ 'Красный':'сила и право хотеть — разреши себе желать открыто',
+ 'Фиолетовый':'интуиция и творчество — доверяй образам, которые приходят первыми',
+ 'Белый':'ясность и новое начало — ты готова к чистому листу',
+ 'Розовый':'нежность к себе — то, чего твоему детству не хватило, теперь можешь дать ты'};
+
+/* Словарь маркеров для анализа незаконченных предложений (метод Сакса) */
+const LEX={
+ ab:['одино','брос','поки','ушл','уйд','уход','остав','исчез','расстав','ненужн','не нужн','отверг','пуст','теря','потер','скуча','без меня'],
+ cr:['винов','стыд','стыж','плох','глуп','недостаточн','не заслуж','незаслуж','ошиб','идеаль','слаб','ничтож','хуже','не справл','неудач','дура','позор','критик','наказ'],
+ ct:['контрол','поряд','план','хаос','неожидан','непредсказ','страх','страшн','боюсь','боял','опасн','тревог','вдруг','неизвестн','беспомощ'],
+ cl:['молч','скрыв','пряч','закрыв','не показ','не говор','в себе','сама справ','сам справ','замык','терпл','терпе','не рассказ','дистанц','отдал','холод'],
+ hr:['должн','обязан','ответствен','за всех','забочусь','заботил','спас','помога','подвести','удобн','стара','соответств','ожидан','всё сама','все сама','нельзя']};
+const TEXT_CAP=8;
+
+/* ══════════════════════════════════════════════
+   50 ВОПРОСОВ + ИНТРО + ДЫХАНИЕ + РЕЗУЛЬТАТ
+   ══════════════════════════════════════════════ */
+const Q=[
+{id:'intro'},
+
+// ─── БЛОК 1: АУДИО (4) — разогрев, лёгкие веса ───
+{id:'aud',blk:'Блок 1 из 6 — Аудио восприятие',n:1,
+ q:'Послушай запись. Какое слово ты слышишь?',
+ sub:'Нажми воспроизвести. Послушай несколько раз. Выбери то, что слышишь.',
+ url:'https://theory.stanford.edu/~valiant/polyperceivable/mp3/laurel_yanny_0.9.mp3',
+ albl:'Аудио-иллюзия · «Laurel / Yanny»',
+ fact:'Одни слышат «Лорел», другие — «Янни». Мозг фокусируется на разных частотах в зависимости от текущего состояния нервной системы.',
+ opts:[
+  {t:'Слышу одно слово чётко — «Лорел»',w:[0,0,0,0,0]},
+  {t:'Слышу одно слово чётко — «Янни»',w:[0,0,0,0,0]},
+  {t:'Слышу оба слова — и это напрягает, хочется определённости',w:[0,0,1,0,0]},
+  {t:'Слово меняется каждый раз — и мне это скорее интересно',w:[0,0,0,0,0]}]},
+{id:'aud',blk:'Блок 1 из 6 — Аудио восприятие',n:2,
+ q:'Что ты почувствовала, слушая эту запись?',
+ sub:'Сначала послушай. Потом выбери не что услышала, а именно что почувствовала — в теле, в груди.',
+ url:'https://theory.stanford.edu/~valiant/polyperceivable/mp3/round_world_0.9.mp3',
+ albl:'Аудио-иллюзия · «Round / World»',
+ fact:'Неоднозначный звук — как чернильное пятно для слуха: в него проще всего «услышать» собственное фоновое чувство.',
+ opts:[
+  {t:'Спокойствие — что-то знакомое и привычное',w:[0,0,0,0,0]},
+  {t:'Лёгкую тревогу или напряжение в груди',w:[0,0,1,0,0]},
+  {t:'Грусть — что-то тяжёлое и странно знакомое',w:[1,0,0,0,0]},
+  {t:'Любопытство, хотела слушать ещё',w:[0,0,0,0,0]}]},
+{id:'aud',blk:'Блок 1 из 6 — Аудио восприятие',n:3,
+ q:'Послушай этот звук. Что он тебе напоминает?',
+ sub:'Первая ассоциация — самая важная. Не подбирай «правильную».',
+ url:'https://theory.stanford.edu/~valiant/polyperceivable/mp3/thrilling_flowing_0.9.mp3',
+ albl:'Аудио-иллюзия · «Thrilling / Flowing»',
+ fact:'Одни слышат слово, связанное с волнением, другие — с потоком. Это отражает доминирующее фоновое состояние.',
+ opts:[
+  {t:'Что-то родное — звуки из детства',w:[0,0,0,0,0]},
+  {t:'Что-то тревожное — хотелось выключить',w:[0,0,1,1,0]},
+  {t:'Ничего особенного — просто звук',w:[0,0,0,1,0]},
+  {t:'Что-то красивое — хотелось слушать дольше',w:[0,0,0,0,0]}]},
+{id:'aud',blk:'Блок 1 из 6 — Аудио восприятие',n:4,
+ q:'Последнее аудио. Какой была твоя самая первая реакция тела?',
+ sub:'Не анализируй. Просто первое, что возникло — ещё до того, как ты начала думать.',
+ url:'https://theory.stanford.edu/~valiant/polyperceivable/mp3/lady_maybe_0.9.mp3',
+ albl:'Аудио-иллюзия · «Lady / Maybe»',
+ fact:'Реакция «бей, беги, замри» проявляется даже на безопасные звуки — по привычному с детства сценарию.',
+ opts:[
+  {t:'Хотелось двигаться, что-то делать',w:[0,0,0,0,0]},
+  {t:'Хотелось замереть, стать незаметной',w:[1,0,0,1,0]},
+  {t:'Хотелось уйти, убрать звук',w:[0,0,0,1,0]},
+  {t:'Хотелось остаться и слушать ещё',w:[0,0,0,0,0]}]},
+
+// ─── БЛОК 2: ВИЗУАЛ (6) ───
+{id:'ill',blk:'Блок 2 из 6 — Визуальное восприятие',n:5,
+ q:'Что ты увидела на картинке первым?',
+ sub:'Посмотри несколько секунд. Не анализируй — просто заметь первый образ.',
+ illT:'face-vase',
+ opts:[
+  {t:'Вазу в центре — сразу',w:[0,0,0,0,0]},
+  {t:'Два лица, обращённые друг к другу',w:[0,0,0,0,0]},
+  {t:'Оба образа одновременно',w:[0,0,0,0,0]},
+  {t:'Пустоту между лицами — расстояние',w:[1,0,0,1,0]}]},
+{id:'ill',blk:'Блок 2 из 6 — Визуальное восприятие',n:6,
+ q:'Кого ты увидела первой?',
+ sub:'Первый образ приходит сам, без усилий. Доверяй ему.',
+ illT:'old-young',
+ opts:[
+  {t:'Молодую женщину — сразу',w:[0,0,0,0,0]},
+  {t:'Старуху — сразу',w:[0,0,0,0,0]},
+  {t:'Долго не могла найти второй образ',w:[0,0,1,0,0]},
+  {t:'Обеих почти одновременно',w:[0,0,0,0,0]}]},
+{id:'ill',blk:'Блок 2 из 6 — Визуальное восприятие',n:7,
+ q:'Посмотри на изображение. Что ты видишь?',
+ sub:'Некоторые видят одно, другие — совсем иное. Первый ответ важнее обдуманного.',
+ illT:'duck-rabbit',
+ opts:[
+  {t:'Утку — клюв смотрит влево',w:[0,0,0,0,0]},
+  {t:'Кролика — уши смотрят влево',w:[0,0,0,0,0]},
+  {t:'Обоих, легко переключаюсь',w:[0,0,0,0,0]},
+  {t:'Сначала одно — второе пришлось искать',w:[0,0,1,0,0]}]},
+{id:'ill',blk:'Блок 2 из 6 — Визуальное восприятие',n:8,
+ q:'Когда картинка «переключается» сама, без твоего решения — что ты чувствуешь?',
+ sub:'Это вопрос о том, как ты переносишь то, что не поддаётся контролю.',
+ opts:[
+  {t:'Интерес — забавно, как работает мозг',w:[0,0,0,0,0]},
+  {t:'Лёгкое раздражение — хочу сама решать, что вижу',w:[0,0,1,0,0]},
+  {t:'Недоверие к себе — если глаза обманывают, чему верить?',w:[0,1,1,0,0]},
+  {t:'Ничего — я быстро теряю к этому интерес',w:[0,0,0,1,0]}]},
+{id:'ill',blk:'Блок 2 из 6 — Визуальное восприятие',n:9,
+ q:'Посмотри на это изображение 10 секунд. Что ты чувствуешь, глядя на него?',
+ sub:'Не что видишь — а что чувствуешь. Это важное различие.',
+ illT:'spiral',
+ opts:[
+  {t:'Спокойствие, умиротворение',w:[0,0,0,0,0]},
+  {t:'Лёгкое головокружение — и это неприятно, теряю опору',w:[0,0,1,0,0]},
+  {t:'Любопытство, затягивает',w:[0,0,0,0,0]},
+  {t:'Дискомфорт — хочется отвести взгляд',w:[0,0,1,0,0]}]},
+{id:'ill',blk:'Блок 2 из 6 — Визуальное восприятие',n:10,
+ q:'Здесь нарисован треугольник, которого на самом деле нет. Что тебе ближе?',
+ sub:'Мозг достраивает целое из фрагментов — так же, как мы достраиваем смыслы в отношениях.',
+ illT:'dots',
+ opts:[
+  {t:'Мне нравится, что мозг достраивает картину сам',w:[0,0,0,0,0]},
+  {t:'Я всегда достраиваю — часто вижу то, чего люди не говорили',w:[1,0,1,0,0]},
+  {t:'Я стараюсь видеть только факты: три уголка, и всё',w:[0,0,0,1,0]},
+  {t:'Меня тревожит, что я могу «видеть» то, чего нет',w:[0,1,1,0,0]}]},
+
+// ─── БЛОК 3: НЕЗАКОНЧЕННЫЕ ПРЕДЛОЖЕНИЯ (15) ───
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'11–13',
+ q:'Продолжи фразы — первым, что придёт',
+ sub:'Метод Сакса из клинической практики. Нет правильных ответов. Пиши что есть — не что «нужно» написать.',
+ stems:['Когда меня критикуют, я...','Самое страшное для меня — это...','Когда кто-то уходит, я...']},
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'14–16',
+ q:'Следующие три фразы',
+ sub:'Продолжай так же — первым импульсом, не задумываясь.',
+ stems:['Я злюсь, когда...','Когда мне плохо, я обычно...','Люди меня не понимают, потому что...']},
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'17–19',
+ q:'Продолжи',
+ sub:'Позволь словам выходить сами.',
+ stems:['Мои родители были...','Дома в детстве было...','Я чувствовала себя одинокой, когда...']},
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'20–22',
+ q:'Ещё три',
+ sub:'Ты глубже, чем кажется. Продолжай.',
+ stems:['Когда меня хвалят, я...','Я не заслуживаю...','Мне трудно просить о помощи, потому что...']},
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'23–25',
+ q:'Последние три предложения этого блока',
+ sub:'Ты уже в середине теста. Дыши.',
+ stems:['Когда я смотрю на своё детство, я вижу...','Я стараюсь не думать о...','Больше всего в детстве я хотела...']},
+
+// ─── БЛОК 4: ЦВЕТ (5) ───
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:26,
+ q:'Выбери цвет, который ассоциируется с твоим детством',
+ sub:'По мотивам теста Люшера. Первый импульс — без анализа.',
+ colors:[
+  {h:'#1e2a4a',l:'Ночь',w:[0,0,0,1,0]},
+  {h:'#7a6fa8',l:'Лиловый',w:[0,0,0,0,0]},
+  {h:'#3d7a6a',l:'Лес',w:[0,0,0,0,0]},
+  {h:'#c4a060',l:'Янтарь',w:[0,0,0,0,0]},
+  {h:'#8a4a4a',l:'Тревога',w:[1,1,0,0,0]},
+  {h:'#4a6080',l:'Сталь',w:[0,0,1,1,0]},
+  {h:'#252535',l:'Темнота',w:[1,0,0,1,0]},
+  {h:'#a8a098',l:'Туман',w:[1,0,0,1,0]}]},
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:27,
+ q:'Теперь выбери цвет, который описывает тебя сегодня',
+ sub:'Не думай — просто тот, который тянет.',
+ colors:[
+  {h:'#1e2a4a',l:'Ночь',w:[0,0,0,1,0]},
+  {h:'#7a6fa8',l:'Лиловый',w:[0,0,0,0,0]},
+  {h:'#3d7a6a',l:'Лес',w:[0,0,0,0,0]},
+  {h:'#c4a060',l:'Янтарь',w:[0,0,0,0,0]},
+  {h:'#8a4a4a',l:'Тревога',w:[0,1,1,0,0]},
+  {h:'#4a6080',l:'Сталь',w:[0,0,1,1,0]},
+  {h:'#252535',l:'Темнота',w:[1,0,0,1,0]},
+  {h:'#a8a098',l:'Туман',w:[1,0,0,1,0]}]},
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:28,
+ q:'Выбери цвет, который ты отвергаешь — он неприятен, раздражает',
+ sub:'Отвергаемый цвет говорит о подавленной потребности.',
+ colors:[
+  {h:'#e8d44d',l:'Жёлтый',w:[0,1,0,0,1]},
+  {h:'#e87a4a',l:'Оранжевый',w:[0,0,0,1,0]},
+  {h:'#4a8ae8',l:'Синий',w:[1,0,1,0,0]},
+  {h:'#4aaa6a',l:'Зелёный',w:[0,1,0,0,0]},
+  {h:'#e84a6a',l:'Красный',w:[0,0,0,2,0]},
+  {h:'#9a4ae8',l:'Фиолетовый',w:[0,0,0,1,0]},
+  {h:'#6a4a38',l:'Коричневый',w:[0,0,0,0,1]},
+  {h:'#888888',l:'Серый',w:[1,0,0,0,0]}]},
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:29,
+ q:'Если бы твой страх был цветом — какой бы это был цвет?',
+ sub:'Позволь первой ассоциации выйти.',
+ colors:[
+  {h:'#1e2a4a',l:'Ночь',w:[1,0,0,0,0]},
+  {h:'#7a6fa8',l:'Лиловый',w:[0,0,0,0,0]},
+  {h:'#3d7a6a',l:'Лес',w:[0,0,0,0,0]},
+  {h:'#c4a060',l:'Янтарь',w:[0,0,0,0,0]},
+  {h:'#8a4a4a',l:'Тревога',w:[0,0,1,0,0]},
+  {h:'#4a6080',l:'Сталь',w:[0,0,0,1,0]},
+  {h:'#252535',l:'Темнота',w:[1,0,0,0,0]},
+  {h:'#a8a098',l:'Туман',w:[0,0,1,0,0]}]},
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:30,resColor:true,
+ q:'Если бы твоя сила была цветом — какой бы это был цвет?',
+ sub:'Этот цвет мы запомним: он вернётся к тебе в результатах.',
+ colors:[
+  {h:'#e8d44d',l:'Жёлтый',w:[0,0,0,0,0]},
+  {h:'#e87a4a',l:'Оранжевый',w:[0,0,0,0,0]},
+  {h:'#4a8ae8',l:'Синий',w:[0,0,0,0,0]},
+  {h:'#4aaa6a',l:'Зелёный',w:[0,0,0,0,0]},
+  {h:'#e84a6a',l:'Красный',w:[0,0,0,0,0]},
+  {h:'#9a4ae8',l:'Фиолетовый',w:[0,0,0,0,0]},
+  {h:'#f0f0f0',l:'Белый',w:[0,0,0,0,0]},
+  {h:'#ffc0cb',l:'Розовый',w:[0,0,0,0,0]}]},
+
+// ─── БЛОК 5: ОБРАЗЫ И СЦЕНАРИИ (10) ───
+{id:'img',blk:'Блок 5 из 6 — Образы и сценарии',n:31,
+ q:'Какой образ описывает тебя в детстве?',
+ sub:'Выбери интуитивно — не думай.',
+ choices:[
+  {ico:'bird',l:'Птица в клетке\nхочет вырваться',w:[1,0,1,0,0]},
+  {ico:'tree',l:'Дерево на ветру\nгнётся, но держится',w:[0,0,0,0,2]},
+  {ico:'stone',l:'Камень в воде\nвсё обтекает',w:[0,0,0,2,0]},
+  {ico:'candle',l:'Свеча\nсветит другим, сгорая',w:[0,0,0,0,3]}]},
+{id:'img',blk:'Блок 5 из 6 — Образы и сценарии',n:32,
+ q:'Какой образ описывает тебя сегодня?',
+ sub:'Может совпасть с предыдущим — или нет.',
+ choices:[
+  {ico:'bird',l:'Птица в клетке\nхочет вырваться',w:[1,0,1,0,0]},
+  {ico:'tree',l:'Дерево на ветру\nгнётся, но держится',w:[0,0,0,0,2]},
+  {ico:'stone',l:'Камень в воде\nвсё обтекает',w:[0,0,0,2,0]},
+  {ico:'candle',l:'Свеча\nсветит другим, сгорая',w:[0,0,0,0,3]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:33,
+ scene:'Тебе 8 лет. Ты приходишь домой с плохой оценкой. Ты останавливаешься у двери и думаешь — что делать.',
+ q:'Что ты делаешь?',
+ opts:[
+  {t:'Вхожу как обычно — скажу правду',w:[0,0,0,0,0]},
+  {t:'Прячу дневник и надеюсь, что не спросят',w:[0,1,0,2,0]},
+  {t:'Придумываю объяснение заранее, репетирую слова',w:[0,0,2,1,0]},
+  {t:'Начинаю плакать ещё на улице',w:[1,2,0,0,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:34,
+ scene:'Тебе 10 лет. Ты хочешь что-то — новую игрушку, поход с друзьями. Тебе нужно попросить родителей.',
+ q:'Как ты это делаешь?',
+ opts:[
+  {t:'Прошу прямо — просто говорю, что хочу',w:[0,0,0,0,0]},
+  {t:'Намекаю издалека и жду, что сами поймут',w:[1,0,0,1,0]},
+  {t:'Долго выжидаю момент, когда настроение дома хорошее',w:[0,0,2,0,1]},
+  {t:'Решаю обойтись — лучше не просить',w:[0,1,0,3,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:35,
+ scene:'Тебе 9 лет. Родители ругаются. Ты слышишь это из своей комнаты.',
+ q:'Что ты делаешь?',
+ opts:[
+  {t:'Выхожу и пытаюсь помирить их',w:[0,0,1,0,3]},
+  {t:'Закрываюсь глубже — уши, подушка, книга',w:[0,0,0,2,0]},
+  {t:'Замираю и жду, когда закончится',w:[2,0,1,0,0]},
+  {t:'Начинаю убирать или делать что-то полезное',w:[0,1,0,0,2]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:36,
+ scene:'Тебе 11 лет. Подруга сказала что-то обидное при всех. Тебе больно.',
+ q:'Что происходит внутри?',
+ opts:[
+  {t:'Злость — хочу ответить или уйти',w:[0,0,0,0,0]},
+  {t:'Стыд — наверное, я сама виновата',w:[0,3,0,0,0]},
+  {t:'Желание стать невидимой',w:[0,1,0,2,0]},
+  {t:'Обида, которую я скрываю — и улыбаюсь',w:[0,0,0,2,1]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:37,
+ scene:'Тебе 7 лет. Тебя не взяли играть — компания детей сказала «нет».',
+ q:'Что ты чувствуешь и что делаешь?',
+ opts:[
+  {t:'Ухожу и нахожу что-то другое — мне нормально',w:[0,0,0,0,0]},
+  {t:'Пытаюсь снова — предлагаю что-нибудь, чтобы взяли',w:[2,0,0,0,1]},
+  {t:'Ухожу и долго чувствую себя плохо',w:[2,1,0,0,0]},
+  {t:'Злюсь — на них и на себя',w:[0,2,0,0,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:38,
+ scene:'Взрослый — учитель или родственник — хвалит тебя при всех. Говорит, что ты умная и молодец.',
+ q:'Как ты реагируешь внутри?',
+ opts:[
+  {t:'Радость — мне приятно, и я это принимаю',w:[0,0,0,0,0]},
+  {t:'Смущение — хочется спрятаться',w:[0,1,0,1,0]},
+  {t:'Недоверие — наверное, говорит неискренне',w:[0,1,0,2,0]},
+  {t:'Тревога — теперь нельзя подвести',w:[0,1,1,0,2]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:39,
+ scene:'Тебе нужна помощь — с уроком, с чем-то тяжёлым. Рядом есть кто-то, кто может помочь.',
+ q:'Что ты делаешь?',
+ opts:[
+  {t:'Прошу помощи — это нормально',w:[0,0,0,0,0]},
+  {t:'Пытаюсь справиться сама как можно дольше',w:[0,0,1,1,1]},
+  {t:'Намекаю косвенно — вдруг сами предложат',w:[1,0,0,1,0]},
+  {t:'Отказываюсь, даже когда предлагают',w:[0,0,1,2,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:40,
+ scene:'Ты узнаёшь, что кто-то близкий уедет надолго или уйдёт из твоей жизни.',
+ q:'Первая реакция — что происходит внутри?',
+ opts:[
+  {t:'Грусть — буду скучать, но всё будет хорошо',w:[0,0,0,0,0]},
+  {t:'Паника — не хочу, чтобы уходили',w:[3,0,0,0,0]},
+  {t:'Онемение — я как будто отключаюсь',w:[1,0,0,2,0]},
+  {t:'Злость — почему они уходят',w:[2,0,0,0,0]}]},
+
+// ─── БЛОК 6: ШКАЛЫ (9) + СЛОВО (1) ───
+{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'41–43',
+ q:'Оцени своё детство',
+ sub:'Нет правильного ответа. Первое число, которое чувствуется верным.',
+ scales:[
+  {q:'Насколько ты чувствовала себя любимой в детстве?',lo:'совсем нет',hi:'безусловно',w:[2,1,0,0,0]},
+  {q:'Насколько дома было физически и эмоционально безопасно?',lo:'совсем нет',hi:'очень безопасно',w:[1,0,2,0,0]},
+  {q:'Насколько тебя слышали и понимали родители?',lo:'никогда',hi:'всегда',w:[1,0,0,2,0]}]},
+{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'44–46',
+ q:'Продолжаем',
+ sub:'',
+ scales:[
+  {q:'Насколько часто тебя хвалили в детстве?',lo:'никогда',hi:'очень часто',w:[0,3,0,0,0]},
+  {q:'Насколько ты могла выражать злость или недовольство дома?',lo:'никогда — это было опасно',hi:'всегда свободно',w:[0,0,0,3,0]},
+  {q:'Насколько ты чувствовала себя нужной и важной просто так — а не за помощь и достижения?',lo:'совсем нет',hi:'абсолютно',w:[1,1,0,0,1]}]},
+{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'47–49',
+ q:'Последний набор',
+ sub:'Ты почти у финала.',
+ scales:[
+  {q:'Насколько предсказуемой была жизнь дома?',lo:'абсолютный хаос',hi:'стабильно и ясно',w:[0,0,3,0,0]},
+  {q:'Насколько ты могла быть собой — со своими интересами и странностями?',lo:'совсем нет',hi:'полностью',w:[0,2,0,0,1]},
+  {q:'Насколько ты доверяешь своим детским воспоминаниям?',lo:'совсем не доверяю',hi:'полностью доверяю',w:[0,0,0,1,0]}]},
+{id:'single',blk:'Блок 6 из 6 — Воспоминания о детстве',n:50,
+ q:'Последний вопрос теста',
+ sub:'Если бы детство можно было описать одним словом — какое бы это было слово?',
+ opts:[
+  {t:'Тёплое',w:[0,0,0,0,0]},
+  {t:'Тревожное',w:[1,0,2,0,0]},
+  {t:'Одинокое',w:[2,0,0,1,0]},
+  {t:'Хаотичное',w:[0,0,3,0,0]},
+  {t:'Обычное',w:[0,0,0,0,0]},
+  {t:'Тяжёлое',w:[0,1,0,0,2]},
+  {t:'Счастливое',w:[0,0,0,0,0]},
+  {t:'Пустое',w:[2,0,0,2,0]}]},
+
+{id:'breath'},
+{id:'results'}
+];
+
+/* номер первого вопроса каждого экрана — для прогресса */
+(function(){let acc=1;Q.forEach(s=>{s.qs=acc;
+ if(s.stems)acc+=s.stems.length;else if(s.scales)acc+=s.scales.length;
+ else if(!['intro','breath','results'].includes(s.id))acc+=1;});})();
+const TOTAL_Q=50;
+
+let cur=0,ans={},brC=0,brGo=false,brTmr2=null;
+
+/* ─── сохранение прогресса ─── */
+function saveState(){try{localStorage.setItem('istok_state',JSON.stringify({cur,ans,ts:Date.now()}));}catch(e){}}
+function loadState(){try{return JSON.parse(localStorage.getItem('istok_state')||'null');}catch(e){return null;}}
+function clearState(){try{localStorage.removeItem('istok_state');}catch(e){}}
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+
+function showLanding(){document.getElementById('landing').style.display='';document.getElementById('test-s').classList.remove('on');Music.stop();window.scrollTo(0,0);}
+function startTest(){
+  document.getElementById('landing').style.display='none';
+  document.getElementById('test-s').classList.add('on');
+  window.scrollTo(0,0);
+  if(Music.enabled)Music.start();
+  render(0);
+}
+function resumeTest(){const st=loadState();if(st&&st.ans){ans=st.ans;render(Math.min(st.cur,Q.length-1));}}
+function restartTest(){ans={};clearState();render(0);}
+
+/* ══════════ РЕНДЕР ЭКРАНОВ ══════════ */
+function render(idx){
+  cur=Math.max(0,idx);
+  const s=Q[cur];
+  const el=document.getElementById('tc');
+  const pct=s.id==='breath'||s.id==='results'?100:Math.round((s.qs-1)/TOTAL_Q*100);
+  const lbl=s.id==='intro'||s.id==='breath'||s.id==='results'?'':s.n+' / 50';
+
+  let html=`<div class="t-top">
+    <span class="t-lbl">${lbl}</span>
+    <div class="t-bar"><div class="t-fill" style="width:${pct}%"></div></div>
+    <button class="mus-btn${Music.enabled?' on':''}" id="musB" onclick="Music.toggle()" title="Фоновая музыка">
+      <span class="mus-ico"><i></i><i></i><i></i></span>${Music.enabled?'звук':'тихо'}</button>
+  </div>`;
+
+  if(s.id==='intro'){
+    const st=loadState();
+    const hasSaved=st&&st.cur>0&&st.cur<Q.length-2&&Object.keys(st.ans||{}).length>0;
+    html+=`<p class="t-blk">Добро пожаловать</p>
+    <h2 class="t-q" style="font-size:clamp(2rem,5vw,3.5rem);margin-bottom:1rem">Готова заглянуть<br><em style="color:var(--accent3)">внутрь?</em></h2>
+    <p class="t-sub">Этот тест состоит из 50 вопросов и займёт 20–30 минут.<br><br>
+    6 блоков: аудио-иллюзии → визуальные образы → незаконченные предложения → цвета → сценарии из детства → шкалы воспоминаний.<br><br>
+    Здесь нет правильных и неправильных ответов. Есть только твоё восприятие. Чем честнее — тем точнее результат.<br><br>
+    Фоновая музыка помогает не «думать головой» — включи звук кнопкой сверху, если хочешь.<br><br>
+    <strong style="color:var(--text);font-weight:400">Отвечай первым импульсом. Не думай долго.</strong></p>
+    ${hasSaved?`<div class="resume-box">
+      <p>У тебя есть незавершённое прохождение — вопрос ${Q[st.cur].n||''} из 50. Продолжить с того же места?</p>
+      <div class="resume-row">
+        <button class="btn-nx" onclick="resumeTest()">Продолжить</button>
+        <button class="btn-ghost" onclick="restartTest()">Начать заново</button>
+      </div></div>`
+    :`<button class="btn-nx" style="width:100%;padding:1.1rem;margin-top:1rem" onclick="nxt()">Начать →</button>`}`;
+
+  } else if(s.id==='aud'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${s.q}</h2><p class="t-sub">${s.sub}</p>
+    <audio id="a${cur}" src="${s.url}" preload="auto"></audio>
+    <div class="aud-pl" onclick="togAud(${cur})">
+      <div class="play-c"><svg id="pi${cur}" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <div class="awaves" id="aw${cur}">${Array(20).fill(0).map((_,i)=>`<span style="height:${6+Math.abs(Math.sin(i*.7))*18}px"></span>`).join('')}</div>
+      <span class="aud-lbl">${s.albl}</span>
+    </div>
+    <div class="aud-err" id="ae${cur}">Не удалось загрузить аудио (проверь интернет). Ничего страшного: ответь по внутреннему ощущению от названия иллюзии —${s.albl.split('·')[1]||''}.</div>
+    ${s.fact?`<div class="aud-fact" id="af${cur}">${s.fact}</div>`:''}
+    <div class="t-opts">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${o.t}</button>`).join('')}</div>
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='ill'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${s.q}</h2><p class="t-sub">${s.sub}</p>
+    ${s.illT?`<div class="ill-wrap">${illSVG(s.illT)}<span class="ill-hint">смотри глубже</span></div>`:''}
+    <div class="t-opts">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${o.t}</button>`).join('')}</div>
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='sent'){
+    html+=`<p class="t-blk">${s.blk} · вопросы ${s.n}</p>
+    <h2 class="t-q">${s.q}</h2><p class="t-sub">${s.sub}</p>
+    <div class="sent-list">${s.stems.map((st,i)=>`
+      <div class="sent-row">
+        <span class="sent-stem">${st}</span>
+        <input class="sent-inp" placeholder="..." value="${esc((ans[cur]||[])[i]||'')}" oninput="updS(${i},this.value)"/>
+      </div>`).join('')}</div>
+    ${nav(cur,sentDone(s,ans[cur]))}`;
+
+  } else if(s.id==='col'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${s.q}</h2><p class="t-sub">${s.sub}</p>
+    <div class="col-pal">${s.colors.map((c,i)=>`<div class="col-sw${ans[cur]===i?' sel':''}" style="background:${c.h}" onclick="selC(${i})"><span class="col-sw-l" ${c.h==='#f0f0f0'?'style="color:rgba(0,0,0,.55)"':''}>${c.l}</span></div>`).join('')}</div>
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='img'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${s.q}</h2><p class="t-sub">${s.sub}</p>
+    <div class="img-grid">${s.choices.map((c,i)=>`
+      <div class="img-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">
+        ${icoSVG(c.ico)}<span>${c.l.replace('\n','<br>')}</span>
+      </div>`).join('')}</div>
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='scen'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <div class="scen-box">${s.scene}</div>
+    <h2 class="t-q" style="font-size:1.5rem">${s.q}</h2>
+    <div class="t-opts" style="margin-top:1rem">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${o.t}</button>`).join('')}</div>
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='sc'){
+    html+=`<p class="t-blk">${s.blk} · вопросы ${s.n}</p>
+    <h2 class="t-q">${s.q}</h2>${s.sub?`<p class="t-sub">${s.sub}</p>`:''}
+    <div class="sc-list">${s.scales.map((sc,si)=>`
+      <div class="sc-item">
+        <p class="sc-q">${sc.q}</p>
+        <div class="sc-ends"><span>${sc.lo}</span><span>${sc.hi}</span></div>
+        <div class="sc-row">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="sc-btn${(ans[cur]||{})[si]===n?' sel':''}" onclick="selSc(${si},${n})">${n}</button>`).join('')}</div>
+      </div>`).join('')}</div>
+    ${nav(cur,Object.keys(ans[cur]||{}).length>=s.scales.length)}`;
+
+  } else if(s.id==='single'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${s.q}</h2><p class="t-sub">${s.sub}</p>
+    <div class="t-opts">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${o.t}</button>`).join('')}</div>
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='breath'){
+    html+=`<p class="t-blk">Заземление</p>
+    <h2 class="t-q" style="text-align:center">Три вдоха, прежде чем увидеть результат</h2>
+    <p class="t-sub" style="text-align:center">Ты прошла все 50 вопросов. Нажми на круг и сделай три медленных вдоха.</p>
+    <div class="br-sec">
+      <div class="br-ring" id="bR" onclick="startBr()">вдох</div>
+      <span class="br-cnt" id="bC">нажми, чтобы начать</span>
+    </div>
+    ${nav(cur,true)}`;
+
+  } else if(s.id==='results'){
+    html+=renderResults();
+  }
+
+  el.innerHTML=`<div class="scr">${html}</div>`;
+  window.scrollTo(0,0);
+  saveState();
+
+  if(s.id==='aud'){
+    const a=document.getElementById('a'+cur);
+    if(a)a.addEventListener('error',()=>{const e=document.getElementById('ae'+cur);if(e)e.classList.add('on');},true);
+  }
+  if(s.id==='results'){
+    Music.stop();
+    clearState();
+    setTimeout(()=>{document.querySelectorAll('.tc-fill[data-w]').forEach(e=>{e.style.width=e.dataset.w+'%';});},250);
+  }
+}
+
+function nav(idx,can){
+  const nextS=Q[idx+1];
+  const isPreLast=nextS&&nextS.id==='breath';
+  const isBreath=Q[idx].id==='breath';
+  const lbl=isPreLast?'Завершить тест':isBreath?'Показать результат':'Далее →';
+  return `<div class="t-nav">
+    ${idx>0?`<button class="btn-bk" onclick="render(${idx-1})">← Назад</button>`:'<span></span>'}
+    <button class="btn-nx" id="bN" ${can?'':'disabled'} onclick="nxt()">${lbl}</button>
+  </div>`;
+}
+function nxt(){render(cur+1);}
+function sentDone(s,a){return !!a&&s.stems.every((_,i)=>((a[i]||'').trim().length>=2));}
+
+function selO(i){
+  ans[cur]=i;
+  document.querySelectorAll('.t-opt,.img-opt').forEach((el,j)=>el.classList.toggle('sel',j===i));
+  const b=document.getElementById('bN');if(b)b.disabled=false;
+  const af=document.getElementById('af'+cur);if(af)af.classList.add('on');
+  saveState();
+}
+function selC(i){
+  ans[cur]=i;
+  document.querySelectorAll('.col-sw').forEach((el,j)=>el.classList.toggle('sel',j===i));
+  const b=document.getElementById('bN');if(b)b.disabled=false;
+  saveState();
+}
+function selSc(si,val){
+  if(!ans[cur]||Array.isArray(ans[cur]))ans[cur]={};
+  ans[cur][si]=val;
+  document.querySelectorAll('.sc-row').forEach((row,ri)=>{
+    row.querySelectorAll('.sc-btn').forEach((btn,bi)=>{
+      btn.classList.toggle('sel',(ans[cur]||{})[ri]===(bi+1));
+    });
+  });
+  const s=Q[cur];
+  const b=document.getElementById('bN');
+  if(b)b.disabled=Object.keys(ans[cur]||{}).length<s.scales.length;
+  saveState();
+}
+function updS(i,v){
+  if(!ans[cur]||!Array.isArray(ans[cur]))ans[cur]=[];
+  ans[cur][i]=v;
+  const b=document.getElementById('bN');
+  if(b)b.disabled=!sentDone(Q[cur],ans[cur]);
+  saveState();
+}
+
+/* ══════════ АУДИО-ИЛЛЮЗИИ ══════════ */
+function togAud(idx){
+  const aud=document.getElementById('a'+idx);
+  const ico=document.getElementById('pi'+idx);
+  const wav=document.getElementById('aw'+idx);
+  if(!aud)return;
+  if(aud.paused){
+    document.querySelectorAll('audio').forEach(a=>{a.pause();a.currentTime=0;});
+    document.querySelectorAll('.awaves').forEach(w=>w.classList.remove('on'));
+    Music.duck(true);
+    aud.play().catch(()=>{const e=document.getElementById('ae'+idx);if(e)e.classList.add('on');});
+    if(ico)ico.innerHTML='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    if(wav)wav.classList.add('on');
+    aud.onended=()=>{
+      if(ico)ico.innerHTML='<polygon points="5,3 19,12 5,21"/>';
+      if(wav)wav.classList.remove('on');
+      Music.duck(false);
+    };
+  } else {
+    aud.pause();Music.duck(false);
+    if(ico)ico.innerHTML='<polygon points="5,3 19,12 5,21"/>';
+    if(wav)wav.classList.remove('on');
+  }
+}
+function illSVG(t){
+  const imgs={
+    'face-vase':'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Rubin2.jpg/300px-Rubin2.jpg',
+    'old-young':'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Old_Woman.jpg/260px-Old_Woman.jpg',
+    'duck-rabbit':'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Duck-Rabbit_illusion.jpg/300px-Duck-Rabbit_illusion.jpg',
+    'spiral':'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Fraser_spiral.jpg/300px-Fraser_spiral.jpg',
+    'dots':'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Kanizsa_triangle.svg/300px-Kanizsa_triangle.svg.png'
+  };
+  const url=imgs[t]||'';
+  return`<div class="ill-fr" style="width:280px;height:280px;overflow:hidden">
+    <img src="${url}" style="width:100%;height:100%;object-fit:contain;padding:10px;filter:contrast(1.05);" alt="Визуальная иллюзия"
+      onerror="this.parentElement.innerHTML='<p style=\\'color:var(--text2);font-size:.82rem;padding:2rem;text-align:center;line-height:1.7\\'>Картинка не загрузилась.<br><small style=\\'color:var(--text3)\\'>Проверь интернет — или ответь по памяти: эта иллюзия наверняка тебе знакома.</small></p>';"/>
+  </div>`;
+}
+function icoSVG(t){
+  const s='width:72px;height:72px;stroke:rgba(139,127,190,0.65);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;';
+  if(t==='bird')return`<svg viewBox="0 0 80 80" style="${s}"><rect x="18" y="24" width="44" height="36" rx="4"/><line x1="18" y1="36" x2="62" y2="36"/><line x1="18" y1="48" x2="62" y2="48"/><line x1="29" y1="24" x2="29" y2="60"/><line x1="51" y1="24" x2="51" y2="60"/><path d="M37 9 Q40 4 43 9 Q47 17 40 20 Q33 17 37 9Z"/><path d="M40 20 L40 24"/></svg>`;
+  if(t==='tree')return`<svg viewBox="0 0 80 80" style="${s}"><line x1="40" y1="66" x2="40" y2="40"/><path d="M22 55 Q30 36 40 40 Q50 36 58 55Z"/><path d="M26 43 Q34 24 40 28 Q46 24 54 43Z"/><path d="M30 31 Q38 13 40 18 Q42 13 50 31Z"/></svg>`;
+  if(t==='stone')return`<svg viewBox="0 0 80 80" style="${s}"><ellipse cx="40" cy="46" rx="28" ry="19"/><path d="M18 43 Q20 26 40 23 Q60 26 62 43"/></svg>`;
+  if(t==='candle')return`<svg viewBox="0 0 80 80" style="${s}"><rect x="32" y="39" width="16" height="28" rx="2"/><path d="M40 39 Q40 29 38 23 Q42 27 44 23 Q42 31 40 39Z"/><ellipse cx="40" cy="67" rx="12" ry="4" opacity=".35"/></svg>`;
+  return'';
+}
+
+/* ══════════ ДЫХАНИЕ ══════════ */
+function startBr(){
+  if(brGo)return;brGo=true;brC=0;
+  const ring=document.getElementById('bR'),cnt=document.getElementById('bC');
+  const ph=['вдох','держи','выдох','пауза'],dur=[4000,2000,4000,2000];
+  let p=0;
+  function tick(){
+    if(!ring||!document.body.contains(ring)){brGo=false;return;}
+    ring.textContent=ph[p];
+    if(p===0){ring.classList.add('expand');brC++;}
+    if(p===2)ring.classList.remove('expand');
+    if(cnt)cnt.textContent=brC<3?`цикл ${brC} из 3`:'готово ✓';
+    p=(p+1)%4;
+    if(brC<3||p!==0)brTmr2=setTimeout(tick,dur[(p+3)%4]);
+    else brGo=false;
+  }
+  tick();
+}
+
+/* ══════════ СКОРИНГОВЫЙ ДВИЖОК ══════════ */
+function computeResults(){
+  const score={},max={};
+  PKEYS.forEach(p=>{score[p]=0;max[p]=0;});
+  let freeText='';
+
+  Q.forEach((s,idx)=>{
+    const a=ans[idx];
+    const addMax=list=>{PKEYS.forEach((p,pi)=>{max[p]+=Math.max(0,...list.map(o=>o.w[pi]));});};
+    const addScore=w=>{PKEYS.forEach((p,pi)=>{score[p]+=w[pi];});};
+
+    if(s.opts){addMax(s.opts);if(a!==undefined&&s.opts[a])addScore(s.opts[a].w);}
+    else if(s.colors){addMax(s.colors);if(a!==undefined&&s.colors[a])addScore(s.colors[a].w);}
+    else if(s.choices){addMax(s.choices);if(a!==undefined&&s.choices[a])addScore(s.choices[a].w);}
+    else if(s.scales){
+      s.scales.forEach((sc,si)=>{
+        PKEYS.forEach((p,pi)=>{
+          max[p]+=sc.w[pi];
+          const v=a&&a[si];
+          if(v)score[p]+=sc.w[pi]*(10-v)/9;
+        });
+      });
+    }
+    else if(s.stems&&Array.isArray(a)){freeText+=' '+a.filter(Boolean).join(' | ');}
+  });
+
+  /* анализ свободного текста по словарю маркеров */
+  const low=freeText.toLowerCase();
+  const textHits={};
+  PKEYS.forEach(p=>{
+    let hits=0;LEX[p].forEach(st=>{if(low.includes(st))hits++;});
+    textHits[p]=hits;
+    score[p]+=Math.min(TEXT_CAP,hits*2);
+    max[p]+=TEXT_CAP;
+  });
+
+  /* нормализация с мягкой кривой: заметная выраженность видна уже при среднем сигнале */
+  const pct={};
+  PKEYS.forEach(p=>{
+    const r=max[p]>0?score[p]/max[p]:0;
+    pct[p]=r<=0.01?3:Math.min(97,Math.max(4,Math.round(100*(1-Math.exp(-2.6*r)))));
+  });
+
+  const order=[...PKEYS].sort((a,b)=>pct[b]-pct[a]);
+  const tier=k=>pct[k]>=65?'high':pct[k]>=35?'mid':'low';
+
+  /* ресурсный цвет из вопроса 30 */
+  let resColor=null;
+  Q.forEach((s,idx)=>{if(s.resColor&&ans[idx]!==undefined&&s.colors[ans[idx]]){resColor=s.colors[ans[idx]];}});
+
+  return {score,max,pct,order,tier,resColor,textHits,freeText:freeText.trim()};
+}
+
+/* полные данные для будущей аналитики через Claude API */
+function buildPayload(R){
+  const items=[];
+  Q.forEach((s,idx)=>{
+    const a=ans[idx];
+    if(a===undefined||['intro','breath','results'].includes(s.id))return;
+    if(s.opts)items.push({n:s.n,type:s.id,question:s.q,answer:s.opts[a]?s.opts[a].t:null});
+    else if(s.colors)items.push({n:s.n,type:'color',question:s.q,answer:s.colors[a]?s.colors[a].l:null});
+    else if(s.choices)items.push({n:s.n,type:'image',question:s.q,answer:s.choices[a]?s.choices[a].l.replace('\n',' — '):null});
+    else if(s.stems)s.stems.forEach((st,i)=>items.push({n:s.n,type:'sentence',question:st,answer:(a[i]||'').trim()}));
+    else if(s.scales)s.scales.forEach((sc,i)=>items.push({n:s.n,type:'scale',question:sc.q,answer:a[i]||null}));
+  });
+  return {version:1,finishedAt:new Date().toISOString(),
+    patterns:Object.fromEntries(PKEYS.map(p=>[p,{name:PAT[p].name,pct:R.pct[p]}])),
+    dominant:R.order[0],answers:items};
+}
+
+/* ══════════ СТРАНИЦА РЕЗУЛЬТАТОВ ══════════ */
+function renderResults(){
+  const R=computeResults();
+  const tierLbl={high:'ярко выражен',mid:'умеренно выражен',low:'слабо выражен'};
+  const dom=R.order[0];
+
+  try{
+    const payload=buildPayload(R);
+    window.ISTOK_RESULT=payload;
+    localStorage.setItem('istok_result',JSON.stringify(payload));
+    console.log('Исток · данные для аналитики:',payload);
+  }catch(e){}
+
+  let html=`<div class="res-head">
+    <p class="t-blk">Твоя аналитика</p>
+    <h2 class="res-ttl">Паттерны из <em style="font-style:italic;color:var(--accent3)">твоего прошлого</em></h2>
+    <p class="res-sub">Рассчитано по твоим 50 ответам: выборы, шкалы, цвета и слова, которые ты написала сама. Это не диагноз — это зеркало. Точка начала пути.</p>
+  </div>
+
+  <div class="lead-card">
+    <p class="lead-lbl">Твой ведущий паттерн</p>
+    <p class="lead-name">${PAT[dom].name} · ${R.pct[dom]}%</p>
+    <p class="lead-desc">${PAT[dom][R.tier(dom)]}</p>
+  </div>`;
+
+  R.order.forEach(p=>{
+    html+=`<div class="tc-card">
+      <div class="tc-hd"><span class="tc-nm">${PAT[p].name}</span><span class="tc-pct">${R.pct[p]}%</span></div>
+      <p class="tc-tier">${tierLbl[R.tier(p)]}</p>
+      <div class="tc-bg"><div class="tc-fill" data-w="${R.pct[p]}"></div></div>
+      <p class="tc-desc">${PAT[p][R.tier(p)]}</p>
+    </div>`;
+  });
+
+  html+=`<div class="dom-wrap"><h3 class="dom-ttl">Как это проявляется в <em>твоей жизни</em></h3>`;
+  DOMAINS.forEach(d=>{
+    const rel=R.order.filter(p=>R.pct[p]>=35).slice(0,3);
+    html+=`<div class="dom-sec"><p class="dom-nm">${d.title}</p>`;
+    if(rel.length===0){
+      html+=`<div class="dom-item">Здесь твои паттерны почти не проявляются — эта сфера опирается на здоровую основу. Замечай это и опирайся на неё в трудные периоды.</div>`;
+    }else{
+      rel.forEach(p=>{html+=`<div class="dom-item"><b>${PAT[p].name}.</b> ${d.t[p]}</div>`;});
+    }
+    html+=`</div>`;
+  });
+  html+=`</div>`;
+
+  if(R.resColor){
+    html+=`<div class="res-col-line"><span class="res-col-dot" style="background:${R.resColor.h}"></span>
+    <span>Твой ресурсный цвет — <b style="font-weight:400;color:var(--text)">${R.resColor.l.toLowerCase()}</b>: ${RES_COLORS[R.resColor.l]||'опирайся на него, когда трудно.'}</span></div>`;
+  }
+
+  html+=`<div class="ins">
+    <p class="ins-l">Что изменится, когда ты начнёшь работать с этим</p>
+    <p class="ins-t">${INSIGHT[dom]}</p>
+  </div>
+  <button class="res-cta" onclick="document.getElementById('soonN').classList.add('on');this.style.display='none'">Начать проработку →</button>
+  <div class="res-note" id="soonN">Персональная программа ежедневных практик под твои паттерны появится в следующем обновлении Истока. Твои результаты уже сохранены на этом устройстве — мы начнём именно с них.</div>
+  <div class="res-foot">
+    <button class="btn-bk" onclick="restartTest()">Пройти ещё раз</button>
+    <button class="btn-bk" onclick="showLanding()">← На главную</button>
+  </div>
+  <p class="res-disc">Исток — инструмент самопознания, а не медицинская диагностика. Если воспоминания поднимают сильную боль — это повод не для стыда, а для бережной работы со специалистом.</p>`;
+  return html;
+}
+
+/* ══════════ ФОНОВАЯ МУЗЫКА (WebAudio, генерируется на лету) ══════════ */
+const Music={
+  ctx:null,master:null,filter:null,oscs:[],lfos:[],bellTmr:null,on:false,ducked:false,
+  enabled:(function(){try{return localStorage.getItem('istok_music')!=='off';}catch(e){return true;}})(),
+  VOL:0.05,
+  start(){
+    if(this.on)return;
+    try{
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(!AC)return;
+      if(!this.ctx)this.ctx=new AC();
+      const c=this.ctx;
+      if(c.state==='suspended')c.resume();
+      const t=c.currentTime;
+
+      this.master=c.createGain();
+      this.master.gain.setValueAtTime(0.0001,t);
+      this.master.gain.exponentialRampToValueAtTime(this.VOL,t+4);
+      this.master.connect(c.destination);
+
+      this.filter=c.createBiquadFilter();
+      this.filter.type='lowpass';
+      this.filter.frequency.value=550;
+      this.filter.Q.value=0.4;
+      this.filter.connect(this.master);
+
+      /* тихий аккорд: A2 + E3 + A3 c лёгкой расстройкой — тёплый гул */
+      [[110,.5],[164.81,.34],[220,.22],[110.4,.3],[165.3,.2]].forEach(([f,g])=>{
+        const o=c.createOscillator(),og=c.createGain();
+        o.type='sine';o.frequency.value=f;og.gain.value=g;
+        o.connect(og);og.connect(this.filter);o.start();
+        this.oscs.push(o);
+      });
+
+      /* медленное дыхание фильтра и громкости */
+      const flfo=c.createOscillator(),flg=c.createGain();
+      flfo.frequency.value=0.05;flg.gain.value=220;
+      flfo.connect(flg);flg.connect(this.filter.frequency);flfo.start();
+      const alfo=c.createOscillator(),alg=c.createGain();
+      alfo.frequency.value=0.08;alg.gain.value=this.VOL*0.28;
+      alfo.connect(alg);alg.connect(this.master.gain);alfo.start();
+      this.lfos.push(flfo,alfo);
+
+      this.on=true;
+      this.scheduleBell();
+    }catch(e){}
+  },
+  scheduleBell(){
+    if(!this.on)return;
+    this.bellTmr=setTimeout(()=>{this.playBell();this.scheduleBell();},7000+Math.random()*9000);
+  },
+  playBell(){
+    if(!this.on||this.ducked)return;
+    try{
+      const c=this.ctx,t=c.currentTime;
+      const notes=[329.63,392,440,523.25,587.33];
+      const f=notes[Math.floor(Math.random()*notes.length)];
+      const o=c.createOscillator(),g=c.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,t);
+      g.gain.exponentialRampToValueAtTime(0.02,t+0.4);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+5);
+      o.connect(g);g.connect(this.master);
+      o.start(t);o.stop(t+5.2);
+    }catch(e){}
+  },
+  duck(d){ /* приглушить на время аудио-иллюзий */
+    this.ducked=d;
+    if(!this.on||!this.master)return;
+    try{
+      const t=this.ctx.currentTime;
+      this.master.gain.cancelScheduledValues(t);
+      this.master.gain.setTargetAtTime(d?this.VOL*0.12:this.VOL,t,0.6);
+    }catch(e){}
+  },
+  stop(){
+    if(!this.on)return;
+    this.on=false;
+    clearTimeout(this.bellTmr);
+    try{
+      const t=this.ctx.currentTime;
+      this.master.gain.cancelScheduledValues(t);
+      this.master.gain.setTargetAtTime(0.0001,t,0.5);
+      const oscs=this.oscs,lfos=this.lfos;
+      setTimeout(()=>{oscs.forEach(o=>{try{o.stop()}catch(e){}});lfos.forEach(o=>{try{o.stop()}catch(e){}});},2200);
+    }catch(e){}
+    this.oscs=[];this.lfos=[];
+  },
+  toggle(){
+    this.enabled=!this.enabled;
+    try{localStorage.setItem('istok_music',this.enabled?'on':'off');}catch(e){}
+    if(this.enabled)this.start();else this.stop();
+    const b=document.getElementById('musB');
+    if(b){b.classList.toggle('on',this.enabled);b.innerHTML=`<span class="mus-ico"><i></i><i></i><i></i></span>${this.enabled?'звук':'тихо'}`;}
+  }
+};
+</script>
+</body>
+</html>
