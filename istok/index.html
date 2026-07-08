@@ -1,0 +1,2488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Исток — познай себя</title>
+<meta name="description" content="Исток — глубокий мультимодальный тест на 55 вопросов: найди паттерны из детства, которые управляют твоей жизнью сегодня.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0f1a;--bg2:#111422;--surface:#1a1e30;--surface2:#1f2438;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#e8e4f0;--text2:#9b96b0;--text3:#5e5a72;
+  --accent:#8b7fbe;--accent2:#6b5fa8;--accent3:#b8aee8;
+  --mist:rgba(139,127,190,0.12);--mist2:rgba(139,127,190,0.05);
+  --fd:'Cormorant Garamond',serif;--fb:'Jost',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:300;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.5;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.4rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s;}
+nav.scrolled{background:rgba(13,15,26,0.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.logo{font-family:var(--fd);font-size:1.5rem;font-weight:400;letter-spacing:.1em;color:var(--text);text-decoration:none;cursor:pointer;}
+.logo span{color:var(--accent3);}
+.nav-cta{padding:.5rem 1.5rem;border:1px solid var(--accent);color:var(--accent3);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:all .3s;font-family:var(--fb);cursor:pointer;background:transparent;}
+.nav-cta:hover{background:var(--mist);}
+
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden;}
+.hg{position:absolute;border-radius:50%;pointer-events:none;}
+.hg1{width:700px;height:700px;background:radial-gradient(circle,rgba(107,95,168,.13) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);}
+.hg2{width:350px;height:350px;background:radial-gradient(circle,rgba(184,174,232,.07) 0%,transparent 70%);top:25%;left:65%;animation:flt 9s ease-in-out infinite;}
+.hg3{width:200px;height:200px;background:radial-gradient(circle,rgba(139,127,190,.06) 0%,transparent 70%);top:65%;left:20%;animation:flt 12s ease-in-out infinite reverse;}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-24px)}}
+.eyebrow{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;opacity:0;animation:fu 1s ease forwards .3s;}
+h1.hero-h{font-family:var(--fd);font-size:clamp(3.5rem,9vw,7.5rem);font-weight:300;line-height:1.03;margin-bottom:1.5rem;opacity:0;animation:fu 1s ease forwards .5s;}
+h1.hero-h em{font-style:italic;color:var(--accent3);}
+.hero-sub{max-width:500px;font-size:1rem;line-height:1.85;color:var(--text2);margin-bottom:3rem;opacity:0;animation:fu 1s ease forwards .7s;}
+.hero-cta{display:inline-flex;align-items:center;gap:.75rem;padding:1rem 2.5rem;background:var(--accent2);color:#fff;font-family:var(--fb);font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;transition:all .3s;opacity:0;animation:fu 1s ease forwards .9s;cursor:pointer;border:none;}
+.hero-cta:hover{background:var(--accent);transform:translateY(-2px);}
+.hero-cta svg{width:16px;height:16px;transition:transform .3s;}
+.hero-cta:hover svg{transform:translateX(4px);}
+.sline-wrap{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fu 1s ease forwards 1.3s;}
+.sline{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--accent));animation:sa 2s ease-in-out infinite;}
+@keyframes sa{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
+.stxt{font-size:.62rem;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;}
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.sec{padding:8rem 3rem;}
+.sec-in{max-width:1060px;margin:0 auto;}
+.sec-lbl{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+.sec-ttl{font-family:var(--fd);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.2;margin-bottom:2.5rem;}
+.sec-ttl em{font-style:italic;color:var(--accent3);}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.abt-txt{font-size:.93rem;line-height:1.9;color:var(--text2);margin-bottom:1.25rem;}
+.abt-vis{position:relative;height:400px;}
+.acard{position:absolute;background:var(--surface);border:1px solid var(--border);padding:2rem;}
+.acard:nth-child(1){top:0;left:0;right:3rem;}
+.acard:nth-child(2){bottom:0;left:3rem;right:0;background:var(--surface2);}
+.cnum{font-family:var(--fd);font-size:3rem;color:var(--accent);opacity:.35;line-height:1;margin-bottom:.4rem;}
+.ctitle{font-size:.95rem;font-weight:400;margin-bottom:.4rem;}
+.cdesc{font-size:.82rem;color:var(--text2);line-height:1.7;}
+
+.sh{text-align:center;margin-bottom:4.5rem;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.step{padding:2.5rem 2rem;background:var(--surface);border:1px solid var(--border);transition:background .3s;}
+.step:hover{background:var(--surface2);}
+.step-n{font-size:.7rem;letter-spacing:.2em;color:var(--accent);margin-bottom:1.2rem;}
+.step-ico{width:38px;height:38px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;}
+.step-ico svg{width:18px;height:18px;stroke:var(--accent3);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.step h3{font-size:.95rem;font-weight:400;margin-bottom:.6rem;}
+.step p{font-size:.82rem;color:var(--text2);line-height:1.7;}
+
+.bgrids{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+.bcard{padding:2rem;background:var(--surface);border:1px solid var(--border);transition:all .3s;position:relative;overflow:hidden;}
+.bcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent2),var(--accent3));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.bcard:hover{background:var(--surface2);}
+.bcard:hover::before{transform:scaleX(1);}
+.btag{display:inline-block;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent2);padding:.22rem .7rem;margin-bottom:1rem;}
+.bcard h3{font-family:var(--fd);font-size:1.3rem;font-weight:300;margin-bottom:.5rem;}
+.bcard p{font-size:.8rem;color:var(--text2);line-height:1.7;}
+.cta-c{text-align:center;margin-top:3rem;}
+
+footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.flogo{font-family:var(--fd);font-size:1.2rem;color:var(--text2);}
+.flogo span{color:var(--accent3);}
+.fnote{font-size:.72rem;color:var(--text3);}
+
+/* ═══ TEST ═══ */
+#test-s{display:none;min-height:100vh;padding:5rem 2rem 5rem;justify-content:center;background:var(--bg);}
+#test-s.on{display:flex;}
+.tc{width:100%;max-width:700px;}
+.scr{animation:scrIn .5s cubic-bezier(.22,.8,.36,1) both;}
+@keyframes scrIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+.t-top{display:flex;align-items:center;gap:1.2rem;margin-bottom:2.5rem;}
+.t-bar{flex:1;height:1px;background:var(--border2);position:relative;}
+.t-fill{position:absolute;top:0;left:0;height:100%;background:var(--accent);transition:width .6s ease;}
+.t-lbl{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);white-space:nowrap;}
+.mus-btn{background:none;border:1px solid var(--border2);color:var(--text3);font-family:var(--fb);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .8rem;cursor:pointer;transition:all .25s;white-space:nowrap;display:flex;align-items:center;gap:.45rem;}
+.mus-btn:hover{color:var(--text2);border-color:var(--accent2);}
+.mus-btn.on{color:var(--accent3);border-color:var(--accent2);}
+.mus-btn .mus-ico{display:inline-flex;gap:2px;align-items:flex-end;height:10px;}
+.mus-btn .mus-ico i{width:2px;background:currentColor;border-radius:1px;height:4px;}
+.mus-btn.on .mus-ico i{animation:mbar 1s ease-in-out infinite;}
+.mus-btn.on .mus-ico i:nth-child(2){animation-delay:.25s;}
+.mus-btn.on .mus-ico i:nth-child(3){animation-delay:.5s;}
+@keyframes mbar{0%,100%{height:3px}50%{height:10px}}
+
+.t-blk{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+.t-q{font-family:var(--fd);font-size:clamp(1.5rem,3.5vw,2.3rem);font-weight:300;line-height:1.35;margin-bottom:.6rem;}
+.t-sub{font-size:.86rem;color:var(--text2);line-height:1.75;margin-bottom:2rem;}
+
+.t-opts{display:flex;flex-direction:column;gap:.65rem;margin-bottom:2.5rem;}
+.t-opt{padding:1rem 1.5rem;background:var(--surface);border:1px solid var(--border);color:var(--text2);font-family:var(--fb);font-size:.86rem;text-align:left;cursor:pointer;transition:all .2s;font-weight:300;line-height:1.5;}
+.t-opt:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.t-opt.sel{background:var(--mist);border-color:var(--accent);color:var(--text);}
+.t-opt.sel,.img-opt.sel,.col-sw.sel,.sc-btn.sel,.gen-opt.sel{animation:selp .3s ease;}
+@keyframes selp{0%{transform:scale(1)}45%{transform:scale(1.015)}100%{transform:scale(1)}}
+
+.gen-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0 2.5rem;}
+.gen-opt{padding:2.2rem 1.5rem;background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:all .25s;text-align:center;display:flex;flex-direction:column;gap:.8rem;align-items:center;}
+.gen-opt:hover{background:var(--surface2);border-color:var(--border2);}
+.gen-opt.sel{background:var(--mist);border-color:var(--accent);}
+.gen-sym{font-family:var(--fd);font-size:2.6rem;line-height:1;color:var(--accent3);font-style:italic;}
+.gen-lbl{font-size:.85rem;color:var(--text);letter-spacing:.05em;}
+.gen-note{font-size:.72rem;color:var(--text3);line-height:1.6;}
+
+.t-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--border);margin-top:.5rem;}
+.btn-bk{font-size:.76rem;letter-spacing:.1em;color:var(--text3);background:none;border:none;cursor:pointer;font-family:var(--fb);transition:color .2s;}
+.btn-bk:hover{color:var(--text2);}
+.btn-nx{padding:.8rem 2rem;background:var(--accent2);color:#fff;border:none;font-family:var(--fb);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.btn-nx:hover:not(:disabled){background:var(--accent);}
+.btn-nx:disabled{opacity:.25;cursor:default;}
+
+.aud-pl{background:var(--surface);border:1px solid var(--border);padding:1.4rem 1.8rem;display:flex;align-items:center;gap:1.4rem;margin-bottom:1.5rem;cursor:pointer;transition:background .2s;}
+.aud-pl:hover{background:var(--surface2);}
+.play-c{width:46px;height:46px;border:1px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.play-c svg{width:13px;height:13px;fill:var(--accent3);margin-left:2px;}
+.awaves{flex:1;display:flex;align-items:center;gap:3px;height:28px;overflow:hidden;}
+.awaves span{width:2px;border-radius:1px;background:var(--accent);opacity:.35;transform-origin:center;}
+.awaves.on span{animation:wp .9s ease-in-out infinite;opacity:.8;}
+.awaves span:nth-child(2n){animation-delay:.12s;}
+.awaves span:nth-child(3n){animation-delay:.24s;}
+.awaves span:nth-child(5n){animation-delay:.06s;}
+@keyframes wp{0%,100%{transform:scaleY(.2)}50%{transform:scaleY(1)}}
+.aud-lbl{font-size:.73rem;color:var(--text3);}
+.aud-fact{margin-top:.6rem;padding:.7rem 1rem;background:var(--mist2);border-left:2px solid var(--accent2);font-size:.78rem;color:var(--text2);line-height:1.65;display:none;margin-bottom:1.5rem;}
+.aud-fact.on{display:block;}
+.aud-hint{font-size:.7rem;color:var(--text3);margin:-0.8rem 0 1.4rem;line-height:1.6;}
+
+.ill-wrap{display:flex;flex-direction:column;align-items:center;gap:.6rem;margin-bottom:1.8rem;}
+.ill-fr{border:1px solid var(--border2);background:#101322;display:flex;align-items:center;justify-content:center;position:relative;width:300px;height:300px;overflow:hidden;}
+.ill-fr svg{width:100%;height:100%;}
+.ill-hint{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text3);}
+
+.sent-list{display:flex;flex-direction:column;gap:.85rem;margin-bottom:2rem;}
+.sent-row{display:flex;flex-direction:column;gap:.4rem;padding:1.1rem 1.4rem;background:var(--surface);border:1px solid var(--border);transition:border-color .2s;}
+.sent-row:focus-within{border-color:var(--border2);}
+.sent-stem{font-size:.73rem;color:var(--text3);}
+.sent-inp{background:none;border:none;border-bottom:1px solid var(--border2);color:var(--text);font-family:var(--fb);font-size:.9rem;font-weight:300;padding:.35rem 0;outline:none;width:100%;transition:border-color .2s;}
+.sent-inp::placeholder{color:var(--text3);}
+.sent-inp:focus{border-color:var(--accent);}
+
+.col-pal{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin-bottom:2rem;}
+.col-sw{height:76px;cursor:pointer;border:2px solid transparent;transition:all .2s;position:relative;}
+.col-sw:hover{transform:scale(1.04);}
+.col-sw.sel{border-color:rgba(255,255,255,.75);}
+.col-sw-l{position:absolute;bottom:.35rem;left:50%;transform:translateX(-50%);font-size:.56rem;letter-spacing:.1em;color:rgba(255,255,255,.65);white-space:nowrap;}
+
+.img-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin-bottom:2rem;}
+.img-opt{background:var(--surface);border:1px solid var(--border);padding:0 0 1.1rem;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:.75rem;text-align:center;overflow:hidden;}
+.img-opt:hover{background:var(--surface2);border-color:var(--border2);}
+.img-opt.sel{background:var(--mist);border-color:var(--accent);}
+.card-art{width:100%;aspect-ratio:16/10;display:block;background:#0f1220;}
+.card-art svg,.card-art img{width:100%;height:100%;display:block;object-fit:cover;}
+.img-opt span{font-size:.8rem;color:var(--text2);line-height:1.5;padding:0 .8rem;}
+
+.sc-list{display:flex;flex-direction:column;gap:1.5rem;margin-bottom:2rem;}
+.sc-q{font-size:.88rem;color:var(--text);margin-bottom:.5rem;line-height:1.5;}
+.sc-ends{display:flex;justify-content:space-between;font-size:.68rem;color:var(--text3);margin-bottom:.35rem;gap:1rem;}
+.sc-row{display:flex;gap:.4rem;}
+.sc-btn{flex:1;padding:.65rem .2rem;background:var(--surface);border:1px solid var(--border);color:var(--text3);font-family:var(--fb);font-size:.78rem;cursor:pointer;transition:all .2s;text-align:center;}
+.sc-btn:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.sc-btn.sel{background:var(--mist);border-color:var(--accent);color:var(--text);}
+
+.scen-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent2);padding:1.4rem 1.8rem;margin-bottom:1.8rem;font-size:.9rem;color:var(--text2);line-height:1.75;font-style:italic;}
+
+.br-sec{display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;gap:1.5rem;}
+.br-ring{width:130px;height:130px;border-radius:50%;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1rem;color:var(--text2);font-style:italic;transition:transform 4s ease-in-out,border-color 2s;cursor:pointer;}
+.br-ring.expand{transform:scale(1.45);border-color:var(--accent3);}
+.br-cnt{font-size:.72rem;color:var(--text3);letter-spacing:.1em;}
+
+.resume-box{margin-top:1.5rem;padding:1.2rem 1.5rem;background:var(--surface);border:1px solid var(--accent2);display:flex;flex-direction:column;gap:.9rem;}
+.resume-box p{font-size:.82rem;color:var(--text2);line-height:1.6;}
+.resume-row{display:flex;gap:.8rem;flex-wrap:wrap;}
+.btn-ghost{padding:.7rem 1.4rem;background:transparent;border:1px solid var(--border2);color:var(--text2);font-family:var(--fb);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .25s;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--text);}
+
+/* ═══ RESULTS ═══ */
+.res-head{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.res-ttl{font-family:var(--fd);font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:.5rem;}
+.res-sub{font-size:.86rem;color:var(--text2);line-height:1.7;}
+.res-h2{font-family:var(--fd);font-size:1.6rem;font-weight:300;margin:3rem 0 .5rem;}
+.res-h2 em{font-style:italic;color:var(--accent3);}
+.res-h2sub{font-size:.8rem;color:var(--text3);line-height:1.6;margin-bottom:1.4rem;}
+.lead-card{padding:2rem;background:linear-gradient(135deg,rgba(107,95,168,.18),rgba(139,127,190,.06));border:1px solid var(--accent2);margin-bottom:2rem;}
+.lead-lbl{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;}
+.lead-name{font-family:var(--fd);font-size:1.8rem;font-weight:300;margin-bottom:.5rem;}
+.lead-desc{font-size:.84rem;color:var(--text2);line-height:1.75;}
+.origin-box{padding:1.6rem 1.9rem;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent2);margin-bottom:.9rem;font-size:.84rem;color:var(--text2);line-height:1.8;}
+.tc-card{padding:1.7rem 2rem;background:var(--surface);border:1px solid var(--border);margin-bottom:.9rem;transition:background .2s;}
+.tc-card:hover{background:var(--surface2);}
+.tc-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem;gap:1rem;}
+.tc-nm{font-size:.93rem;font-weight:400;}
+.tc-pct{font-size:.9rem;color:var(--accent3);font-family:var(--fd);font-style:italic;white-space:nowrap;}
+.tc-tier{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;}
+.tc-bg{height:1px;background:var(--border2);margin-bottom:.85rem;}
+.tc-fill{height:100%;background:linear-gradient(to right,var(--accent2),var(--accent3));transition:width 1.4s ease;width:0%;}
+.tc-desc{font-size:.82rem;color:var(--text2);line-height:1.75;}
+.dom-sec{padding:1.7rem 1.9rem;background:var(--surface);border:1px solid var(--border);margin-bottom:.9rem;}
+.dom-nm{font-family:var(--fd);font-size:1.25rem;font-weight:300;color:var(--text);margin-bottom:.2rem;}
+.dom-tag{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem;}
+.dom-item{font-size:.83rem;color:var(--text2);line-height:1.8;padding-left:1rem;border-left:2px solid var(--accent2);margin-bottom:1.1rem;}
+.dom-item:last-child{margin-bottom:0;}
+.dom-item b{color:var(--text);font-weight:400;}
+.dom-tip{display:block;margin-top:.45rem;font-size:.78rem;color:var(--accent3);line-height:1.65;}
+.dom-tip::before{content:'→ ';opacity:.7;}
+.str-card{padding:1.3rem 1.6rem;background:var(--surface);border:1px solid var(--border);margin-bottom:.7rem;font-size:.83rem;color:var(--text2);line-height:1.75;display:flex;gap:.9rem;}
+.str-card b{color:var(--text);font-weight:400;}
+.str-dot{width:7px;height:7px;border-radius:50%;background:var(--accent3);flex-shrink:0;margin-top:.55rem;}
+.prac-card{padding:1.4rem 1.7rem;background:var(--surface);border:1px solid var(--border);margin-bottom:.7rem;}
+.prac-n{font-family:var(--fd);font-size:1.5rem;color:var(--accent);opacity:.5;line-height:1;margin-bottom:.4rem;font-style:italic;}
+.prac-t{font-size:.84rem;color:var(--text2);line-height:1.75;}
+.prac-t b{color:var(--text);font-weight:400;}
+.res-col-line{margin-top:1.8rem;padding:1rem 1.4rem;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;gap:1rem;font-size:.82rem;color:var(--text2);line-height:1.6;}
+.res-col-dot{width:26px;height:26px;border-radius:50%;flex-shrink:0;border:1px solid rgba(255,255,255,.25);}
+.ins{margin-top:2rem;padding:2rem;border:1px solid var(--accent2);background:var(--mist2);position:relative;}
+.ins::before{content:'"';font-family:var(--fd);font-size:6rem;color:var(--accent2);opacity:.2;position:absolute;top:-1rem;left:1.5rem;line-height:1;}
+.ins-l{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.85rem;}
+.ins-t{font-family:var(--fd);font-size:1.05rem;font-style:italic;line-height:1.75;color:var(--text);}
+.res-cta{margin-top:2rem;padding:1.1rem 2rem;background:var(--accent2);color:#fff;border:none;font-family:var(--fb);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;width:100%;transition:background .3s;}
+.res-cta:hover{background:var(--accent);}
+.res-note{display:none;margin-top:1rem;padding:1rem 1.4rem;background:var(--mist2);border-left:2px solid var(--accent2);font-size:.8rem;color:var(--text2);line-height:1.7;}
+.res-note.on{display:block;}
+.res-foot{text-align:center;margin-top:1.8rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;}
+.res-disc{margin-top:2rem;font-size:.7rem;color:var(--text3);line-height:1.7;text-align:center;}
+
+.fish-art{width:100%;aspect-ratio:16/10;background:#0c0f1e;position:relative;}
+.fish-art svg,.fish-art img{width:100%;height:100%;display:block;object-fit:cover;}
+
+/* ═══ PRACTICE ═══ */
+#practice-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
+#practice-s.on{display:flex;}
+.pc{width:100%;max-width:700px;}
+.pat-chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+.chip{padding:.35rem .9rem;border:1px solid var(--border2);font-size:.7rem;color:var(--text2);letter-spacing:.05em;}
+.chip b{color:var(--accent3);font-weight:400;}
+.day-card{padding:2rem;background:linear-gradient(135deg,rgba(107,95,168,.16),rgba(139,127,190,.05));border:1px solid var(--accent2);margin-bottom:1rem;}
+.day-lbl{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+.day-task{font-size:.93rem;color:var(--text2);line-height:1.85;}
+.day-task b{color:var(--text);font-weight:400;}
+.btn-done{margin-top:1.4rem;padding:.75rem 1.6rem;background:transparent;border:1px solid var(--accent);color:var(--accent3);font-family:var(--fb);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;}
+.btn-done:hover{background:var(--mist);}
+.btn-done.on{background:var(--accent2);color:#fff;border-color:var(--accent2);}
+.extra-card{padding:1.5rem 1.8rem;background:var(--surface);border:1px solid var(--border);margin-bottom:1rem;}
+.streak-row{display:flex;align-items:center;gap:1.2rem;margin:2rem 0 .5rem;flex-wrap:wrap;}
+.streak-num{font-family:var(--fd);font-size:2.4rem;font-style:italic;color:var(--accent3);line-height:1;}
+.streak-t{font-size:.78rem;color:var(--text2);line-height:1.5;}
+.dots{display:flex;gap:.45rem;margin-left:auto;}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);}
+.dot.on{background:var(--accent);border-color:var(--accent);}
+.jr-inp{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:var(--fb);font-weight:300;padding:.9rem 1.1rem;font-size:.86rem;outline:none;transition:border-color .2s;}
+.jr-inp:focus{border-color:var(--accent);}
+.jr-item{padding:.9rem 1.2rem;background:var(--surface);border-left:2px solid var(--accent2);margin-top:.7rem;font-size:.82rem;color:var(--text2);line-height:1.7;}
+.jr-d{font-size:.62rem;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:.3rem;}
+.art{background:var(--surface);border:1px solid var(--border);margin-bottom:.7rem;}
+.art summary{padding:1.1rem 1.4rem;cursor:pointer;font-size:.9rem;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background .2s;}
+.art summary:hover{background:var(--surface2);}
+.art summary::-webkit-details-marker{display:none;}
+.art summary::after{content:'+';color:var(--accent);font-size:1.3rem;flex-shrink:0;}
+.art[open] summary::after{content:'−';}
+.art-b{padding:.2rem 1.4rem 1.4rem;font-size:.83rem;color:var(--text2);line-height:1.85;}
+.art-b p{margin-bottom:.85rem;}
+.art-b p:last-child{margin-bottom:0;}
+.ai-box{display:none;margin-top:1rem;padding:1.6rem 1.9rem;background:var(--surface);border:1px solid var(--accent2);font-size:.86rem;color:var(--text2);line-height:1.85;}
+.ai-box.on{display:block;}
+.ai-box p{margin-bottom:.9rem;}
+.ai-box p:last-child{margin-bottom:0;}
+.ai-box b{color:var(--text);font-weight:400;}
+.ai-note{margin-top:.8rem;font-size:.72rem;color:var(--text3);line-height:1.6;text-align:center;}
+.nav-r{display:flex;gap:.7rem;align-items:center;}
+
+@media(max-width:860px){
+  #practice-s{padding:5rem 1.1rem 4rem;}
+  .nav-r .nav-cta{padding:.5rem .9rem;font-size:.68rem;}
+  .dots{margin-left:0;}
+  nav{padding:1rem 1.25rem;}
+  .sec{padding:4.5rem 1.5rem;}
+  .grid-2{grid-template-columns:1fr;gap:3rem;}
+  .abt-vis{height:auto;display:flex;flex-direction:column;gap:1rem;}
+  .acard{position:static;}
+  .acard:nth-child(1),.acard:nth-child(2){top:auto;left:auto;right:auto;bottom:auto;}
+  .steps{grid-template-columns:1fr;}
+  .bgrids{grid-template-columns:1fr;}
+  footer{flex-direction:column;text-align:center;}
+  #test-s{padding:4.2rem 1.1rem 4rem;}
+  .t-top{flex-wrap:wrap;gap:.8rem;}
+  .sc-btn{padding:.55rem .05rem;font-size:.68rem;}
+  .col-pal{grid-template-columns:repeat(4,1fr);gap:.45rem;}
+  .col-sw{height:64px;}
+  .img-grid{grid-template-columns:1fr;gap:.7rem;}
+  .gen-grid{grid-template-columns:1fr;}
+  .aud-pl{padding:1rem 1.1rem;gap:.9rem;}
+  .aud-lbl{display:none;}
+  .ill-fr{width:260px;height:260px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <span class="logo" onclick="showLanding()"><span>И</span>СТОК</span>
+  <div class="nav-r">
+    <button class="nav-cta" style="border-color:var(--border2);color:var(--text2)" onclick="showPractice()">Проработка</button>
+    <button class="nav-cta" onclick="startTest()">Пройти тест</button>
+  </div>
+</nav>
+
+<div id="landing">
+  <section id="hero">
+    <div class="hg hg1"></div><div class="hg hg2"></div><div class="hg hg3"></div>
+    <p class="eyebrow">Психология · самопознание · трансформация</p>
+    <h1 class="hero-h">Всё начинается<br>в <em>детстве</em></h1>
+    <p class="hero-sub">Исток помогает найти паттерны из прошлого, которые управляют твоей жизнью сегодня — и начать их менять.</p>
+    <button class="hero-cta" onclick="startTest()">Начать исследование <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    <div class="sline-wrap"><div class="sline"></div><span class="stxt">Листай</span></div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="sec-in grid-2">
+      <div>
+        <p class="sec-lbl">О проекте</p>
+        <h2 class="sec-ttl">Твои реакции —<br>это не <em>случайность</em></h2>
+        <p class="abt-txt">Почему ты замолкаешь, когда нужно говорить. Почему уходишь, когда нужно остаться. Почему снова и снова выбираешь одно и то же.</p>
+        <p class="abt-txt">Всё это — паттерны из детства. Они сформировались как способ выжить. Теперь они мешают жить.</p>
+        <p class="abt-txt">Исток — глубокий диагностический тест: 55 вопросов, 6 типов заданий и контекст твоего детства. Не опросник. Зеркало.</p>
+      </div>
+      <div class="abt-vis">
+        <div class="acard"><div class="cnum">55</div><div class="ctitle">вопросов и заданий</div><div class="cdesc">Звуковые иллюзии, проективные картинки, незаконченные предложения, цвета, образы, шкалы воспоминаний — и вопросы о контексте: семья, порядок рождения, атмосфера дома.</div></div>
+        <div class="acard"><div class="cnum">8</div><div class="ctitle">шкал в результате</div><div class="cdesc">Пять глубинных паттернов — покинутость, критик, контроль, закрытость, гиперответственность — и три дополнительных следа: отвержение, недоверие, недолюбленность.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-in">
+      <div class="sh"><p class="sec-lbl">Как это работает</p><h2 class="sec-ttl" style="margin-bottom:0">Три шага к <em>себе</em></h2></div>
+      <div class="steps">
+        <div class="step"><div class="step-n">01</div><div class="step-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Пройди тест</h3><p>55 вопросов, 6 блоков. Настоящие звуковые и зрительные иллюзии — с разбором каждого твоего выбора. Фоновая музыка помогает отвечать честно.</p></div>
+        <div class="step"><div class="step-n">02</div><div class="step-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3>Получи аналитику</h3><p>Восемь шкал, твоё состояние «прямо сейчас», разбор по сферам жизни — отношения, карьера, деньги, дружба, семья — и твоё тотемное животное.</p></div>
+        <div class="step"><div class="step-n">03</div><div class="step-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Прорабатывай каждый день</h3><p>Персональные задания под твой тип мышления. Реальные практики из КПТ, ACT и нарративной терапии.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="sec-in">
+      <div class="sh"><p class="sec-lbl">Структура теста</p><h2 class="sec-ttl" style="margin-bottom:0">Шесть способов <em>увидеть</em> себя</h2></div>
+      <div class="bgrids">
+        <div class="bcard"><span class="btag">Аудио · 4</span><h3>Что ты слышишь?</h3><p>Настоящие звуковые иллюзии — тон Шепарда, тритоновый парадокс. Звук создаётся прямо в твоём браузере, и каждый слышит его по-своему.</p></div>
+        <div class="bcard"><span class="btag">Визуал · 6</span><h3>Что ты видишь?</h3><p>Классические двойственные образы: ваза Рубина, утка-кролик, куб Неккера. Что заметишь первым — сигнал о твоём внутреннем состоянии.</p></div>
+        <div class="bcard"><span class="btag">Предложения · 15</span><h3>Что ты чувствуешь?</h3><p>Незаконченные фразы из клинической практики. Первый импульс — самый честный ответ о себе.</p></div>
+        <div class="bcard"><span class="btag">Цвет · 5</span><h3>Что резонирует?</h3><p>Цветовые ассоциации и тест Люшера. Тихий язык бессознательного без слов и объяснений.</p></div>
+        <div class="bcard"><span class="btag">Образы · 12</span><h3>Кем ты себя видишь?</h3><p>Метафорические карты, сценарии из детства, дом твоего детства и внутренний ребёнок — самые глубокие вопросы теста.</p></div>
+        <div class="bcard"><span class="btag">Шкалы + контекст · 13</span><h3>Как ты оцениваешь?</h3><p>Шкалы воспоминаний и контекст: полная ли семья, порядок рождения, атмосфера дома. Без этого читать остальное некорректно.</p></div>
+      </div>
+      <div class="cta-c"><button class="hero-cta" onclick="startTest()">Начать тест <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="width:16px;height:16px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+    </div>
+  </section>
+
+  <footer><div class="flogo"><span>И</span>СТОК</div><div class="fnote">Инструмент самопознания. Не является терапией или медицинским диагнозом.</div></footer>
+</div>
+
+<div id="test-s"><div class="tc" id="tc"></div></div>
+<div id="practice-s"><div class="pc" id="pc"></div></div>
+
+<script>
+'use strict';
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
+
+/* ══════════ ПОЛ И АДАПТАЦИЯ ТЕКСТОВ ══════════ */
+let GENDER=(function(){try{return localStorage.getItem('istok_gender')||'';}catch(e){return '';}})();
+function T(s){return String(s).replace(/\{([^{}|]*)\|([^{}|]*)\}/g,(m,f,mm)=>GENDER==='m'?mm:f);}
+function setGender(g){GENDER=g;try{localStorage.setItem('istok_gender',g);}catch(e){}}
+
+/* ══════════ 5 ГЛУБИННЫХ ПАТТЕРНОВ ══════════ w:[ab,cr,ct,cl,hr] */
+const PKEYS=['ab','cr','ct','cl','hr'];
+const PAT={
+ ab:{name:'Тревога покинутости',
+  low:'Тема покинутости не звучит в твоих ответах как ведущая. Похоже, у тебя есть базовое доверие к тому, что близкие остаются, — это опора, которую стоит замечать и беречь.',
+  mid:'Иногда ты предвосхищаешь уход раньше, чем что-то произошло: вслушиваешься в интонации, перепроверяешь, всё ли в порядке. Это не про сегодняшних людей — это старый радар, который когда-то был нужен.',
+  high:'Ты склон{на|ен} готовиться к потере заранее — так, будто уход близких лишь вопрос времени. Отсюда и решение уходить перв{ой|ым}, и осторожность в привязанности: если не подпускать близко, не будет так больно. Радар, который защищал тебя в детстве, теперь мешает получать то тепло, которое уже рядом.'},
+ cr:{name:'Внутренний критик',
+  low:'Внутренний критик у тебя не занимает много места. Ты умеешь ошибаться без самонаказания — это редкий и ценный навык.',
+  mid:'Внутри есть голос, который комментирует твои действия строже, чем ты когда-либо говорил{а|} бы с другим человеком. Чаще всего он включается после ошибок — и, что характерно, после похвалы: в моменты, когда ты заметн{а|ый}.',
+  high:'Критика извне резонирует так глубоко, потому что внутри уже давно живёт голос, который критикует первым. Ты держишь себя в строгости там, где другим разрешаешь быть живыми. Этот голос когда-то был чужим — ты его выучил{а|}. А значит, можно выучить и другой.'},
+ ct:{name:'Контроль как защита',
+  low:'Непредсказуемость не пугает тебя сверх меры — ты умеешь отпускать то, что не в твоих руках.',
+  mid:'Когда ситуация выходит из-под контроля, тревога поднимается быстрее, чем того требует сама ситуация. План, порядок и предсказуемость — твои способы чувствовать себя в безопасности.',
+  high:'Стремление держать всё под контролем — не черта характера, а способ, которым ты когда-то справлял{ась|ся} с непредсказуемостью вокруг. Тогда это спасало. Сейчас это забирает силы: невозможно всё удержать, и каждая неожиданность ощущается как угроза, а не как жизнь.'},
+ cl:{name:'Эмоциональная закрытость',
+  low:'Тебе доступна уязвимость: ты можешь говорить о чувствах и просить о помощи. Это признак того, что открытость в твоём опыте была безопасной — или ты сам{а|} её себе вернул{а|}.',
+  mid:'Тебе проще дать, чем попросить. Часть чувств ты по привычке оставляешь при себе — особенно те, что могут показаться «неудобными». Люди рядом часто узнают о твоей боли последними.',
+  high:'Уязвимость кажется тебе опасной — когда-то её проигнорировали или использовали против тебя, и ты решил{а|} справляться сам{а|}. Ты закрываешься не потому, что тебе никто не нужен, а потому что открываться было больно. Но стена, которая защищает от боли, не пропускает и близость.'},
+ hr:{name:'Гиперответственность',
+  low:'Ты умеешь различать свою и чужую ответственность — брать своё и не тащить лишнее.',
+  mid:'Ты часто берёшь на себя больше, чем твоё: чужие настроения, общий результат, атмосферу в комнате. Отдыхать сложнее, чем работать — покой будто нужно заслужить.',
+  high:'Быть нужн{ой|ым}, удобн{ой|ым}, надёжн{ой|ым} — роль, которую ты выучил{а|} в детстве, потому что так было безопаснее. Ты несёшь ответственность за других так давно, что уже не замечаешь веса. Усталость, которую ты игнорируешь, — не слабость. Это счёт, который копится.'}
+};
+
+/* ══════════ 3 ДОПОЛНИТЕЛЬНЫЕ ШКАЛЫ ══════════ */
+const DPAT={
+ rj:{name:'Страх отвержения',
+  low:'Страх «меня не примут» звучит тихо: ты умеешь быть собой среди людей.',
+  mid:'Иногда включается сценарий «сначала понравься, потом будь собой»: ты сканируешь, как тебя приняли, и подстраиваешься чуть раньше, чем успеваешь это заметить.',
+  high:'Ожидание отвержения идёт впереди тебя: в новой компании ты заранее готов{а|} услышать «нет» и предпочитаешь не показываться целиком. Стыд, который при этом поднимается, — не факт о тебе. Это старая отметина.'},
+ tr:{name:'Недоверие и предательство',
+  low:'Базовое доверие сохранно: ты допускаешь, что людям можно верить, пока не доказано обратное.',
+  mid:'Ты веришь людям — но с проверкой: слова сверяешь с делами, а неожиданной доброте невольно ищешь объяснение.',
+  high:'Похоже, когда-то тебя ощутимо предали — и теперь доверие выдаётся малыми порциями и под залог. Это защищает от повторения боли, но держит на голодном пайке близости: без аванса доверия она не растёт.'},
+ dp:{name:'Эмоциональная недолюбленность',
+  low:'Похоже, базового тепла в твоём опыте было достаточно: ты умеешь его и брать, и давать.',
+  mid:'Тепла было меньше, чем нужно растущему человеку. Ты научил{ась|ся} обходиться малым — и до сих пор немного удивляешься, когда его дают просто так, без повода.',
+  high:'Эмоционального тепла в детстве ощутимо не хватало — не потому, что ты его не заслуживал{а|}, а потому что взрослые рядом не умели его давать. Голод по теплу, который ты иногда чувствуешь, — не жадность и не слабость. Это недокормленность, и её можно восполнять.'}
+};
+
+const ORIGIN={
+ ab:'Такой след остаётся, когда близость была нестабильной: значимый взрослый то появлялся, то исчезал — физически или эмоционально. Ребёнок в такой ситуации делает единственно возможный вывод: «связь может оборваться в любой момент — надо быть настороже». Ты не выдумал{а|} эту тревогу, она была точным ответом на реальный опыт. Просто опыт закончился, а настройка осталась.',
+ cr:'Внутренний критик почти всегда — присвоенный голос извне: родителя, учителя, среды, где любовь надо было заслуживать оценками и поведением. Когда ребёнка чаще поправляют, чем обнимают, он решает: «со мной что-то не так, надо стараться лучше». Этот вывод когда-то помогал получать одобрение. Теперь он просто ест тебя изнутри.',
+ ct:'Потребность всё контролировать вырастает из хаоса: непредсказуемые взрослые, перепады настроения в доме, обещания, которые не выполнялись. Ребёнок не может управлять родителями — поэтому начинает управлять тем, чем может: порядком в вещах, оценками, собой. Контроль был островком безопасности. Взрослая жизнь просто унаследовала эту стратегию.',
+ cl:'Закрытость формируется, когда чувства ребёнка встречали равнодушие, насмешку или наказание. «Не реви», «не выдумывай», «что ты как маленьк{ая|ий}» — и ребёнок усваивает: показывать чувства опасно или бесполезно. Молчание стало бронёй. Броня работала — но теперь она не снимается даже там, где безопасно.',
+ hr:'Гиперответственность — след ранней «взрослости»: когда ребёнку пришлось быть удобным, помогать, сглаживать, отвечать за настроение взрослых или за младших. Похвала приходила за полезность — и ребёнок выучил: «меня любят, когда я нужен». Ты нёс{ла|} чужое так рано, что своё до сих пор кажется необязательным.'};
+
+const STRENGTH={
+ ab:'Чувствительность к связи. Ты раньше других замечаешь, когда в отношениях что-то меняется, и умеешь по-настоящему дорожить людьми.',
+ cr:'Высокая планка. Требовательность к себе делает тебя человеком, на которого можно положиться, — осталось направить её без жестокости.',
+ ct:'Организованность. Ты умеешь строить системы и доводить до конца то, что другие бросают на середине.',
+ cl:'Внутренний стержень. Ты умеешь выдерживать трудное, не рассыпаясь, и не грузишь других лишним.',
+ hr:'Надёжность. Рядом с тобой людям спокойно — ты умеешь заботиться по-настоящему.'};
+
+const PRACTICES={
+ ab:[
+  '<b>Проверка реальности.</b> Когда накатывает «меня бросят» — запиши три факта, которые говорят об обратном. Не ощущения, а факты: «он написал утром», «мы договорились на субботу».',
+  '<b>Пауза перед уходом.</b> Заметь импульс отстраниться перв{ой|ым} — и выдержи 10 минут, не действуя. Тревога поднимется и опадёт: это её природа.',
+  '<b>Прямой вопрос вместо сканирования.</b> Раз в день заменяй чтение «сигналов» прямым вопросом: «у нас всё в порядке?» — и принимай ответ как ответ.'],
+ cr:[
+  '<b>Голос друга.</b> Поймав самокритичную мысль, спроси себя: сказал{а|} бы я это близкому человеку в такой же ситуации? Скажи себе то, что сказал{а|} бы ему.',
+  '<b>Дневник «достаточно».</b> Каждый вечер — три вещи, которые сегодня были сделаны достаточно хорошо. Не идеально. Достаточно.',
+  '<b>Приём похвалы.</b> На комплимент отвечай только «спасибо» — без «да ладно, ерунда». Заметь, как хочется обесценить, и не делай этого.'],
+ ct:[
+  '<b>Ежедневная доза неопределённости.</b> Раз в день оставляй одно маленькое решение случаю: чужой выбор кафе, прогулка без маршрута. Заметь: мир не рухнул.',
+  '<b>Круги контроля.</b> Выпиши тревожащую ситуацию и раздели на «моё» и «не моё». Всё из второго списка — вслух отпусти: «это не в моих руках».',
+  '<b>Тело вместо плана.</b> Когда поднимается тревога контроля — пять медленных выдохов длиннее вдоха. Контроль возвращается через тело, а не через мысли.'],
+ cl:[
+  '<b>Одно чувство в день.</b> Раз в день называй вслух или в сообщении близкому одно чувство: «я сегодня расстроил{ась|ся}», «я обрадовал{ась|ся}». Не событие — чувство.',
+  '<b>Маленькая просьба.</b> Раз в день проси о мелочи: передать, подсказать, помочь донести. Тренируй мышцу «просить» на безопасном.',
+  '<b>Правило одного человека.</b> Выбери одного человека, с которым будешь чуть честнее, чем привычно. Не со всеми — с одним.'],
+ hr:[
+  '<b>Час без пользы.</b> Один час в неделю — занятие без всякой продуктивности. Заметь чувство вины, поздоровайся с ним и продолжай отдыхать.',
+  '<b>Пауза перед «да».</b> На любую просьбу отвечай: «я подумаю и скажу». Даже тридцать секунд паузы разрывают автоматизм спасателя.',
+  '<b>Возврат ответственности.</b> Раз в день замечай момент, когда берёшь чужое — настроение, задачу, вину — и мысленно клади обратно: «это не моё».']};
+
+/* ══════════ РАЗВЁРНУТЫЕ ДЕТАЛИ ПАТТЕРНОВ ══════════ */
+const DETAIL={
+ ab:{mind:['«Он{а|} как-то холоднее сегодня — что я сделал{а|} не так?»','«Лучше я уйду перв{ой|ым}, чем это сделают со мной»','«Не отвечает уже час — значит, что-то случилось»'],
+  body:['сжатие в груди, когда в переписке повисает пауза','невозможность уснуть после ссоры, пока не помирились','облегчение волной по всему телу от слов «всё в порядке»'],
+  gain:'Когда-то этот паттерн честно работал: ты замечал{а|} угрозу связи раньше всех и успевал{а|} подготовиться к боли. Радар не враг — он просто больше не нужен в таком режиме.'},
+ cr:{mind:['«Можно было и лучше»','«Сейчас все увидят, что я не так уж хорош{а|}»','«Не расслабляйся — расслабишься и ошибёшься»'],
+  body:['зажатые плечи и стиснутая челюсть к вечеру','усталость, при которой «нет права» на отдых','стыд, который ощущается жаром в лице и желанием исчезнуть'],
+  gain:'Критик когда-то защищал: если отругать себя первым, чужая критика уже не застигнет врасплох и не ранит так сильно. Он старался. Просто перестарался.'},
+ ct:{mind:['«Если не я — всё развалится»','«Надо продумать всё заранее, включая запасной план»','«Сюрприз — это просто проблема, о которой ещё не сообщили»'],
+  body:['хроническое напряжение шеи и верха спины','вдох получается, а выдох до конца — нет','бессонница от прокручивания планов и сценариев'],
+  gain:'Контроль был островком безопасности в непредсказуемом мире — единственным местом, где маленький человек мог быть спокоен. Он честно спасал. Теперь можно спасаться иначе.'},
+ cl:{mind:['«Никому это не интересно»','«Сам{а|} справлюсь — так проще»','«Покажешь слабость — её используют»'],
+  body:['ком в горле, когда надо говорить о чувствах','привычка сдерживать слёзы до полного онемения','усталость от постоянного самоконтроля на людях'],
+  gain:'Закрытость берегла: то, что не показано, невозможно высмеять, обесценить или использовать. Броня была нужна. Вопрос только в том, где она нужна до сих пор.'},
+ hr:{mind:['«Кроме меня некому»','«Отдохну, когда всё доделаю» (спойлер: не доделаю)','«Неудобно отказывать — человек же на меня надеется»'],
+  body:['плечи, которые не опускаются даже в отпуске','физическое чувство вины при попытке лежать без дела','выгорание, которое замечается только на самом краю'],
+  gain:'Роль спасателя давала место и любовь: нужный человек — не брошенный человек. Это была умная детская стратегия. Взрослому она стоит слишком дорого.'}};
+
+const INSIGHT={
+ ab:'Ты перестанешь проверять, не собирается ли кто-то уйти, — и начнёшь замечать тех, кто остаётся. Близость перестанет быть ожиданием потери.',
+ cr:'Голос, который критикует первым, станет тише. Ты начнёшь говорить с собой так, как говоришь с теми, кого любишь, — и увидишь, сколько сил это освобождает.',
+ ct:'Ты научишься отличать заботу от контроля и план от брони. Неожиданность перестанет быть угрозой — и вернётся в жизнь как жизнь.',
+ cl:'Ты начнёшь просить о помощи — и получать её. Части себя, которые ты прятал{а|}, окажутся тем, за что тебя выберут.',
+ hr:'Ты положишь чужое там, где взял{а|}, — и впервые почувствуешь, как легко твоё. Отдых перестанет требовать оправданий.'};
+
+/* ══════════ КАК ТЫ СЕЙЧАС (острое состояние) ══════════ */
+const ACUTE={
+ high:'Судя по тому, как ты сегодня слышишь звуки, какие цвета выбираешь «про сейчас» и что делает твой внутренний ребёнок, — похоже, прямо сейчас тебе непросто. Возможно, недавно что-то случилось — или копилось давно и подошло к краю. Результаты ниже читай с поправкой на это состояние: в трудные периоды все паттерны звучат громче. И будь к себе бережнее обычного.',
+ mid:'По косвенным сигналам — выбору цветов «про сегодня», реакциям на звуки и образы — похоже, последние недели даются тяжелее обычного. Это нормально влияет на восприятие: часть остроты в результатах может быть про «сейчас», а не про «всегда».',
+ low:'Судя по «сегодняшним» сигналам — цветам, реакциям на звук и образы — сейчас ты в достаточно ровном состоянии. Это хорошее время разбираться с глубинным: есть опора, с которой можно смотреть в прошлое.'};
+
+/* ══════════ ТВОЯ РЫБА ══════════
+   Восемь осей: v:[глубина, одиночество, скрытность, размер, знакомая вода, тёплая вода, скорость, зубастость]
+   Каждая ось 0..1. Рыба подбирается по ближайшему совпадению с профилем человека. */
+const FISH=[
+ {k:'neon',aff:['ab'],em:'✨🐠',name:'Неоновая тетра',hab:'река',v:[0.20,0.10,0.20,0.05,0.55,0.80,0.55,0.05],
+  t:'Маленькая светящаяся рыбка, которой по-настоящему хорошо только в стае: без своих её свечение тускнеет, а мир становится слишком большим. Она чувствует других на расстоянии полувзмаха плавника — и держится чуть ближе, чем нужно. Просто на всякий случай.'},
+ {k:'clown',aff:['ab'],em:'🪸🐠',name:'Рыба-клоун',hab:'море',v:[0.20,0.30,0.30,0.10,0.75,0.85,0.50,0.10],
+  t:'Яркая и обаятельная — но весь океан ей заменяет один родной анемон: дальше пары метров от дома она не отплывает. Рядом со своим — смелая, вдали — осторожная. Её путь — узнать, что безопасных мест в океане больше одного.'},
+ {k:'betta',aff:['cr'],em:'🐟🪞',name:'Бойцовский петушок',hab:'река',v:[0.30,0.75,0.30,0.20,0.70,0.80,0.45,0.60],
+  t:'Красивая гордая рыбка с одной особенностью: увидев собственное отражение, она бросается в бой. Самый строгий противник петушка — он сам. Когда он перестанет воевать с зеркалом, останется просто красота.'},
+ {k:'flounder',aff:['cr','cl'],em:'🌫️🐟',name:'Камбала',hab:'море',v:[0.65,0.70,0.95,0.40,0.30,0.40,0.20,0.55],
+  t:'Мастер маскировки: ложится на дно и становится неотличимой от песка. Так безопасно — и так же незаметно. Её задача по жизни — вспомнить, что у неё есть и яркая сторона. Та, которая смотрит вверх.'},
+ {k:'seahorse',aff:['ct'],em:'🌊🐴',name:'Морской конёк',hab:'море',v:[0.40,0.60,0.50,0.10,0.85,0.60,0.05,0.15],
+  t:'Он не любит течений: хвостом цепляется за травинку и держится, что бы ни происходило вокруг. Панцирь, прямая осанка, всё под контролем. Из всех рыб он хуже всех умеет плыть по течению — и больше всех в этом нуждается.'},
+ {k:'catfish',aff:['cl'],em:'🌙🐟',name:'Сом',hab:'река',v:[0.72,0.80,0.70,0.75,0.90,0.45,0.25,0.70],
+  t:'Большой, спокойный, живёт у дна знакомой реки и выходит по ночам. О нём мало кто знает правду — он никому её не рассказывает. Сила в нём есть, и немалая. Просто она не любит показываться.'},
+ {k:'ray',aff:['cl'],em:'🌑🌊',name:'Скат',hab:'море',v:[0.70,0.70,0.80,0.55,0.35,0.50,0.35,0.60],
+  t:'Скользит у самого дна, присыпав себя песком: видит всех — его не видит никто. Движется тихо и грациозно, но песок — это всё-таки укрытие, а не жизнь. Иногда можно подняться в толщу воды. Там красиво.'},
+ {k:'angler',aff:['cl','ab'],em:'🔦🐟',name:'Глубоководный удильщик',hab:'океан',v:[0.98,0.92,0.55,0.40,0.40,0.05,0.15,0.80],
+  t:'Живёт там, куда не доходит солнце, — и поэтому вырастил собственный фонарик. Это самое трогательное в глубоководной жизни: если света не дали — стать его источником. Осталось поверить, что наверху тоже можно дышать.'},
+ {k:'salmon',aff:['hr'],em:'🏞️🐟',name:'Лосось',hab:'река и океан',v:[0.40,0.50,0.30,0.70,0.80,0.15,0.80,0.50],
+  t:'Рыба долга: всю жизнь против течения, через пороги, к истоку — потому что надо. Его упорство легендарно, его усталость не замечает никто, включая его самого. Иногда можно просто постоять в тихой заводи. Исток никуда не денется.'},
+ {k:'whaleshark',aff:['hr'],em:'🐋',name:'Китовая акула',hab:'океан',v:[0.50,0.80,0.15,0.98,0.25,0.60,0.30,0.05],
+  t:'Самая большая рыба океана — и одна из самых безобидных: плывёт медленно, никого не трогает, а на её спине бесплатно катаются прилипалы. Все вокруг уверены, что ей самой ничего не нужно. Это неправда.'},
+ {k:'goldfish',aff:['ct','ab'],em:'🐠🫧',name:'Золотая рыбка',hab:'аквариум',v:[0.25,0.45,0.15,0.10,0.98,0.55,0.30,0.05],
+  t:'Живёт в идеально обустроенном, предсказуемом и безопасном аквариуме: каждый камешек на своём месте. Только снится ей почему-то река. Стекло, кстати, давно никто не держит — это просто привычка плавать по кругу.'},
+ {k:'flying',aff:[],em:'🐟🕊️',name:'Летучая рыба',hab:'океан',v:[0.05,0.30,0.05,0.30,0.10,0.70,0.95,0.10],
+  t:'Рыба, которая освоила небо: разгоняется, выпрыгивает из воды и летит, играя со светом. Ей знакомы обе стихии, и ни одна не держит её в плену. Это редкий результат — свобода как базовое состояние.'}];
+
+/* ══════════ КОНТЕКСТ ДЕТСТВА: тексты для результатов ══════════ */
+const FAM_T=[
+ 'Ты рос{ла|} с обоими родителями — но полнота семьи сама по себе не гарантирует тепла: важнее то, что показали остальные твои ответы.',
+ 'Ты рос{ла|} в основном с одним родителем. В таких семьях ребёнок часто раньше времени становится «вторым взрослым», а тема ухода и опоры звучит громче — это стоит держать в уме, читая шкалы выше.',
+ 'Тебя во многом растили бабушка и дедушка или другие родственники. Ребёнок в такой ситуации часто без слов задаёт себе вопрос «почему не родители?» — и делает из ответа выводы о своей нужности.',
+ 'Твоё детство прошло в переездах и разных домах. Опыт нестабильности почти всегда оставляет след: корни контроля и тревоги связи часто именно здесь.'];
+const SIB_T=[
+ 'Как единственный ребёнок, ты нес{ла|} на себе все ожидания семьи сразу — и её радость, и её тревогу. Отсюда часто растут и планка, и чувство, что подводить нельзя.',
+ 'Как старш{ая|ий}, ты рано получил{а|} роль ответственного — «ты же взрослее». Это классическая почва для гиперответственности и строгости к себе.',
+ 'Средним детям часто достаётся меньше всего отдельного внимания — привычка быть незаметн{ой|ым} и не просить может тянуться оттуда.',
+ 'Позиция младшего обычно даёт больше тепла и меньше давления — хотя и свою сложность: добиваться, чтобы тебя принимали всерьёз.'];
+
+const DOMAINS=[
+ {key:'rel',title:'Отношения и любовь',t:{
+  ab:{x:'В близости ты можешь цепляться за сигналы отдаления: перечитывать сообщения, взвешивать интонации, проверять связь. Другой сценарий — отстраняться перв{ой|ым}, чтобы не быть оставленн{ой|ым}. Партнёру бывает сложно доказать, что он никуда не уходит: старый радар слышит угрозу даже в тишине.',tip:'Договоритесь о «ритуалах связи» — утреннее сообщение, вечерний созвон. Предсказуемость контакта успокаивает радар лучше любых заверений.'},
+  cr:{x:'Рядом с партнёром ты порой чувствуешь себя «недостаточн{ой|ым}»: заранее извиняешься, сглаживаешь, стараешься заслужить. Комплименты принимать труднее, чем упрёки, а конфликт почти автоматически превращается в «я виноват{а|}».',tip:'В следующем конфликте сформулируй свою позицию без слова «прости» — хотя бы один раз.'},
+  ct:{x:'Тебе спокойнее, когда в отношениях всё ясно, спланировано и по договорённости. Спонтанность партнёра может считываться как ненадёжность, а его «посмотрим по ситуации» — как угроза. Отсюда споры не о сути, а о форме: кто, когда и почему не предупредил.',tip:'Раз в неделю отдавай партнёру планирование целого вечера — без правок и уточнений с твоей стороны.'},
+  cl:{x:'Ты рассказываешь о себе меньше, чем чувствуешь. Партнёр может годами не знать, что тебя ранит: ты предпочитаешь «справиться сам{а|}», и близость незаметно превращается в соседство двух самостоятельных людей.',tip:'Начни с малого: одна фраза в день о чувстве, а не о делах — «мне было обидно сегодня».'},
+  hr:{x:'Ты берёшь на себя эмоциональное обслуживание отношений: мирить, сглаживать, угадывать настроение, спасать вечер. Твои потребности стоят в конце очереди — и копится тихая усталость, которая однажды прорывается обидой «а обо мне кто-нибудь подумал?».',tip:'Проси прямо минимум об одной вещи в неделю — до того, как усталость станет обидой.'}}},
+ {key:'car',title:'Карьера',t:{
+  ab:{x:'Тебе важно чувствовать себя «сво{ей|им}» в команде. Реорганизации, смена руководителя, молчание в рабочем чате бьют сильнее самих задач. Критику работы легко услышать как «ты здесь больше не нужн{а|}».',tip:'Разделяй письменно: «оценили задачу» и «оценили меня» — это разные колонки.'},
+  cr:{x:'Синдром самозванца, переработки ради «достаточно хорошо», болезненная реакция на правки. Ты можешь годами не просить повышения, потому что внутренний критик первым выносит вердикт: «ещё рано».',tip:'Собери файл фактов — проекты, цифры, отзывы. Решение о повышении принимай по файлу, а не по ощущению.'},
+  ct:{x:'Ты силь{на|ён} в планировании и системе, но делегировать трудно: кажется, что без твоего контроля всё развалится. Форс-мажоры и «переиграем на ходу» выматывают сильнее самой работы.',tip:'Делегируй одну задачу целиком — с правом другого человека сделать её неидеально.'},
+  cl:{x:'Ты не показываешь коллегам сомнений и усталости, просишь о помощи в последнюю очередь и тянешь молча до дедлайна. Со стороны ты «железн{ая|ый}» — и это дорого стоит: здоровьем, ошибками, отношениями в команде.',tip:'Фраза недели: «мне нужна помощь с этим» — сказанная до того, как стало критично.'},
+  hr:{x:'Ты закрываешь чужие задачи, спасаешь горящие проекты и не умеешь говорить «это не моя зона». Руководители быстро это понимают — и нагрузка растёт быстрее зарплаты. Выгорание для тебя не риск, а расписание.',tip:'Перед каждым «да» на чужую задачу — вопрос себе: «что я сниму со своего списка взамен?»'}}},
+ {key:'mon',title:'Деньги',t:{
+  ab:{x:'Деньги для тебя связаны с безопасностью связи: тревожно тратить на себя, но легко — на близких, «чтобы не потерять». Возможны качели: судорожно удерживать всё — или импульсивно тратить, когда тревожно на душе.',tip:'Заведи отдельную статью «на себя» с фиксированной суммой — и трать её без отчёта и оправданий.'},
+  cr:{x:'Тебе трудно называть цену за свою работу и просить больше: критик шепчет «кто ты так{ая|ой}, чтобы столько стоить». Скидки без запроса, бесплатные доработки, стеснение в переговорах — всё отсюда.',tip:'Называя цену, замолкай после цифры. Пауза — это не грубость, это переговоры.'},
+  ct:{x:'Ты держишь бюджет под жёстким контролем, а незапланированные траты выбивают из колеи сильнее, чем их размер того стоит. Финансовая подушка для тебя не цифра, а успокоительное — и её всегда «мало».',tip:'Один раз письменно определи размер достаточной подушки — и разреши всему, что сверх неё, работать: на обучение, инвестиции, жизнь.'},
+  cl:{x:'Ты не обсуждаешь деньги даже с близкими: просить в долг, говорить о финансовых трудностях, торговаться — почти невозможно. Проблемы копятся молча, пока не становятся большими.',tip:'Одна финансовая тема, проговорённая вслух с партнёром или другом в этом месяце, — уже сдвиг.'},
+  hr:{x:'Ты содержишь, выручаешь, даёшь в долг и закрываешь чужие дыры — часто в ущерб себе. Отказать в деньгах близкому кажется предательством, даже когда просят далеко не в первый раз.',tip:'Реши заранее и письменно, сколько можешь отдавать без ущерба для себя. Всё сверх — «мне нужно подумать».'}}},
+ {key:'fri',title:'Дружба и окружение',t:{
+  ab:{x:'Если друг долго не пишет, включается тревога: «что-то не так, я больше не нуж{на|ен}». Паузы в общении трудно считать нормой — они читаются как охлаждение, и ты либо тревожно догоняешь, либо гордо отдаляешься.',tip:'Напиши перв{ой|ым} без повода. Дружба измеряется не скоростью ответов, а тем, что связь возобновляется.'},
+  cr:{x:'Тебе страшно «навязываться», и ты ждёшь, что позовут. Внутри живёт сомнение: интерес{на|ен} ли ты сам{а|} по себе — без пользы, которую приносишь.',tip:'Позови кого-нибудь сам{а|} на этой неделе. Отказ будет означать занятость человека, а не твою ценность.'},
+  ct:{x:'Тебе комфортнее в проверенном узком кругу и по знакомому сценарию. Спонтанные планы и новые компании требуют усилия — поэтому круг общения медленно сужается.',tip:'Раз в месяц соглашайся на одно спонтанное приглашение — именно то, которое хочется отклонить «из-за неудобства».'},
+  cl:{x:'Ты — тот друг, которому рассказывают всё, но кто редко рассказывает о себе. Дружба получается односторонней глубины: тебя любят, но по-настоящему не знают.',tip:'В следующем разговоре по душам расскажи о своём — не дожидаясь вопроса.'},
+  hr:{x:'Ты — «служба спасения» своего круга: выслушать, помочь, организовать, одолжить. Когда плохо тебе — ты не звонишь никому: «у всех свои проблемы».',tip:'В следующий трудный день позвони другу не за решением — а просто сказать, что трудно.'}}},
+ {key:'fam',title:'Родительская семья сегодня',t:{
+  ab:{x:'Отношения с родителями могут держать на коротком поводке вины и тревоги: трудно не ответить на звонок сразу, трудно уехать далеко, трудно жить свою жизнь без оглядки.',tip:'Разреши себе отвечать не сразу. Взрослая связь — это когда можно перезвонить вечером, и это не предательство.'},
+  cr:{x:'Родительский голос мог стать твоим внутренним критиком: даже сейчас их мнение о твоих выборах весит больше, чем твоё собственное. Достижения будто до сих пор предъявляются на проверку.',tip:'Замечай, чьим голосом звучит внутренняя критика. Назвать голос по имени — уже половина дистанции.'},
+  ct:{x:'Разговоры с семьёй ты можешь готовить как переговоры: правильные слова, дозированная информация, обходы острых тем. Это утомляет — и не даёт отношениям стать проще.',tip:'Попробуй один разговор без подготовки и без цели. Просто разговор.'},
+  cl:{x:'С родителями ты говоришь о фактах, но не о себе: «всё нормально» вместо правды. Возможно, с ними так действительно безопаснее — но проверь, не включается ли это «всё нормально» уже и с теми, кто безопасен.',tip:'Открываться родителям не обязательно. Важно замечать, где привычка закрываться срабатывает уже не с ними.'},
+  hr:{x:'Ты можешь до сих пор отвечать за эмоциональное состояние родителей: звонить, чтобы им не было грустно, приезжать из чувства долга, решать их вопросы в ущерб своим планам.',tip:'Забота из любви и забота из вины ощущаются по-разному. Перед каждым «надо» спрашивай себя, которая из них говорит.'}}},
+ {key:'dev',title:'Саморазвитие и отдых',t:{
+  ab:{x:'В работе над собой тебе важны поддержка и отклик — в одиночку мотивация быстро тает, а достижения без свидетелей будто не считаются.',tip:'Ищи форматы с сопровождением и группой, а не марафоны силы воли в одиночку.'},
+  cr:{x:'Любая практика превращается в повод для самооценки: «медитирую неправильно», «опять сорвал{ась|ся}». Саморазвитие становится ещё одним способом быть недостаточн{ой|ым}.',tip:'Начни с практик самосострадания — без них все остальные буксуют.'},
+  ct:{x:'Ты подходишь к развитию через дисциплину и систему — это твоя сила. Но настоящая зона роста — практики отпускания: телесные, дыхательные, спонтанные, без метрик и стриков.',tip:'Одна практика в неделю — без трекера и галочки. Просто потому что.'},
+  cl:{x:'Тебе проще читать о чувствах, чем чувствовать. Знания копятся, а проживание откладывается: ещё одна книга вместо одного честного разговора.',tip:'Дневник эмоций и разговорные форматы дадут больше, чем следующая книга.'},
+  hr:{x:'Отдых нужно «заслужить», а забота о себе стоит в конце списка. Даже хобби превращается в обязанность: полезное, продуктивное, для кого-то.',tip:'Первый навык — отдых без чувства вины. Это не награда за сделанное, а базовая потребность.'}}}
+];
+
+const RES_COLORS={
+ 'Жёлтый':'спонтанность и радость — разреши себе лёгкость без повода',
+ 'Оранжевый':'энергия живого контакта — тебя питает общение и движение',
+ 'Синий':'покой и глубина — твоя сила в тишине и сосредоточенности',
+ 'Зелёный':'устойчивость и рост — ты умеешь держать корни и тянуться вверх',
+ 'Красный':'сила и право хотеть — разреши себе желать открыто',
+ 'Фиолетовый':'интуиция и творчество — доверяй образам, которые приходят первыми',
+ 'Белый':'ясность и новое начало — ты готов{а|} к чистому листу',
+ 'Розовый':'нежность к себе — то, чего твоему детству не хватило, теперь можешь дать ты'};
+
+/* Словари маркеров для анализа незаконченных предложений */
+const LEX={
+ ab:['одино','брос','поки','ушл','уйд','уход','остав','исчез','расстав','ненужн','не нужн','отверг','пуст','теря','потер','скуча','без меня'],
+ cr:['винов','стыд','стыж','плох','глуп','недостаточн','не заслуж','незаслуж','ошиб','идеаль','слаб','ничтож','хуже','не справл','неудач','дура','позор','критик','наказ'],
+ ct:['контрол','поряд','план','хаос','неожидан','непредсказ','страх','страшн','боюсь','боял','опасн','тревог','вдруг','неизвестн','беспомощ'],
+ cl:['молч','скрыв','пряч','закрыв','не показ','не говор','в себе','сама справ','сам справ','замык','терпл','терпе','не рассказ','дистанц','отдал','холод'],
+ hr:['должн','должен','обязан','ответствен','за всех','забочусь','заботил','спас','помога','подвести','удобн','стара','соответств','ожидан','всё сама','все сама','всё сам','нельзя']};
+const DLEX={
+ rj:['стыд','позор','насмеш','дразн','отверг','не так','стесня','смеял','белая ворон','изгой','чужая','чужой'],
+ tr:['предат','обман','довер','подвел','подвед','использ','вран','врал','лгал','лжи','изменил','кинул'],
+ dp:['не хватало','холод','ласк','обним','тепл','равнодуш','игнорир','сам по себе','сама по себе','недолюб','не замеча']};
+const TEXT_CAP=8;
+
+/* ══════════ ЭКРАНЫ: ПОЛ + ИНТРО + 55 ВОПРОСОВ + ДЫХАНИЕ + РЕЗУЛЬТАТ ══════════ */
+const Q=[
+{id:'gender'},
+{id:'intro'},
+
+// ─── КОНТЕКСТ ДЕТСТВА (3) ───
+{id:'ctx',ctx:'fam',blk:'Перед тестом — контекст',n:1,
+ q:'В какой семье прошло твоё детство?',
+ sub:'Это не оценка и не приговор — это контекст, без которого некорректно читать остальные ответы.',
+ opts:[
+  {t:'С обоими родителями',w:[0,0,0,0,0],e:'Полная семья — важный контекст, но не гарантия тепла: смотрим дальше.'},
+  {t:'В основном с одним родителем',w:[1,0,0,0,1],e:'Дети из таких семей часто раньше времени становятся «вторым взрослым» — это учтено в подсчёте.'},
+  {t:'Меня во многом растили бабушка и дедушка или другие родственники',w:[1,0,0,1,0],e:'Когда растят не родители, у ребёнка часто возникает невысказанный вопрос «почему?» — и свои выводы о нужности.'},
+  {t:'По-разному: переезды, разные дома, разные взрослые',w:[1,0,1,0,0],e:'Нестабильность среды — почва для контроля и тревоги связи. Мы учтём это в шкалах.'}]},
+{id:'ctx',ctx:'sib',blk:'Перед тестом — контекст',n:2,
+ q:'Кто ты по порядку рождения?',
+ sub:'Позиция среди братьев и сестёр задаёт роль, которую мы получаем раньше, чем успеваем выбрать.',
+ opts:[
+  {t:'Единственный ребёнок',w:[0,1,0,0,1],e:'Все ожидания семьи — на одном человеке. Часто отсюда планка и «нельзя подвести».'},
+  {t:'Старш{ая|ий}',w:[0,0,0,0,2],e:'«Ты же старше» — классический источник ранней ответственности за других.'},
+  {t:'Средн{яя|ий}',w:[1,0,0,1,0],e:'Средним часто достаётся меньше отдельного внимания — привычка быть незаметн{ой|ым} может расти отсюда.'},
+  {t:'Младш{ая|ий}',w:[0,0,0,0,0],e:'Младшим обычно достаётся больше тепла и меньше давления — но и своя борьба за то, чтобы принимали всерьёз.'}]},
+{id:'ctx',ctx:'atm',blk:'Перед тестом — контекст',n:3,
+ q:'Какая атмосфера чаще всего была между взрослыми дома?',
+ sub:'Первое, что вспомнилось, — то и выбирай.',
+ opts:[
+  {t:'Спокойная — разногласия решались словами',w:[0,0,0,0,0],e:'Спокойный дом — редкая базовая опора. Проверим, что покажут остальные блоки.'},
+  {t:'Напряжённая — ссоры или тяжёлое молчание',w:[1,0,2,1,0],e:'Жизнь в напряжении учит ребёнка сканировать обстановку — след почти всегда остаётся в теле.'},
+  {t:'Непредсказуемая — то мир, то буря',w:[1,0,2,0,0],e:'Непредсказуемость — главный источник паттерна контроля: порядок становится способом выжить.'},
+  {t:'Родители расстались, и это чувствовалось',w:[2,0,0,0,0],e:'Развод сам по себе не травма — травмой становится то, как ребёнок остался с этим один.'}]},
+
+// ─── БЛОК 1: АУДИО-ИЛЛЮЗИИ (4) ───
+{id:'aud',blk:'Блок 1 из 6 — Звуковые иллюзии',n:4,aType:'shepard',
+ q:'Послушай этот звук 15–20 секунд. Что с тобой происходит, пока он поднимается?',
+ sub:'Нажми воспроизвести. Звук будет подниматься — слушай, не анализируя, и заметь свою реакцию.',
+ albl:'Иллюзия Шепарда — Риссе · бесконечный подъём',
+ fact:'Этот звук кажется поднимающимся вечно, но на самом деле он ходит по кругу. Реакция на «подъём без развязки» показывает, как ты переносишь незавершённость.',
+ opts:[
+  {t:'Интерес — красиво, хотелось понять, как это устроено',w:[0,0,0,0,0],e:'Интерес к неразрешающемуся звуку — признак переносимости неопределённости: психика не требует немедленной развязки.'},
+  {t:'Нарастающее напряжение — ждал{а|}, когда же это закончится',w:[0,0,1,0,0],e:'«Когда же это закончится» — так реагирует система, привыкшая пережидать неопределённость, а не жить в ней.'},
+  {t:'Тревогу — как будто что-то надвигается',w:[1,0,1,0,0],e:'Тревога на бесконечный подъём — маркер гипербдительности: фоновое ожидание, что «сейчас что-то произойдёт».'},
+  {t:'Ничего особенного — просто звук',w:[0,0,0,1,0],e:'Ровное «просто звук» бывает спокойствием — а бывает привычкой приглушать телесные реакции. Сверь с остальными ответами.'}]},
+{id:'aud',blk:'Блок 1 из 6 — Звуковые иллюзии',n:5,aType:'tritone',
+ q:'Сейчас прозвучат пары тонов. Звук идёт вверх или вниз?',
+ sub:'Это тритоновый парадокс Дианы Дойч: одни люди устойчиво слышат подъём, другие — спуск. Правильного ответа не существует.',
+ albl:'Тритоновый парадокс · Deutsch',
+ fact:'Направление задаётся твоей внутренней «звуковой картой», сложившейся в детстве вместе с речью. Люди искренне не верят, что другие слышат иначе.',
+ opts:[
+  {t:'Уверенно вверх',w:[0,0,0,0,0],e:'Уверенный «вверх» — восприятие выбрало версию и держится её: хорошая опора на собственное чувство.'},
+  {t:'Уверенно вниз',w:[0,0,0,0,0],e:'Уверенный «вниз» — восприятие выбрало версию и держится её: хорошая опора на собственное чувство.'},
+  {t:'Каждый раз по-разному — и это раздражает',w:[0,0,1,0,0],e:'Раздражение от неоднозначности — маркер потребности в определённости: некомфортно, когда правильного ответа нет.'},
+  {t:'Каждый раз по-разному — и это любопытно',w:[0,0,0,0,0],e:'Любопытство к неоднозначности — гибкость восприятия: можно не выбирать один ответ и не тревожиться об этом.'}]},
+{id:'aud',blk:'Блок 1 из 6 — Звуковые иллюзии',n:6,aType:'rhythm',
+ q:'Все удары в этой записи абсолютно одинаковые. Как ты их слышишь?',
+ sub:'Послушай секунд десять. Мозг сам решит, как их сгруппировать.',
+ albl:'Субъективная ритмизация · одинаковые удары',
+ fact:'Удары действительно идентичны — «тик-так» придумывает мозг. Потребность навязать структуру монотонному потоку у всех разная.',
+ opts:[
+  {t:'Парами «тик-так» — сильный и слабый',w:[0,0,0,0,0],e:'Пары «тик-так» — самая частая группировка: психика структурирует поток самым экономным способом.'},
+  {t:'Тройками, как вальс',w:[0,0,0,0,0],e:'Вальсовые тройки — более редкая, «творческая» группировка: восприятие свободно играет со структурой.'},
+  {t:'Ровно, без всякой группировки',w:[0,0,0,1,0],e:'Слышать ровный поток без группировки — либо точный слух, либо привычка не вовлекаться. Ты знаешь, что из этого твоё.'},
+  {t:'Я почти сразу начал{а|} ждать, когда ритм собьётся',w:[0,0,2,0,0],e:'Ожидание сбоя в ровном ритме — след жизни рядом с непредсказуемостью: даже стабильность проверяется на подвох.'}]},
+{id:'aud',blk:'Блок 1 из 6 — Звуковые иллюзии',n:7,aType:'waves',
+ q:'Этот звук «дышит» — волны накатывают и отступают. Какой была первая реакция тела?',
+ sub:'Не анализируй. Просто первое, что возникло — до того, как ты начал{а|} думать.',
+ albl:'Акустические биения · медленные волны',
+ fact:'Биения рождаются из двух почти одинаковых тонов. Тело реагирует на них раньше сознания — как на дыхание другого человека рядом.',
+ opts:[
+  {t:'Расслабление — дыхание само замедлилось',w:[0,0,0,0,0],e:'Тело ответило расслаблением — вегетативная система умеет доверять безопасным стимулам.'},
+  {t:'Замер{ла|} и прислушал{ась|ся} — что это?',w:[1,0,0,1,0],e:'Замирание и прислушивание — ориентировочная тревога: новое сначала проверяется, потом переживается.'},
+  {t:'Раздражение — хочется ровного, предсказуемого звука',w:[0,0,1,0,0],e:'Раздражение от «плавающего» звука — потребность в ровном и предсказуемом фоне: колебания читаются как ненадёжность.'},
+  {t:'Грусть, непонятно откуда',w:[1,0,0,0,0],e:'Грусть без причины на медленные волны — так отзывается накопленное: звук просто приоткрыл дверь. Мы учли это в блоке «как ты сейчас».'}]},
+
+// ─── БЛОК 2: ЗРИТЕЛЬНЫЕ ИЛЛЮЗИИ (6) ───
+{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:8,illT:'rubin',
+ q:'Что ты увидел{а|} первым?',
+ sub:'Классическая ваза Рубина. Посмотри пару секунд — и заметь, что пришло первым, до всяких усилий.',
+ opts:[
+  {t:'Вазу — предмет в центре',w:[0,0,0,0,0],e:'Предмет раньше людей — внимание к структуре: сначала «что это», потом «кто здесь».'},
+  {t:'Два лица, обращённые друг к другу',w:[0,0,0,0,0],e:'Лица первыми — социальное восприятие: люди и отношения для тебя фигура, а не фон.'},
+  {t:'Двух людей, между которыми — расстояние',w:[1,0,0,1,0],e:'Увидеть «расстояние между людьми» — это уже не про картинку: дистанция в отношениях — заряженная для тебя тема.'},
+  {t:'Оба образа сразу, они мерцают',w:[0,0,0,0,0],e:'Мерцание обоих образов — подвижное восприятие, спокойно удерживающее двойственность.'}]},
+{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:9,illT:'duckrabbit',
+ q:'Кого ты видишь?',
+ sub:'Первый образ приходит сам. Доверься ему.',
+ opts:[
+  {t:'Утку — клюв смотрит влево',w:[0,0,0,0,0],e:'Утка первой — частый вариант; сам выбор нейтрален, важнее то, как далась вторая фигура.'},
+  {t:'Кролика — уши смотрят влево',w:[0,0,0,0,0],e:'Кролик первым — чуть более редкий вариант; сам выбор нейтрален, важнее гибкость переключения.'},
+  {t:'Обоих — легко переключаюсь',w:[0,0,0,0,0],e:'Лёгкое переключение — когнитивная гибкость: ты умеешь менять точку зрения без внутреннего сопротивления.'},
+  {t:'Долго видел{а|} только одного — второй не давался',w:[0,0,1,0,0],e:'Когда вторая фигура «не даётся», восприятие держится за первую версию — так проявляется ригидность, спутница контроля.'}]},
+{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:10,illT:'necker',
+ q:'Этот куб «переворачивается»: передняя грань то ближе, то дальше. Попробуй этим управлять.',
+ sub:'Смотри секунд десять. Заметь, переключается ли он сам — и получается ли удержать одну версию.',
+ opts:[
+  {t:'Переключается сам — и это забавно',w:[0,0,0,0,0],e:'Переключения как игра — здоровые отношения с тем, что не всё подчиняется воле.'},
+  {t:'Я могу удерживать нужную версию усилием — и удерживаю',w:[0,0,1,0,0],e:'Удерживать версию усилием — буквальная микромодель контроля: ты умеешь, но это стоит сил. Как и в жизни.'},
+  {t:'Переключается сам, и это неприятно: я этим не управляю',w:[0,0,2,0,0],e:'Неприятно, когда «само», — контроль для тебя не привычка, а необходимость: неуправляемое равно небезопасное.'},
+  {t:'Не вижу объёма — просто линии на плоскости',w:[0,0,0,1,0],e:'Не видеть объёма — иногда усталость, иногда привычка не погружаться. Просто заметь это про себя.'}]},
+{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:11,illT:'stairs',
+ q:'Лестница Шрёдера: она ведёт наверх — или свисает с потолка вверх ногами?',
+ sub:'Обе версии правильные. Вопрос в том, как твоё восприятие обращается с двусмысленностью.',
+ opts:[
+  {t:'Обычная лестница, ведёт наверх',w:[0,0,0,0,0],e:'Обычная лестница — восприятие выбирает конвенциональную, «дневную» версию мира.'},
+  {t:'Перевёрнутая — мир вверх дном',w:[0,0,0,0,0],e:'Перевёрнутая первой — нестандартный ракурс: ты легко допускаешь, что мир может стоять вверх ногами.'},
+  {t:'Вижу обе и переключаюсь свободно',w:[0,0,0,0,0],e:'Свободное переключение — гибкость восприятия: двусмысленность не пугает, а разворачивается.'},
+  {t:'Вторая версия не давалась, пока я не заставил{а|} себя её увидеть',w:[0,0,1,0,0],e:'«Заставить себя увидеть» — смена рамки требует у тебя волевого усилия, а не происходит сама. Это утомляет больше, чем кажется.'}]},
+{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:12,illT:'kanizsa',
+ q:'Здесь есть белый треугольник, которого на самом деле нет: мозг достроил его из намёков',
+ sub:'Точно так же мы достраиваем смыслы в отношениях — по паузе, по взгляду, по тону сообщения. Как это устроено у тебя?',
+ opts:[
+  {t:'Я замечаю намёки, но проверяю словами — спрашиваю прямо',w:[0,0,0,0,0],e:'Проверять намёки словами — зрелая стратегия: ты видишь «треугольники», но не живёшь в них.'},
+  {t:'Я «вижу» настроение людей раньше, чем они что-то скажут',w:[1,0,1,0,0],e:'Видеть настроение раньше слов — гипервосприимчивость. В детстве это был навык выживания: угадать взрослого до взрыва.'},
+  {t:'Я часто достраиваю худший вариант — и живу с ним, не проверив',w:[1,1,1,0,0],e:'Достраивать худшее и жить с ним — тревожное чтение мира: «треугольник» рисуется сам и всегда тёмный. Это учтено и в шкале недоверия.'},
+  {t:'Я стараюсь вообще не додумывать — только факты',w:[0,0,0,1,0],e:'Запрет на додумывание — контрстратегия: похоже, когда-то интуиция приносила слишком болезненные картинки.'}]},
+{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:13,illT:'spiral',
+ q:'Посмотри в центр спирали десять секунд. Что ты чувствуешь?',
+ sub:'Не что видишь — а что чувствуешь. Это разные вещи.',
+ opts:[
+  {t:'Спокойствие — почти гипноз',w:[0,0,0,0,0],e:'Спокойствие у гипнотической спирали — нервная система разрешает себе «отпустить руль».'},
+  {t:'Затягивает — и это интересно',w:[0,0,0,0,0],e:'Интерес-затягивание — здоровое любопытство к необычным состояниям восприятия.'},
+  {t:'Теряю опору — неприятное головокружение',w:[0,0,1,0,0],e:'Неприятная потеря опоры — телу важно контролировать положение: «плыть» тревожно.'},
+  {t:'Хочется отвести взгляд и вернуть контроль',w:[0,0,1,1,0],e:'Желание отвести взгляд и вернуть контроль говорит само за себя: неуправляемое переживается как угроза.'}]},
+
+// ─── БЛОК 3: НЕЗАКОНЧЕННЫЕ ПРЕДЛОЖЕНИЯ (15) ───
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'14–16',
+ q:'Продолжи фразы — первым, что придёт',
+ sub:'Метод Сакса из клинической практики. Нет правильных ответов. Пиши что есть — не что «нужно» написать.',
+ stems:['Когда меня критикуют, я...','Самое страшное для меня — это...','Когда кто-то уходит, я...']},
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'17–19',
+ q:'Следующие три фразы',
+ sub:'Продолжай так же — первым импульсом, не задумываясь.',
+ stems:['Я злюсь, когда...','Когда мне плохо, я обычно...','Чаще всего люди меня...']},
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'20–22',
+ q:'Продолжи',
+ sub:'Позволь словам выходить сами.',
+ stems:['Мои родители были...','Дома в детстве было...','Мне было одиноко, когда...']},
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'23–25',
+ q:'Ещё три',
+ sub:'Ты глубже, чем кажется. Продолжай.',
+ stems:['Когда меня хвалят, я...','В глубине души я боюсь, что я...','Просить о помощи для меня — это...']},
+{id:'sent',blk:'Блок 3 из 6 — Незаконченные предложения',n:'26–28',
+ q:'Последние три предложения этого блока',
+ sub:'Ты уже в середине теста. Дыши.',
+ stems:['Когда я смотрю на своё детство, я вижу...','Я стараюсь не думать о...','Больше всего в детстве я хотел{а|}...']},
+
+// ─── БЛОК 4: ЦВЕТ (5) ───
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:29,
+ q:'Выбери цвет, который ассоциируется с твоим детством',
+ sub:'По мотивам теста Люшера. Первый импульс — без анализа.',
+ colors:[
+  {h:'#1e2a4a',l:'Ночь',w:[0,0,0,1,0],e:'Ночь про детство — тишина и приглушённость: не обязательно плохо, но громкой радости в этой памяти мало.'},
+  {h:'#7a6fa8',l:'Лиловый',w:[0,0,0,0,0],e:'Лиловый — мечтательное, слегка отстранённое детство: много внутреннего мира.'},
+  {h:'#3d7a6a',l:'Лес',w:[0,0,0,0,0],e:'Лес — живое, устойчивое, природное: похоже, в детстве была настоящая опора.'},
+  {h:'#c4a060',l:'Янтарь',w:[0,0,0,0,0],e:'Янтарь — тёплый выбор: в памяти есть свет и уют, и это ресурс.'},
+  {h:'#8a4a4a',l:'Тревога',w:[1,1,0,0,0],e:'Тёмно-красный про детство — фоновое напряжение: дом не всегда был спокойным местом.'},
+  {h:'#4a6080',l:'Сталь',w:[0,0,1,1,0],e:'Сталь — холод и дисциплина: порядок в доме был важнее нежности.'},
+  {h:'#252535',l:'Темнота',w:[1,0,0,1,0],e:'Темнота — тяжесть или пустота в воспоминаниях: туда не хочется смотреть. Мы учли это и в шкале недолюбленности.'},
+  {h:'#a8a098',l:'Туман',w:[1,0,0,1,0],e:'Туман — размытость: детство плохо помнится или не хочет вспоминаться. Это само по себе информация.'}]},
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:30,
+ q:'Теперь выбери цвет, который описывает тебя сегодня',
+ sub:'Не думай — просто тот, который тянет.',
+ colors:[
+  {h:'#1e2a4a',l:'Ночь',w:[0,0,0,1,0],e:'Ночь про сегодня — усталость и потребность в тишине. Услышано.'},
+  {h:'#7a6fa8',l:'Лиловый',w:[0,0,0,0,0],e:'Лиловый — созерцательное состояние: ты сейчас больше внутри, чем снаружи.'},
+  {h:'#3d7a6a',l:'Лес',w:[0,0,0,0,0],e:'Лес — устойчивость: похоже, сейчас ты в контакте с собой.'},
+  {h:'#c4a060',l:'Янтарь',w:[0,0,0,0,0],e:'Янтарь — тёплый ресурс: сейчас есть чем делиться.'},
+  {h:'#8a4a4a',l:'Тревога',w:[0,1,1,0,0],e:'Тёмно-красный про сегодня — напряжение здесь и сейчас. Этот выбор мы учитываем в блоке «как ты сейчас».'},
+  {h:'#4a6080',l:'Сталь',w:[0,0,1,1,0],e:'Сталь — собранность на пределе: держишься, но жёстко.'},
+  {h:'#252535',l:'Темнота',w:[1,0,0,1,0],e:'Темнота про сегодня — тяжёлый период. Обрати внимание на блок «как ты сейчас» в результатах.'},
+  {h:'#a8a098',l:'Туман',w:[1,0,0,1,0],e:'Туман — неясность: сейчас сложно понять, что именно ты чувствуешь. Это тоже состояние, и оно проходит.'}]},
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:31,
+ q:'Выбери цвет, который ты отвергаешь — он неприятен, раздражает',
+ sub:'Отвергаемый цвет говорит о подавленной потребности.',
+ colors:[
+  {h:'#e8d44d',l:'Жёлтый',w:[0,1,0,0,1],e:'Отвергать жёлтый — настороженность к лёгкости и спонтанности: где-то живёт «радоваться — несерьёзно».'},
+  {h:'#e87a4a',l:'Оранжевый',w:[0,0,0,1,0],e:'Отвергать оранжевый — дистанция от шумного контакта: общение сейчас скорее утомляет.'},
+  {h:'#4a8ae8',l:'Синий',w:[1,0,1,0,0],e:'Отвергать синий — сложные отношения с покоем: тишина не лечит, а тревожит.'},
+  {h:'#4aaa6a',l:'Зелёный',w:[0,1,0,0,0],e:'Отвергать зелёный — напряжение вокруг устойчивости и права занимать место.'},
+  {h:'#e84a6a',l:'Красный',w:[0,0,0,2,0],e:'Отвергать красный — классика Люшера: подавленная злость или страх собственной силы.'},
+  {h:'#9a4ae8',l:'Фиолетовый',w:[0,0,0,1,0],e:'Отвергать фиолетовый — недоверие к «тонкому»: фантазии и чувственность под замком рациональности.'},
+  {h:'#6a4a38',l:'Коричневый',w:[0,0,0,0,1],e:'Отвергать коричневый — игнорирование телесного комфорта: потребности тела в конце списка.'},
+  {h:'#888888',l:'Серый',w:[1,0,0,0,0],e:'Отвергать серый — страх пустоты и безучастности: нейтральность пугает сильнее, чем конфликт.'}]},
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:32,
+ q:'Если бы твой страх был цветом — какой бы это был цвет?',
+ sub:'Позволь первой ассоциации выйти.',
+ colors:[
+  {h:'#1e2a4a',l:'Ночь',w:[1,0,0,0,0],e:'Страх цвета ночи — про одиночество в темноте: страшно остаться без всех.'},
+  {h:'#7a6fa8',l:'Лиловый',w:[0,0,0,0,0],e:'Лиловый страх — страх раствориться, потерять границы себя.'},
+  {h:'#3d7a6a',l:'Лес',w:[0,0,0,0,0],e:'Лес как страх — редкий выбор: боязнь живого и неподконтрольного.'},
+  {h:'#c4a060',l:'Янтарь',w:[0,0,0,0,0],e:'Страх, спрятанный под тёплым цветом, — боязнь, что хорошее закончится.'},
+  {h:'#8a4a4a',l:'Тревога',w:[0,0,1,0,0],e:'Горячий страх — он рядом, на поверхности, и требует выхода, а не подавления.'},
+  {h:'#4a6080',l:'Сталь',w:[0,0,0,1,0],e:'Стальной страх — страх холода и наказания: жёсткая рука из прошлого.'},
+  {h:'#252535',l:'Темнота',w:[1,0,0,0,0],e:'Страх-темнота — самый древний, без формы: неизвестность как таковая.'},
+  {h:'#a8a098',l:'Туман',w:[0,0,1,0,0],e:'Страх-туман — страх неопределённости: хуже плохого известия только отсутствие известий.'}]},
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:33,resColor:true,
+ q:'Если бы твоя сила была цветом — какой бы это был цвет?',
+ sub:'Этот цвет мы запомним: он вернётся к тебе в результатах.',
+ colors:[
+  {h:'#e8d44d',l:'Жёлтый',w:[0,0,0,0,0]},
+  {h:'#e87a4a',l:'Оранжевый',w:[0,0,0,0,0]},
+  {h:'#4a8ae8',l:'Синий',w:[0,0,0,0,0]},
+  {h:'#4aaa6a',l:'Зелёный',w:[0,0,0,0,0]},
+  {h:'#e84a6a',l:'Красный',w:[0,0,0,0,0]},
+  {h:'#9a4ae8',l:'Фиолетовый',w:[0,0,0,0,0]},
+  {h:'#f0f0f0',l:'Белый',w:[0,0,0,0,0]},
+  {h:'#ffc0cb',l:'Розовый',w:[0,0,0,0,0]}]},
+
+// ─── БЛОК 5: ОБРАЗЫ И СЦЕНАРИИ (12) ───
+{id:'img',blk:'Блок 5 из 6 — Образы и сценарии',n:34,
+ q:'Какой образ описывает тебя в детстве?',
+ sub:'Выбери интуитивно — не думай.',
+ choices:[
+  {ico:'bird',l:'Птица в клетке\nхочет вырваться',w:[1,0,1,0,0]},
+  {ico:'tree',l:'Дерево на ветру\nгнётся, но держится',w:[0,0,0,0,2]},
+  {ico:'stone',l:'Камень в воде\nвсё обтекает',w:[0,0,0,2,0]},
+  {ico:'candle',l:'Свеча\nсветит другим, сгорая',w:[0,0,0,0,3]}]},
+{id:'img',blk:'Блок 5 из 6 — Образы и сценарии',n:35,
+ q:'Какой образ описывает тебя сегодня?',
+ sub:'Может совпасть с предыдущим — или нет.',
+ choices:[
+  {ico:'bird',l:'Птица в клетке\nхочет вырваться',w:[1,0,1,0,0]},
+  {ico:'tree',l:'Дерево на ветру\nгнётся, но держится',w:[0,0,0,0,2]},
+  {ico:'stone',l:'Камень в воде\nвсё обтекает',w:[0,0,0,2,0]},
+  {ico:'candle',l:'Свеча\nсветит другим, сгорая',w:[0,0,0,0,3]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:36,
+ scene:'Тебе 8 лет. Ты приходишь домой с плохой оценкой. Ты останавливаешься у двери и думаешь — что делать.',
+ q:'Что ты делаешь?',
+ opts:[
+  {t:'Вхожу как обычно — скажу правду',w:[0,0,0,0,0]},
+  {t:'Прячу дневник и надеюсь, что не спросят',w:[0,1,0,2,0]},
+  {t:'Придумываю объяснение заранее, репетирую слова',w:[0,0,2,1,0]},
+  {t:'Начинаю плакать ещё на улице',w:[1,2,0,0,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:37,
+ scene:'Тебе 10 лет. Ты хочешь что-то — новую игрушку, поход с друзьями. Тебе нужно попросить родителей.',
+ q:'Как ты это делаешь?',
+ opts:[
+  {t:'Прошу прямо — просто говорю, что хочу',w:[0,0,0,0,0]},
+  {t:'Намекаю издалека и жду, что сами поймут',w:[1,0,0,1,0]},
+  {t:'Долго выжидаю момент, когда настроение дома хорошее',w:[0,0,2,0,1]},
+  {t:'Решаю обойтись — лучше не просить',w:[0,1,0,3,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:38,
+ scene:'Тебе 9 лет. Родители ругаются. Ты слышишь это из своей комнаты.',
+ q:'Что ты делаешь?',
+ opts:[
+  {t:'Выхожу и пытаюсь помирить их',w:[0,0,1,0,3]},
+  {t:'Закрываюсь глубже — уши, подушка, книга',w:[0,0,0,2,0]},
+  {t:'Замираю и жду, когда закончится',w:[2,0,1,0,0]},
+  {t:'Начинаю убирать или делать что-то полезное',w:[0,1,0,0,2]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:39,
+ scene:'Тебе 11 лет. {Подруга|Друг} сказал{а|} что-то обидное при всех. Тебе больно.',
+ q:'Что происходит внутри?',
+ opts:[
+  {t:'Злость — хочу ответить или уйти',w:[0,0,0,0,0]},
+  {t:'Стыд — наверное, я сам{а|} виноват{а|}',w:[0,3,0,0,0]},
+  {t:'Желание стать невидим{ой|ым}',w:[0,1,0,2,0]},
+  {t:'Обида, которую я скрываю — и улыбаюсь',w:[0,0,0,2,1]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:40,
+ scene:'Тебе 7 лет. Тебя не взяли играть — компания детей сказала «нет».',
+ q:'Что ты чувствуешь и что делаешь?',
+ opts:[
+  {t:'Ухожу и нахожу что-то другое — мне нормально',w:[0,0,0,0,0]},
+  {t:'Пытаюсь снова — предлагаю что-нибудь, чтобы взяли',w:[2,0,0,0,1]},
+  {t:'Ухожу и долго чувствую себя плохо',w:[2,1,0,0,0]},
+  {t:'Злюсь — на них и на себя',w:[0,2,0,0,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:41,
+ scene:'Взрослый — учитель или родственник — хвалит тебя при всех. Говорит, что ты умн{ая|ый} и молодец.',
+ q:'Как ты реагируешь внутри?',
+ opts:[
+  {t:'Радость — мне приятно, и я это принимаю',w:[0,0,0,0,0]},
+  {t:'Смущение — хочется спрятаться',w:[0,1,0,1,0]},
+  {t:'Недоверие — наверное, говорит неискренне',w:[0,1,0,2,0]},
+  {t:'Тревога — теперь нельзя подвести',w:[0,1,1,0,2]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:42,
+ scene:'Тебе нужна помощь — с уроком, с чем-то тяжёлым. Рядом есть кто-то, кто может помочь.',
+ q:'Что ты делаешь?',
+ opts:[
+  {t:'Прошу помощи — это нормально',w:[0,0,0,0,0]},
+  {t:'Пытаюсь справиться сам{а|} как можно дольше',w:[0,0,1,1,1]},
+  {t:'Намекаю косвенно — вдруг сами предложат',w:[1,0,0,1,0]},
+  {t:'Отказываюсь, даже когда предлагают',w:[0,0,1,2,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:43,
+ scene:'Ты узнаёшь, что кто-то близкий уедет надолго или уйдёт из твоей жизни.',
+ q:'Первая реакция — что происходит внутри?',
+ opts:[
+  {t:'Грусть — буду скучать, но всё будет хорошо',w:[0,0,0,0,0]},
+  {t:'Паника — не хочу, чтобы уходили',w:[3,0,0,0,0]},
+  {t:'Онемение — я как будто отключаюсь',w:[1,0,0,2,0]},
+  {t:'Злость — почему они уходят',w:[2,0,0,0,0]}]},
+{id:'single',blk:'Блок 5 из 6 — Образы и сценарии',n:44,
+ q:'Если представить дом твоего детства как образ — что это?',
+ sub:'Не реальный дом — ощущение от него. Первое, что откликнулось.',
+ opts:[
+  {t:'Гнездо — тепло, и туда можно вернуться',w:[0,0,0,0,0],e:'Дом-гнездо — базовое ощущение «мне были рады». Это фундамент, на который можно опираться.'},
+  {t:'Вокзал — все заняты, все проездом',w:[1,0,0,1,0],e:'Дом-вокзал — про дефицит устойчивого внимания: тепло было, но урывками, между делами.'},
+  {t:'Музей — красиво, но ничего нельзя трогать',w:[0,2,1,0,0],e:'Дом-музей — про правила и оценку: важнее, как выглядит, чем как чувствуется. Отсюда часто растёт внутренний критик.'},
+  {t:'Поле после бури — тревожно и не убрано',w:[1,0,2,0,0],e:'Поле после бури — про хаос и небезопасность: ребёнку там приходилось выживать, а не расти.'},
+  {t:'Крепость — надёжно, но наружу нельзя',w:[0,0,2,1,0],e:'Дом-крепость — про защиту, которая стала ограничением: безопасно, но тесно.'}]},
+{id:'single',blk:'Блок 5 из 6 — Образы и сценарии',n:45,
+ q:'Представь: внутри тебя до сих пор живёт ребёнок. Что он делает прямо сейчас?',
+ sub:'Ответ приходит сам — не подбирай «красивый».',
+ opts:[
+  {t:'Играет — ему в целом хорошо',w:[0,0,0,0,0],e:'Играющий внутренний ребёнок — признак того, что живая, спонтанная часть тебя в доступе.'},
+  {t:'Прячется и ждёт, когда станет безопасно',w:[1,0,0,2,0],e:'Прячущийся ребёнок — часть тебя до сих пор ждёт сигнала «можно выходить». Это учтено в блоке «как ты сейчас».'},
+  {t:'Старается — хочет, чтобы его похвалили',w:[0,2,0,0,1],e:'Старающийся ребёнок — та часть, что до сих пор зарабатывает любовь достижениями. Ей давно пора каникулы.'},
+  {t:'Следит, чтобы всё было под контролем',w:[0,0,2,0,0],e:'Ребёнок-дежурный — маленький, а уже на посту. Контроль ты выучил{а|} раньше, чем таблицу умножения.'},
+  {t:'Зовёт кого-то — ему одиноко',w:[2,0,0,0,0],e:'Зовущий ребёнок — самая честная строчка этого теста: части тебя не хватает контакта прямо сейчас. Мы учли это в блоке «как ты сейчас».'}]},
+
+// ─── БЛОК 6: ШКАЛЫ (9) + СЛОВО (1) ───
+{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'46–48',
+ q:'Оцени своё детство',
+ sub:'Нет правильного ответа. Первое число, которое чувствуется верным.',
+ scales:[
+  {q:'Насколько ты чувствовал{а|} себя любим{ой|ым} в детстве?',lo:'совсем нет',hi:'безусловно',w:[2,1,0,0,0]},
+  {q:'Насколько дома было физически и эмоционально безопасно?',lo:'совсем нет',hi:'очень безопасно',w:[1,0,2,0,0]},
+  {q:'Насколько тебя слышали и понимали родители?',lo:'никогда',hi:'всегда',w:[1,0,0,2,0]}]},
+{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'49–51',
+ q:'Продолжаем',
+ sub:'',
+ scales:[
+  {q:'Насколько часто тебя хвалили в детстве?',lo:'никогда',hi:'очень часто',w:[0,3,0,0,0]},
+  {q:'Насколько ты мог{ла|} выражать злость или недовольство дома?',lo:'никогда — это было опасно',hi:'всегда свободно',w:[0,0,0,3,0]},
+  {q:'Насколько ты чувствовал{а|} себя нужн{ой|ым} просто так — а не за помощь и достижения?',lo:'совсем нет',hi:'абсолютно',w:[1,1,0,0,1]}]},
+{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'52–54',
+ q:'Последний набор',
+ sub:'Ты почти у финала.',
+ scales:[
+  {q:'Насколько предсказуемой была жизнь дома?',lo:'абсолютный хаос',hi:'стабильно и ясно',w:[0,0,3,0,0]},
+  {q:'Насколько ты мог{ла|} быть собой — со своими интересами и странностями?',lo:'совсем нет',hi:'полностью',w:[0,2,0,0,1]},
+  {q:'Насколько ты доверяешь своим детским воспоминаниям?',lo:'совсем не доверяю',hi:'полностью доверяю',w:[0,0,0,1,0]}]},
+{id:'single',blk:'Блок 6 из 6 — Воспоминания о детстве',n:55,
+ q:'Последний вопрос теста',
+ sub:'Если бы детство можно было описать одним словом — какое бы это было слово?',
+ opts:[
+  {t:'Тёплое',w:[0,0,0,0,0]},
+  {t:'Тревожное',w:[1,0,2,0,0]},
+  {t:'Одинокое',w:[2,0,0,1,0]},
+  {t:'Хаотичное',w:[0,0,3,0,0]},
+  {t:'Обычное',w:[0,0,0,0,0]},
+  {t:'Тяжёлое',w:[0,1,0,0,2]},
+  {t:'Счастливое',w:[0,0,0,0,0]},
+  {t:'Пустое',w:[2,0,0,2,0]}]},
+
+{id:'breath'},
+{id:'results'}
+];
+
+/* номер первого вопроса каждого экрана — для прогресса */
+(function(){let acc=1;Q.forEach(s=>{s.qs=acc;
+ if(s.stems)acc+=s.stems.length;else if(s.scales)acc+=s.scales.length;
+ else if(!['gender','intro','breath','results'].includes(s.id))acc+=1;});})();
+const TOTAL_Q=55;
+function qByN(n){return Q.find(s=>s.n===n);}
+</script>
+<script>
+'use strict';
+let cur=0,ans={},brC=0,brGo=false,brTmr2=null;
+const PLAY_SVG='<polygon points="5,3 19,12 5,21"/>';
+const PAUSE_SVG='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+
+function saveState(){try{localStorage.setItem('istok_state',JSON.stringify({cur,ans,ts:Date.now()}));}catch(e){}}
+function loadState(){try{return JSON.parse(localStorage.getItem('istok_state')||'null');}catch(e){return null;}}
+function clearState(){try{localStorage.removeItem('istok_state');}catch(e){}}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+/* объяснение выбранного ответа («Про твой выбор») */
+function optE(s,i){
+  if(i===undefined||i===null)return null;
+  if(s.opts&&s.opts[i]&&s.opts[i].e)return s.opts[i].e;
+  if(s.colors&&s.colors[i])return s.resColor?RES_COLORS[s.colors[i].l]:s.colors[i].e;
+  return null;
+}
+function oeHtml(s,a){
+  const e=optE(s,a);
+  return `<div class="aud-fact${e?' on':''}" id="oe">${e?'<b>Про твой выбор:</b> '+T(e):''}</div>`;
+}
+
+function showLanding(){document.getElementById('landing').style.display='';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');Music.stop();AudioIll.stop();window.scrollTo(0,0);}
+function startTest(){
+  document.getElementById('landing').style.display='none';
+  document.getElementById('practice-s').classList.remove('on');
+  document.getElementById('test-s').classList.add('on');
+  window.scrollTo(0,0);
+  if(Music.enabled)Music.start();
+  render(0);
+}
+function resumeTest(){const st=loadState();if(st&&st.ans){ans=st.ans;render(Math.min(st.cur,Q.length-1));}}
+function restartTest(){ans={};clearState();render(0);}
+function selGender(g){
+  setGender(g);
+  document.querySelectorAll('.gen-opt').forEach((el,i)=>el.classList.toggle('sel',(i===0?'f':'m')===g));
+  setTimeout(()=>render(cur+1),350);
+}
+
+/* ══════════ РЕНДЕР ══════════ */
+function render(idx){
+  cur=Math.max(0,idx);
+  AudioIll.stop();
+  const s=Q[cur];
+  const el=document.getElementById('tc');
+  const pct=s.id==='breath'||s.id==='results'?100:Math.round((s.qs-1)/TOTAL_Q*100);
+  const lbl=['gender','intro','breath','results'].includes(s.id)?'':s.n+' / '+TOTAL_Q;
+
+  let html=`<div class="t-top">
+    <span class="t-lbl">${lbl}</span>
+    <div class="t-bar"><div class="t-fill" style="width:${pct}%"></div></div>
+    <button class="mus-btn${Music.enabled?' on':''}" id="musB" onclick="Music.toggle()" title="Фоновая музыка">
+      <span class="mus-ico"><i></i><i></i><i></i></span>${Music.enabled?'звук':'тихо'}</button>
+  </div>`;
+
+  if(s.id==='gender'){
+    const st=loadState();
+    const hasSaved=st&&st.cur>1&&st.cur<Q.length-2&&Object.keys(st.ans||{}).length>0;
+    html+=`<p class="t-blk">Перед началом</p>
+    <h2 class="t-q">Как к тебе обращаться?</h2>
+    <p class="t-sub">Исток говорит с тобой на «ты» — и хочет делать это правильно. Выбор влияет только на форму обращения.</p>
+    <div class="gen-grid">
+      <div class="gen-opt${GENDER==='f'?' sel':''}" onclick="selGender('f')"><span class="gen-sym">она</span><span class="gen-lbl">Я женщина</span></div>
+      <div class="gen-opt${GENDER==='m'?' sel':''}" onclick="selGender('m')"><span class="gen-sym">он</span><span class="gen-lbl">Я мужчина</span></div>
+    </div>
+    <p class="gen-note">Никаких данных мы никуда не отправляем — всё остаётся в твоём браузере.</p>
+    ${hasSaved?`<div class="resume-box">
+      <p>У тебя есть незавершённое прохождение — вопрос ${Q[st.cur].n||''} из ${TOTAL_Q}. Продолжить с того же места?</p>
+      <div class="resume-row">
+        <button class="btn-nx" onclick="resumeTest()">Продолжить</button>
+        <button class="btn-ghost" onclick="restartTest()">Начать заново</button>
+      </div></div>`:''}`;
+
+  } else if(s.id==='intro'){
+    html+=`<p class="t-blk">Добро пожаловать</p>
+    <h2 class="t-q" style="font-size:clamp(2rem,5vw,3.5rem);margin-bottom:1rem">${T('{Готова|Готов}')} заглянуть<br><em style="color:var(--accent3)">внутрь?</em></h2>
+    <p class="t-sub">Этот тест состоит из 55 вопросов и займёт 25–30 минут.<br><br>
+    Сначала — три коротких вопроса о контексте детства, затем 6 блоков: звуковые иллюзии → зрительные иллюзии → незаконченные предложения → цвета → образы и сценарии → шкалы воспоминаний. После большинства ответов ты сразу увидишь, что именно значит твой выбор.<br><br>
+    Здесь нет правильных и неправильных ответов. Есть только твоё восприятие. Чем честнее — тем точнее результат.<br><br>
+    Фоновая музыка помогает не «думать головой» — её можно выключить кнопкой сверху.<br><br>
+    <strong style="color:var(--text);font-weight:400">Отвечай первым импульсом. Не думай долго.</strong></p>
+    <button class="btn-nx" style="width:100%;padding:1.1rem;margin-top:1rem" onclick="nxt()">Начать →</button>
+    ${nav(cur,false,true)}`;
+
+  } else if(s.id==='aud'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
+    <div class="aud-pl" onclick="togIll(${cur},'${s.aType}')">
+      <div class="play-c"><svg id="pi${cur}" viewBox="0 0 24 24">${PLAY_SVG}</svg></div>
+      <div class="awaves" id="aw${cur}">${Array(20).fill(0).map((_,i)=>`<span style="height:${6+Math.abs(Math.sin(i*.7))*18}px"></span>`).join('')}</div>
+      <span class="aud-lbl">${s.albl}</span>
+    </div>
+    <p class="aud-hint">${s.aType==='tritone'||s.aType==='waves'?'Лучше слушать в наушниках. ':''}Звук синтезируется прямо в браузере — слушай сколько нужно.</p>
+    ${s.fact?`<div class="aud-fact" id="af${cur}">${T(s.fact)}</div>`:''}
+    <div class="t-opts">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    ${oeHtml(s,ans[cur])}
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='ill'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
+    <div class="ill-wrap"><div class="ill-fr">${illArt(s.illT)}</div><span class="ill-hint">смотри глубже</span></div>
+    <div class="t-opts">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    ${oeHtml(s,ans[cur])}
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='sent'){
+    html+=`<p class="t-blk">${s.blk} · вопросы ${s.n}</p>
+    <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
+    <div class="sent-list">${s.stems.map((st,i)=>`
+      <div class="sent-row">
+        <span class="sent-stem">${T(st)}</span>
+        <input class="sent-inp" placeholder="..." value="${esc((ans[cur]||[])[i]||'')}" oninput="updS(${i},this.value)"/>
+      </div>`).join('')}</div>
+    ${nav(cur,sentDone(s,ans[cur]))}`;
+
+  } else if(s.id==='col'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
+    <div class="col-pal">${s.colors.map((c,i)=>`<div class="col-sw${ans[cur]===i?' sel':''}" style="background:${c.h}" onclick="selC(${i})"><span class="col-sw-l" ${c.h==='#f0f0f0'?'style="color:rgba(0,0,0,.55)"':''}>${c.l}</span></div>`).join('')}</div>
+    ${oeHtml(s,ans[cur])}
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='img'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
+    <div class="img-grid">${s.choices.map((c,i)=>`
+      <div class="img-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">
+        ${cardArt(c.ico)}<span>${c.l.replace('\n','<br>')}</span>
+      </div>`).join('')}</div>
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='scen'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <div class="scen-box">${T(s.scene)}</div>
+    <h2 class="t-q" style="font-size:1.5rem">${T(s.q)}</h2>
+    <div class="t-opts" style="margin-top:1rem">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='sc'){
+    html+=`<p class="t-blk">${s.blk} · вопросы ${s.n}</p>
+    <h2 class="t-q">${T(s.q)}</h2>${s.sub?`<p class="t-sub">${T(s.sub)}</p>`:''}
+    <div class="sc-list">${s.scales.map((sc,si)=>`
+      <div class="sc-item">
+        <p class="sc-q">${T(sc.q)}</p>
+        <div class="sc-ends"><span>${T(sc.lo)}</span><span>${T(sc.hi)}</span></div>
+        <div class="sc-row">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="sc-btn${(ans[cur]||{})[si]===n?' sel':''}" onclick="selSc(${si},${n})">${n}</button>`).join('')}</div>
+      </div>`).join('')}</div>
+    ${nav(cur,Object.keys(ans[cur]||{}).length>=s.scales.length)}`;
+
+  } else if(s.id==='single'||s.id==='ctx'){
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
+    <div class="t-opts">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    ${oeHtml(s,ans[cur])}
+    ${nav(cur,ans[cur]!==undefined)}`;
+
+  } else if(s.id==='breath'){
+    html+=`<p class="t-blk">Заземление</p>
+    <h2 class="t-q" style="text-align:center">Три вдоха, прежде чем увидеть результат</h2>
+    <p class="t-sub" style="text-align:center">${T('Ты прош{ла|ёл} все 55 вопросов. Нажми на круг и сделай три медленных вдоха.')}</p>
+    <div class="br-sec">
+      <div class="br-ring" id="bR" onclick="startBr()">вдох</div>
+      <span class="br-cnt" id="bC">нажми, чтобы начать</span>
+    </div>
+    ${nav(cur,true)}`;
+
+  } else if(s.id==='results'){
+    html+=renderResults();
+  }
+
+  el.innerHTML=`<div class="scr">${html}</div>`;
+  window.scrollTo(0,0);
+  if(s.id!=='results')saveState();
+
+  if(s.id==='results'){
+    Music.stop();
+    clearState();
+    setTimeout(()=>{document.querySelectorAll('.tc-fill[data-w]').forEach(e=>{e.style.width=e.dataset.w+'%';});},250);
+  }
+}
+
+function nav(idx,can,hideNext){
+  const nextS=Q[idx+1];
+  const isPreLast=nextS&&nextS.id==='breath';
+  const isBreath=Q[idx].id==='breath';
+  const lbl=isPreLast?'Завершить тест':isBreath?'Показать результат':'Далее →';
+  return `<div class="t-nav">
+    ${idx>0?`<button class="btn-bk" onclick="render(${idx-1})">← Назад</button>`:'<span></span>'}
+    ${hideNext?'<span></span>':`<button class="btn-nx" id="bN" ${can?'':'disabled'} onclick="nxt()">${lbl}</button>`}
+  </div>`;
+}
+function nxt(){render(cur+1);}
+function sentDone(s,a){return !!a&&s.stems.every((_,i)=>((a[i]||'').trim().length>=2));}
+function showOE(i){
+  const oe=document.getElementById('oe');
+  if(!oe)return;
+  const e=optE(Q[cur],i);
+  if(e){oe.innerHTML='<b>Про твой выбор:</b> '+T(e);oe.classList.add('on');}
+  else oe.classList.remove('on');
+}
+function selO(i){
+  ans[cur]=i;
+  document.querySelectorAll('.t-opt,.img-opt').forEach((el,j)=>el.classList.toggle('sel',j===i));
+  const b=document.getElementById('bN');if(b)b.disabled=false;
+  const af=document.getElementById('af'+cur);if(af)af.classList.add('on');
+  showOE(i);
+  saveState();
+}
+function selC(i){
+  ans[cur]=i;
+  document.querySelectorAll('.col-sw').forEach((el,j)=>el.classList.toggle('sel',j===i));
+  const b=document.getElementById('bN');if(b)b.disabled=false;
+  showOE(i);
+  saveState();
+}
+function selSc(si,val){
+  if(!ans[cur]||Array.isArray(ans[cur]))ans[cur]={};
+  ans[cur][si]=val;
+  document.querySelectorAll('.sc-row').forEach((row,ri)=>{
+    row.querySelectorAll('.sc-btn').forEach((btn,bi)=>{
+      btn.classList.toggle('sel',(ans[cur]||{})[ri]===(bi+1));
+    });
+  });
+  const b=document.getElementById('bN');
+  if(b)b.disabled=Object.keys(ans[cur]||{}).length<Q[cur].scales.length;
+  saveState();
+}
+function updS(i,v){
+  if(!ans[cur]||!Array.isArray(ans[cur]))ans[cur]=[];
+  ans[cur][i]=v;
+  const b=document.getElementById('bN');
+  if(b)b.disabled=!sentDone(Q[cur],ans[cur]);
+  saveState();
+}
+
+/* ══════════ ДВИЖОК ЗВУКОВЫХ ИЛЛЮЗИЙ (WebAudio) ══════════ */
+const AudioIll={
+  ctx:null,nodes:[],timers:[],playing:null,onEnd:null,
+  ac(){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;
+    if(!this.ctx)this.ctx=new AC();if(this.ctx.state==='suspended')this.ctx.resume();return this.ctx;},
+  stop(){
+    this.timers.forEach(t=>clearInterval(t));this.timers=[];
+    this.nodes.forEach(n=>{try{n.stop&&n.stop();}catch(e){}try{n.disconnect&&n.disconnect();}catch(e){}});
+    this.nodes=[];
+    if(this.playing!==null){this.playing=null;if(this.onEnd)this.onEnd();this.onEnd=null;}
+  },
+  play(type,idx,onEnd){
+    this.stop();
+    const c=this.ac();if(!c)return;
+    this.playing=idx;this.onEnd=onEnd;
+    const master=c.createGain();master.gain.value=0.5;master.connect(c.destination);
+    this.nodes.push(master);
+    let dur=20;
+    if(type==='shepard')dur=this.shepard(c,master);
+    else if(type==='tritone')dur=this.tritone(c,master);
+    else if(type==='rhythm')dur=this.rhythm(c,master);
+    else if(type==='waves')dur=this.waves(c,master);
+    const endT=setTimeout(()=>{if(this.playing===idx)this.stop();},dur*1000);
+    this.timers.push(endT);
+  },
+  /* Тон Шепарда—Риссе: бесконечный подъём */
+  shepard(c,out){
+    const N=6,Tp=9,fmin=32.7,t0=c.currentTime;
+    const voices=[];
+    for(let k=0;k<N;k++){
+      const o=c.createOscillator(),g=c.createGain();
+      o.type='sine';g.gain.value=0;o.connect(g);g.connect(out);o.start();
+      voices.push({o,g,k});this.nodes.push(o,g);
+    }
+    const iv=setInterval(()=>{
+      const t=c.currentTime-t0;
+      voices.forEach(v=>{
+        const pos=((t/Tp)+v.k/N)%1;
+        v.o.frequency.setValueAtTime(fmin*Math.pow(2,pos*N),c.currentTime);
+        v.g.gain.setValueAtTime(Math.pow(Math.sin(Math.PI*pos),2)*0.09,c.currentTime);
+      });
+    },50);
+    this.timers.push(iv);
+    return 20;
+  },
+  /* Тритоновый парадокс: пары тонов Шепарда через тритон */
+  tritone(c,out){
+    const t0=c.currentTime+0.1;
+    const mk=(pc,at)=>{ /* pc: частота питч-класса в 4-й октаве */
+      for(let oct=-2;oct<=2;oct++){
+        const f=pc*Math.pow(2,oct);
+        const amp=0.16*Math.exp(-Math.pow(Math.log2(f/262),2)/2.2);
+        const o=c.createOscillator(),g=c.createGain();
+        o.type='sine';o.frequency.value=f;
+        g.gain.setValueAtTime(0.0001,at);
+        g.gain.linearRampToValueAtTime(amp,at+0.03);
+        g.gain.setValueAtTime(amp,at+0.42);
+        g.gain.linearRampToValueAtTime(0.0001,at+0.5);
+        o.connect(g);g.connect(out);o.start(at);o.stop(at+0.55);
+        this.nodes.push(o,g);
+      }
+    };
+    const D=293.66,GS=415.30;
+    for(let r=0;r<4;r++){const base=t0+r*1.8;mk(D,base);mk(GS,base+0.6);}
+    return 8;
+  },
+  /* Субъективная ритмизация: строго одинаковые удары */
+  rhythm(c,out){
+    const t0=c.currentTime+0.1;
+    for(let i=0;i<26;i++){
+      const at=t0+i*0.46;
+      const o=c.createOscillator(),g=c.createGain();
+      o.type='triangle';o.frequency.value=740;
+      g.gain.setValueAtTime(0.28,at);
+      g.gain.exponentialRampToValueAtTime(0.0001,at+0.09);
+      o.connect(g);g.connect(out);o.start(at);o.stop(at+0.1);
+      this.nodes.push(o,g);
+    }
+    return 12.5;
+  },
+  /* Акустические биения: «дышащие» волны */
+  waves(c,out){
+    [[196,0.16],[196.28,0.16],[98,0.07],[294,0.03],[294.4,0.03]].forEach(([f,a])=>{
+      const o=c.createOscillator(),g=c.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,c.currentTime);
+      g.gain.linearRampToValueAtTime(a,c.currentTime+1.5);
+      g.gain.setValueAtTime(a,c.currentTime+17.5);
+      g.gain.linearRampToValueAtTime(0.0001,c.currentTime+19.5);
+      o.connect(g);g.connect(out);o.start();o.stop(c.currentTime+20);
+      this.nodes.push(o,g);
+    });
+    return 20;
+  }
+};
+function togIll(idx,type){
+  const ico=document.getElementById('pi'+idx),wav=document.getElementById('aw'+idx);
+  const reset=()=>{if(ico)ico.innerHTML=PLAY_SVG;if(wav)wav.classList.remove('on');Music.duck(false);};
+  if(AudioIll.playing===idx){AudioIll.stop();return;}
+  Music.duck(true);
+  AudioIll.play(type,idx,reset);
+  if(ico)ico.innerHTML=PAUSE_SVG;
+  if(wav)wav.classList.add('on');
+}
+
+/* ══════════ ЗРИТЕЛЬНЫЕ ИЛЛЮЗИИ (SVG, рисуются кодом) ══════════ */
+function illArt(t){
+  const BG='#101322',FG='#cfc8e8';
+  if(t==='rubin'){
+    const face='M0,0 L100,0 C98,18 104,30 100,44 C96,58 104,64 99,74 C95,82 108,86 112,96 L122,106 C124,112 112,114 114,120 C116,126 122,127 120,133 C118,139 111,140 113,147 C115,154 124,156 121,164 C118,174 106,176 104,188 C102,202 116,212 118,228 C120,244 98,250 88,256 L86,300 L0,300 Z';
+    return `<svg viewBox="0 0 300 300"><rect width="300" height="300" fill="${FG}"/>
+      <path d="${face}" fill="${BG}"/>
+      <g transform="translate(300,0) scale(-1,1)"><path d="${face}" fill="${BG}"/></g>
+      <rect x="0" y="0" width="300" height="14" fill="${BG}"/><rect x="0" y="286" width="300" height="14" fill="${BG}"/></svg>`;
+  }
+  if(t==='duckrabbit'){
+    return `<svg viewBox="0 0 300 300"><rect width="300" height="300" fill="${BG}"/>
+      <g fill="#c9c2e4">
+        <ellipse cx="178" cy="160" rx="70" ry="57"/>
+        <ellipse cx="80" cy="130" rx="62" ry="17" transform="rotate(-13 80 130)"/>
+        <ellipse cx="82" cy="167" rx="60" ry="16" transform="rotate(9 82 167)"/>
+      </g>
+      <circle cx="194" cy="139" r="7" fill="${BG}"/>
+      <circle cx="196.5" cy="136.5" r="2.3" fill="#c9c2e4"/>
+      <path d="M245,172 q7,7 0,14" stroke="${BG}" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M150,110 q28,-14 56,-4" stroke="${BG}" stroke-width="2" fill="none" opacity=".35"/></svg>`;
+  }
+  if(t==='necker'){
+    return `<svg viewBox="0 0 300 300"><rect width="300" height="300" fill="${BG}"/>
+      <g stroke="${FG}" stroke-width="2.6" fill="none" stroke-linejoin="round">
+        <rect x="85" y="115" width="120" height="120"/>
+        <rect x="135" y="65" width="120" height="120"/>
+        <line x1="85" y1="115" x2="135" y2="65"/><line x1="205" y1="115" x2="255" y2="65"/>
+        <line x1="85" y1="235" x2="135" y2="185"/><line x1="205" y1="235" x2="255" y2="185"/>
+      </g></svg>`;
+  }
+  if(t==='stairs'){
+    let x=68,y=244;
+    const pts=[[x,y]];
+    for(let i=0;i<5;i++){y-=34;pts.push([x,y]);x+=42;pts.push([x,y]);}
+    const front='M'+pts.map(p=>p.join(',')).join(' L');
+    const dx=-34,dy=-24;
+    const back='M'+pts.map(p=>(p[0]+dx)+','+(p[1]+dy)).join(' L');
+    let conn='';pts.forEach(p=>{conn+=`<line x1="${p[0]}" y1="${p[1]}" x2="${p[0]+dx}" y2="${p[1]+dy}"/>`;});
+    return `<svg viewBox="0 0 300 300"><rect width="300" height="300" fill="${BG}"/>
+      <g stroke="${FG}" stroke-width="2.4" fill="none" stroke-linejoin="round">
+        <path d="${front}"/><path d="${back}"/>${conn}
+      </g></svg>`;
+  }
+  if(t==='kanizsa'){
+    const V=[[150,66],[68,212],[232,212]];
+    const circ=V.map(v=>`<circle cx="${v[0]}" cy="${v[1]}" r="34" fill="${FG}"/>`).join('');
+    return `<svg viewBox="0 0 300 300"><rect width="300" height="300" fill="${BG}"/>${circ}
+      <path d="M${V[0][0]},${V[0][1]} L${V[1][0]},${V[1][1]} L${V[2][0]},${V[2][1]} Z" fill="${BG}"/>
+      <path d="M150,120 L110,190 L190,190 Z" fill="none" stroke="${FG}" stroke-width="1.6" opacity=".3"/></svg>`;
+  }
+  if(t==='spiral'){
+    let d='M150,150';
+    for(let a=0;a<=Math.PI*10;a+=0.12){const r=4+a*4.1;d+=` L${(150+r*Math.cos(a)).toFixed(1)},${(150+r*Math.sin(a)).toFixed(1)}`;}
+    return `<svg viewBox="0 0 300 300"><rect width="300" height="300" fill="${BG}"/>
+      <g><path d="${d}" fill="none" stroke="${FG}" stroke-width="5.5" stroke-linecap="round" opacity=".85"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 150 150" to="360 150 150" dur="26s" repeatCount="indefinite"/></g></svg>`;
+  }
+  return '';
+}
+
+/* ══════════ КАРТОЧКИ-ОБРАЗЫ БЛОКА 5 ══════════
+   Если в репозитории появится assets/cards/<имя>.jpg — подхватится фото,
+   иначе рисуется атмосферная сцена. */
+function cardArt(name){
+  return `<span class="card-art"><img src="assets/cards/${name}.jpg" alt="" style="display:none"
+    onload="this.style.display='block';if(this.nextElementSibling)this.nextElementSibling.style.display='none'">${sceneSVG(name)}</span>`;
+}
+function sceneSVG(n){
+  if(n==='bird')return `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
+    <defs><linearGradient id="gb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141b3a"/><stop offset="1" stop-color="#251f40"/></linearGradient>
+    <radialGradient id="gb2"><stop offset="0" stop-color="rgba(232,228,240,.85)"/><stop offset="1" stop-color="rgba(232,228,240,0)"/></radialGradient></defs>
+    <rect width="320" height="200" fill="url(#gb1)"/>
+    <circle cx="252" cy="52" r="62" fill="url(#gb2)" opacity=".45"/><circle cx="252" cy="52" r="22" fill="#e8e4f0" opacity=".9"/>
+    <path d="M0,172 Q160,152 320,174 L320,200 L0,200 Z" fill="#0c0e1c"/>
+    <g stroke="#453c66" stroke-width="3.4" fill="none" stroke-linecap="round">
+      <path d="M96,164 L96,92 Q142,38 188,92 L188,164"/>
+      <line x1="111" y1="70" x2="111" y2="164"/><line x1="127" y1="56" x2="127" y2="164"/>
+      <line x1="142" y1="51" x2="142" y2="164"/><line x1="157" y1="53" x2="157" y2="164"/><line x1="173" y1="61" x2="173" y2="164"/>
+    </g>
+    <ellipse cx="142" cy="166" rx="54" ry="6" fill="#2a2546"/>
+    <ellipse cx="140" cy="128" rx="14" ry="9" fill="#120e20"/><circle cx="153" cy="119" r="6.4" fill="#120e20"/>
+    <path d="M126,129 l-13,7 13,2 z" fill="#120e20"/><path d="M159,117.5 l8,2.4 -8,3 z" fill="#0c0916"/></svg>`;
+  if(n==='tree')return `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
+    <defs><linearGradient id="gt1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2040"/><stop offset="1" stop-color="#3b2c52"/></linearGradient></defs>
+    <rect width="320" height="200" fill="url(#gt1)"/>
+    <circle cx="70" cy="60" r="30" fill="#d8d2ec" opacity=".12"/>
+    <path d="M0,168 Q120,138 320,166 L320,200 L0,200 Z" fill="#121529"/>
+    <path d="M190,172 C192,150 196,128 214,106 C222,96 232,90 244,86" stroke="#171128" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M206,132 C218,126 228,124 242,124 M198,152 C210,148 218,148 230,150 M226,100 C236,92 246,88 258,88" stroke="#171128" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+    <g fill="#1d1834">
+      <ellipse cx="252" cy="78" rx="40" ry="24" transform="rotate(8 252 78)"/>
+      <ellipse cx="238" cy="120" rx="30" ry="16" transform="rotate(6 238 120)"/>
+      <ellipse cx="242" cy="148" rx="24" ry="12" transform="rotate(4 242 148)"/>
+    </g>
+    <g fill="#6d5f9e" opacity=".85">
+      <ellipse cx="290" cy="58" rx="6" ry="2.6" transform="rotate(-26 290 58)"/>
+      <ellipse cx="302" cy="84" rx="5" ry="2.2" transform="rotate(-14 302 84)"/>
+      <ellipse cx="296" cy="34" rx="4.6" ry="2" transform="rotate(-34 296 34)"/>
+      <ellipse cx="312" cy="112" rx="4" ry="1.9" transform="rotate(-12 312 112)"/>
+      <ellipse cx="279" cy="104" rx="4.4" ry="2" transform="rotate(-20 279 104)"/></g></svg>`;
+  if(n==='stone')return `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
+    <defs><linearGradient id="gs1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1e2a"/><stop offset="1" stop-color="#0d1524"/></linearGradient></defs>
+    <rect width="320" height="200" fill="url(#gs1)"/>
+    <g stroke="rgba(184,174,232,.16)" stroke-width="2" fill="none">
+      <path d="M0,60 Q80,52 160,60 T320,60"/><path d="M0,90 Q80,80 160,90 T320,90"/>
+      <path d="M0,150 Q80,142 160,150 T320,150"/><path d="M0,178 Q80,170 160,178 T320,178"/></g>
+    <path d="M0,120 Q60,110 106,118 Q128,96 160,96 Q196,96 214,120 Q260,112 320,120" stroke="rgba(184,174,232,.3)" stroke-width="2.2" fill="none"/>
+    <ellipse cx="160" cy="132" rx="50" ry="31" fill="#242038"/>
+    <ellipse cx="148" cy="120" rx="28" ry="13" fill="rgba(207,200,232,.09)"/>
+    <ellipse cx="160" cy="140" rx="66" ry="12" fill="none" stroke="rgba(184,174,232,.2)" stroke-width="1.6"/>
+    <ellipse cx="160" cy="142" rx="86" ry="16" fill="none" stroke="rgba(184,174,232,.1)" stroke-width="1.4"/></svg>`;
+  if(n==='candle')return `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
+    <defs><radialGradient id="gc1"><stop offset="0" stop-color="rgba(245,194,107,.5)"/><stop offset="1" stop-color="rgba(245,194,107,0)"/></radialGradient></defs>
+    <rect width="320" height="200" fill="#0a0912"/>
+    <circle cx="160" cy="92" r="92" fill="url(#gc1)" opacity=".8"/>
+    <rect x="142" y="118" width="36" height="64" rx="5" fill="#2f2545"/>
+    <ellipse cx="160" cy="118" rx="18" ry="5.5" fill="#3a2e54"/>
+    <line x1="160" y1="112" x2="160" y2="118" stroke="#1a1428" stroke-width="2.4"/>
+    <path d="M160,76 C149,94 152,108 160,113 C168,108 171,94 160,76 Z" fill="#f5c26b" opacity=".95"/>
+    <path d="M160,90 C155.5,99 157,106 160,109 C163,106 164.5,99 160,90 Z" fill="#fff0d0"/>
+    <circle cx="160" cy="96" r="26" fill="none" stroke="rgba(245,194,107,.28)" stroke-width="1.6"/>
+    <ellipse cx="160" cy="188" rx="60" ry="7" fill="#141021"/></svg>`;
+  return '';
+}
+
+/* ══════════ ДЫХАНИЕ ══════════ */
+function startBr(){
+  if(brGo)return;brGo=true;brC=0;
+  const ring=document.getElementById('bR'),cnt=document.getElementById('bC');
+  const ph=['вдох','держи','выдох','пауза'],dur=[4000,2000,4000,2000];
+  let p=0;
+  function tick(){
+    if(!ring||!document.body.contains(ring)){brGo=false;return;}
+    ring.textContent=ph[p];
+    if(p===0){ring.classList.add('expand');brC++;}
+    if(p===2)ring.classList.remove('expand');
+    if(cnt)cnt.textContent=brC<3?`цикл ${brC} из 3`:'готово ✓';
+    p=(p+1)%4;
+    if(brC<3||p!==0)brTmr2=setTimeout(tick,dur[(p+3)%4]);
+    else brGo=false;
+  }
+  tick();
+}
+
+/* ══════════ СКОРИНГ ══════════ */
+function computeResults(){
+  const score={},max={};
+  PKEYS.forEach(p=>{score[p]=0;max[p]=0;});
+  let freeText='';
+  Q.forEach((s,idx)=>{
+    const a=ans[idx];
+    const addMax=list=>{PKEYS.forEach((p,pi)=>{max[p]+=Math.max(0,...list.map(o=>o.w[pi]));});};
+    const addScore=w=>{PKEYS.forEach((p,pi)=>{score[p]+=w[pi];});};
+    if(s.opts){addMax(s.opts);if(a!==undefined&&s.opts[a])addScore(s.opts[a].w);}
+    else if(s.colors){addMax(s.colors);if(a!==undefined&&s.colors[a])addScore(s.colors[a].w);}
+    else if(s.choices){addMax(s.choices);if(a!==undefined&&s.choices[a])addScore(s.choices[a].w);}
+    else if(s.scales){
+      s.scales.forEach((sc,si)=>{
+        PKEYS.forEach((p,pi)=>{
+          max[p]+=sc.w[pi];
+          const v=a&&a[si];
+          if(v)score[p]+=sc.w[pi]*(10-v)/9;
+        });
+      });
+    }
+    else if(s.stems&&Array.isArray(a)){freeText+=' '+a.filter(Boolean).join(' | ');}
+  });
+  const low=freeText.toLowerCase();
+  PKEYS.forEach(p=>{
+    let hits=0;LEX[p].forEach(st=>{if(low.includes(st))hits++;});
+    score[p]+=Math.min(TEXT_CAP,hits*2);
+    max[p]+=TEXT_CAP;
+  });
+  const pct={};
+  PKEYS.forEach(p=>{
+    const r=max[p]>0?score[p]/max[p]:0;
+    pct[p]=r<=0.01?3:Math.min(97,Math.max(4,Math.round(100*(1-Math.exp(-2.6*r)))));
+  });
+  const order=[...PKEYS].sort((a,b)=>pct[b]-pct[a]);
+  const tier=k=>pct[k]>=65?'high':pct[k]>=35?'mid':'low';
+  let resColor=null;
+  Q.forEach((s,idx)=>{if(s.resColor&&ans[idx]!==undefined&&s.colors[ans[idx]])resColor=s.colors[ans[idx]];});
+
+  /* ── «Как ты сейчас»: острое состояние из косвенных сигналов ── */
+  const val=n=>{const s=qByN(n);return s?ans[Q.indexOf(s)]:undefined;};
+  let acute=0;
+  const addA=(n,map)=>{const a=val(n);if(a!==undefined&&map[a])acute+=map[a];};
+  addA(4,{2:1});            // шепард: «что-то надвигается»
+  addA(7,{1:1,3:2});        // волны: замирание / грусть без причины
+  addA(12,{2:1});           // каница: достраиваю худшее
+  addA(13,{2:1,3:1});       // спираль: дискомфорт
+  addA(30,{0:1,4:2,6:2.5,7:1.5}); // цвет «сегодня»: ночь/тревога/темнота/туман
+  addA(35,{0:1});           // образ сегодня: птица в клетке
+  addA(45,{1:2,4:2});       // внутренний ребёнок: прячется / зовёт
+  const acuteLvl=acute>=5.5?'high':acute>=3?'mid':'low';
+
+  /* ── 3 дополнительные шкалы: отвержение, недоверие, недолюбленность ── */
+  const D={rj:{s:0,m:0},tr:{s:0,m:0},dp:{s:0,m:0}};
+  const addD=(k,n,map,mx)=>{D[k].m+=mx;const a=val(n);if(a!==undefined&&map[a])D[k].s+=map[a];};
+  const addDS=(k,n,si,w)=>{D[k].m+=w;const a=val(n);const v=a&&a[si];if(v)D[k].s+=w*(10-v)/9;};
+  // страх отвержения
+  addD('rj',39,{1:3,2:2,3:1},3);   // обида при всех: стыд/невидимость
+  addD('rj',40,{1:1,2:2,3:2},2);   // не взяли играть
+  addD('rj',41,{1:1},1);           // похвала: смущение
+  addDS('rj','52–54',1,3);         // «быть собой» (обратная)
+  addD('rj',55,{2:1,7:2},2);       // слово: одинокое/пустое
+  // недоверие и предательство
+  addD('tr',41,{2:3},3);           // похвала: «говорит неискренне»
+  addD('tr',12,{1:1,2:2},2);       // каница: достраивание худшего
+  addD('tr',43,{3:2},2);           // уход близкого: злость
+  addDS('tr','52–54',2,2);         // доверие воспоминаниям (обратная)
+  addD('tr',31,{2:1},1);           // отвергаемый синий
+  // эмоциональная недолюбленность
+  addDS('dp','46–48',0,3);         // любимой (обратная)
+  addDS('dp','49–51',0,3);         // хвалили (обратная)
+  addDS('dp','49–51',2,2);         // нужной просто так (обратная)
+  addD('dp',29,{4:1,6:1.5,7:1},1.5); // цвет детства
+  addD('dp',44,{1:1,2:1},1);       // дом: вокзал/музей
+  addD('dp',55,{5:1,7:2},2);       // слово: тяжёлое/пустое
+  Object.keys(DLEX).forEach(k=>{
+    let h=0;DLEX[k].forEach(st=>{if(low.includes(st))h++;});
+    D[k].s+=Math.min(6,h*2);D[k].m+=6;
+  });
+  const dpct={};
+  Object.keys(D).forEach(k=>{
+    const r=D[k].m>0?D[k].s/D[k].m:0;
+    dpct[k]=r<=0.01?3:Math.min(97,Math.max(4,Math.round(100*(1-Math.exp(-2.6*r)))));
+  });
+  const dtier=k=>dpct[k]>=65?'high':dpct[k]>=35?'mid':'low';
+
+  return {score,max,pct,order,tier,resColor,freeText:freeText.trim(),acute:acuteLvl,dpct,dtier};
+}
+
+function buildPayload(R){
+  const items=[];
+  Q.forEach((s,idx)=>{
+    const a=ans[idx];
+    if(a===undefined||['gender','intro','breath','results'].includes(s.id))return;
+    if(s.opts)items.push({n:s.n,type:s.id,question:T(s.q),answer:s.opts[a]?T(s.opts[a].t):null});
+    else if(s.colors)items.push({n:s.n,type:'color',question:T(s.q),answer:s.colors[a]?s.colors[a].l:null});
+    else if(s.choices)items.push({n:s.n,type:'image',question:T(s.q),answer:s.choices[a]?s.choices[a].l.replace('\n',' — '):null});
+    else if(s.stems)s.stems.forEach((st,i)=>items.push({n:s.n,type:'sentence',question:T(st),answer:(a[i]||'').trim()}));
+    else if(s.scales)s.scales.forEach((sc,i)=>items.push({n:s.n,type:'scale',question:T(sc.q),answer:a[i]||null}));
+  });
+  return {version:3,gender:GENDER||'f',finishedAt:new Date().toISOString(),
+    patterns:Object.fromEntries(PKEYS.map(p=>[p,{name:PAT[p].name,pct:R.pct[p]}])),
+    extraPatterns:Object.fromEntries(Object.keys(DPAT).map(k=>[k,{name:DPAT[k].name,pct:R.dpct[k]}])),
+    currentState:R.acute,
+    dominant:R.order[0],answers:items};
+}
+
+/* ══════════ СТРАНИЦА РЕЗУЛЬТАТОВ ══════════ */
+function renderResults(){
+  const R=computeResults();
+  const tierLbl={high:'ярко выражен',mid:'умеренно выражен',low:'слабо выражен'};
+  const dom=R.order[0];
+  try{
+    const payload=buildPayload(R);
+    window.ISTOK_RESULT=payload;
+    localStorage.setItem('istok_result',JSON.stringify(payload));
+    console.log('Исток · данные для аналитики:',payload);
+  }catch(e){}
+
+  const gidx=Math.round(PKEYS.reduce((a,p)=>a+R.pct[p],0)/5);
+  const gTxt=gidx<35?'Лёгкий след: детство оставило отметины, но не управляет твоей жизнью.':gidx<60?'Заметный след: в спокойные периоды паттерны молчат, но включаются там, где стресс.':'Глубокий след: детские стратегии всё ещё сильно ведут твою взрослую жизнь — и это можно менять.';
+  const ctxA=k=>{const s=Q.find(q=>q.ctx===k);return s?ans[Q.indexOf(s)]:undefined;};
+  const fa=ctxA('fam'),sb=ctxA('sib');
+  const ctxTxt=(fa!==undefined?T(FAM_T[fa])+' ':'')+(sb!==undefined?T(SIB_T[sb]):'');
+
+  let html=`<div class="res-head">
+    <p class="t-blk">Твоя аналитика</p>
+    <h2 class="res-ttl">Паттерны из <em style="font-style:italic;color:var(--accent3)">твоего прошлого</em></h2>
+    <p class="res-sub">${T('Рассчитано по твоим 55 ответам: контекст, выборы, шкалы, цвета и слова, которые ты написал{а|} сам{а|}. Это не диагноз — это зеркало. Точка начала пути.')}</p>
+  </div>
+
+  <div class="lead-card" style="margin-bottom:1rem;${R.acute==='high'?'border-color:#c4a060;':''}">
+    <p class="lead-lbl">Как ты сейчас</p>
+    <p class="lead-desc">${T(ACUTE[R.acute])}</p>
+  </div>
+
+  <div class="tc-card" style="margin-bottom:1rem">
+    <div class="tc-hd"><span class="tc-nm">Общий индекс детского следа</span><span class="tc-pct">${gidx}%</span></div>
+    <div class="tc-bg"><div class="tc-fill" data-w="${gidx}"></div></div>
+    <p class="tc-desc">${gTxt}</p>
+  </div>
+
+  <div class="lead-card">
+    <p class="lead-lbl">Твой ведущий паттерн</p>
+    <p class="lead-name">${PAT[dom].name} · ${R.pct[dom]}%</p>
+    <p class="lead-desc">${T(PAT[dom][R.tier(dom)])}</p>
+  </div>`;
+
+  html+=`<h3 class="res-h2">Откуда это <em>у тебя</em></h3>
+  <div class="origin-box">${R.tier(dom)==='low'
+    ?T('Выраженных травматических паттернов в твоих ответах немного — похоже, детство дало тебе достаточно надёжную базу. Это не значит, что было идеально: это значит, что у тебя есть ресурс. Разделы ниже помогут заметить тонкие места, которые всё же есть у каждого.')
+    :T(ORIGIN[dom])}</div>
+  ${ctxTxt?`<div class="origin-box" style="border-left-color:var(--accent)"><b style="font-weight:400;color:var(--text)">Контекст, который ты указал${GENDER==='m'?'':'а'}:</b> ${ctxTxt}</div>`:''}`;
+
+  html+=`<h3 class="res-h2">Пять паттернов — <em>твой профиль</em></h3>
+  <p class="res-h2sub">Проценты — это степень выраженности в твоих ответах, а не «сколько в тебе сломано». Ниже 35% — фон, выше 65% — активный сценарий.</p>`;
+  R.order.forEach(p=>{
+    html+=`<div class="tc-card">
+      <div class="tc-hd"><span class="tc-nm">${PAT[p].name}</span><span class="tc-pct">${R.pct[p]}%</span></div>
+      <p class="tc-tier">${tierLbl[R.tier(p)]}</p>
+      <div class="tc-bg"><div class="tc-fill" data-w="${R.pct[p]}"></div></div>
+      <p class="tc-desc">${T(PAT[p][R.tier(p)])}</p>
+      <details class="art" style="margin-top:1.1rem">
+        <summary style="font-size:.78rem;padding:.75rem 1rem">Как это звучит и ощущается</summary>
+        <div class="art-b" style="padding:.2rem 1rem 1.1rem">
+          <p><b>Типичные мысли:</b></p>
+          ${DETAIL[p].mind.map(m=>`<p style="margin-bottom:.35rem">— ${T(m)}</p>`).join('')}
+          <p style="margin-top:.8rem"><b>Как это живёт в теле:</b> ${DETAIL[p].body.map(b=>T(b)).join('; ')}.</p>
+          <p style="margin-top:.8rem"><b>Зачем паттерн был нужен:</b> ${T(DETAIL[p].gain)}</p>
+        </div>
+      </details>
+    </div>`;
+  });
+
+  html+=`<h3 class="res-h2">Ещё три следа — <em>дополнительные шкалы</em></h3>
+  <p class="res-h2sub">Они считаются из отдельных сигналов: реакций на иллюзии, сценариев, шкал доверия и твоих собственных слов в предложениях.</p>`;
+  Object.keys(DPAT).forEach(k=>{
+    const tl={high:'ярко выражен',mid:'умеренно выражен',low:'слабо выражен'}[R.dtier(k)];
+    html+=`<div class="tc-card">
+      <div class="tc-hd"><span class="tc-nm">${DPAT[k].name}</span><span class="tc-pct">${R.dpct[k]}%</span></div>
+      <p class="tc-tier">${tl}</p>
+      <div class="tc-bg"><div class="tc-fill" data-w="${R.dpct[k]}"></div></div>
+      <p class="tc-desc">${T(DPAT[k][R.dtier(k)])}</p>
+    </div>`;
+  });
+
+  html+=`<h3 class="res-h2">Как это проявляется в <em>твоей жизни</em></h3>
+  <p class="res-h2sub">Шесть сфер. В каждой — то, с чем ты можешь сталкиваться из-за своих ведущих паттернов, и один конкретный шаг.</p>`;
+  const rel=R.order.filter(p=>R.pct[p]>=30).slice(0,3);
+  DOMAINS.forEach(d=>{
+    html+=`<div class="dom-sec"><p class="dom-nm">${d.title}</p><p class="dom-tag">${rel.length?'твои зоны внимания':'здесь спокойно'}</p>`;
+    if(rel.length===0){
+      html+=`<div class="dom-item">Твои паттерны почти не задевают эту сферу — она опирается на здоровую основу. Замечай это и опирайся на неё в трудные периоды.</div>`;
+    }else{
+      rel.forEach(p=>{
+        const it=d.t[p];
+        html+=`<div class="dom-item"><b>${PAT[p].name}.</b> ${T(it.x)}<span class="dom-tip">${T(it.tip)}</span></div>`;
+      });
+    }
+    html+=`</div>`;
+  });
+
+  html+=`<h3 class="res-h2">Твои <em>опоры</em></h3>
+  <p class="res-h2sub">То, что в тебе устойчиво, — и обратная сторона твоих паттернов, которая уже работает на тебя.</p>`;
+  const lows=R.order.filter(p=>R.tier(p)==='low');
+  (lows.length?lows:R.order.slice(-2)).forEach(p=>{
+    html+=`<div class="str-card"><span class="str-dot"></span><span><b>${STRENGTH[p].split('.')[0]}.</b>${T(STRENGTH[p]).split('.').slice(1).join('.')}</span></div>`;
+  });
+  if(R.resColor){
+    html+=`<div class="res-col-line"><span class="res-col-dot" style="background:${R.resColor.h}"></span>
+    <span>Твой ресурсный цвет — <b style="font-weight:400;color:var(--text)">${R.resColor.l.toLowerCase()}</b>: ${T(RES_COLORS[R.resColor.l]||'опирайся на него, когда трудно')}.</span></div>`;
+  }
+
+  html+=`<h3 class="res-h2">Первые шаги — <em>на эту неделю</em></h3>
+  <p class="res-h2sub">Три практики под твой ведущий паттерн «${PAT[dom].name}». Не все сразу: одна в день — уже работа.</p>`;
+  PRACTICES[dom].forEach((pr,i)=>{
+    html+=`<div class="prac-card"><p class="prac-n">0${i+1}</p><p class="prac-t">${T(pr)}</p></div>`;
+  });
+
+  /* ── Твоя рыба: пять осей из паттернов → ближайший реальный вид ── */
+  const acuteN=R.acute==='high'?0.8:R.acute==='mid'?0.45:0.1;
+  const valN=n=>{const s2=qByN(n);return s2?ans[Q.indexOf(s2)]:undefined;};
+  let predU=0.3+(R.dpct.tr/100)*0.2;           /* «зубастость»: злость наружу или внутрь */
+  if(valN(39)===0)predU+=0.3;                  /* обида → злость, хочу ответить */
+  if(valN(43)===3)predU+=0.3;                  /* уход близкого → злость */
+  if(valN(31)===4)predU-=0.25;                 /* отвергаемый красный = подавленная злость */
+  predU=Math.max(0,Math.min(1,predU));
+  const U=[ /* [глубина, одиночество, скрытность, размер, знакомая вода, тёплая вода, скорость, зубастость] */
+    Math.min(1,(R.dpct.dp/100)*0.4+(R.pct.cl/100)*0.3+acuteN*0.3),
+    Math.max(0,Math.min(1,(R.pct.cl/100)*0.7+(R.pct.ct/100)*0.25-(R.pct.ab/100)*0.25)),
+    Math.min(1,(R.dpct.rj/100)*0.65+(R.pct.cl/100)*0.35),
+    Math.max(0,Math.min(1,(R.pct.hr/100)*0.75+(1-R.pct.ab/100)*0.25)),
+    Math.min(1,(R.pct.ct/100)*0.6+(R.pct.ab/100)*0.4),
+    Math.max(0,Math.min(1,1-(R.dpct.dp/100)*0.7-acuteN*0.15)),
+    Math.max(0,Math.min(1,0.15+(R.pct.hr/100)*0.5+(R.pct.ct/100)*0.2-(R.pct.cl/100)*0.15)),
+    predU
+  ];
+  const AXW=[1.2,1,1,0.8,0.8,0.7,0.7,0.7];
+  const okProfile=R.order.every(p=>R.pct[p]<35)&&Object.values(R.dpct).every(v=>v<35);
+  let fish=FISH[FISH.length-1],best=Infinity;
+  if(!okProfile){
+    FISH.forEach(f=>{
+      if(f.k==='flying')return; /* летучая — только для здорового профиля */
+      let d=0;f.v.forEach((fv,i)=>{d+=AXW[i]*Math.pow(U[i]-fv,2);});
+      if(f.aff.includes(dom))d-=0.35;          /* сродство с ведущим паттерном */
+      if(f.aff.includes(R.order[1]))d-=0.12;   /* и со вторым */
+      if(d<best){best=d;fish=f;}
+    });
+  }
+  const axChips=[
+    'родная вода: '+fish.hab,
+    fish.v[1]>=0.5?'одиночка':'в стае',
+    fish.v[0]>=0.5?'живёт на глубине':'любит свет',
+    fish.v[2]>=0.5?'скрытная':'заметная и яркая',
+    fish.v[3]>=0.5?'большая':'маленькая',
+    fish.v[5]>=0.5?'тёплые воды':'холодные воды',
+    fish.v[6]>=0.5?'стремительная':'неторопливая',
+    fish.v[7]>=0.5?'зубастая':'мирная'
+  ];
+  html+=`<h3 class="res-h2">Твоя <em>рыба</em></h3>
+  <p class="res-h2sub">Исток — это всегда вода. По восьми осям — глубина, стайность, заметность, размер, родная вода, её температура, скорость и зубастость — из настоящих рыб подобрана та, что ближе всего к твоему профилю.</p>
+  <div class="lead-card" style="padding:0;overflow:hidden">
+    <div class="fish-art">${fishArtHtml(fish)}</div>
+    <div style="padding:1.5rem 1.8rem 1.8rem">
+      <div class="pat-chips" style="justify-content:center;margin-bottom:1.1rem">${axChips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+      <p class="lead-name" style="text-align:center">${fish.name}</p>
+      <p class="lead-desc">${T(fish.t)}</p>
+      <button class="res-cta" style="margin-top:1.4rem" onclick="shareFish()">Поделиться карточкой →</button>
+      <p class="ai-note" style="margin-top:.6rem">Соберётся картинка 1080×1350 — для сторис и мессенджеров.</p>
+    </div>
+  </div>`;
+  try{
+    window.ISTOK_SHARE={k:fish.k,name:fish.name,chips:axChips,idx:gidx,
+      top:R.order.slice(0,3).map(p=>({name:PAT[p].name,pct:R.pct[p]}))};
+    if(window.ISTOK_RESULT){
+      window.ISTOK_RESULT.fish=fish.name;
+      localStorage.setItem('istok_result',JSON.stringify(window.ISTOK_RESULT));
+    }
+  }catch(e){}
+
+  html+=`<div class="ins">
+    <p class="ins-l">Что изменится, когда ты начнёшь работать с этим</p>
+    <p class="ins-t">${T(INSIGHT[dom])}</p>
+  </div>
+  <h3 class="res-h2">Глубокий <em>ИИ-разбор</em></h3>
+  <p class="res-h2sub">${T('Персональный текстовый разбор всех твоих 50 ответов — включая то, что ты написал{а|} в незаконченных предложениях своими словами.')}</p>
+  <button class="res-cta" id="aiBtn" style="margin-top:0" onclick="requestAI()">Получить ИИ-разбор →</button>
+  <div class="ai-box" id="aiBox"></div>
+  <p class="ai-note">Разбор создаётся на опубликованной версии сайта. Ответы отправляются только для создания разбора и нигде не сохраняются.</p>
+  <button class="res-cta" onclick="showPractice()">Начать проработку →</button>
+  <div class="res-foot">
+    <button class="btn-bk" onclick="restartTest()">Пройти ещё раз</button>
+    <button class="btn-bk" onclick="showLanding()">← На главную</button>
+  </div>
+  <p class="res-disc">Исток — инструмент самопознания, а не медицинская диагностика. Если воспоминания поднимают сильную боль — это повод не для стыда, а для бережной работы со специалистом.</p>`;
+  return html;
+}
+
+/* ══════════ ФОНОВАЯ МУЗЫКА ══════════
+   1) Если в репозитории есть assets/music.mp3 — играет он.
+   2) Иначе — генеративная мелодия: тёплый пэд + пентатоника с эхом. */
+const Music={
+  ctx:null,master:null,pad:[],lfos:[],delay:null,melTmr:null,chordTmr:null,
+  fileAudio:null,mode:null,on:false,ducked:false,noteIx:2,chordIx:0,
+  enabled:(function(){try{return localStorage.getItem('istok_music')!=='off';}catch(e){return true;}})(),
+  VOL:0.16,FILE_VOL:0.35,
+  CHORDS:[[110,220,261.63,329.63],[87.31,174.61,261.63,349.23],[130.81,196,261.63,329.63],[98,196,246.94,293.66]],
+  SCALE:[440,523.25,587.33,659.25,783.99,880,1046.5],
+  start(){
+    if(this.on)return;this.on=true;
+    if(this.mode==='synth'){this.startSynth();return;}
+    if(this.mode==='file'){this.fileAudio.volume=this.ducked?0.08:this.FILE_VOL;this.fileAudio.play().catch(()=>{});return;}
+    const a=new Audio('assets/music.mp3');
+    a.loop=true;a.volume=this.FILE_VOL;
+    this.fileAudio=a;
+    a.addEventListener('error',()=>{if(this.on&&this.mode!=='synth'){this.mode='synth';this.startSynth();}},{once:true});
+    a.play().then(()=>{this.mode='file';}).catch(()=>{if(this.on&&this.mode!=='synth'){this.mode='synth';this.startSynth();}});
+  },
+  startSynth(){
+    try{
+      const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      if(!this.ctx)this.ctx=new AC();
+      const c=this.ctx;if(c.state==='suspended')c.resume();
+      const t=c.currentTime;
+      this.master=c.createGain();
+      this.master.gain.setValueAtTime(0.0001,t);
+      this.master.gain.exponentialRampToValueAtTime(this.ducked?this.VOL*0.15:this.VOL,t+3);
+      this.master.connect(c.destination);
+      /* эхо для мелодии */
+      this.delay=c.createDelay(1.2);this.delay.delayTime.value=0.43;
+      const fb=c.createGain();fb.gain.value=0.34;
+      const wet=c.createGain();wet.gain.value=0.5;
+      this.delay.connect(fb);fb.connect(this.delay);this.delay.connect(wet);wet.connect(this.master);
+      this._wetIn=this.delay;
+      /* тёплый пэд */
+      const flt=c.createBiquadFilter();flt.type='lowpass';flt.frequency.value=900;flt.Q.value=0.3;flt.connect(this.master);
+      this._flt=flt;
+      this.CHORDS[0].forEach(f=>{
+        const o=c.createOscillator(),g=c.createGain();
+        o.type='triangle';o.frequency.value=f;g.gain.value=0.055;
+        o.connect(g);g.connect(flt);o.start();
+        this.pad.push({o,g});
+      });
+      const flfo=c.createOscillator(),flg=c.createGain();
+      flfo.frequency.value=0.06;flg.gain.value=280;
+      flfo.connect(flg);flg.connect(flt.frequency);flfo.start();
+      this.lfos.push(flfo);
+      /* смена аккордов */
+      this.chordIx=0;
+      this.chordTmr=setInterval(()=>{
+        this.chordIx=(this.chordIx+1)%this.CHORDS.length;
+        const ch=this.CHORDS[this.chordIx];
+        this.pad.forEach((v,i)=>{try{v.o.frequency.setTargetAtTime(ch[i%ch.length],c.currentTime,1.2);}catch(e){}});
+      },12000);
+      this.scheduleNote();
+    }catch(e){}
+  },
+  scheduleNote(){
+    if(!this.on||this.mode!=='synth')return;
+    this.melTmr=setTimeout(()=>{
+      if(Math.random()<0.72&&!this.ducked)this.pluck();
+      this.scheduleNote();
+    },1400+Math.random()*1800);
+  },
+  pluck(){
+    try{
+      const c=this.ctx,t=c.currentTime;
+      /* блуждание по пентатонике */
+      this.noteIx=Math.max(0,Math.min(this.SCALE.length-1,this.noteIx+[-2,-1,-1,1,1,2][Math.floor(Math.random()*6)]));
+      const f=this.SCALE[this.noteIx];
+      [[f,0.05],[f*1.003,0.03]].forEach(([fr,amp])=>{
+        const o=c.createOscillator(),g=c.createGain();
+        o.type='sine';o.frequency.value=fr;
+        g.gain.setValueAtTime(0.0001,t);
+        g.gain.linearRampToValueAtTime(amp,t+0.04);
+        g.gain.exponentialRampToValueAtTime(0.0001,t+2.6);
+        o.connect(g);g.connect(this.master);g.connect(this._wetIn);
+        o.start(t);o.stop(t+2.8);
+      });
+    }catch(e){}
+  },
+  duck(d){
+    this.ducked=d;
+    if(!this.on)return;
+    if(this.mode==='file'&&this.fileAudio){this.fileAudio.volume=d?0.07:this.FILE_VOL;return;}
+    if(this.master){try{
+      const t=this.ctx.currentTime;
+      this.master.gain.cancelScheduledValues(t);
+      this.master.gain.setTargetAtTime(d?this.VOL*0.15:this.VOL,t,0.6);
+    }catch(e){}}
+  },
+  stop(){
+    if(!this.on)return;this.on=false;
+    clearTimeout(this.melTmr);clearInterval(this.chordTmr);
+    if(this.fileAudio&&this.mode==='file'){this.fileAudio.pause();}
+    if(this.master){try{
+      const t=this.ctx.currentTime;
+      this.master.gain.cancelScheduledValues(t);
+      this.master.gain.setTargetAtTime(0.0001,t,0.4);
+      const pad=this.pad,lfos=this.lfos;
+      setTimeout(()=>{pad.forEach(v=>{try{v.o.stop()}catch(e){}});lfos.forEach(o=>{try{o.stop()}catch(e){}});},1800);
+    }catch(e){}}
+    this.pad=[];this.lfos=[];this.master=null;
+    if(this.mode==='synth')this.mode=null;
+  },
+  toggle(){
+    this.enabled=!this.enabled;
+    try{localStorage.setItem('istok_music',this.enabled?'on':'off');}catch(e){}
+    if(this.enabled)this.start();else this.stop();
+    const b=document.getElementById('musB');
+    if(b){b.classList.toggle('on',this.enabled);b.innerHTML=`<span class="mus-ico"><i></i><i></i><i></i></span>${this.enabled?'звук':'тихо'}`;}
+  }
+};
+</script>
+<script>
+'use strict';
+/* ══════════ ЕЖЕДНЕВНЫЕ ЗАДАНИЯ: 7 дней × 5 паттернов ══════════ */
+const TASKS={
+ ab:[
+  '<b>Карта фактов.</b> Когда появится тревога «меня оставят» — выпиши три проверяемых факта о том, что связь в порядке. Не ощущения, а факты. Перечитай их вслух.',
+  '<b>Пауза 10 минут.</b> Заметь импульс написать, проверить, догнать — и подожди 10 минут, ничего не делая. Понаблюдай, как тревога поднимается и спадает волной. Она всегда спадает.',
+  '<b>Прямой вопрос.</b> Замени сегодня одно «сканирование сигналов» прямым вопросом близкому человеку: «у нас всё хорошо?» И прими ответ как ответ.',
+  '<b>Список остающихся.</b> Выпиши людей, которые в твоей жизни давно, и напротив каждого — сколько лет вы знакомы. Радар видит угрозу. Список видит факты.',
+  '<b>Тишина — это просто тишина.</b> Если кто-то сегодня не отвечает, скажи себе вслух: «пауза — это пауза, а не уход» — и займись одним конкретным делом 20 минут.',
+  '<b>Свидание с собой.</b> Проведи 30 минут наедине с собой без телефона: прогулка, кофе, музыка. Задача — заметить, что одиночество может быть спокойным, а не страшным.',
+  '<b>Письмо радару.</b> Напиши короткое письмо своей тревоге: поблагодари за то, что она защищала тебя в детстве, и скажи, что теперь взрослые решения принимаешь ты.'],
+ cr:[
+  '<b>Голос друга.</b> Каждую самокритичную мысль сегодня проверяй вопросом: сказал{а|} бы я это близкому человеку? Если нет — скажи себе то, что сказал{а|} бы ему.',
+  '<b>Три «достаточно».</b> Вечером запиши три вещи, которые сегодня были сделаны достаточно хорошо. Не идеально. Достаточно.',
+  '<b>Чистое «спасибо».</b> На любой комплимент сегодня отвечай только «спасибо» — без «да ладно», «это ерунда», «просто повезло». Заметь, как хочется обесценить.',
+  '<b>Чей это голос?</b> Поймав самокритику, спроси себя: кто говорил мне это первым? Назови человека. Это его голос, не твой — а чужое можно вернуть.',
+  '<b>Ошибка дня.</b> Сделай одну маленькую вещь сознательно неидеально: отправь сообщение не перечитывая, приготовь «как получится». Мир устоит — проверь.',
+  '<b>Переформулировка.</b> Одну мысль «я в этом плох{ая|}» переведи письменно в «я этому учусь». Одна фраза, но на бумаге.',
+  '<b>Список без заслуг.</b> Выпиши пять вещей, за которые тебя можно любить, не связанных с достижениями, помощью и пользой. Это сложнее, чем кажется, — тем важнее.'],
+ ct:[
+  '<b>Доза неопределённости.</b> Отдай сегодня одно маленькое решение случаю или другому человеку: что на ужин, каким маршрутом идти. Заметь напряжение — и дай ему пройти.',
+  '<b>Круги контроля.</b> Выпиши тревожащую ситуацию и раздели всё на «моё» и «не моё». Всё из второго списка отпусти вслух: «это не в моих руках».',
+  '<b>Пять выдохов.</b> Когда поднимется тревога контроля — пять медленных выдохов, каждый длиннее вдоха. Контроль возвращается через тело, не через мысли.',
+  '<b>Чужой план.</b> Позволь кому-то спланировать за тебя кусок дня — и не вноси правок. Ни одной. Наблюдай за собой с любопытством.',
+  '<b>Незакрытый список.</b> Оставь сегодня одно дело из списка несделанным — сознательно. Незакрытая галочка — это дискомфорт, а не катастрофа. Почувствуй разницу.',
+  '<b>Прогноз против факта.</b> Утром запиши, что сегодня «обязательно пойдёт не так». Вечером сверь с реальностью. Веди счёт: тревога против фактов.',
+  '<b>Спонтанные 30 минут.</b> Полчаса без плана: выйди из дома и сверни туда, куда захочется. Контроль отдыхает — и ничего не происходит.'],
+ cl:[
+  '<b>Одно чувство.</b> Назови сегодня вслух или в сообщении близкому одно чувство: «я расстроил{ась|ся}», «я обрадовал{ась|ся}». Не событие — именно чувство.',
+  '<b>Маленькая просьба.</b> Попроси сегодня о какой-нибудь мелочи: передать, подсказать, помочь донести. Мышца «просить» тренируется на безопасном.',
+  '<b>Честное «как дела».</b> Когда спросят «как дела» — ответь один раз честно, а не «нормально». Одним предложением больше, чем обычно.',
+  '<b>Тело говорит.</b> Три раза за день остановись на минуту и назови, что чувствует тело: где зажато, где тепло, где тяжесть. Чувства начинаются с тела.',
+  '<b>Письмо без отправки.</b> Напиши письмо человеку, которому не смог{ла|} сказать что-то важное. Отправлять не обязательно — важно впервые сформулировать.',
+  '<b>Принять помощь.</b> Сегодня не отказывайся от предложенной помощи. Одно «да, спасибо» вместо привычного «я сам{а|}».',
+  '<b>Правило одного человека.</b> Выбери одного человека и расскажи ему сегодня о своём — не дожидаясь вопроса. Не всем. Одному.'],
+ hr:[
+  '<b>Час без пользы.</b> Один час — занятие без всякой продуктивности. Заметь чувство вины, поздоровайся с ним и продолжай отдыхать. Оно уйдёт раньше, чем час закончится.',
+  '<b>Пауза перед «да».</b> На любую просьбу сегодня отвечай: «я подумаю и скажу». Даже тридцать секунд паузы разрывают автоматизм спасателя.',
+  '<b>Возврат ответственности.</b> Замечай моменты, когда берёшь чужое — настроение, задачу, вину — и мысленно клади обратно: «это не моё».',
+  '<b>Не чини.</b> Когда кто-то пожалуется — выслушай и не предлагай решение, пока не попросят. Спроси: «тебе нужен совет или просто выговориться?»',
+  '<b>Моё и чужое.</b> Вечером раздели список сегодняшних забот на «моё» и «чужое». Посчитай соотношение. Увидеть цифру — уже половина работы.',
+  '<b>Попроси сам{а|}.</b> Попроси кого-то о помощи в том, что обычно тянешь сам{а|}. Дай другому человеку шанс позаботиться о тебе.',
+  '<b>Выходной от роли.</b> Выбери три часа, когда ты никого не спасаешь, не обслуживаешь и ничего не организуешь. Это не эгоизм — это техника безопасности.']};
+
+/* ══════════ ИНФОБЛОК: СТАТЬИ ══════════ */
+const ARTICLES=[
+ {t:'Тревога покинутости: радар, который не выключился',b:[
+  'Привязанность — древнейшая система выживания: для ребёнка потеря взрослого равна гибели, поэтому мозг следит за близостью так же серьёзно, как за дыханием. Если связь в детстве была нестабильной — взрослый то появлялся, то исчезал физически или эмоционально, — система настраивается на постоянную боевую готовность.',
+  'Во взрослой жизни этот радар продолжает работать: перечитывание сообщений, тревога от пауз, готовность уйти первым «пока не бросили». Важно понять — это не черта характера и не «прилипчивость», а точная настройка под прошлую реальность, которая больше не актуальна.',
+  'Радар перенастраивается опытом: предсказуемые ритуалы связи, проверка тревожных мыслей фактами и — главное — накопленные эпизоды, когда пауза закончилась возвращением. Каждый такой эпизод, замеченный сознательно, ослабляет старую настройку.']},
+ {t:'Внутренний критик: чужой голос, который стал твоим',b:[
+  'Дети не рождаются с самокритикой — они её выучивают. Когда любовь и одобрение приходят только за оценки, послушание и достижения, ребёнок делает вывод: «какой я есть — недостаточно». Внешний требовательный голос постепенно становится внутренним.',
+  'Критик кажется полезным: будто именно он заставляет развиваться. Исследования говорят обратное — самокритика повышает тревожность и прокрастинацию, а устойчивую мотивацию даёт самоподдержка: с собой, как с хорошим тренером, а не с надзирателем.',
+  'Работа с критиком — это не «полюбить себя за неделю». Это навык замечать голос, узнавать, чей он, и осознанно выбирать другой ответ. Практика «сказал{а|} бы я это другу?» — простейший рабочий инструмент: разница между тем, что мы говорим себе и близким, показывает масштаб искажения.']},
+ {t:'Контроль: броня из детского хаоса',b:[
+  'Потребность всё контролировать почти всегда вырастает из непредсказуемости: перепады настроения взрослых, невыполненные обещания, хаос дома. Ребёнок не может управлять родителями — и начинает управлять тем, чем может: порядком в вещах, оценками, собой.',
+  'Взрослому эта стратегия дорого обходится: делегирование мучительно, форс-мажоры выбивают из колеи сильнее самих проблем, отдых невозможен, потому что «всё держится на мне». Тело живёт в хроническом напряжении дежурного.',
+  'Ключ — не «отпустить всё», а научиться различать зоны: что действительно в твоих руках, а что нет. Малые дозы управляемой неопределённости — чужой выбор кафе, день без плана — постепенно учат нервную систему тому, что непредсказуемость больше не опасна.']},
+ {t:'Эмоциональная закрытость: стена, которая была дверью',b:[
+  'Закрытость формируется, когда чувства ребёнка встречали равнодушие, насмешку или наказание: «не реви», «не выдумывай», «сам{а|} виноват{а|}». Вывод усваивается быстро: показывать чувства — опасно или бесполезно. Молчание становится бронёй.',
+  'Взрослая цена — односторонние отношения: тебя любят, но не знают. Просить о помощи почти невозможно, чувства распознаются с трудом даже внутри себя — их просто давно не называли по имени.',
+  'Открытость возвращается постепенно и избирательно: не «стать открыт{ой|ым} для всех», а выбрать одного безопасного человека и с ним быть на одно предложение честнее. Словарь чувств, наблюдение за телом, маленькие просьбы — это упражнения, а не риск.']},
+ {t:'Гиперответственность: ребёнок, который повзрослел слишком рано',b:[
+  'Когда ребёнку приходится быть удобным, мирить взрослых, заботиться о младших или о настроении родителей — он усваивает: «меня любят, когда я нужен». Психологи называют это парентификацией: ребёнок занимает место взрослого задолго до срока.',
+  'Такой взрослый надёжен, незаменим и хронически истощён. Отдых требует оправданий, чужие проблемы автоматически становятся своими, а просить для себя — стыдно. Выгорание здесь не случайность, а закономерный итог роли.',
+  'Выход — учиться различать заботу из любви и заботу из страха быть ненужн{ой|ым}. Пауза перед «да», возврат чужой ответственности, отдых без вины — скучные на вид практики, которые за месяцы меняют базовое ощущение «я имею право быть, а не только быть полезн{ой|ым}».']},
+ {t:'Как устроен этот тест',b:[
+  'Исток сочетает несколько классических подходов. Незаконченные предложения — адаптация метода Джозефа Сакса (SSCT), применяемого в клинической практике с 1950-х: первый импульс завершения фразы обходит рациональную самоцензуру. Цветовые выборы опираются на логику теста Макса Люшера: предпочитаемый и отвергаемый цвет отражают актуальное состояние и подавленные потребности.',
+  'Звуковые и зрительные иллюзии — тон Шепарда, тритоновый парадокс Дианы Дойч, ваза Рубина, куб Неккера — используются как проективный материал: сам по себе стимул нейтрален и двусмыслен, поэтому реакция на него говорит о внутреннем состоянии больше, чем о стимуле. Сценарии из детства и шкалы воспоминаний добавляют прямой автобиографический слой.',
+  'Результат — не диагноз, а карта: пять паттернов с оценкой выраженности, рассчитанной по всем ответам сразу. Такая мультимодальность снижает влияние социально желательных ответов: «правильно» ответить на иллюзию или цвет невозможно. Если какая-то тема отзывается сильной болью — это повод для бережной работы со специалистом, и это нормально.']}];
+
+/* ══════════ СТРАНИЦА ПРОРАБОТКИ ══════════ */
+function loadPr(){try{return JSON.parse(localStorage.getItem('istok_practice')||'null')||{start:null,done:{},journal:[]};}catch(e){return {start:null,done:{},journal:[]};}}
+function savePr(st){try{localStorage.setItem('istok_practice',JSON.stringify(st));}catch(e){}}
+function isoToday(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+
+function showPractice(){
+  document.getElementById('landing').style.display='none';
+  document.getElementById('test-s').classList.remove('on');
+  Music.stop();AudioIll.stop();
+  document.getElementById('practice-s').classList.add('on');
+  renderPractice();
+  window.scrollTo(0,0);
+}
+
+function renderPractice(){
+  const el=document.getElementById('pc');
+  let res=null;try{res=JSON.parse(localStorage.getItem('istok_result')||'null');}catch(e){}
+  const artHtml=`<h3 class="res-h2">Разобраться <em>глубже</em></h3>
+    <p class="res-h2sub">Короткие статьи о каждом паттерне — и о том, как устроен сам тест.</p>
+    ${ARTICLES.map(a=>`<details class="art"><summary>${a.t}</summary><div class="art-b">${a.b.map(p=>`<p>${T(p)}</p>`).join('')}</div></details>`).join('')}`;
+
+  if(!res||!res.patterns){
+    el.innerHTML=`<div class="scr">
+      <p class="t-blk">Проработка</p>
+      <h2 class="t-q">Сначала — тест</h2>
+      <p class="t-sub">${T('Ежедневные задания подбираются под твой ведущий паттерн. Пройди тест — и здесь появится персональная программа: одно основное задание в день, дневник наблюдений и серия дней.')}</p>
+      <button class="btn-nx" style="width:100%;padding:1.1rem" onclick="startTest()">Пройти тест →</button>
+      ${artHtml}
+      <div class="res-foot"><button class="btn-bk" onclick="showLanding()">← На главную</button></div>
+    </div>`;
+    return;
+  }
+
+  const order=Object.keys(res.patterns).sort((a,b)=>res.patterns[b].pct-res.patterns[a].pct);
+  const dom=order[0],sec=order[1];
+  const st=loadPr();
+  const today=isoToday();
+  if(!st.start){st.start=today;savePr(st);}
+  const dayN=Math.max(1,Math.round((Date.parse(today)-Date.parse(st.start))/86400000)+1);
+  const done=st.done[today]||{};
+  const mt=TASKS[dom][(dayN-1)%TASKS[dom].length];
+  const xt=TASKS[sec][(dayN-1)%TASKS[sec].length];
+
+  /* серия: подряд идущие дни с выполненным основным заданием */
+  let streak=0;
+  for(let i=0;;i++){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    if(st.done[k]&&st.done[k].m)streak++;
+    else if(i===0)continue; /* сегодня ещё можно успеть */
+    else break;
+  }
+  let dots='';
+  for(let i=13;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    dots+=`<span class="dot${st.done[k]&&st.done[k].m?' on':''}" title="${k}"></span>`;
+  }
+  const jr=(st.journal||[]).slice(-5).reverse();
+
+  el.innerHTML=`<div class="scr">
+    <p class="t-blk">Проработка · день ${dayN}</p>
+    <h2 class="t-q">Сегодняшняя <em style="font-style:italic;color:var(--accent3)">практика</em></h2>
+    <p class="t-sub">Программа собрана под твой ведущий паттерн. Одно основное задание в день — этого достаточно; дополнительное — если есть силы.</p>
+    <div class="pat-chips">${order.map(p=>`<span class="chip">${res.patterns[p].name} · <b>${res.patterns[p].pct}%</b></span>`).join('')}</div>
+
+    <div class="day-card">
+      <p class="day-lbl">Основное · ${PAT[dom].name}</p>
+      <p class="day-task">${T(mt)}</p>
+      <button class="btn-done${done.m?' on':''}" onclick="togDone('m')">${done.m?'Выполнено ✓':'Отметить выполненным'}</button>
+    </div>
+    <div class="extra-card">
+      <p class="day-lbl">Дополнительно · ${PAT[sec].name}</p>
+      <p class="day-task">${T(xt)}</p>
+      <button class="btn-done${done.x?' on':''}" onclick="togDone('x')">${done.x?'Выполнено ✓':'Отметить выполненным'}</button>
+    </div>
+
+    <div class="streak-row">
+      <span class="streak-num">${streak}</span>
+      <span class="streak-t">${streak===1?'день':streak>=2&&streak<=4?'дня':'дней'} практики подряд.<br>Последние две недели:</span>
+      <span class="dots">${dots}</span>
+    </div>
+
+    <h3 class="res-h2">Дневник <em>наблюдений</em></h3>
+    <p class="res-h2sub">${T('Одна-две фразы: что заметил{а|} сегодня, выполняя практику. Записи хранятся только на этом устройстве.')}</p>
+    <input class="jr-inp" id="jrI" maxlength="300" placeholder="${T('Сегодня я заметил{а|}, что...')}" onkeydown="if(event.key==='Enter')addJr()">
+    <button class="btn-done" style="margin-top:.8rem" onclick="addJr()">Записать</button>
+    ${jr.map(j=>`<div class="jr-item"><span class="jr-d">${j.d}</span>${esc(j.t)}</div>`).join('')}
+
+    ${artHtml}
+
+    <div class="res-foot">
+      <button class="btn-bk" onclick="startTest()">Пройти тест ещё раз</button>
+      <button class="btn-bk" onclick="showLanding()">← На главную</button>
+    </div>
+    <p class="res-disc">Если практика поднимает сильные чувства — снизь темп. Исток — поддержка, а не замена терапии.</p>
+  </div>`;
+}
+function togDone(kind){
+  const st=loadPr();const today=isoToday();
+  if(!st.done[today])st.done[today]={};
+  st.done[today][kind]=!st.done[today][kind];
+  savePr(st);renderPractice();
+}
+function addJr(){
+  const inp=document.getElementById('jrI');
+  if(!inp)return;
+  const v=inp.value.trim();
+  if(v.length<2)return;
+  const st=loadPr();
+  st.journal=(st.journal||[]).concat([{d:isoToday(),t:v}]).slice(-40);
+  savePr(st);renderPractice();
+}
+
+/* ══════════ ИЛЛЮСТРАЦИИ РЫБ (SVG, рисуются кодом) ══════════
+   Если положить фото в assets/fish/<ключ>.jpg — оно заменит рисунок. */
+const FISH_ART={
+neon:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="neB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1734"/><stop offset=".6" stop-color="#090f24"/><stop offset="1" stop-color="#060a18"/></linearGradient>
+<radialGradient id="neV" cx=".5" cy=".45" r=".9"><stop offset=".55" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,0,10,.55)"/></radialGradient>
+<linearGradient id="neF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#232f52"/><stop offset="1" stop-color="#131a30"/></linearGradient>
+<filter id="neG" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4.5"/></filter>
+<filter id="neS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter></defs>
+<rect width="320" height="200" fill="url(#neB)"/>
+<g stroke="rgba(120,160,255,.05)" stroke-width="10" fill="none"><path d="M-10,40 q80,-14 160,0 t180,-6"/><path d="M-10,150 q90,12 180,0 t160,6"/></g>
+<g fill="#3d5c9a" opacity=".85">
+<g filter="url(#neS)" opacity=".7"><ellipse cx="64" cy="50" rx="17" ry="6"/><path d="M47,50 l-10,-6 v12z"/><ellipse cx="256" cy="40" rx="14" ry="5"/><path d="M242,40 l-9,-5 v10z"/></g>
+<g filter="url(#neS)" opacity=".5"><ellipse cx="242" cy="156" rx="15" ry="5.5"/><path d="M227,156 l-9,-5 v10z"/><ellipse cx="52" cy="146" rx="12" ry="4.5"/><path d="M40,146 l-8,-4 v9z"/><ellipse cx="290" cy="98" rx="11" ry="4"/><path d="M279,98 l-7,-4 v8z"/></g></g>
+<g stroke="#5fd8ff" fill="none"><path d="M50,44 Q64,41 78,45" stroke-width="2" opacity=".8"/><path d="M243,35 Q256,32 268,36" stroke-width="1.8" opacity=".7"/><path d="M229,151 Q242,148 255,152" stroke-width="1.8" opacity=".55"/></g>
+<path d="M104,100 l-26,-16 q-8,17 1,33z" fill="url(#neF)"/>
+<path d="M148,80 q14,-10 26,-2 l-8,8z" fill="#1c2946" opacity=".9"/>
+<ellipse cx="160" cy="100" rx="54" ry="20" fill="url(#neF)"/>
+<path d="M150,120 q10,10 22,6 l-6,-9z" fill="#1c2946" opacity=".8"/>
+<path d="M114,92 Q160,83 208,93" stroke="#5fd8ff" stroke-width="9" fill="none" opacity=".5" filter="url(#neG)"/>
+<path d="M114,92 Q160,83 208,93" stroke="#8fe8ff" stroke-width="3" fill="none"/>
+<path d="M128,106 Q168,112 206,104" stroke="#ff5f8a" stroke-width="8" fill="none" opacity=".45" filter="url(#neG)"/>
+<path d="M128,106 Q168,112 206,104" stroke="#ff8aa8" stroke-width="2.6" fill="none"/>
+<circle cx="200" cy="94" r="5" fill="#0a0d1a"/><circle cx="202" cy="92" r="1.8" fill="#eaf6ff"/><circle cx="198.5" cy="95.5" r=".9" fill="#9fc8ff" opacity=".8"/>
+<g fill="none" stroke="rgba(190,220,255,.3)"><circle cx="224" cy="64" r="3.4"/><circle cx="233" cy="49" r="2.2"/><circle cx="240" cy="36" r="1.5"/><circle cx="86" cy="76" r="2.4"/></g>
+<g fill="rgba(150,190,255,.25)"><circle cx="120" cy="40" r="1"/><circle cx="180" cy="30" r="1.2"/><circle cx="270" cy="120" r="1"/><circle cx="40" cy="100" r="1.1"/></g>
+<rect width="320" height="200" fill="url(#neV)"/></svg>`,
+clown:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="clB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e2338"/><stop offset="1" stop-color="#081422"/></linearGradient>
+<radialGradient id="clV" cx=".5" cy=".4" r=".95"><stop offset=".5" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,4,12,.5)"/></radialGradient>
+<linearGradient id="clF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9c50"/><stop offset="1" stop-color="#e26a24"/></linearGradient>
+<linearGradient id="clA" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4a3f7a"/><stop offset="1" stop-color="#8a7ac0"/></linearGradient>
+<filter id="clS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter></defs>
+<rect width="320" height="200" fill="url(#clB)"/>
+<polygon points="200,0 260,0 210,200 160,200" fill="rgba(180,220,255,.05)"/>
+<g filter="url(#clS)" opacity=".5" stroke="url(#clA)" stroke-width="9" stroke-linecap="round" fill="none">
+<path d="M30,205 q-8,-50 10,-78"/><path d="M62,205 q6,-58 -6,-92"/><path d="M96,205 q12,-46 2,-74"/></g>
+<g stroke="url(#clA)" stroke-width="8" stroke-linecap="round" fill="none">
+<path d="M42,205 q-6,-48 8,-74"/><path d="M74,205 q4,-56 -6,-88"/><path d="M106,205 q10,-44 2,-70"/><path d="M258,205 q10,-48 -4,-78"/><path d="M290,205 q-2,-44 10,-66"/><path d="M272,205 q2,-56 -8,-84"/></g>
+<g fill="#a394d8"><circle cx="48" cy="128" r="6"/><circle cx="67" cy="114" r="6"/><circle cx="107" cy="132" r="6"/><circle cx="253" cy="124" r="6"/><circle cx="299" cy="136" r="6"/><circle cx="263" cy="118" r="5"/></g>
+<g transform="rotate(-7 172 96)">
+<path d="M126,96 C104,80 96,78 92,86 C98,92 100,100 92,108 C98,116 108,112 126,100z" fill="#e2762f" stroke="#20242e" stroke-width="1.4"/>
+<ellipse cx="174" cy="96" rx="54" ry="31" fill="url(#clF)" stroke="#20242e" stroke-width="1.6"/>
+<path d="M150,67 q22,-20 42,-6 q-8,12 -14,14z" fill="url(#clF)" stroke="#20242e" stroke-width="1.4"/>
+<path d="M160,126 q14,14 30,8 l-9,-13z" fill="url(#clF)" stroke="#20242e" stroke-width="1.2"/>
+<path d="M196,64 C210,78 210,114 196,128 C186,124 180,122 178,96 C180,72 188,68 196,64z" fill="#f4efe6" stroke="#20242e" stroke-width="1.6"/>
+<path d="M152,63 C166,80 166,112 152,130 C142,126 138,114 138,96 C138,78 142,68 152,63z" fill="#f4efe6" stroke="#20242e" stroke-width="1.6"/>
+<path d="M124,80 C132,88 132,104 124,112 C118,108 116,102 116,96 C116,90 118,84 124,80z" fill="#f4efe6" stroke="#20242e" stroke-width="1.4"/>
+<circle cx="210" cy="88" r="5" fill="#181220"/><circle cx="211.8" cy="86.2" r="1.7" fill="#ffe9d0"/>
+<path d="M222,100 q4,3 8,3" stroke="#20242e" stroke-width="1.6" fill="none"/></g>
+<g fill="none" stroke="rgba(200,230,255,.3)"><circle cx="230" cy="52" r="3"/><circle cx="238" cy="40" r="2"/></g>
+<rect width="320" height="200" fill="url(#clV)"/></svg>`,
+betta:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="beB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1132"/><stop offset="1" stop-color="#0b0716"/></linearGradient>
+<linearGradient id="beF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d86ae8"/><stop offset=".55" stop-color="#8a5fe0"/><stop offset="1" stop-color="#5468d8"/></linearGradient>
+<linearGradient id="beC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c05fd8"/><stop offset="1" stop-color="#7a5fd0"/></linearGradient>
+<radialGradient id="beV" cx=".45" cy=".45" r=".9"><stop offset=".5" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(5,0,12,.55)"/></radialGradient>
+<filter id="beG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter></defs>
+<rect width="320" height="200" fill="url(#beB)"/>
+<ellipse cx="180" cy="105" rx="120" ry="80" fill="#8a5fe0" opacity=".14" filter="url(#beG)"/>
+<g fill="url(#beF)">
+<path d="M152,98 C240,30 300,92 244,158 C198,196 152,152 146,106z" opacity=".38" filter="url(#beG)"/>
+<path d="M150,96 C226,42 278,94 234,148 C198,178 154,148 146,104z" opacity=".55"/>
+<path d="M120,82 C128,34 198,30 218,62 C186,60 148,70 124,92z" opacity=".55"/>
+<path d="M122,110 C112,164 174,188 202,164 C174,156 138,134 128,106z" opacity=".55"/></g>
+<g stroke="#e8b8f4" stroke-width="1" fill="none" opacity=".45">
+<path d="M156,96 C210,62 246,96 224,136"/><path d="M162,102 C208,84 232,108 216,138"/><path d="M136,84 C150,56 190,48 206,62"/><path d="M132,110 C128,146 160,166 184,160"/></g>
+<ellipse cx="131" cy="97" rx="32" ry="17" fill="url(#beC)"/>
+<path d="M131,80 Q141,72 152,80 L146,88z" fill="url(#beC)" opacity=".9"/>
+<path d="M104,90 q-11,3 -14,12 q9,7 18,5z" fill="#a04fc8"/>
+<g stroke="#e0a8f0" stroke-width="2.4" fill="none" opacity=".85"><path d="M126,113 q-6,28 -18,40"/><path d="M137,114 q0,26 -8,42"/></g>
+<g fill="#f4dcff" opacity=".7"><circle cx="196" cy="88" r="1.3"/><circle cx="216" cy="112" r="1.2"/><circle cx="182" cy="132" r="1.1"/><circle cx="170" cy="64" r="1.2"/><circle cx="230" cy="132" r="1"/></g>
+<circle cx="112" cy="92" r="4.4" fill="#170f24"/><circle cx="113.8" cy="90.2" r="1.6" fill="#fce8ff"/>
+<g fill="none" stroke="rgba(220,190,255,.3)"><circle cx="96" cy="66" r="2.6"/><circle cx="88" cy="54" r="1.7"/></g>
+<rect width="320" height="200" fill="url(#beV)"/></svg>`,
+flounder:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="flB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#122334"/><stop offset="1" stop-color="#0c1422"/></linearGradient>
+<linearGradient id="flS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#443c6a"/><stop offset="1" stop-color="#332c50"/></linearGradient>
+<linearGradient id="flF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a5088"/><stop offset="1" stop-color="#453c6c"/></linearGradient>
+<radialGradient id="flV" cx=".5" cy=".4" r=".95"><stop offset=".5" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,2,10,.5)"/></radialGradient>
+<filter id="flG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+<rect width="320" height="200" fill="url(#flB)"/>
+<polygon points="40,0 100,0 70,200 20,200" fill="rgba(170,210,255,.045)"/>
+<polygon points="220,0 250,0 280,200 240,200" fill="rgba(170,210,255,.035)"/>
+<path d="M0,138 Q80,128 170,140 T320,136 L320,200 0,200z" fill="url(#flS)"/>
+<path d="M0,158 Q90,148 180,160 T320,156 L320,200 0,200z" fill="#2c2648" opacity=".9"/>
+<g transform="rotate(-5 160 134)">
+<ellipse cx="160" cy="138" rx="76" ry="35" fill="#231d3a" opacity=".6" filter="url(#flG)"/>
+<ellipse cx="160" cy="134" rx="74" ry="34" fill="url(#flF)"/>
+<path d="M234,134 l26,-12 q6,12 0,24z" fill="url(#flF)"/>
+<path d="M92,118 Q160,92 228,118" stroke="#6c62a0" stroke-width="3" fill="none" opacity=".7" stroke-dasharray="7 5"/>
+<path d="M92,150 Q160,176 228,150" stroke="#6c62a0" stroke-width="3" fill="none" opacity=".6" stroke-dasharray="7 5"/>
+<g fill="#645a94" opacity=".9"><circle cx="140" cy="140" r="5.5"/><circle cx="172" cy="126" r="4.5"/><circle cx="192" cy="146" r="5.5"/><circle cx="118" cy="150" r="4"/><circle cx="208" cy="128" r="3.4"/><circle cx="158" cy="154" r="4"/><circle cx="186" cy="112" r="3"/></g>
+<g fill="#7a70ac" opacity=".6"><circle cx="150" cy="128" r="2"/><circle cx="126" cy="138" r="2"/><circle cx="200" cy="140" r="2"/><circle cx="176" cy="152" r="1.8"/></g>
+<circle cx="118" cy="112" r="7" fill="url(#flF)"/><circle cx="135" cy="106" r="7" fill="url(#flF)"/>
+<circle cx="118" cy="110" r="4.4" fill="#100c1e"/><circle cx="135" cy="104" r="4.4" fill="#100c1e"/>
+<circle cx="119.6" cy="108.4" r="1.5" fill="#d8d2f0"/><circle cx="136.6" cy="102.4" r="1.5" fill="#d8d2f0"/>
+<path d="M104,124 q6,5 13,5" stroke="#282244" stroke-width="2" fill="none"/></g>
+<g fill="#443c6a" opacity=".95" filter="url(#flG)"><ellipse cx="102" cy="162" rx="12" ry="5"/><ellipse cx="216" cy="160" rx="14" ry="6"/><ellipse cx="160" cy="170" rx="10" ry="4"/></g>
+<g fill="rgba(190,215,255,.28)"><circle cx="70" cy="70" r="1.2"/><circle cx="250" cy="60" r="1.4"/><circle cx="290" cy="100" r="1"/></g>
+<g fill="none" stroke="rgba(190,215,255,.25)"><circle cx="126" cy="86" r="2.6"/><circle cx="133" cy="74" r="1.7"/></g>
+<rect width="320" height="200" fill="url(#flV)"/></svg>`,
+seahorse:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="shB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e2830"/><stop offset="1" stop-color="#081418"/></linearGradient>
+<linearGradient id="shH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d0c4f4"/><stop offset="1" stop-color="#9a8cd4"/></linearGradient>
+<radialGradient id="shV" cx=".5" cy=".42" r=".95"><stop offset=".5" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,6,8,.55)"/></radialGradient>
+<filter id="shG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter></defs>
+<rect width="320" height="200" fill="url(#shB)"/>
+<polygon points="180,0 240,0 200,200 150,200" fill="rgba(160,255,220,.04)"/>
+<g stroke="#2c6456" stroke-width="7" stroke-linecap="round" fill="none" opacity=".5" filter="url(#shG)">
+<path d="M108,205 C100,150 116,110 104,58"/><path d="M250,205 C258,158 244,128 254,86"/></g>
+<g stroke="#37806c" stroke-width="6" stroke-linecap="round" fill="none">
+<path d="M126,205 C118,152 132,116 122,62"/><path d="M232,205 C240,160 226,132 236,92"/></g>
+<path d="M122,62 q-8,-16 0,-28" stroke="#37806c" stroke-width="4" fill="none" opacity=".7"/>
+<path d="M236,92 q8,-12 4,-24" stroke="#37806c" stroke-width="4" fill="none" opacity=".6"/>
+<ellipse cx="170" cy="112" rx="52" ry="64" fill="#b8aee8" opacity=".07" filter="url(#shG)"/>
+<g fill="none" stroke="url(#shH)" stroke-linecap="round">
+<path d="M162,54 C182,58 190,76 180,90 C172,100 160,104 158,114 C156,126 166,132 168,144 C170,158 160,168 148,166 C138,164 134,154 138,146" stroke-width="14"/>
+<path d="M138,146 q-11,7 -4,15 q7,6 13,-1" stroke-width="8"/>
+<path d="M162,58 l-21,3" stroke-width="7"/></g>
+<path d="M180,92 q14,-2 16,10 q-10,8 -18,2z" fill="url(#shH)" opacity=".65"/>
+<g stroke="#efe8ff" stroke-width="2.6" stroke-linecap="round"><path d="M170,50 l7,-9"/><path d="M179,57 l10,-6"/><path d="M184,68 l11,-2"/></g>
+<g stroke="#7d6fb4" stroke-width="2.2" opacity=".85"><path d="M170,86 h13"/><path d="M162,102 h13"/><path d="M162,120 h12"/><path d="M164,136 h12"/><path d="M158,152 h9"/></g>
+<circle cx="164" cy="61" r="3" fill="#161028"/><circle cx="165.2" cy="59.8" r="1.1" fill="#f4eeff"/>
+<g fill="none" stroke="rgba(190,230,220,.3)"><circle cx="140" cy="40" r="2.6"/><circle cx="148" cy="28" r="1.8"/><circle cx="134" cy="52" r="1.6"/></g>
+<g fill="rgba(180,220,210,.22)"><circle cx="210" cy="60" r="1.2"/><circle cx="80" cy="90" r="1.2"/><circle cx="280" cy="140" r="1.1"/></g>
+<rect width="320" height="200" fill="url(#shV)"/></svg>`,
+catfish:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="caB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1e26"/><stop offset="1" stop-color="#091014"/></linearGradient>
+<linearGradient id="caF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#31404e"/><stop offset="1" stop-color="#1d2733"/></linearGradient>
+<radialGradient id="caM" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="rgba(220,230,250,.22)"/><stop offset="1" stop-color="rgba(220,230,250,0)"/></radialGradient>
+<radialGradient id="caV" cx=".5" cy=".45" r=".95"><stop offset=".5" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,4,6,.6)"/></radialGradient>
+<filter id="caG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+<rect width="320" height="200" fill="url(#caB)"/>
+<circle cx="262" cy="34" r="34" fill="url(#caM)"/><circle cx="262" cy="34" r="12" fill="rgba(235,240,255,.25)" filter="url(#caG)"/>
+<polygon points="226,0 300,0 250,200 190,200" fill="rgba(210,225,255,.05)"/>
+<path d="M0,172 Q160,160 320,174 L320,200 0,200z" fill="#0b1116"/>
+<g fill="#141c24"><ellipse cx="70" cy="180" rx="26" ry="9"/><ellipse cx="150" cy="186" rx="20" ry="7"/><ellipse cx="270" cy="182" rx="24" ry="8"/></g>
+<ellipse cx="160" cy="150" rx="110" ry="30" fill="#0a141a" opacity=".8" filter="url(#caG)"/>
+<path d="M64,144 C50,132 40,130 34,136 C42,142 42,152 34,160 C42,166 54,162 66,152z" fill="url(#caF)"/>
+<path d="M60,144 C94,118 156,110 214,120 C246,125 262,135 260,144 C254,159 220,167 176,167 C126,167 82,161 60,152z" fill="url(#caF)"/>
+<path d="M84,152 C130,162 200,163 244,152" stroke="#3e5060" stroke-width="2.4" fill="none" opacity=".5"/>
+<path d="M148,116 l13,-20 12,19z" fill="#24303c"/>
+<path d="M176,165 l9,13 10,-12z" fill="#24303c"/>
+<path d="M216,158 q10,10 22,8 l-6,-11z" fill="#24303c"/>
+<g stroke="#a8b4c8" stroke-width="1.8" fill="none" opacity=".85">
+<path d="M258,136 q28,-14 36,-30"/><path d="M260,142 q32,-2 44,8"/><path d="M254,148 q22,14 26,30"/><path d="M250,152 q10,18 8,30"/></g>
+<circle cx="241" cy="133" r="3.6" fill="#0b1014"/><circle cx="242.4" cy="131.6" r="1.2" fill="#c8d4e4"/>
+<g fill="none" stroke="rgba(190,215,255,.22)"><circle cx="92" cy="98" r="2.8"/><circle cx="84" cy="84" r="1.9"/><circle cx="78" cy="72" r="1.3"/></g>
+<g fill="rgba(180,200,230,.14)"><circle cx="130" cy="90" r="1.2"/><circle cx="200" cy="80" r="1.3"/><circle cx="40" cy="60" r="1.1"/><circle cx="300" cy="120" r="1.2"/></g>
+<rect width="320" height="200" fill="url(#caV)"/></svg>`,
+ray:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="ryB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#122036"/><stop offset="1" stop-color="#0b1220"/></linearGradient>
+<linearGradient id="ryF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4c4380"/><stop offset="1" stop-color="#352e58"/></linearGradient>
+<radialGradient id="ryV" cx=".5" cy=".42" r=".95"><stop offset=".5" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,2,10,.55)"/></radialGradient>
+<filter id="ryG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<rect width="320" height="200" fill="url(#ryB)"/>
+<polygon points="120,0 190,0 150,200 90,200" fill="rgba(180,215,255,.05)"/>
+<polygon points="30,0 60,0 20,200 0,200" fill="rgba(180,215,255,.04)"/>
+<path d="M0,162 Q90,152 180,164 T320,158 L320,200 0,200z" fill="#332c52"/>
+<path d="M0,180 Q100,172 200,182 T320,178 L320,200 0,200z" fill="#28224078"/>
+<ellipse cx="162" cy="150" rx="96" ry="20" fill="#120e22" opacity=".75" filter="url(#ryG)"/>
+<path d="M158,76 C210,84 252,112 246,132 C228,154 186,162 158,160 C130,162 92,154 74,132 C68,112 108,84 158,76z" fill="url(#ryF)"/>
+<path d="M92,108 C130,88 190,88 226,108" stroke="#6a5fa4" stroke-width="2.6" fill="none" opacity=".75"/>
+<path d="M84,124 C130,146 190,146 234,122" stroke="#5c5294" stroke-width="2.4" fill="none" opacity=".65"/>
+<g fill="#7a70b0" opacity=".7"><circle cx="120" cy="112" r="2.2"/><circle cx="200" cy="112" r="2.2"/><circle cx="142" cy="100" r="1.8"/><circle cx="178" cy="100" r="1.8"/><circle cx="160" cy="120" r="2"/><circle cx="104" cy="126" r="1.7"/><circle cx="216" cy="126" r="1.7"/></g>
+<path d="M246,134 C270,140 290,152 302,166" stroke="url(#ryF)" stroke-width="6" fill="none" stroke-linecap="round"/>
+<path d="M282,152 l10,-2 -4,9z" fill="#4c4380"/>
+<ellipse cx="146" cy="92" rx="4.4" ry="5" fill="#120e20"/><ellipse cx="174" cy="92" rx="4.4" ry="5" fill="#120e20"/>
+<circle cx="147.6" cy="90.4" r="1.4" fill="#cfc8f0"/><circle cx="175.6" cy="90.4" r="1.4" fill="#cfc8f0"/>
+<path d="M150,146 q10,6 22,0" stroke="#282244" stroke-width="2.2" fill="none" opacity=".8"/>
+<g fill="#443c6a" opacity=".9" filter="url(#ryG)"><ellipse cx="96" cy="150" rx="12" ry="4"/><ellipse cx="230" cy="152" rx="13" ry="4.5"/></g>
+<g fill="none" stroke="rgba(190,215,255,.25)"><circle cx="220" cy="66" r="2.8"/><circle cx="228" cy="53" r="1.8"/></g>
+<g fill="rgba(190,210,255,.16)"><circle cx="60" cy="80" r="1.2"/><circle cx="280" cy="90" r="1.2"/><circle cx="120" cy="50" r="1"/></g>
+<rect width="320" height="200" fill="url(#ryV)"/></svg>`,
+angler:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="agB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070a16"/><stop offset="1" stop-color="#02030a"/></linearGradient>
+<radialGradient id="agL"><stop offset="0" stop-color="rgba(255,236,176,.95)"/><stop offset=".25" stop-color="rgba(255,226,150,.45)"/><stop offset="1" stop-color="rgba(255,226,150,0)"/></radialGradient>
+<radialGradient id="agF" cx=".4" cy=".35" r=".9"><stop offset="0" stop-color="#241a3e"/><stop offset="1" stop-color="#120c22"/></radialGradient>
+<filter id="agG" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<rect width="320" height="200" fill="url(#agB)"/>
+<g fill="rgba(190,215,255,.16)"><circle cx="42" cy="38" r="1.4"/><circle cx="86" cy="146" r="1.2"/><circle cx="272" cy="44" r="1.4"/><circle cx="298" cy="158" r="1.2"/><circle cx="26" cy="104" r="1"/><circle cx="196" cy="26" r="1.1"/><circle cx="140" cy="182" r="1.2"/><circle cx="250" cy="120" r="1"/></g>
+<g fill="rgba(190,215,255,.07)" filter="url(#agG)"><circle cx="60" cy="70" r="2.6"/><circle cx="240" cy="80" r="2.6"/><circle cx="180" cy="160" r="2.2"/></g>
+<circle cx="300" cy="30" r="2.2" fill="rgba(255,236,176,.14)" filter="url(#agG)"/><circle cx="300" cy="30" r=".9" fill="rgba(255,236,176,.4)"/>
+<circle cx="106" cy="60" r="42" fill="url(#agL)"/>
+<circle cx="106" cy="60" r="12" fill="rgba(255,240,190,.45)" filter="url(#agG)"/>
+<circle cx="106" cy="60" r="5" fill="#fff2c4"/>
+<path d="M152,92 C136,82 118,76 107,64" stroke="#2c2044" stroke-width="3.6" fill="none"/>
+<circle cx="152" cy="92" r="3" fill="#2c2044"/>
+<ellipse cx="192" cy="126" rx="52" ry="46" fill="url(#agF)" stroke="#2e2250" stroke-width="1.6"/>
+<path d="M226,90 l20,-16 -4,24z" fill="#1c1432" stroke="#2e2250" stroke-width="1.2"/>
+<path d="M236,144 l18,10 -12,8z" fill="#1c1432" stroke="#2e2250" stroke-width="1.2"/>
+<path d="M164,168 l-12,16 2,-20z" fill="#1c1432"/>
+<path d="M148,116 C160,146 186,164 214,168" stroke="#0a0614" stroke-width="7" fill="none" stroke-linecap="round"/>
+<g fill="#e8ecfc"><path d="M150,118 l4,12 5,-9z"/><path d="M162,134 l5,11 5,-9z"/><path d="M176,148 l6,10 5,-8z"/><path d="M192,158 l7,9 4,-8z"/></g>
+<g fill="#c8ccdf"><path d="M158,112 l5,9 4,-7z"/><path d="M172,126 l5,9 5,-7z"/><path d="M188,140 l6,8 4,-7z"/></g>
+<circle cx="178" cy="102" r="6" fill="#ffedb0" opacity=".9"/><circle cx="180" cy="102" r="2.4" fill="#1a1228"/>
+<path d="M196,88 q10,-4 18,0" stroke="#3a2c5c" stroke-width="2" fill="none" opacity=".8"/>
+<rect width="320" height="200" fill="url(#agB)" opacity=".12"/></svg>`,
+salmon:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="saB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16294a"/><stop offset="1" stop-color="#0c1728"/></linearGradient>
+<linearGradient id="saF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#94a4c4"/><stop offset=".55" stop-color="#a88a9e"/><stop offset="1" stop-color="#c08498"/></linearGradient>
+<radialGradient id="saV" cx=".5" cy=".4" r=".95"><stop offset=".5" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,3,10,.5)"/></radialGradient>
+<filter id="saG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+<rect width="320" height="200" fill="url(#saB)"/>
+<g stroke="rgba(190,215,255,.13)" stroke-width="3.5" fill="none">
+<path d="M-10,52 q80,-10 156,4 t180,0"/><path d="M-10,96 q90,-12 176,2 t160,-2"/><path d="M-10,138 q80,-8 160,4 t170,0"/></g>
+<g stroke="rgba(190,215,255,.07)" stroke-width="8" fill="none" filter="url(#saG)"><path d="M-10,74 q100,-10 200,4 t140,0"/></g>
+<ellipse cx="120" cy="182" rx="60" ry="14" fill="#0a1220" opacity=".9"/>
+<ellipse cx="250" cy="188" rx="46" ry="12" fill="#0a1220" opacity=".8"/>
+<ellipse cx="130" cy="168" rx="80" ry="18" fill="rgba(220,235,255,.10)" filter="url(#saG)"/>
+<g transform="rotate(-16 160 100)">
+<path d="M88,112 C70,100 58,98 52,104 C60,110 60,120 52,128 C60,134 74,130 90,120z" fill="#7d8ba8"/>
+<path d="M84,110 C104,82 220,80 244,99 C250,104 250,112 242,115 C212,129 108,133 88,123 C79,119 79,114 84,110z" fill="url(#saF)"/>
+<path d="M96,108 C150,96 216,94 240,102" stroke="#e0ccd4" stroke-width="2.6" fill="none" opacity=".5"/>
+<path d="M100,121 C150,129 210,125 236,113" stroke="#d8c2cc" stroke-width="3" fill="none" opacity=".45"/>
+<g fill="#6d7a94" opacity=".75"><circle cx="130" cy="98" r="1.8"/><circle cx="152" cy="94" r="1.8"/><circle cx="176" cy="93" r="1.8"/><circle cx="200" cy="94" r="1.8"/><circle cx="142" cy="104" r="1.4"/><circle cx="166" cy="101" r="1.4"/><circle cx="190" cy="100" r="1.4"/></g>
+<path d="M148,88 l13,-16 13,15z" fill="#7d8ba8"/>
+<path d="M160,128 l8,12 9,-10z" fill="#7d8ba8"/>
+<path d="M210,120 q6,10 16,10 l-2,-12z" fill="#8d7a90"/>
+<path d="M243,100 q10,4 5,12" stroke="#6d5a70" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<path d="M228,108 q-4,6 -12,8" stroke="#8d7a90" stroke-width="2" fill="none" opacity=".8"/>
+<circle cx="230" cy="99" r="4" fill="#141828"/><circle cx="231.6" cy="97.4" r="1.4" fill="#e8eef8"/></g>
+<g stroke="rgba(210,230,255,.45)" fill="none" stroke-width="2.2">
+<path d="M104,152 q26,14 56,10"/><path d="M84,140 q10,16 32,22"/><path d="M138,158 q16,6 34,2"/></g>
+<g fill="rgba(210,230,255,.5)"><circle cx="92" cy="126" r="2.2"/><circle cx="76" cy="116" r="1.7"/><circle cx="122" cy="142" r="2"/><circle cx="66" cy="130" r="1.4"/><circle cx="106" cy="112" r="1.5"/></g>
+<rect width="320" height="200" fill="url(#saV)"/></svg>`,
+whaleshark:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="wsB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f2140"/><stop offset="1" stop-color="#091326"/></linearGradient>
+<linearGradient id="wsF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33406a"/><stop offset=".7" stop-color="#28324f"/><stop offset="1" stop-color="#3c4a6e"/></linearGradient>
+<radialGradient id="wsV" cx=".5" cy=".4" r="1"><stop offset=".5" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,3,12,.5)"/></radialGradient>
+<filter id="wsG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<rect width="320" height="200" fill="url(#wsB)"/>
+<polygon points="60,0 130,0 88,200 36,200" fill="rgba(190,220,255,.06)"/>
+<polygon points="180,0 235,0 265,200 215,200" fill="rgba(190,220,255,.045)"/>
+<polygon points="270,0 300,0 320,120 320,60" fill="rgba(190,220,255,.03)"/>
+<ellipse cx="150" cy="130" rx="150" ry="34" fill="#060c18" opacity=".55" filter="url(#wsG)"/>
+<path d="M36,128 l-26,-46 q26,8 40,28z" fill="url(#wsF)"/>
+<path d="M32,132 l-22,38 q24,-4 38,-20z" fill="#26304c"/>
+<path d="M20,112 C74,72 202,64 264,90 C290,100 294,112 280,123 C234,148 98,152 42,136 C24,130 14,122 20,112z" fill="url(#wsF)"/>
+<path d="M60,132 C140,146 230,142 274,120 C240,140 150,150 70,140z" fill="#42527c" opacity=".6"/>
+<path d="M126,84 l18,-26 16,23z" fill="url(#wsF)"/>
+<path d="M188,136 q8,12 20,14 l-4,-16z" fill="#28324f"/>
+<path d="M76,90 C130,78 210,76 254,88" stroke="#1e2846" stroke-width="2" fill="none" opacity=".7"/>
+<path d="M286,106 q-18,12 -36,13" stroke="#1c2540" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+<g stroke="#1c2540" stroke-width="2.6" fill="none"><path d="M242,94 q-5,15 0,29"/><path d="M231,94 q-5,16 0,31"/><path d="M220,95 q-5,16 0,31"/><path d="M209,96 q-5,15 0,30"/></g>
+<g fill="#d2dcf6" opacity=".55"><circle cx="70" cy="108" r="2.2"/><circle cx="94" cy="98" r="2.2"/><circle cx="120" cy="106" r="2.2"/><circle cx="148" cy="94" r="2.2"/><circle cx="174" cy="103" r="2.2"/><circle cx="198" cy="92" r="2.2"/><circle cx="58" cy="120" r="1.7"/><circle cx="84" cy="122" r="1.7"/><circle cx="110" cy="118" r="1.7"/><circle cx="136" cy="114" r="1.7"/><circle cx="162" cy="118" r="1.7"/><circle cx="186" cy="114" r="1.7"/><circle cx="106" cy="90" r="1.4"/><circle cx="134" cy="102" r="1.4"/><circle cx="160" cy="90" r="1.4"/><circle cx="184" cy="94" r="1.4"/><circle cx="206" cy="106" r="1.6"/><circle cx="222" cy="112" r="1.4"/></g>
+<circle cx="264" cy="102" r="3.2" fill="#0e1526"/><circle cx="265.4" cy="100.8" r="1.1" fill="#cdd8f2"/>
+<g fill="#5a6a90"><ellipse cx="146" cy="164" rx="11" ry="3.6"/><path d="M135,164 l-7,-3.4 v7z"/><ellipse cx="188" cy="158" rx="9" ry="3"/><path d="M179,158 l-6,-3 v6z"/></g>
+<g fill="rgba(200,220,255,.2)"><circle cx="290" cy="60" r="1.3"/><circle cx="46" cy="60" r="1.2"/><circle cx="250" cy="170" r="1.2"/></g>
+<rect width="320" height="200" fill="url(#wsV)"/></svg>`,
+goldfish:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="gfB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#191330"/><stop offset="1" stop-color="#0c0918"/></linearGradient>
+<linearGradient id="gfW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(110,140,210,.16)"/><stop offset="1" stop-color="rgba(80,100,170,.30)"/></linearGradient>
+<linearGradient id="gfF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc05c"/><stop offset="1" stop-color="#f07030"/></linearGradient>
+<radialGradient id="gfV" cx=".5" cy=".42" r=".95"><stop offset=".5" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(4,0,12,.6)"/></radialGradient>
+<filter id="gfG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+<rect width="320" height="200" fill="url(#gfB)"/>
+<rect x="0" y="60" width="70" height="90" fill="rgba(200,215,255,.04)" filter="url(#gfG)"/>
+<line x1="30" y1="188" x2="290" y2="188" stroke="rgba(255,255,255,.10)" stroke-width="3"/>
+<ellipse cx="160" cy="190" rx="96" ry="6" fill="#060410" opacity=".8" filter="url(#gfG)"/>
+<clipPath id="gfC"><circle cx="160" cy="106" r="74"/></clipPath>
+<circle cx="160" cy="106" r="76" fill="rgba(100,120,190,.07)"/>
+<g clip-path="url(#gfC)"><rect x="84" y="72" width="152" height="112" fill="url(#gfW)"/>
+<ellipse cx="160" cy="74" rx="74" ry="9" fill="rgba(215,228,255,.20)"/>
+<g fill="#3c3560"><circle cx="126" cy="172" r="7"/><circle cx="144" cy="176" r="5.5"/><circle cx="163" cy="173" r="6.5"/><circle cx="183" cy="176" r="5.5"/><circle cx="200" cy="171" r="6"/><circle cx="114" cy="176" r="5"/></g>
+<g fill="#4a4274"><circle cx="136" cy="169" r="3.4"/><circle cx="174" cy="170" r="3.4"/><circle cx="192" cy="167" r="3"/></g>
+<path d="M120,150 q-6,-22 4,-34" stroke="#2e6456" stroke-width="4" fill="none" opacity=".7"/>
+<path d="M204,152 q8,-20 0,-36" stroke="#2e6456" stroke-width="4" fill="none" opacity=".6"/>
+<path d="M166,112 C192,90 210,100 200,116 C210,130 190,146 166,122z" fill="#ff9440" opacity=".85"/>
+<path d="M170,114 C190,102 200,108 195,116 C200,126 188,134 170,120z" fill="#ffb868" opacity=".8"/>
+<path d="M138,92 q8,-14 18,-8 l-6,12z" fill="#ff9440" opacity=".9"/>
+<ellipse cx="148" cy="112" rx="20" ry="15" fill="url(#gfF)"/>
+<path d="M134,120 q6,8 14,8 l-2,-8z" fill="#ff9440" opacity=".85"/>
+<circle cx="137" cy="107" r="3.8" fill="#241018"/><circle cx="138.4" cy="105.6" r="1.3" fill="#ffe8cc"/>
+<g fill="none" stroke="rgba(215,230,255,.4)"><circle cx="150" cy="86" r="2.6"/><circle cx="157" cy="74" r="1.9"/><circle cx="151" cy="63" r="1.3"/></g></g>
+<circle cx="160" cy="106" r="74" fill="none" stroke="rgba(215,228,255,.28)" stroke-width="2.4"/>
+<path d="M103,74 q-16,28 -5,60" stroke="rgba(255,255,255,.13)" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M212,66 q10,12 12,28" stroke="rgba(255,255,255,.08)" stroke-width="3" fill="none" stroke-linecap="round"/>
+<rect width="320" height="200" fill="url(#gfV)"/></svg>`,
+flying:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fyS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3d4c84"/><stop offset="1" stop-color="#1b2646"/></linearGradient>
+<linearGradient id="fySea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101f3c"/><stop offset="1" stop-color="#0a1426"/></linearGradient>
+<linearGradient id="fyF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8bcdc"/><stop offset="1" stop-color="#7890b4"/></linearGradient>
+<radialGradient id="fySun"><stop offset="0" stop-color="rgba(255,224,178,.5)"/><stop offset="1" stop-color="rgba(255,224,178,0)"/></radialGradient>
+<radialGradient id="fyV" cx=".5" cy=".45" r=".95"><stop offset=".55" stop-color="rgba(0,0,0,0)"/><stop offset="1" stop-color="rgba(0,2,10,.45)"/></radialGradient>
+<filter id="fyG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+<rect width="320" height="130" fill="url(#fyS)"/>
+<circle cx="256" cy="122" r="52" fill="url(#fySun)"/>
+<circle cx="256" cy="124" r="20" fill="rgba(255,230,190,.35)" filter="url(#fyG)"/>
+<g stroke="rgba(230,240,255,.10)" stroke-width="5" fill="none" filter="url(#fyG)"><path d="M20,44 q30,-6 60,0"/><path d="M200,30 q34,-8 66,-2"/><path d="M90,66 q24,-4 44,0"/></g>
+<rect y="128" width="320" height="72" fill="url(#fySea)"/>
+<path d="M0,128 q40,-5 80,0 t80,0 t80,0 t80,0" stroke="rgba(200,220,255,.35)" stroke-width="2.4" fill="none"/>
+<g stroke="rgba(190,212,255,.16)" stroke-width="2" fill="none"><path d="M0,146 q40,-6 80,0 t80,0 t80,0 t80,0"/><path d="M0,166 q40,-6 80,0 t80,0 t80,0 t80,0"/><path d="M0,184 q40,-5 80,0 t80,0 t80,0 t80,0"/></g>
+<g fill="rgba(255,226,180,.28)"><circle cx="250" cy="140" r="1.6"/><circle cx="260" cy="152" r="1.3"/><circle cx="244" cy="162" r="1.5"/><circle cx="256" cy="174" r="1.2"/><circle cx="268" cy="144" r="1.2"/></g>
+<path d="M60,92 C110,52 190,44 232,64" stroke="rgba(190,210,240,.22)" stroke-width="2" stroke-dasharray="2 8" fill="none"/>
+<g transform="rotate(-13 150 86)">
+<path d="M140,84 C112,44 74,38 50,50 C82,58 112,76 136,92z" fill="#c4d4ec" opacity=".92"/>
+<g stroke="#8ba4c8" stroke-width="1.6" opacity=".8"><path d="M134,86 C112,62 88,52 66,52"/><path d="M136,90 C118,72 98,62 80,58"/></g>
+<path d="M150,94 C136,64 114,54 94,56 C116,68 134,84 148,98z" fill="#8fa8cc" opacity=".7"/>
+<ellipse cx="154" cy="92" rx="44" ry="13" fill="url(#fyF)"/>
+<path d="M152,98 q24,7 44,3" stroke="#d4e2f4" stroke-width="3" fill="none" opacity=".7"/>
+<path d="M112,92 C100,80 90,78 84,82 C90,88 90,96 84,102 C92,106 102,102 112,96z" fill="#7f96bc"/>
+<path d="M158,102 q6,8 16,8 l-3,-10z" fill="#7f96bc" opacity=".85"/>
+<circle cx="188" cy="88" r="3.8" fill="#101828"/><circle cx="189.4" cy="86.6" r="1.3" fill="#e8f0fc"/></g>
+<g stroke="rgba(210,230,255,.5)" fill="none" stroke-width="2.2"><path d="M92,128 q18,-10 38,-8"/><path d="M78,136 q10,-10 24,-12"/></g>
+<g fill="rgba(210,230,255,.55)"><circle cx="106" cy="116" r="2.2"/><circle cx="90" cy="122" r="1.7"/><circle cx="122" cy="110" r="1.7"/><circle cx="80" cy="112" r="1.3"/></g>
+<ellipse cx="100" cy="130" rx="20" ry="4" fill="rgba(220,235,255,.16)" filter="url(#fyG)"/>
+<rect width="320" height="200" fill="url(#fyV)"/></svg>`};
+
+function fishArtHtml(f){
+  return `<img src="assets/fish/${f.k}.jpg" alt="" style="display:none" onload="this.style.display='block';if(this.nextElementSibling)this.nextElementSibling.style.display='none'">${FISH_ART[f.k]||''}`;
+}
+
+/* ══════════ ШЕР-КАРТОЧКА (canvas 1080×1350) ══════════ */
+function rr(x,a,b,w,h,r){x.beginPath();x.roundRect?x.roundRect(a,b,w,h,r):x.rect(a,b,w,h);}
+async function shareFish(){
+  const S=window.ISTOK_SHARE;
+  if(!S)return;
+  try{await Promise.all([
+    document.fonts.load('300 78px "Cormorant Garamond"'),
+    document.fonts.load('300 30px "Jost"')
+  ]);}catch(e){}
+  const c=document.createElement('canvas');c.width=1080;c.height=1350;
+  const x=c.getContext('2d');
+  /* фон */
+  const g=x.createLinearGradient(0,0,0,1350);
+  g.addColorStop(0,'#0d0f1a');g.addColorStop(1,'#151024');
+  x.fillStyle=g;x.fillRect(0,0,1080,1350);
+  const rg=x.createRadialGradient(540,420,60,540,420,560);
+  rg.addColorStop(0,'rgba(107,95,168,.25)');rg.addColorStop(1,'rgba(107,95,168,0)');
+  x.fillStyle=rg;x.fillRect(0,0,1080,940);
+  /* шапка */
+  x.textAlign='center';
+  x.fillStyle='#b8aee8';x.font='300 36px Jost, sans-serif';
+  x.fillText('И  С  Т  О  К',540,96);
+  x.fillStyle='#5e5a72';x.font='300 26px Jost, sans-serif';
+  x.fillText('тест о паттернах детства',540,138);
+  /* рыба */
+  const svg=(FISH_ART[S.k]||'').replace('<svg ','<svg width="840" height="525" ');
+  try{
+    const img=new Image();
+    await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;
+      img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);});
+    x.drawImage(img,120,178,840,525);
+  }catch(e){}
+  x.strokeStyle='rgba(255,255,255,.14)';x.lineWidth=2;x.strokeRect(120,178,840,525);
+  /* имя */
+  x.fillStyle='#e8e4f0';x.font='italic 300 76px "Cormorant Garamond", serif';
+  x.fillText(S.name,540,788);
+  /* теги в 2-3 ряда */
+  x.font='300 26px Jost, sans-serif';
+  const rows=[];let row=[],wsum=0;
+  S.chips.forEach(ch=>{
+    const w=x.measureText(ch).width+44;
+    if(wsum+w>860&&row.length){rows.push(row);row=[];wsum=0;}
+    row.push({t:ch,w});wsum+=w+14;
+  });
+  if(row.length)rows.push(row);
+  let cy=838;
+  rows.forEach(r=>{
+    const total=r.reduce((a,ci)=>a+ci.w,0)+14*(r.length-1);
+    let cx0=540-total/2;
+    r.forEach(ci=>{
+      x.strokeStyle='rgba(139,127,190,.55)';x.lineWidth=1.5;
+      rr(x,cx0,cy-30,ci.w,44,22);x.stroke();
+      x.fillStyle='#9b96b0';x.fillText(ci.t,cx0+ci.w/2,cy);
+      cx0+=ci.w+14;
+    });
+    cy+=54;
+  });
+  /* топ-3 паттерна */
+  cy+=26;
+  S.top.forEach(t=>{
+    x.textAlign='left';x.fillStyle='#e8e4f0';x.font='300 31px Jost, sans-serif';
+    x.fillText(t.name,140,cy);
+    x.textAlign='right';x.fillStyle='#b8aee8';x.font='italic 300 34px "Cormorant Garamond", serif';
+    x.fillText(t.pct+'%',940,cy);
+    x.fillStyle='rgba(255,255,255,.13)';x.fillRect(140,cy+16,800,3);
+    x.fillStyle='#8b7fbe';x.fillRect(140,cy+16,800*Math.min(100,t.pct)/100,3);
+    cy+=80;x.textAlign='center';
+  });
+  /* индекс + футер */
+  x.fillStyle='#5e5a72';x.font='300 26px Jost, sans-serif';
+  x.fillText('общий индекс детского следа — '+S.idx+'%',540,cy+6);
+  x.fillStyle='#8b7fbe';x.font='300 30px Jost, sans-serif';
+  x.fillText('Какая рыба живёт в твоём истоке?',540,1318);
+  /* экспорт: share или скачивание */
+  c.toBlob(async b=>{
+    if(!b)return;
+    const f=new File([b],'istok-fish.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){
+      try{await navigator.share({files:[f],title:'Исток'});return;}catch(e){}
+    }
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(b);a.download='istok-fish.png';a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+  },'image/png');
+}
+
+/* ══════════ ИИ-РАЗБОР (Netlify-функция → Claude API) ══════════ */
+function fmtAI(t){
+  return esc(t).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').split(/\n{2,}/)
+    .map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+}
+async function requestAI(){
+  const btn=document.getElementById('aiBtn'),box=document.getElementById('aiBox');
+  if(!btn||!box)return;
+  let payload=window.ISTOK_RESULT;
+  if(!payload){try{payload=JSON.parse(localStorage.getItem('istok_result')||'null');}catch(e){}}
+  if(!payload){box.classList.add('on');box.innerHTML='<p>Не найдены сохранённые ответы — пройди тест ещё раз.</p>';return;}
+  btn.disabled=true;btn.textContent='Разбор пишется…';
+  box.classList.add('on');box.innerHTML='<p style="color:var(--text3)">Подключаюсь…</p>';
+  try{
+    const resp=await fetch('/api/analyze',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    if(!resp.ok)throw new Error('HTTP '+resp.status);
+    const reader=resp.body.getReader();
+    const dec=new TextDecoder();
+    let txt='';
+    while(true){
+      const {done,value}=await reader.read();
+      if(done)break;
+      txt+=dec.decode(value,{stream:true});
+      box.innerHTML=fmtAI(txt);
+    }
+    if(!txt.trim())throw new Error('empty');
+    btn.textContent='Разбор готов ✓';
+  }catch(e){
+    box.innerHTML=`<p><b>Не получилось создать разбор.</b></p>
+    <p>ИИ-разбор работает только на опубликованной версии сайта (Netlify) с настроенным ключом API — локально и на GitHub Pages эта кнопка не активна. Всё остальное в результатах посчитано и без него.</p>`;
+    btn.disabled=false;btn.textContent='Попробовать ещё раз →';
+  }
+}
+</script>
+</body>
+</html>

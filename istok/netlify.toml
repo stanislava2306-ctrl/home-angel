@@ -1,0 +1,9 @@
+# Деплой Истока на Netlify.
+# Site base directory: istok (если деплоится весь репозиторий)
+# или корень (если деплоится только папка istok).
+
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
