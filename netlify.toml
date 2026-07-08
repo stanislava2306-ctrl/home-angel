@@ -1,0 +1,9 @@
+# Netlify-проект «Исток»: сайт лежит в папке istok.
+# Netlify сначала читает этот файл, находит base, дальше берёт istok/netlify.toml.
+
+[build]
+  base = "istok"
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
