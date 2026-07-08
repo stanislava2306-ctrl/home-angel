@@ -248,6 +248,9 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 .res-foot{text-align:center;margin-top:1.8rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;}
 .res-disc{margin-top:2rem;font-size:.7rem;color:var(--text3);line-height:1.7;text-align:center;}
 
+.fish-art{width:100%;aspect-ratio:16/10;background:#0c0f1e;position:relative;}
+.fish-art svg,.fish-art img{width:100%;height:100%;display:block;object-fit:cover;}
+
 /* ═══ PRACTICE ═══ */
 #practice-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
 #practice-s.on{display:flex;}
@@ -470,6 +473,24 @@ const PRACTICES={
   '<b>Пауза перед «да».</b> На любую просьбу отвечай: «я подумаю и скажу». Даже тридцать секунд паузы разрывают автоматизм спасателя.',
   '<b>Возврат ответственности.</b> Раз в день замечай момент, когда берёшь чужое — настроение, задачу, вину — и мысленно клади обратно: «это не моё».']};
 
+/* ══════════ РАЗВЁРНУТЫЕ ДЕТАЛИ ПАТТЕРНОВ ══════════ */
+const DETAIL={
+ ab:{mind:['«Он{а|} как-то холоднее сегодня — что я сделал{а|} не так?»','«Лучше я уйду перв{ой|ым}, чем это сделают со мной»','«Не отвечает уже час — значит, что-то случилось»'],
+  body:['сжатие в груди, когда в переписке повисает пауза','невозможность уснуть после ссоры, пока не помирились','облегчение волной по всему телу от слов «всё в порядке»'],
+  gain:'Когда-то этот паттерн честно работал: ты замечал{а|} угрозу связи раньше всех и успевал{а|} подготовиться к боли. Радар не враг — он просто больше не нужен в таком режиме.'},
+ cr:{mind:['«Можно было и лучше»','«Сейчас все увидят, что я не так уж хорош{а|}»','«Не расслабляйся — расслабишься и ошибёшься»'],
+  body:['зажатые плечи и стиснутая челюсть к вечеру','усталость, при которой «нет права» на отдых','стыд, который ощущается жаром в лице и желанием исчезнуть'],
+  gain:'Критик когда-то защищал: если отругать себя первым, чужая критика уже не застигнет врасплох и не ранит так сильно. Он старался. Просто перестарался.'},
+ ct:{mind:['«Если не я — всё развалится»','«Надо продумать всё заранее, включая запасной план»','«Сюрприз — это просто проблема, о которой ещё не сообщили»'],
+  body:['хроническое напряжение шеи и верха спины','вдох получается, а выдох до конца — нет','бессонница от прокручивания планов и сценариев'],
+  gain:'Контроль был островком безопасности в непредсказуемом мире — единственным местом, где маленький человек мог быть спокоен. Он честно спасал. Теперь можно спасаться иначе.'},
+ cl:{mind:['«Никому это не интересно»','«Сам{а|} справлюсь — так проще»','«Покажешь слабость — её используют»'],
+  body:['ком в горле, когда надо говорить о чувствах','привычка сдерживать слёзы до полного онемения','усталость от постоянного самоконтроля на людях'],
+  gain:'Закрытость берегла: то, что не показано, невозможно высмеять, обесценить или использовать. Броня была нужна. Вопрос только в том, где она нужна до сих пор.'},
+ hr:{mind:['«Кроме меня некому»','«Отдохну, когда всё доделаю» (спойлер: не доделаю)','«Неудобно отказывать — человек же на меня надеется»'],
+  body:['плечи, которые не опускаются даже в отпуске','физическое чувство вины при попытке лежать без дела','выгорание, которое замечается только на самом краю'],
+  gain:'Роль спасателя давала место и любовь: нужный человек — не брошенный человек. Это была умная детская стратегия. Взрослому она стоит слишком дорого.'}};
+
 const INSIGHT={
  ab:'Ты перестанешь проверять, не собирается ли кто-то уйти, — и начнёшь замечать тех, кто остаётся. Близость перестанет быть ожиданием потери.',
  cr:'Голос, который критикует первым, станет тише. Ты начнёшь говорить с собой так, как говоришь с теми, кого любишь, — и увидишь, сколько сил это освобождает.',
@@ -484,32 +505,32 @@ const ACUTE={
  low:'Судя по «сегодняшним» сигналам — цветам, реакциям на звук и образы — сейчас ты в достаточно ровном состоянии. Это хорошее время разбираться с глубинным: есть опора, с которой можно смотреть в прошлое.'};
 
 /* ══════════ ТВОЯ РЫБА ══════════
-   Пять осей: v:[глубина, одиночество, скрытность, размер, привязанность к знакомой воде]
+   Восемь осей: v:[глубина, одиночество, скрытность, размер, знакомая вода, тёплая вода, скорость, зубастость]
    Каждая ось 0..1. Рыба подбирается по ближайшему совпадению с профилем человека. */
 const FISH=[
- {k:'neon',aff:['ab'],em:'✨🐠',name:'Неоновая тетра',hab:'река',v:[0.20,0.10,0.20,0.05,0.55],
+ {k:'neon',aff:['ab'],em:'✨🐠',name:'Неоновая тетра',hab:'река',v:[0.20,0.10,0.20,0.05,0.55,0.80,0.55,0.05],
   t:'Маленькая светящаяся рыбка, которой по-настоящему хорошо только в стае: без своих её свечение тускнеет, а мир становится слишком большим. Она чувствует других на расстоянии полувзмаха плавника — и держится чуть ближе, чем нужно. Просто на всякий случай.'},
- {k:'clown',aff:['ab'],em:'🪸🐠',name:'Рыба-клоун',hab:'море',v:[0.20,0.30,0.30,0.10,0.75],
+ {k:'clown',aff:['ab'],em:'🪸🐠',name:'Рыба-клоун',hab:'море',v:[0.20,0.30,0.30,0.10,0.75,0.85,0.50,0.10],
   t:'Яркая и обаятельная — но весь океан ей заменяет один родной анемон: дальше пары метров от дома она не отплывает. Рядом со своим — смелая, вдали — осторожная. Её путь — узнать, что безопасных мест в океане больше одного.'},
- {k:'betta',aff:['cr'],em:'🐟🪞',name:'Бойцовский петушок',hab:'река',v:[0.30,0.75,0.30,0.20,0.70],
+ {k:'betta',aff:['cr'],em:'🐟🪞',name:'Бойцовский петушок',hab:'река',v:[0.30,0.75,0.30,0.20,0.70,0.80,0.45,0.60],
   t:'Красивая гордая рыбка с одной особенностью: увидев собственное отражение, она бросается в бой. Самый строгий противник петушка — он сам. Когда он перестанет воевать с зеркалом, останется просто красота.'},
- {k:'flounder',aff:['cr','cl'],em:'🌫️🐟',name:'Камбала',hab:'море',v:[0.65,0.70,0.95,0.40,0.30],
+ {k:'flounder',aff:['cr','cl'],em:'🌫️🐟',name:'Камбала',hab:'море',v:[0.65,0.70,0.95,0.40,0.30,0.40,0.20,0.55],
   t:'Мастер маскировки: ложится на дно и становится неотличимой от песка. Так безопасно — и так же незаметно. Её задача по жизни — вспомнить, что у неё есть и яркая сторона. Та, которая смотрит вверх.'},
- {k:'seahorse',aff:['ct'],em:'🌊🐴',name:'Морской конёк',hab:'море',v:[0.40,0.60,0.50,0.10,0.85],
+ {k:'seahorse',aff:['ct'],em:'🌊🐴',name:'Морской конёк',hab:'море',v:[0.40,0.60,0.50,0.10,0.85,0.60,0.05,0.15],
   t:'Он не любит течений: хвостом цепляется за травинку и держится, что бы ни происходило вокруг. Панцирь, прямая осанка, всё под контролем. Из всех рыб он хуже всех умеет плыть по течению — и больше всех в этом нуждается.'},
- {k:'catfish',aff:['cl'],em:'🌙🐟',name:'Сом',hab:'река',v:[0.72,0.80,0.70,0.75,0.90],
+ {k:'catfish',aff:['cl'],em:'🌙🐟',name:'Сом',hab:'река',v:[0.72,0.80,0.70,0.75,0.90,0.45,0.25,0.70],
   t:'Большой, спокойный, живёт у дна знакомой реки и выходит по ночам. О нём мало кто знает правду — он никому её не рассказывает. Сила в нём есть, и немалая. Просто она не любит показываться.'},
- {k:'ray',aff:['cl'],em:'🌑🌊',name:'Скат',hab:'море',v:[0.70,0.70,0.80,0.55,0.35],
+ {k:'ray',aff:['cl'],em:'🌑🌊',name:'Скат',hab:'море',v:[0.70,0.70,0.80,0.55,0.35,0.50,0.35,0.60],
   t:'Скользит у самого дна, присыпав себя песком: видит всех — его не видит никто. Движется тихо и грациозно, но песок — это всё-таки укрытие, а не жизнь. Иногда можно подняться в толщу воды. Там красиво.'},
- {k:'angler',aff:['cl','ab'],em:'🔦🐟',name:'Глубоководный удильщик',hab:'океан',v:[0.98,0.92,0.55,0.40,0.40],
+ {k:'angler',aff:['cl','ab'],em:'🔦🐟',name:'Глубоководный удильщик',hab:'океан',v:[0.98,0.92,0.55,0.40,0.40,0.05,0.15,0.80],
   t:'Живёт там, куда не доходит солнце, — и поэтому вырастил собственный фонарик. Это самое трогательное в глубоководной жизни: если света не дали — стать его источником. Осталось поверить, что наверху тоже можно дышать.'},
- {k:'salmon',aff:['hr'],em:'🏞️🐟',name:'Лосось',hab:'река и океан',v:[0.40,0.50,0.30,0.70,0.80],
+ {k:'salmon',aff:['hr'],em:'🏞️🐟',name:'Лосось',hab:'река и океан',v:[0.40,0.50,0.30,0.70,0.80,0.15,0.80,0.50],
   t:'Рыба долга: всю жизнь против течения, через пороги, к истоку — потому что надо. Его упорство легендарно, его усталость не замечает никто, включая его самого. Иногда можно просто постоять в тихой заводи. Исток никуда не денется.'},
- {k:'whaleshark',aff:['hr'],em:'🐋',name:'Китовая акула',hab:'океан',v:[0.50,0.80,0.15,0.98,0.25],
+ {k:'whaleshark',aff:['hr'],em:'🐋',name:'Китовая акула',hab:'океан',v:[0.50,0.80,0.15,0.98,0.25,0.60,0.30,0.05],
   t:'Самая большая рыба океана — и одна из самых безобидных: плывёт медленно, никого не трогает, а на её спине бесплатно катаются прилипалы. Все вокруг уверены, что ей самой ничего не нужно. Это неправда.'},
- {k:'goldfish',aff:['ct','ab'],em:'🐠🫧',name:'Золотая рыбка',hab:'аквариум',v:[0.25,0.45,0.15,0.10,0.98],
+ {k:'goldfish',aff:['ct','ab'],em:'🐠🫧',name:'Золотая рыбка',hab:'аквариум',v:[0.25,0.45,0.15,0.10,0.98,0.55,0.30,0.05],
   t:'Живёт в идеально обустроенном, предсказуемом и безопасном аквариуме: каждый камешек на своём месте. Только снится ей почему-то река. Стекло, кстати, давно никто не держит — это просто привычка плавать по кругу.'},
- {k:'flying',aff:[],em:'🐟🕊️',name:'Летучая рыба',hab:'океан',v:[0.05,0.30,0.05,0.30,0.10],
+ {k:'flying',aff:[],em:'🐟🕊️',name:'Летучая рыба',hab:'океан',v:[0.05,0.30,0.05,0.30,0.10,0.70,0.95,0.10],
   t:'Рыба, которая освоила небо: разгоняется, выпрыгивает из воды и летит, играя со светом. Ей знакомы обе стихии, и ни одна не держит её в плену. Это редкий результат — свобода как базовое состояние.'}];
 
 /* ══════════ КОНТЕКСТ ДЕТСТВА: тексты для результатов ══════════ */
@@ -1544,6 +1565,8 @@ function renderResults(){
     console.log('Исток · данные для аналитики:',payload);
   }catch(e){}
 
+  const gidx=Math.round(PKEYS.reduce((a,p)=>a+R.pct[p],0)/5);
+  const gTxt=gidx<35?'Лёгкий след: детство оставило отметины, но не управляет твоей жизнью.':gidx<60?'Заметный след: в спокойные периоды паттерны молчат, но включаются там, где стресс.':'Глубокий след: детские стратегии всё ещё сильно ведут твою взрослую жизнь — и это можно менять.';
   const ctxA=k=>{const s=Q.find(q=>q.ctx===k);return s?ans[Q.indexOf(s)]:undefined;};
   const fa=ctxA('fam'),sb=ctxA('sib');
   const ctxTxt=(fa!==undefined?T(FAM_T[fa])+' ':'')+(sb!==undefined?T(SIB_T[sb]):'');
@@ -1557,6 +1580,12 @@ function renderResults(){
   <div class="lead-card" style="margin-bottom:1rem;${R.acute==='high'?'border-color:#c4a060;':''}">
     <p class="lead-lbl">Как ты сейчас</p>
     <p class="lead-desc">${T(ACUTE[R.acute])}</p>
+  </div>
+
+  <div class="tc-card" style="margin-bottom:1rem">
+    <div class="tc-hd"><span class="tc-nm">Общий индекс детского следа</span><span class="tc-pct">${gidx}%</span></div>
+    <div class="tc-bg"><div class="tc-fill" data-w="${gidx}"></div></div>
+    <p class="tc-desc">${gTxt}</p>
   </div>
 
   <div class="lead-card">
@@ -1579,6 +1608,15 @@ function renderResults(){
       <p class="tc-tier">${tierLbl[R.tier(p)]}</p>
       <div class="tc-bg"><div class="tc-fill" data-w="${R.pct[p]}"></div></div>
       <p class="tc-desc">${T(PAT[p][R.tier(p)])}</p>
+      <details class="art" style="margin-top:1.1rem">
+        <summary style="font-size:.78rem;padding:.75rem 1rem">Как это звучит и ощущается</summary>
+        <div class="art-b" style="padding:.2rem 1rem 1.1rem">
+          <p><b>Типичные мысли:</b></p>
+          ${DETAIL[p].mind.map(m=>`<p style="margin-bottom:.35rem">— ${T(m)}</p>`).join('')}
+          <p style="margin-top:.8rem"><b>Как это живёт в теле:</b> ${DETAIL[p].body.map(b=>T(b)).join('; ')}.</p>
+          <p style="margin-top:.8rem"><b>Зачем паттерн был нужен:</b> ${T(DETAIL[p].gain)}</p>
+        </div>
+      </details>
     </div>`;
   });
 
@@ -1629,14 +1667,23 @@ function renderResults(){
 
   /* ── Твоя рыба: пять осей из паттернов → ближайший реальный вид ── */
   const acuteN=R.acute==='high'?0.8:R.acute==='mid'?0.45:0.1;
-  const U=[ /* [глубина, одиночество, скрытность, размер, знакомая вода] */
+  const valN=n=>{const s2=qByN(n);return s2?ans[Q.indexOf(s2)]:undefined;};
+  let predU=0.3+(R.dpct.tr/100)*0.2;           /* «зубастость»: злость наружу или внутрь */
+  if(valN(39)===0)predU+=0.3;                  /* обида → злость, хочу ответить */
+  if(valN(43)===3)predU+=0.3;                  /* уход близкого → злость */
+  if(valN(31)===4)predU-=0.25;                 /* отвергаемый красный = подавленная злость */
+  predU=Math.max(0,Math.min(1,predU));
+  const U=[ /* [глубина, одиночество, скрытность, размер, знакомая вода, тёплая вода, скорость, зубастость] */
     Math.min(1,(R.dpct.dp/100)*0.4+(R.pct.cl/100)*0.3+acuteN*0.3),
     Math.max(0,Math.min(1,(R.pct.cl/100)*0.7+(R.pct.ct/100)*0.25-(R.pct.ab/100)*0.25)),
     Math.min(1,(R.dpct.rj/100)*0.65+(R.pct.cl/100)*0.35),
     Math.max(0,Math.min(1,(R.pct.hr/100)*0.75+(1-R.pct.ab/100)*0.25)),
-    Math.min(1,(R.pct.ct/100)*0.6+(R.pct.ab/100)*0.4)
+    Math.min(1,(R.pct.ct/100)*0.6+(R.pct.ab/100)*0.4),
+    Math.max(0,Math.min(1,1-(R.dpct.dp/100)*0.7-acuteN*0.15)),
+    Math.max(0,Math.min(1,0.15+(R.pct.hr/100)*0.5+(R.pct.ct/100)*0.2-(R.pct.cl/100)*0.15)),
+    predU
   ];
-  const AXW=[1.2,1,1,0.8,0.8];
+  const AXW=[1.2,1,1,0.8,0.8,0.7,0.7,0.7];
   const okProfile=R.order.every(p=>R.pct[p]<35)&&Object.values(R.dpct).every(v=>v<35);
   let fish=FISH[FISH.length-1],best=Infinity;
   if(!okProfile){
@@ -1653,17 +1700,26 @@ function renderResults(){
     fish.v[1]>=0.5?'одиночка':'в стае',
     fish.v[0]>=0.5?'живёт на глубине':'любит свет',
     fish.v[2]>=0.5?'скрытная':'заметная и яркая',
-    fish.v[3]>=0.5?'большая':'маленькая'
+    fish.v[3]>=0.5?'большая':'маленькая',
+    fish.v[5]>=0.5?'тёплые воды':'холодные воды',
+    fish.v[6]>=0.5?'стремительная':'неторопливая',
+    fish.v[7]>=0.5?'зубастая':'мирная'
   ];
   html+=`<h3 class="res-h2">Твоя <em>рыба</em></h3>
-  <p class="res-h2sub">Исток — это всегда вода. По пяти осям — глубина, стайность, заметность, размер и родная вода — из настоящих рыб подобрана та, что ближе всего к твоему профилю.</p>
-  <div class="lead-card">
-    <div class="pat-chips" style="justify-content:center;margin-bottom:1.2rem">${axChips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
-    <div style="font-size:3.2rem;line-height:1;margin-bottom:.8rem;text-align:center">${fish.em}</div>
-    <p class="lead-name" style="text-align:center">${fish.name}</p>
-    <p class="lead-desc">${T(fish.t)}</p>
+  <p class="res-h2sub">Исток — это всегда вода. По восьми осям — глубина, стайность, заметность, размер, родная вода, её температура, скорость и зубастость — из настоящих рыб подобрана та, что ближе всего к твоему профилю.</p>
+  <div class="lead-card" style="padding:0;overflow:hidden">
+    <div class="fish-art">${fishArtHtml(fish)}</div>
+    <div style="padding:1.5rem 1.8rem 1.8rem">
+      <div class="pat-chips" style="justify-content:center;margin-bottom:1.1rem">${axChips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+      <p class="lead-name" style="text-align:center">${fish.name}</p>
+      <p class="lead-desc">${T(fish.t)}</p>
+      <button class="res-cta" style="margin-top:1.4rem" onclick="shareFish()">Поделиться карточкой →</button>
+      <p class="ai-note" style="margin-top:.6rem">Соберётся картинка 1080×1350 — для сторис и мессенджеров.</p>
+    </div>
   </div>`;
   try{
+    window.ISTOK_SHARE={k:fish.k,name:fish.name,chips:axChips,idx:gidx,
+      top:R.order.slice(0,3).map(p=>({name:PAT[p].name,pct:R.pct[p]}))};
     if(window.ISTOK_RESULT){
       window.ISTOK_RESULT.fish=fish.name;
       localStorage.setItem('istok_result',JSON.stringify(window.ISTOK_RESULT));
@@ -1988,6 +2044,263 @@ function addJr(){
   const st=loadPr();
   st.journal=(st.journal||[]).concat([{d:isoToday(),t:v}]).slice(-40);
   savePr(st);renderPractice();
+}
+
+/* ══════════ ИЛЛЮСТРАЦИИ РЫБ (SVG, рисуются кодом) ══════════
+   Если положить фото в assets/fish/<ключ>.jpg — оно заменит рисунок. */
+const FISH_ART={
+neon:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fne" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1830"/><stop offset="1" stop-color="#090d1c"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fne)"/>
+<g opacity=".3" fill="#3a5580"><ellipse cx="70" cy="54" rx="16" ry="6"/><path d="M54,54 l-9,-5 v10z"/><ellipse cx="252" cy="44" rx="13" ry="5"/><path d="M239,44 l-8,-4 v8z"/><ellipse cx="236" cy="152" rx="15" ry="5.5"/><path d="M221,152 l-9,-4 v9z"/><ellipse cx="60" cy="150" rx="12" ry="4.5"/><path d="M48,150 l-8,-4 v8z"/></g>
+<ellipse cx="160" cy="100" rx="52" ry="19" fill="#182238"/>
+<path d="M108,100 l-22,-13 v26z" fill="#182238"/>
+<path d="M118,94 Q160,86 206,95" stroke="#5fd8ff" stroke-width="8" fill="none" opacity=".22"/>
+<path d="M118,94 Q160,86 206,95" stroke="#5fd8ff" stroke-width="3.2" fill="none" opacity=".95"/>
+<path d="M134,106 Q170,111 204,104" stroke="#ff5f8a" stroke-width="7" fill="none" opacity=".2"/>
+<path d="M134,106 Q170,111 204,104" stroke="#ff5f8a" stroke-width="2.6" fill="none" opacity=".9"/>
+<circle cx="199" cy="95" r="4" fill="#0b0e18"/><circle cx="200.5" cy="93.5" r="1.4" fill="#dff4ff"/>
+<g fill="none" stroke="rgba(184,214,255,.25)"><circle cx="224" cy="66" r="3"/><circle cx="233" cy="52" r="2"/><circle cx="90" cy="80" r="2.2"/></g></svg>`,
+clown:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fcl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1c2e"/><stop offset="1" stop-color="#0a1220"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fcl)"/>
+<g stroke="#6b5fa8" stroke-width="7" stroke-linecap="round" fill="none" opacity=".5">
+<path d="M38,200 q-6,-46 8,-72"/><path d="M66,200 q4,-54 -6,-86"/><path d="M96,200 q10,-42 2,-68"/><path d="M262,200 q8,-46 -4,-74"/><path d="M290,200 q-2,-42 8,-62"/></g>
+<g fill="#7a6fb8" opacity=".5"><circle cx="46" cy="124" r="5"/><circle cx="60" cy="112" r="5"/><circle cx="98" cy="128" r="5"/><circle cx="258" cy="122" r="5"/><circle cx="298" cy="134" r="5"/></g>
+<g transform="rotate(-6 170 96)">
+<path d="M124,96 l-26,-17 q-7,17 0,34z" fill="#e2762f"/>
+<ellipse cx="172" cy="96" rx="52" ry="30" fill="#f0813c"/>
+<path d="M152,68 q20,-16 38,-4 l-10,12z" fill="#e06f2e"/>
+<path d="M158,124 q14,12 28,6 l-8,-10z" fill="#e06f2e"/>
+<rect x="190" y="66" width="16" height="60" rx="8" fill="#f2ede4"/>
+<rect x="152" y="63" width="18" height="66" rx="9" fill="#f2ede4"/>
+<rect x="122" y="76" width="13" height="42" rx="6.5" fill="#f2ede4"/>
+<circle cx="208" cy="88" r="4.6" fill="#151020"/><circle cx="209.6" cy="86.4" r="1.5" fill="#ffe9d0"/></g></svg>`,
+betta:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fbe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#171029"/><stop offset="1" stop-color="#0c0918"/></linearGradient>
+<linearGradient id="fbf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c05fe0"/><stop offset="1" stop-color="#5f6fd8"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fbe)"/>
+<g fill="url(#fbf)" opacity=".5">
+<path d="M150,98 C232,38 288,92 238,152 C198,184 156,150 148,106z"/>
+<path d="M122,84 C132,38 196,34 214,64 C182,64 150,72 126,92z"/>
+<path d="M124,110 C118,162 172,184 198,162 C172,152 140,132 130,106z"/></g>
+<path d="M150,98 C218,52 262,96 228,142 C196,166 158,142 148,104z" fill="url(#fbf)" opacity=".35"/>
+<ellipse cx="130" cy="97" rx="31" ry="17" fill="#a05fd8"/>
+<path d="M104,90 q-10,4 -12,12 q8,6 16,4z" fill="#8f4fc4"/>
+<g stroke="#c88ae8" stroke-width="2" fill="none" opacity=".8"><path d="M128,114 q-4,26 -14,36"/><path d="M138,114 q2,24 -4,38"/></g>
+<circle cx="112" cy="92" r="4.2" fill="#170f24"/><circle cx="113.5" cy="90.5" r="1.4" fill="#f4d8ff"/></svg>`,
+flounder:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="ffl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10202e"/><stop offset="1" stop-color="#0d1520"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#ffl)"/>
+<path d="M0,148 Q80,140 160,148 T320,146 L320,200 0,200z" fill="#38315a"/>
+<g fill="#4a4276" opacity=".8"><circle cx="40" cy="168" r="2.5"/><circle cx="86" cy="178" r="2"/><circle cx="240" cy="172" r="2.5"/><circle cx="288" cy="182" r="2"/><circle cx="150" cy="184" r="2"/></g>
+<g transform="rotate(-5 160 136)">
+<ellipse cx="160" cy="136" rx="74" ry="34" fill="#4a4270"/>
+<ellipse cx="160" cy="136" rx="74" ry="34" fill="none" stroke="#575093" stroke-width="2" opacity=".6"/>
+<path d="M234,136 l24,-11 q5,11 0,22z" fill="#4a4270"/>
+<g fill="#5a5288"><circle cx="140" cy="140" r="5"/><circle cx="170" cy="128" r="4"/><circle cx="190" cy="146" r="5"/><circle cx="120" cy="152" r="3.5"/><circle cx="205" cy="128" r="3"/><circle cx="160" cy="156" r="3.5"/></g>
+<circle cx="118" cy="116" r="4.6" fill="#100c1e"/><circle cx="133" cy="110" r="4.6" fill="#100c1e"/>
+<circle cx="119.5" cy="114.5" r="1.4" fill="#cfd8f0"/><circle cx="134.5" cy="108.5" r="1.4" fill="#cfd8f0"/></g>
+<g fill="#38315a" opacity=".9"><circle cx="100" cy="164" r="6"/><circle cx="212" cy="162" r="7"/><circle cx="160" cy="170" r="5"/></g></svg>`,
+seahorse:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fsh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e2226"/><stop offset="1" stop-color="#0a1418"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fsh)"/>
+<g stroke="#2e6b5e" stroke-width="6" stroke-linecap="round" fill="none" opacity=".7">
+<path d="M132,200 C126,150 138,116 128,64"/><path d="M232,200 C238,156 226,130 236,92"/></g>
+<path d="M128,64 q-8,-14 -2,-24" stroke="#2e6b5e" stroke-width="4" fill="none" opacity=".5"/>
+<g fill="none" stroke="#b8aee8" stroke-linecap="round">
+<path d="M158,54 C178,58 186,76 176,90 C168,100 156,104 154,114 C152,126 162,132 164,144 C166,158 156,168 144,166 C134,164 130,154 134,146" stroke-width="14"/>
+<path d="M134,146 q-10,6 -4,14 q6,6 12,0" stroke-width="8"/>
+<path d="M158,56 l-20,2" stroke-width="7"/></g>
+<g stroke="#e0d8f8" stroke-width="2.5" stroke-linecap="round"><path d="M166,50 l6,-8"/><path d="M174,56 l9,-5"/><path d="M178,66 l10,-2"/></g>
+<g stroke="#8b7fbe" stroke-width="2" opacity=".8"><path d="M166,86 h12"/><path d="M158,102 h12"/><path d="M158,120 h12"/><path d="M160,136 h11"/></g>
+<circle cx="160" cy="60" r="2.8" fill="#141022"/>
+<g fill="none" stroke="rgba(184,214,255,.22)"><circle cx="200" cy="60" r="3"/><circle cx="208" cy="46" r="2"/></g></svg>`,
+catfish:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fca" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1a20"/><stop offset="1" stop-color="#0a1014"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fca)"/>
+<circle cx="268" cy="30" r="22" fill="rgba(207,216,240,.10)"/><circle cx="268" cy="30" r="10" fill="rgba(230,236,255,.14)"/>
+<polygon points="238,0 320,0 320,140" fill="rgba(207,216,240,.04)"/>
+<path d="M0,176 Q160,166 320,178 L320,200 0,200z" fill="#0d1318"/>
+<path d="M62,146 l-24,-15 q-5,17 4,32z" fill="#242f3c"/>
+<path d="M60,144 C92,120 152,112 212,121 C242,126 260,136 258,145 C252,159 220,166 178,166 C128,166 84,160 60,152z" fill="#242f3c"/>
+<path d="M150,118 l11,-17 10,17z" fill="#1c2530"/>
+<path d="M180,164 l8,12 8,-12z" fill="#1c2530"/>
+<g stroke="#9aa6bc" stroke-width="1.6" fill="none" opacity=".8">
+<path d="M256,138 q26,-12 34,-26"/><path d="M258,144 q30,0 42,10"/><path d="M252,150 q20,14 24,28"/></g>
+<circle cx="240" cy="135" r="3.2" fill="#0c1014"/>
+<g fill="none" stroke="rgba(184,214,255,.15)"><circle cx="80" cy="98" r="2.5"/><circle cx="72" cy="86" r="1.8"/></g></svg>`,
+ray:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fry" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101c2c"/><stop offset="1" stop-color="#0c1420"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fry)"/>
+<path d="M0,160 Q80,152 160,160 T320,158 L320,200 0,200z" fill="#332c50"/>
+<g fill="#443c68" opacity=".8"><circle cx="50" cy="176" r="2"/><circle cx="120" cy="184" r="2.5"/><circle cx="210" cy="178" r="2"/><circle cx="280" cy="186" r="2.5"/></g>
+<path d="M158,80 C206,88 246,114 240,132 C222,152 184,160 158,158 C132,160 96,152 78,132 C72,114 110,88 158,80z" fill="#3a3360"/>
+<g stroke="#4c4380" stroke-width="2" fill="none" opacity=".8"><path d="M110,104 C140,120 180,120 208,104"/><path d="M96,120 C136,140 184,140 224,118"/></g>
+<path d="M240,134 q36,8 54,28" stroke="#3a3360" stroke-width="5" fill="none" stroke-linecap="round"/>
+<ellipse cx="146" cy="94" rx="4" ry="4.6" fill="#120e20"/><ellipse cx="170" cy="94" rx="4" ry="4.6" fill="#120e20"/>
+<g fill="#332c50" opacity=".85"><circle cx="92" cy="140" r="6"/><circle cx="228" cy="146" r="7"/></g></svg>`,
+angler:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<radialGradient id="fag"><stop offset="0" stop-color="rgba(255,233,168,.85)"/><stop offset="1" stop-color="rgba(255,233,168,0)"/></radialGradient>
+<linearGradient id="fab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#060812"/><stop offset="1" stop-color="#030408"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fab)"/>
+<g fill="rgba(184,214,255,.16)"><circle cx="46" cy="42" r="1.4"/><circle cx="84" cy="150" r="1.2"/><circle cx="270" cy="52" r="1.4"/><circle cx="296" cy="160" r="1.2"/><circle cx="30" cy="110" r="1"/></g>
+<circle cx="108" cy="62" r="34" fill="url(#fag)"/>
+<circle cx="108" cy="62" r="5.5" fill="#ffedb0"/>
+<path d="M150,94 C134,84 118,78 109,66" stroke="#241a38" stroke-width="3.5" fill="none"/>
+<circle cx="186" cy="124" r="47" fill="#150f24" stroke="#251b3c" stroke-width="2"/>
+<path d="M158,166 l-14,14 4,-18z" fill="#150f24"/>
+<path d="M226,100 l16,-14 -4,20z" fill="#150f24"/>
+<path d="M146,112 l6,11 6,-8 6,12 7,-8 7,12 8,-7 8,11" stroke="#dfe4f4" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<circle cx="176" cy="102" r="5" fill="#ffedb0" opacity=".95"/><circle cx="177.5" cy="102" r="2" fill="#1a1228"/></svg>`,
+salmon:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fsa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#12233a"/><stop offset="1" stop-color="#0c1626"/></linearGradient>
+<linearGradient id="fsb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a9ab8"/><stop offset="1" stop-color="#b0788e"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fsa)"/>
+<g stroke="rgba(184,205,255,.12)" stroke-width="3" fill="none"><path d="M0,60 q80,-8 150,6 t170,2"/><path d="M0,110 q90,-10 170,4 t150,0"/></g>
+<g transform="rotate(-14 160 100)">
+<path d="M86,108 l-28,-20 q-3,22 9,38z" fill="#7d8ba8"/>
+<path d="M84,110 C104,84 218,82 242,100 C248,105 248,112 240,115 C212,128 110,132 88,122 C80,118 80,114 84,110z" fill="url(#fsb)"/>
+<path d="M100,120 C150,128 210,122 236,112" stroke="#d8c2cc" stroke-width="3" fill="none" opacity=".5"/>
+<path d="M150,88 l12,-14 12,13z" fill="#7d8ba8"/>
+<path d="M242,101 q9,4 4,11" stroke="#6d5a70" stroke-width="3" fill="none"/>
+<circle cx="228" cy="100" r="3.6" fill="#141828"/></g>
+<g stroke="rgba(200,220,255,.35)" fill="none" stroke-width="2">
+<path d="M110,148 q24,12 52,10"/><path d="M88,138 q10,14 30,20"/></g>
+<g fill="rgba(200,220,255,.4)"><circle cx="96" cy="126" r="2"/><circle cx="80" cy="118" r="1.6"/><circle cx="128" cy="142" r="2"/></g></svg>`,
+whaleshark:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fws" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1c33"/><stop offset="1" stop-color="#0a1322"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fws)"/>
+<polygon points="60,0 130,0 90,200 40,200" fill="rgba(207,216,240,.04)"/>
+<polygon points="190,0 240,0 270,200 220,200" fill="rgba(207,216,240,.03)"/>
+<path d="M38,126 l-26,-44 q24,8 38,26z" fill="#2c3654"/>
+<path d="M34,130 l-20,34 q22,-4 34,-18z" fill="#26304c"/>
+<path d="M20,112 C72,74 200,66 262,92 C288,102 292,114 278,124 C232,148 98,152 42,136 C24,130 14,122 20,112z" fill="#2c3654"/>
+<path d="M130,84 l16,-22 14,20z" fill="#2c3654"/>
+<path d="M284,106 q-16,12 -34,12" stroke="#1c2540" stroke-width="3" fill="none"/>
+<g stroke="#1c2540" stroke-width="2.5" fill="none"><path d="M238,96 q-4,14 0,26"/><path d="M228,96 q-4,14 0,28"/><path d="M218,97 q-4,14 0,28"/></g>
+<g fill="#c8d4f2" opacity=".5"><circle cx="80" cy="106" r="2"/><circle cx="104" cy="96" r="2"/><circle cx="130" cy="104" r="2"/><circle cx="158" cy="92" r="2"/><circle cx="184" cy="102" r="2"/><circle cx="208" cy="90" r="2"/><circle cx="96" cy="120" r="1.6"/><circle cx="122" cy="118" r="1.6"/><circle cx="150" cy="112" r="1.6"/><circle cx="176" cy="118" r="1.6"/><circle cx="202" cy="112" r="1.6"/><circle cx="226" cy="118" r="1.6"/><circle cx="66" cy="118" r="1.6"/></g>
+<circle cx="262" cy="104" r="3" fill="#101828"/>
+<g fill="#5a6a90"><ellipse cx="150" cy="162" rx="10" ry="3.4"/><path d="M140,162 l-6,-3 v6z"/></g></svg>`,
+goldfish:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="fgf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#151027"/><stop offset="1" stop-color="#0d0a18"/></linearGradient>
+<linearGradient id="fgb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb347"/><stop offset="1" stop-color="#ff7a3c"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#fgf)"/>
+<line x1="40" y1="186" x2="280" y2="186" stroke="rgba(255,255,255,.08)" stroke-width="2"/>
+<circle cx="160" cy="106" r="76" fill="rgba(90,110,170,.10)" stroke="rgba(210,220,255,.22)" stroke-width="2"/>
+<ellipse cx="160" cy="72" rx="56" ry="8" fill="none" stroke="rgba(210,220,255,.18)" stroke-width="2"/>
+<path d="M104,72 q-14,26 -4,58" stroke="rgba(255,255,255,.10)" stroke-width="3" fill="none"/>
+<g fill="#3a3358"><circle cx="130" cy="170" r="5"/><circle cx="146" cy="174" r="4"/><circle cx="166" cy="171" r="5"/><circle cx="186" cy="174" r="4"/><circle cx="202" cy="169" r="4.5"/></g>
+<path d="M162,112 C186,94 200,102 192,116 C200,128 184,140 164,120z" fill="#ff9a4c" opacity=".9"/>
+<circle cx="150" cy="112" r="18" fill="url(#fgb)"/>
+<path d="M144,94 l7,-9 6,10z" fill="#ff9a4c"/>
+<circle cx="140" cy="108" r="3.4" fill="#231018"/><circle cx="141.2" cy="106.8" r="1.1" fill="#ffe8cc"/>
+<g fill="none" stroke="rgba(210,225,255,.3)"><circle cx="150" cy="86" r="2.4"/><circle cx="156" cy="76" r="1.8"/></g></svg>`,
+flying:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="ffy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3a64"/><stop offset="1" stop-color="#16203c"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#ffy)"/>
+<circle cx="252" cy="118" r="40" fill="rgba(255,220,170,.10)"/>
+<rect y="128" width="320" height="72" fill="#0d1a30"/>
+<g stroke="rgba(184,205,255,.18)" stroke-width="2" fill="none"><path d="M0,140 q40,-6 80,0 t80,0 t80,0 t80,0"/><path d="M0,162 q40,-6 80,0 t80,0 t80,0 t80,0"/></g>
+<g transform="rotate(-14 150 88)">
+<path d="M138,86 C114,50 80,44 58,54 C86,62 112,80 134,94z" fill="#b8c8e8" opacity=".9"/>
+<path d="M148,94 C136,66 116,56 98,58 C118,70 134,86 146,98z" fill="#8fa8cc" opacity=".6"/>
+<ellipse cx="152" cy="92" rx="42" ry="12" fill="#8fa8cc"/>
+<path d="M152,98 q22,6 40,2" stroke="#c8d8ee" stroke-width="3" fill="none" opacity=".6"/>
+<path d="M112,92 l-20,-12 q-2,14 6,24z" fill="#7f96bc"/>
+<circle cx="184" cy="89" r="3.4" fill="#101828"/></g>
+<g stroke="rgba(200,220,255,.4)" fill="none" stroke-width="2"><path d="M96,132 q16,-8 34,-6"/><path d="M84,140 q8,-8 20,-10"/></g>
+<g fill="rgba(200,220,255,.45)"><circle cx="108" cy="120" r="2"/><circle cx="92" cy="126" r="1.6"/><circle cx="122" cy="114" r="1.6"/></g>
+<path d="M210,66 q30,-14 62,-10" stroke="rgba(184,200,232,.2)" stroke-width="2" stroke-dasharray="2 6" fill="none"/></svg>`};
+
+function fishArtHtml(f){
+  return `<img src="assets/fish/${f.k}.jpg" alt="" style="display:none" onload="this.style.display='block';if(this.nextElementSibling)this.nextElementSibling.style.display='none'">${FISH_ART[f.k]||''}`;
+}
+
+/* ══════════ ШЕР-КАРТОЧКА (canvas 1080×1350) ══════════ */
+function rr(x,a,b,w,h,r){x.beginPath();x.roundRect?x.roundRect(a,b,w,h,r):x.rect(a,b,w,h);}
+async function shareFish(){
+  const S=window.ISTOK_SHARE;
+  if(!S)return;
+  try{await Promise.all([
+    document.fonts.load('300 78px "Cormorant Garamond"'),
+    document.fonts.load('300 30px "Jost"')
+  ]);}catch(e){}
+  const c=document.createElement('canvas');c.width=1080;c.height=1350;
+  const x=c.getContext('2d');
+  /* фон */
+  const g=x.createLinearGradient(0,0,0,1350);
+  g.addColorStop(0,'#0d0f1a');g.addColorStop(1,'#151024');
+  x.fillStyle=g;x.fillRect(0,0,1080,1350);
+  const rg=x.createRadialGradient(540,420,60,540,420,560);
+  rg.addColorStop(0,'rgba(107,95,168,.25)');rg.addColorStop(1,'rgba(107,95,168,0)');
+  x.fillStyle=rg;x.fillRect(0,0,1080,940);
+  /* шапка */
+  x.textAlign='center';
+  x.fillStyle='#b8aee8';x.font='300 36px Jost, sans-serif';
+  x.fillText('И  С  Т  О  К',540,96);
+  x.fillStyle='#5e5a72';x.font='300 26px Jost, sans-serif';
+  x.fillText('тест о паттернах детства',540,138);
+  /* рыба */
+  const svg=(FISH_ART[S.k]||'').replace('<svg ','<svg width="840" height="525" ');
+  try{
+    const img=new Image();
+    await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;
+      img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);});
+    x.drawImage(img,120,178,840,525);
+  }catch(e){}
+  x.strokeStyle='rgba(255,255,255,.14)';x.lineWidth=2;x.strokeRect(120,178,840,525);
+  /* имя */
+  x.fillStyle='#e8e4f0';x.font='italic 300 76px "Cormorant Garamond", serif';
+  x.fillText(S.name,540,788);
+  /* теги в 2-3 ряда */
+  x.font='300 26px Jost, sans-serif';
+  const rows=[];let row=[],wsum=0;
+  S.chips.forEach(ch=>{
+    const w=x.measureText(ch).width+44;
+    if(wsum+w>860&&row.length){rows.push(row);row=[];wsum=0;}
+    row.push({t:ch,w});wsum+=w+14;
+  });
+  if(row.length)rows.push(row);
+  let cy=838;
+  rows.forEach(r=>{
+    const total=r.reduce((a,ci)=>a+ci.w,0)+14*(r.length-1);
+    let cx0=540-total/2;
+    r.forEach(ci=>{
+      x.strokeStyle='rgba(139,127,190,.55)';x.lineWidth=1.5;
+      rr(x,cx0,cy-30,ci.w,44,22);x.stroke();
+      x.fillStyle='#9b96b0';x.fillText(ci.t,cx0+ci.w/2,cy);
+      cx0+=ci.w+14;
+    });
+    cy+=54;
+  });
+  /* топ-3 паттерна */
+  cy+=26;
+  S.top.forEach(t=>{
+    x.textAlign='left';x.fillStyle='#e8e4f0';x.font='300 31px Jost, sans-serif';
+    x.fillText(t.name,140,cy);
+    x.textAlign='right';x.fillStyle='#b8aee8';x.font='italic 300 34px "Cormorant Garamond", serif';
+    x.fillText(t.pct+'%',940,cy);
+    x.fillStyle='rgba(255,255,255,.13)';x.fillRect(140,cy+16,800,3);
+    x.fillStyle='#8b7fbe';x.fillRect(140,cy+16,800*Math.min(100,t.pct)/100,3);
+    cy+=80;x.textAlign='center';
+  });
+  /* индекс + футер */
+  x.fillStyle='#5e5a72';x.font='300 26px Jost, sans-serif';
+  x.fillText('общий индекс детского следа — '+S.idx+'%',540,cy+6);
+  x.fillStyle='#8b7fbe';x.font='300 30px Jost, sans-serif';
+  x.fillText('Какая рыба живёт в твоём истоке?',540,1318);
+  /* экспорт: share или скачивание */
+  c.toBlob(async b=>{
+    if(!b)return;
+    const f=new File([b],'istok-fish.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){
+      try{await navigator.share({files:[f],title:'Исток'});return;}catch(e){}
+    }
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(b);a.download='istok-fish.png';a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+  },'image/png');
 }
 
 /* ══════════ ИИ-РАЗБОР (Netlify-функция → Claude API) ══════════ */
