@@ -1754,8 +1754,18 @@ const Music={
   VOL:0.16,FILE_VOL:0.35,
   CHORDS:[[110,220,261.63,329.63],[87.31,174.61,261.63,349.23],[130.81,196,261.63,329.63],[98,196,246.94,293.66]],
   SCALE:[440,523.25,587.33,659.25,783.99,880,1046.5],
+  unlock(){
+    /* Разблокировка аудио строго внутри жеста пользователя (важно для Safari/iOS):
+       контекст создаётся и resume() вызывается синхронно в обработчике клика. */
+    try{
+      const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      if(!this.ctx)this.ctx=new AC();
+      if(this.ctx.state==='suspended')this.ctx.resume();
+    }catch(e){}
+  },
   start(){
     if(this.on)return;this.on=true;
+    this.unlock();
     if(this.mode==='synth'){this.startSynth();return;}
     if(this.mode==='file'){this.fileAudio.volume=this.ducked?0.08:this.FILE_VOL;this.fileAudio.play().catch(()=>{});return;}
     const a=new Audio('assets/music.mp3');
@@ -1768,7 +1778,13 @@ const Music={
     try{
       const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
       if(!this.ctx)this.ctx=new AC();
-      const c=this.ctx;if(c.state==='suspended')c.resume();
+      const c=this.ctx;
+      if(c.state==='suspended'){
+        c.resume();
+        /* если браузер не дал включить звук вне клика — включим при первом же касании */
+        const un=()=>{c.resume();document.removeEventListener('pointerdown',un);document.removeEventListener('keydown',un);};
+        document.addEventListener('pointerdown',un);document.addEventListener('keydown',un);
+      }
       const t=c.currentTime;
       this.master=c.createGain();
       this.master.gain.setValueAtTime(0.0001,t);
