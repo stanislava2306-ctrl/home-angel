@@ -316,6 +316,23 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 .plan-foot{display:flex;gap:1.6rem;margin-top:.8rem;}
 .plan-foot .flink{margin-top:0;display:inline;}
 .plan-prev:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.flinks{display:flex;gap:1.6rem;justify-content:center;align-items:baseline;}
+.flinks .flink{display:inline;}
+a.flink{color:var(--text3);}
+#att-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
+#att-s.on{display:flex;}
+.att-entry{margin-top:1.4rem;text-align:center;font-size:.85rem;color:var(--text3);}
+.att-entry-b{background:none;border:none;color:var(--accent3);font-family:'Jost',sans-serif;font-size:.85rem;cursor:pointer;text-decoration:underline;text-underline-offset:4px;}
+.att-entry-b:hover{color:var(--text);}
+.att-axes{margin:1.6rem 0 1.8rem;display:flex;flex-direction:column;gap:1rem;max-width:520px;}
+.att-p{color:var(--text2);line-height:1.85;margin-bottom:1.1rem;max-width:660px;font-size:.93rem;}
+.att-link{border-left:2px solid var(--accent2);background:var(--mist2);padding:.9rem 1.2rem;color:var(--text2);font-size:.87rem;line-height:1.75;margin:1.2rem 0;max-width:660px;}
+.att-adv{border:1px solid var(--border);border-radius:10px;padding:.85rem 1.1rem;color:var(--text2);font-size:.88rem;line-height:1.7;margin-bottom:.6rem;max-width:660px;}
+.att-cab{border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.3rem;display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap;}
+.att-cab b{font-weight:400;color:var(--text);}
+.att-cab span{color:var(--text3);font-size:.8rem;}
+.att-cab .flink{margin:0;}
+@media(max-width:520px){#att-s{padding:5rem 1.1rem 4rem;}}
 /* ═══ PRACTICE ═══ */
 #practice-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
 #practice-s.on{display:flex;}
@@ -443,11 +460,13 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
         <div class="bcard"><span class="btag">Шкалы + контекст · 13</span><h3>Как ты оцениваешь?</h3><p>Шкалы воспоминаний и контекст: полная ли семья, порядок рождения, атмосфера дома. Без этого читать остальное некорректно.</p></div>
       </div>
       <div class="cta-c"><button class="hero-cta" onclick="startTest()">Начать тест <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="width:16px;height:16px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      <p class="att-entry">Есть три минуты? <button class="att-entry-b" onclick="showAtt()">Узнай свой стиль привязанности →</button></p>
     </div>
   </section>
 
   <footer><div class="flogo"><span>И</span>СТОК</div><div class="fnote">Инструмент самопознания. Не является терапией или медицинским диагнозом.</div>
-    <button class="flink" onclick="showMethod()">На чём основан тест</button>
+    <div class="flinks"><button class="flink" onclick="showMethod()">На чём основан тест</button>
+    <a class="flink" href="articles/" style="display:inline">Статьи</a></div>
     <button class="snd-chk" onclick="soundCheck()">♪ Проверить звук</button>
     <div class="snd-res" id="sndRes"></div>
     <div class="fver">сборка 10.07.2026-3</div>
@@ -456,6 +475,7 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 
 <div id="test-s"><div class="tc" id="tc"></div></div>
 <div id="practice-s"><div class="pc" id="pc"></div></div>
+<div id="att-s"><div class="pc" id="ac"></div></div>
 <div id="method-s"><div class="pc">
   <button class="btn-bk" onclick="showLanding()" style="margin-bottom:2rem">← На главную</button>
   <p class="t-blk">О методе</p>
@@ -1080,12 +1100,12 @@ function oeHtml(s,a){
   return `<div class="aud-fact${e?' on':''}" id="oe">${e?'<b>Про твой выбор:</b> '+T(e):''}</div>`;
 }
 
-function showLanding(){document.getElementById('landing').style.display='';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');const m=document.getElementById('method-s');if(m)m.classList.remove('on');Music.stop();AudioIll.stop();window.scrollTo(0,0);}
-function showMethod(){document.getElementById('landing').style.display='none';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');document.getElementById('method-s').classList.add('on');window.scrollTo(0,0);}
+function showLanding(){document.getElementById('landing').style.display='';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');['method-s','att-s'].forEach(id=>{const m=document.getElementById(id);if(m)m.classList.remove('on');});Music.stop();AudioIll.stop();window.scrollTo(0,0);}
+function showMethod(){document.getElementById('landing').style.display='none';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');const a=document.getElementById('att-s');if(a)a.classList.remove('on');document.getElementById('method-s').classList.add('on');window.scrollTo(0,0);}
 function startTest(){
   document.getElementById('landing').style.display='none';
   document.getElementById('practice-s').classList.remove('on');
-  const m=document.getElementById('method-s');if(m)m.classList.remove('on');
+  ['method-s','att-s'].forEach(id=>{const m=document.getElementById(id);if(m)m.classList.remove('on');});
   document.getElementById('test-s').classList.add('on');
   window.scrollTo(0,0);
   if(Music.enabled)Music.start();
@@ -2142,6 +2162,12 @@ function renderPractice(){
     <div class="hist-box">${rows}</div>${dyn}`;
   }
 
+  /* ── стиль привязанности ── */
+  const att=loadAtt();
+  const attHtml=att
+    ?`<div class="att-cab"><b>${ATT_RES[att.style].em} ${ATT_RES[att.style].name}</b><span>тревожность ${att.anx}% · избегание ${att.av}% · ${att.d.split('-').reverse().join('.')}</span><button class="flink" onclick="showAtt()">подробнее</button></div>`
+    :`<div class="att-cab"><b>Стиль привязанности</b><span>дополнительный тест · 3 минуты</span><button class="flink" onclick="window.__attRetake=true;showAtt()">пройти</button></div>`;
+
   /* ── персональный план ── */
   let plan=loadPlan();
   let planHtml='';
@@ -2199,6 +2225,7 @@ function renderPractice(){
     <div class="pat-chips">${order.map(p=>`<span class="chip">${res.patterns[p].name} · <b>${res.patterns[p].pct}%</b></span>`).join('')}</div>
 
     ${histHtml}
+    ${attHtml}
     ${planHtml}
 
     <div class="streak-row">
@@ -2871,6 +2898,136 @@ async function requestAI(){
     <p>ИИ-разбор работает только на опубликованной версии сайта (Netlify) с настроенным ключом API — локально и на GitHub Pages эта кнопка не активна. Всё остальное в результатах посчитано и без него.</p>`;
     btn.disabled=false;btn.textContent='Попробовать ещё раз →';
   }
+}
+
+
+/* ══════════ ТЕСТ: СТИЛЬ ПРИВЯЗАННОСТИ ══════════
+   16 утверждений, две оси (тревожность / избегание), 4 стиля.
+   По мотивам модели ECR-R; формулировки собственные. */
+const ATTQ=[
+ {t:'Я часто беспокоюсь, что близкий человек может ко мне охладеть.',ax:'anx'},
+ {t:'Если мне долго не отвечают, я начинаю придумывать плохие объяснения.',ax:'anx'},
+ {t:'Мне нужно много подтверждений, что меня любят.',ax:'anx'},
+ {t:'Боюсь, что если человек узнает меня по-настоящему — я ему разонравлюсь.',ax:'anx'},
+ {t:'Когда близкий человек отдаляется, я чувствую почти физическую тревогу.',ax:'anx'},
+ {t:'Я редко переживаю о том, что отношения могут закончиться.',ax:'anx',r:1},
+ {t:'Мне тяжело подолгу быть в одиночестве: пустота быстро превращается в тревогу.',ax:'anx'},
+ {t:'Паузы и молчание в отношениях я переношу спокойно.',ax:'anx',r:1},
+ {t:'Мне некомфортно, когда кто-то подбирается ко мне слишком близко эмоционально.',ax:'av'},
+ {t:'Я предпочитаю не показывать, что у меня внутри.',ax:'av'},
+ {t:'Мне легко открыться близкому человеку.',ax:'av',r:1},
+ {t:'Когда отношения становятся серьёзными, мне хочется отстраниться.',ax:'av'},
+ {t:'Свои проблемы я решаю в одиночку: просить поддержки — не про меня.',ax:'av'},
+ {t:'Зависеть от другого человека для меня почти невыносимо.',ax:'av'},
+ {t:'Делиться чувствами для меня естественно и спокойно.',ax:'av',r:1},
+ {t:'Сохранять дистанцию мне проще, чем строить близость.',ax:'av'}];
+const ATT_RES={
+ sec:{name:'Надёжный стиль',em:'🌿',sum:'Близость и самостоятельность не спорят внутри тебя: ты умеешь быть рядом и умеешь быть отдельно.',b:[
+  'Низкая тревожность и низкое избегание — это то, что психологи называют надёжной привязанностью. Ты способ{на|ен} доверять, говорить о чувствах, переносить паузы и конфликты без катастрофы внутри. Такой стиль — лучшая опора и для отношений, и для родительства.',
+  'Это не значит, что тревога или желание закрыться не знакомы тебе вовсе — стиль привязанности не броня, а привычный диапазон. В сильном стрессе любой человек сдвигается к тревоге или избеганию. Разница в том, что тебе есть куда возвращаться.'],
+  adv:['Поддерживай то, что работает: честные разговоры, просьбы напрямую, отдых без вины.','Твоя устойчивость — ресурс для других: рядом с надёжным человеком чужие паттерны потихоньку перенастраиваются.','Если результат Истока показал заметные паттерны — надёжная база поможет проработать их быстрее.']},
+ anx:{name:'Тревожный стиль',em:'🌊',sum:'Близость для тебя жизненно важна — настолько, что страх её потерять включается раньше самой близости.',b:[
+  'Высокая тревожность привязанности обычно вырастает из непредсказуемой близости в детстве: взрослый был то тёплым, то недоступным, и ребёнок выучил — связь надо непрерывно отслеживать и удерживать. Отсюда чуткость к малейшим сигналам отдаления, потребность в подтверждениях, трудность выносить паузы.',
+  'Важно: это не «слишком много чувств», а точно настроенный радар из прошлого. Он перенастраивается — опытом стабильных отношений и практикой проверки тревожных прогнозов фактами.'],
+  adv:['Учись замечать разницу между фактом («не ответил два часа») и прогнозом («я больше не нужн{а|}»).','Проси подтверждения прямо, а не тестами и намёками — прямой вопрос честнее и эффективнее.','В Истоке твоя пара — паттерн «Покинутость»: план проработки в кабинете целится именно туда.']},
+ av:{name:'Избегающий стиль',em:'🪨',sum:'Ты научился{|ась} справляться сам{|а} — так рано и так хорошо, что близость стала казаться лишней или опасной.',b:[
+  'Высокое избегание обычно формируется там, где чувства ребёнка встречали холод, насмешку или требование «не раскисать». Вывод — рассчитывать можно только на себя — делает человека сильным и самодостаточным снаружи и одиноким внутри.',
+  'Дистанция — не характер, а выученная защита. Она снималась бы легко, если бы не одно: за ней действительно когда-то было больно. Поэтому открытость возвращают маленькими безопасными дозами, а не прыжком в уязвимость.'],
+  adv:['Начни с дозированной открытости: одно чувство вслух одному безопасному человеку.','Замечай импульс отстраниться в момент сближения — просто замечай, это уже половина работы.','В Истоке твоя пара — паттерн «Закрытость»: телесные и письменные практики из плана подходят избегающему стилю лучше всего.']},
+ dis:{name:'Тревожно-избегающий стиль',em:'⚡',sum:'Внутри одновременно живут «не уходи» и «не приближайся» — и это самое честное описание того, как было в детстве.',b:[
+  'Сочетание высокой тревожности и высокого избегания складывается там, где источник тепла был одновременно источником боли: близость и страх шли в одном флаконе. Взрослый рисунок — качели: притянуть человека, испугаться, оттолкнуть, испугаться потери, притянуть снова.',
+  'Это самый энергозатратный стиль, и он же — самый «детский» по происхождению: ребёнку было не на что опереться. Хорошая новость: качели останавливаются, когда появляется опыт связи, в которой можно и быть рядом, и отходить — без наказания за то и другое. Часто здесь особенно полезна работа с психологом.'],
+  adv:['Замечай сами качели: «сейчас я притягиваю» / «сейчас отталкиваю». Названное — уже наполовину управляемое.','Договаривайся с близкими о правилах пауз: предсказуемость снаружи успокаивает бурю внутри.','Из всех стилей этому больше всего помогает бережная работа со специалистом — Исток и план будут хорошей картой для неё.']}};
+
+function loadAtt(){try{const a=JSON.parse(localStorage.getItem('istok_att')||'null');return a&&a.v===1?a:null;}catch(e){return null;}}
+function showAtt(){
+  document.getElementById('landing').style.display='none';
+  document.getElementById('test-s').classList.remove('on');
+  document.getElementById('practice-s').classList.remove('on');
+  const m=document.getElementById('method-s');if(m)m.classList.remove('on');
+  document.getElementById('att-s').classList.add('on');
+  Music.stop();AudioIll.stop();
+  renderAtt();window.scrollTo(0,0);
+}
+function hideAtt(){document.getElementById('att-s').classList.remove('on');}
+function renderAtt(){
+  const el=document.getElementById('ac');
+  const saved=loadAtt();
+  const a=window.__att;
+  if(!a&&saved&&!window.__attRetake){renderAttResult(saved);return;}
+  if(!a){window.__att={ans:{}};}
+  const ans=window.__att.ans;
+  const doneAll=ATTQ.every((q,i)=>ans[i]);
+  el.innerHTML=`<div class="scr">
+    <p class="t-blk">Дополнительный тест · 3 минуты</p>
+    <h2 class="t-q">Твой стиль <em style="font-style:italic;color:var(--accent3)">привязанности</em></h2>
+    <p class="t-sub">16 утверждений о том, как ты ведёшь себя в близких отношениях — романтических и не только. Отвечай про то, как обычно бывает, а не как хотелось бы. 1 — совсем не про меня, 5 — точно про меня.</p>
+    <div class="sc-list">${ATTQ.map((q,i)=>`
+      <div class="sc-item">
+        <p class="sc-q">${i+1}. ${q.t}</p>
+        <div class="sc-ends"><span>совсем не про меня</span><span>точно про меня</span></div>
+        <div class="sc-row att-row">${[1,2,3,4,5].map(n=>`<button class="sc-btn${ans[i]===n?' sel':''}" onclick="attPick(${i},${n})">${n}</button>`).join('')}</div>
+      </div>`).join('')}</div>
+    <button class="btn-nx" style="width:100%;padding:1.1rem;margin-top:1rem" ${doneAll?'':'disabled'} onclick="attFinish()">${doneAll?'Показать результат →':`Осталось ответить: ${ATTQ.filter((q,i)=>!ans[i]).length}`}</button>
+    <div class="res-foot"><button class="btn-bk" onclick="hideAtt();showLanding()">← На главную</button></div>
+  </div>`;
+}
+function attPick(i,v){
+  window.__att.ans[i]=v;
+  /* точечное обновление без полного ререндера, чтобы не прыгал скролл */
+  const rows=document.querySelectorAll('.att-row');
+  if(rows[i]){[...rows[i].children].forEach((b,n)=>b.classList.toggle('sel',n+1===v));}
+  const left=ATTQ.filter((q,ix)=>!window.__att.ans[ix]).length;
+  const btn=document.querySelector('#ac .btn-nx');
+  if(btn){btn.disabled=left>0;btn.textContent=left>0?`Осталось ответить: ${left}`:'Показать результат →';}
+}
+function attFinish(){
+  const ans=window.__att.ans;
+  let sa=0,sv=0;
+  ATTQ.forEach((q,i)=>{
+    const v=q.r?6-ans[i]:ans[i];
+    if(q.ax==='anx')sa+=v;else sv+=v;
+  });
+  const anx=Math.round((sa-8)/32*100),av=Math.round((sv-8)/32*100);
+  const style=anx>=50?(av>=50?'dis':'anx'):(av>=50?'av':'sec');
+  const rec={v:1,d:new Date().toISOString().slice(0,10),anx,av,style};
+  try{localStorage.setItem('istok_att',JSON.stringify(rec));}catch(e){}
+  window.__att=null;window.__attRetake=false;
+  renderAttResult(rec);window.scrollTo(0,0);
+}
+function renderAttResult(rec){
+  const el=document.getElementById('ac');
+  const R=ATT_RES[rec.style];
+  let link='';
+  try{
+    const res=JSON.parse(localStorage.getItem('istok_result')||'null');
+    if(res&&res.patterns){
+      const map={anx:'ab',av:'cl',dis:'ab',sec:null};
+      const pk=map[rec.style];
+      if(pk&&res.patterns[pk])link=`<p class="att-link">${T('Твой результат Истока это подтверждает: паттерн «'+res.patterns[pk].name+'» — '+res.patterns[pk].pct+'%. Эти двое всегда ходят парой, и план в кабинете работает с обоими.')}</p>`;
+    }
+  }catch(e){}
+  el.innerHTML=`<div class="scr">
+    <p class="t-blk">Стиль привязанности · результат от ${rec.d.split('-').reverse().join('.')}</p>
+    <h2 class="t-q">${R.em} ${R.name}</h2>
+    <p class="t-sub" style="font-size:1.02rem">${T(R.sum)}</p>
+    <div class="att-axes">
+      <div class="att-ax"><div class="tc-hd"><span class="tc-nm">Тревожность привязанности</span><span class="tc-pct">${rec.anx}%</span></div>
+        <div class="tc-bg"><div class="tc-fill" style="width:${rec.anx}%"></div></div></div>
+      <div class="att-ax"><div class="tc-hd"><span class="tc-nm">Избегание близости</span><span class="tc-pct">${rec.av}%</span></div>
+        <div class="tc-bg"><div class="tc-fill" style="width:${rec.av}%"></div></div></div>
+    </div>
+    ${R.b.map(p=>`<p class="att-p">${T(p)}</p>`).join('')}
+    ${link}
+    <h3 class="res-h2">С чего <em>начать</em></h3>
+    ${R.adv.map(a=>`<div class="att-adv">${T(a)}</div>`).join('')}
+    <button class="res-cta" onclick="hideAtt();showPractice()">Открыть кабинет →</button>
+    <div class="res-foot">
+      <button class="btn-bk" onclick="window.__attRetake=true;window.__att=null;renderAtt();window.scrollTo(0,0)">Пройти заново</button>
+      <button class="btn-bk" onclick="hideAtt();showLanding()">← На главную</button>
+    </div>
+    <p class="res-disc">Стиль привязанности — не приговор и не ярлык: это привычный диапазон, который меняется опытом. Тест носит ознакомительный характер.</p>
+  </div>`;
 }
 
 /* ══════════ ПРОВЕРКА ЗВУКА (диагностика) ══════════ */
