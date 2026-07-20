@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://istokyoursoul.netlify.app/sitemap.xml
