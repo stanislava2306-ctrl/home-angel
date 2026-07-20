@@ -1,6 +1,10 @@
 // Исток · ИИ-разбор результатов теста.
 // Прокси к Claude API: ключ хранится в переменной окружения Netlify,
 // в браузер никогда не попадает. Ответ стримится как plain text.
+// Если задан YOOKASSA_SECRET_KEY — разбор платный: требуется токен оплаты
+// из pay-check (HMAC от id платежа). Без этой переменной разбор бесплатный.
+
+import { createHmac } from 'node:crypto';
 
 const SYSTEM = `Ты — психолог проекта «Исток», тёплый и внимательный. Тебе передают результаты
 глубокого теста на детские паттерны: пять основных шкал с процентами (тревога покинутости,
@@ -42,6 +46,19 @@ export default async (req) => {
   // лёгкая валидация и обрезка, чтобы не гонять мусор
   if (!payload || !payload.patterns || !Array.isArray(payload.answers)) {
     return new Response('Bad payload', { status: 400 });
+  }
+
+  // платёжный шлагбаум (активен только при настроенной ЮKassa)
+  const paySecret = process.env.YOOKASSA_SECRET_KEY;
+  if (paySecret) {
+    const ok = payload.payId && payload.payToken &&
+      payload.payToken === createHmac('sha256', paySecret).update('istok-pay:' + payload.payId).digest('hex');
+    if (!ok) {
+      return new Response(JSON.stringify({ price: (process.env.PAY_PRICE_RUB || '249') + ' ₽' }), {
+        status: 402, headers: { 'content-type': 'application/json' },
+      });
+    }
+    delete payload.payId; delete payload.payToken;
   }
   payload.answers = payload.answers.slice(0, 80).map(a => ({
     n: a.n, type: a.type,

@@ -466,7 +466,9 @@ a.flink{color:var(--text3);}
 
   <footer><div class="flogo"><span>И</span>СТОК</div><div class="fnote">Инструмент самопознания. Не является терапией или медицинским диагнозом.</div>
     <div class="flinks"><button class="flink" onclick="showMethod()">На чём основан тест</button>
-    <a class="flink" href="articles/" style="display:inline">Статьи</a></div>
+    <a class="flink" href="articles/" style="display:inline">Статьи</a>
+    <a class="flink" href="oferta.html" style="display:inline">Оферта</a>
+    <a class="flink" href="privacy.html" style="display:inline">Конфиденциальность</a></div>
     <button class="snd-chk" onclick="soundCheck()">♪ Проверить звук</button>
     <div class="snd-res" id="sndRes"></div>
     <div class="fver">сборка 10.07.2026-3</div>
@@ -2168,6 +2170,12 @@ function renderPractice(){
     ?`<div class="att-cab"><b>${ATT_RES[att.style].em} ${ATT_RES[att.style].name}</b><span>тревожность ${att.anx}% · избегание ${att.av}% · ${att.d.split('-').reverse().join('.')}</span><button class="flink" onclick="showAtt()">подробнее</button></div>`
     :`<div class="att-cab"><b>Стиль привязанности</b><span>дополнительный тест · 3 минуты</span><button class="flink" onclick="window.__attRetake=true;showAtt()">пройти</button></div>`;
 
+  /* ── ИИ-разбор в кабинете ── */
+  const aiHtml=`<h3 class="res-h2">Глубокий <em>ИИ-разбор</em></h3>
+    <p class="res-h2sub">${window.__paidJust?'Оплата прошла ✓ — разбор твой, жми кнопку.':T('Персональный текстовый разбор всех ответов последнего прохождения — включая написанное своими словами.')}</p>
+    <button class="res-cta" style="margin-top:0" onclick="requestAI(this)">Получить ИИ-разбор →</button>
+    <div class="ai-box"></div>`;
+
   /* ── персональный план ── */
   let plan=loadPlan();
   let planHtml='';
@@ -2226,6 +2234,7 @@ function renderPractice(){
 
     ${histHtml}
     ${attHtml}
+    ${aiHtml}
     ${planHtml}
 
     <div class="streak-row">
@@ -2249,6 +2258,7 @@ function renderPractice(){
     </div>
     <p class="res-disc">Если практика поднимает сильные чувства — снизь темп. Исток — поддержка, а не замена терапии.</p>
   </div>`;
+  window.__paidJust=false;
 }
 function togDone(kind){
   const st=loadPr();const today=isoToday();
@@ -2867,12 +2877,15 @@ function fmtAI(t){
   return esc(t).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').split(/\n{2,}/)
     .map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
 }
-async function requestAI(){
-  const btn=document.getElementById('aiBtn'),box=document.getElementById('aiBox');
+async function requestAI(btnEl){
+  const btn=btnEl||document.getElementById('aiBtn');
+  let box=btn&&btn.nextElementSibling&&btn.nextElementSibling.classList.contains('ai-box')?btn.nextElementSibling:document.getElementById('aiBox');
   if(!btn||!box)return;
   let payload=window.ISTOK_RESULT;
   if(!payload){try{payload=JSON.parse(localStorage.getItem('istok_result')||'null');}catch(e){}}
   if(!payload){box.classList.add('on');box.innerHTML='<p>Не найдены сохранённые ответы — пройди тест ещё раз.</p>';return;}
+  const pay=loadPay();
+  if(pay){payload.payId=pay.id;payload.payToken=pay.token;}
   btn.disabled=true;btn.textContent='Разбор пишется…';
   box.classList.add('on');box.innerHTML='<p style="color:var(--text3)">Подключаюсь…</p>';
   try{
@@ -2881,6 +2894,14 @@ async function requestAI(){
       headers:{'content-type':'application/json'},
       body:JSON.stringify(payload)
     });
+    if(resp.status===402){
+      let price='249 ₽';try{const d=await resp.json();if(d&&d.price)price=d.price;}catch(e){}
+      box.innerHTML=`<p><b>Глубокий ИИ-разбор — платная часть Истока.</b></p>
+      <p>Персональный текст по всем твоим ответам, включая написанное своими словами. Стоимость — ${price}, оплата картой или через СБП (ЮKassa). Разбор откроется сразу после оплаты и останется доступным в этом браузере.</p>`;
+      btn.disabled=false;btn.textContent='Оплатить '+price+' →';
+      btn.onclick=()=>payStart(btn);
+      return;
+    }
     if(!resp.ok)throw new Error('HTTP '+resp.status);
     const reader=resp.body.getReader();
     const dec=new TextDecoder();
@@ -3029,6 +3050,55 @@ function renderAttResult(rec){
     <p class="res-disc">Стиль привязанности — не приговор и не ярлык: это привычный диапазон, который меняется опытом. Тест носит ознакомительный характер.</p>
   </div>`;
 }
+
+/* ══════════ ОПЛАТА ИИ-РАЗБОРА (ЮKassa) И ДОНАТЫ ══════════ */
+const DONATE_URL=''; /* вставь сюда ссылку CloudTips/Boosty — кнопка «Поддержать проект» появится сама */
+function loadPay(){try{const p=JSON.parse(localStorage.getItem('istok_pay')||'null');return p&&p.id&&p.token?p:null;}catch(e){return null;}}
+async function payStart(btnEl){
+  const btn=btnEl;
+  const box=btn&&btn.nextElementSibling&&btn.nextElementSibling.classList.contains('ai-box')?btn.nextElementSibling:document.getElementById('aiBox');
+  try{
+    if(btn){btn.disabled=true;btn.textContent='Открываю оплату…';}
+    const r=await fetch('/api/pay-create',{method:'POST'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(!d.url)throw new Error('no url');
+    try{localStorage.setItem('istok_payid',d.id);}catch(e){}
+    location.href=d.url;
+  }catch(e){
+    if(box){box.classList.add('on');box.innerHTML='<p>Не получилось открыть оплату — попробуй ещё раз чуть позже.</p>';}
+    if(btn){btn.disabled=false;btn.textContent='Оплатить и получить разбор →';}
+  }
+}
+async function payCheck(){
+  let id=null;try{id=localStorage.getItem('istok_payid');}catch(e){}
+  if(!id)return false;
+  try{
+    const r=await fetch('/api/pay-check?id='+encodeURIComponent(id));
+    if(!r.ok)return false;
+    const d=await r.json();
+    if(d.status==='succeeded'&&d.token){
+      localStorage.setItem('istok_pay',JSON.stringify({id,token:d.token}));
+      localStorage.removeItem('istok_payid');
+      return true;
+    }
+    if(d.status==='canceled')localStorage.removeItem('istok_payid');
+  }catch(e){}
+  return false;
+}
+/* возврат со страницы оплаты: проверяем платёж и ведём в кабинет к разбору */
+window.addEventListener('load',async()=>{
+  let pending=null;try{pending=localStorage.getItem('istok_payid');}catch(e){}
+  if(!pending)return;
+  const ok=await payCheck();
+  if(ok){window.__paidJust=true;showPractice();}
+});
+/* донат-кнопка в футере, если задана ссылка */
+document.addEventListener('DOMContentLoaded',()=>{
+  if(!DONATE_URL)return;
+  const fl=document.querySelector('.flinks');
+  if(fl){const a=document.createElement('a');a.className='flink';a.style.display='inline';a.href=DONATE_URL;a.target='_blank';a.rel='noopener';a.textContent='Поддержать проект ♥';fl.appendChild(a);}
+});
 
 /* ══════════ ПРОВЕРКА ЗВУКА (диагностика) ══════════ */
 function soundCheck(){
