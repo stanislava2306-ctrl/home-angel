@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Исток — познай себя</title>
 <meta name="description" content="Исток — глубокий мультимодальный тест на 55 вопросов: найди паттерны из детства, которые управляют твоей жизнью сегодня.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Исток — какие паттерны из детства управляют твоей жизнью?">
+<meta property="og:description" content="Глубокий тест на 55 вопросов: звуковые и визуальные иллюзии, незаконченные предложения, цвета и воспоминания. В конце — твоя рыба-тотем. Всё бесплатно и приватно.">
+<meta property="og:image" content="https://istokyoursoul.netlify.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://istokyoursoul.netlify.app/">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Исток — какие паттерны из детства управляют твоей жизнью?">
+<meta name="twitter:image" content="https://istokyoursoul.netlify.app/assets/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d0f1a'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='40' fill='%23b9aef0' text-anchor='middle'%3EИ%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -256,6 +269,53 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 .snd-res{font-size:.72rem;color:var(--text3);max-width:430px;margin:.7rem auto 0;line-height:1.7;}
 .snd-res strong{color:var(--text2);font-weight:400;}
 .fver{font-size:.6rem;color:var(--text3);opacity:.45;margin-top:1.2rem;letter-spacing:.12em;}
+.mus-grp{display:flex;align-items:center;gap:.55rem;}
+.mus-vol{-webkit-appearance:none;appearance:none;width:64px;height:3px;background:rgba(255,255,255,.18);border-radius:2px;outline:none;cursor:pointer;}
+.mus-vol::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:11px;height:11px;border-radius:50%;background:var(--accent);border:none;}
+.mus-vol::-moz-range-thumb{width:11px;height:11px;border-radius:50%;background:var(--accent);border:none;}
+.gen-opt:focus-visible,.col-sw:focus-visible,.img-opt:focus-visible,.aud-pl:focus-visible,.br-ring:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+@media(max-width:520px){.mus-vol{width:44px;}}
+#method-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
+#method-s.on{display:flex;}
+.m-h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:2.4rem;margin-bottom:1.2rem;}
+.m-h1 em{color:var(--accent2);}
+.m-lead{color:var(--text2);line-height:1.8;max-width:640px;margin-bottom:2.6rem;}
+.m-item{border-left:2px solid var(--border2);padding:0 0 0 1.4rem;margin-bottom:2.2rem;max-width:680px;}
+.m-item h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.35rem;margin-bottom:.6rem;color:var(--text);}
+.m-item p{color:var(--text2);line-height:1.85;font-size:.92rem;}
+.m-disc{background:var(--mist2);border-left:2px solid var(--accent2);padding:1.1rem 1.4rem;color:var(--text2);font-size:.85rem;line-height:1.8;max-width:680px;margin-top:2.5rem;}
+.flink{background:none;border:none;color:var(--text3);font-family:'Jost',sans-serif;font-size:.78rem;letter-spacing:.06em;cursor:pointer;text-decoration:underline;text-underline-offset:4px;margin-top:1.4rem;display:block;}
+.flink:hover{color:var(--text2);}
+@media(max-width:520px){#method-s{padding:5rem 1.1rem 4rem;}}
+/* кабинет */
+.hist-box{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.2rem;}
+.hist-row{display:flex;align-items:center;gap:1rem;padding:.7rem 1.1rem;border-bottom:1px solid var(--border);font-size:.85rem;}
+.hist-row:last-child{border-bottom:none;}
+.hist-d{color:var(--text3);min-width:82px;}
+.hist-f{flex:1;color:var(--text2);}
+.hist-i{color:var(--accent3);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;}
+.dyn-lbl{font-size:.8rem;color:var(--text3);margin:.4rem 0 .7rem;}
+.dyn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;margin-bottom:.7rem;}
+.dyn-cell{border:1px solid var(--border);border-radius:9px;padding:.6rem .8rem;display:flex;flex-direction:column;gap:.25rem;}
+.dyn-nm{font-size:.72rem;color:var(--text3);}
+.dyn-v{font-size:.95rem;color:var(--text);}
+.dyn-cell.down .dyn-v b{color:#7fc78f;}
+.dyn-cell.up .dyn-v b{color:#c9848f;}
+.dyn-cell.same .dyn-v b{color:var(--text3);}
+.dyn-note{font-size:.72rem;color:var(--text3);line-height:1.6;margin-bottom:1.4rem;}
+.plan-bar{position:relative;height:26px;border:1px solid var(--border);border-radius:99px;overflow:hidden;margin:.4rem 0 1.3rem;}
+.plan-fill{position:absolute;inset:0;width:0;background:linear-gradient(90deg,rgba(139,127,190,.35),rgba(139,127,190,.6));transition:width .6s;}
+.plan-bar span{position:relative;display:block;text-align:center;font-size:.72rem;letter-spacing:.06em;color:var(--text2);line-height:26px;}
+.plan-missed{font-size:.78rem;color:var(--text3);margin:1.1rem 0 .5rem;}
+.plan-prev{display:flex;align-items:center;gap:.8rem;border:1px solid var(--border);border-radius:9px;padding:.55rem .9rem;margin-bottom:.5rem;font-size:.8rem;cursor:pointer;transition:border-color .2s;}
+.plan-prev:hover{border-color:var(--border2);}
+.plan-prev span{color:var(--text3);white-space:nowrap;}
+.plan-prev b{flex:1;font-weight:400;color:var(--text2);}
+.plan-prev em{font-style:normal;color:var(--text3);font-size:.72rem;white-space:nowrap;}
+.plan-prev.don em{color:#7fc78f;}
+.plan-foot{display:flex;gap:1.6rem;margin-top:.8rem;}
+.plan-foot .flink{margin-top:0;display:inline;}
+.plan-prev:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
 /* ═══ PRACTICE ═══ */
 #practice-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
 #practice-s.on{display:flex;}
@@ -329,7 +389,7 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 <nav id="nav">
   <span class="logo" onclick="showLanding()"><span>И</span>СТОК</span>
   <div class="nav-r">
-    <button class="nav-cta" style="border-color:var(--border2);color:var(--text2)" onclick="showPractice()">Проработка</button>
+    <button class="nav-cta" style="border-color:var(--border2);color:var(--text2)" onclick="showPractice()">Кабинет</button>
     <button class="nav-cta" onclick="startTest()">Пройти тест</button>
   </div>
 </nav>
@@ -387,6 +447,7 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
   </section>
 
   <footer><div class="flogo"><span>И</span>СТОК</div><div class="fnote">Инструмент самопознания. Не является терапией или медицинским диагнозом.</div>
+    <button class="flink" onclick="showMethod()">На чём основан тест</button>
     <button class="snd-chk" onclick="soundCheck()">♪ Проверить звук</button>
     <div class="snd-res" id="sndRes"></div>
     <div class="fver">сборка 10.07.2026-3</div>
@@ -395,6 +456,32 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 
 <div id="test-s"><div class="tc" id="tc"></div></div>
 <div id="practice-s"><div class="pc" id="pc"></div></div>
+<div id="method-s"><div class="pc">
+  <button class="btn-bk" onclick="showLanding()" style="margin-bottom:2rem">← На главную</button>
+  <p class="t-blk">О методе</p>
+  <h2 class="m-h1">На чём основан <em>Исток</em></h2>
+  <p class="m-lead">Исток — не случайный набор вопросов. Каждый блок опирается на методику с историей в психологии. Здесь честно рассказываем, откуда что взято — и где границы того, что тест может сказать о тебе.</p>
+
+  <div class="m-item"><h3>Незаконченные предложения — метод Сакса и Леви</h3>
+  <p>Блок, где ты дописываешь фразы своими словами, — адаптация классического Sentence Completion Test (J. Sacks, S. Levy, 1950). Идея метода: начало фразы задаёт тему, а продолжение человек достраивает из собственного опыта — и в спонтанном ответе проявляется то, что трудно спросить прямо.</p></div>
+
+  <div class="m-item"><h3>Цветовые выборы — по мотивам теста Люшера</h3>
+  <p>Блок с цветами вдохновлён цветовым тестом Макса Люшера (1949): предпочтение и отвержение цветов рассматривается как косвенный сигнал эмоционального состояния. Мы используем его мягко — как проективную подсказку, а не как самостоятельный диагноз: современная наука относится к строгим интерпретациям Люшера скептически, и мы это учитываем в весах ответов.</p></div>
+
+  <div class="m-item"><h3>Иллюзии и неоднозначные образы — принцип проективных методик</h3>
+  <p>Звуковые и визуальные иллюзии в первом и втором блоках — это неоднозначные стимулы: у них нет «правильного» восприятия. Когда мозг сам достраивает неопределённость, выбор варианта отражает привычный способ обработки мира — тот же принцип, на котором построены пятна Роршаха и Тематический апперцептивный тест (ТАТ, Г. Мюррей). Сами иллюзии — реальные и известные: тон Шепарда, парадокс тритона Дианы Дойч, куб Неккера, ваза Рубина, треугольник Каницы.</p></div>
+
+  <div class="m-item"><h3>Метафорические карточки и сценарии</h3>
+  <p>Блок с образами («дом детства», «внутренний ребёнок») продолжает традицию метафорических ассоциативных карт, которые используются в консультировании: образ снижает защиту и позволяет говорить о болезненном через безопасную метафору.</p></div>
+
+  <div class="m-item"><h3>Шкалы воспоминаний — по мотивам ACE и схема-терапии</h3>
+  <p>Прямые вопросы о детстве опираются на два источника. Первый — исследование ACE (Adverse Childhood Experiences, В. Фелитти, 1998), крупнейшее исследование связи детского опыта со взрослой жизнью. Второй — схема-терапия Джеффри Янга: пять паттернов Истока (покинутость, самокритика, контроль, закрытость, гиперответственность) соотносятся с ранними дезадаптивными схемами из его модели. Вопросы о составе семьи и порядке рождения продолжают линию Альфреда Адлера.</p></div>
+
+  <div class="m-item"><h3>Как считается результат</h3>
+  <p>Каждый вариант ответа имеет вес по каждому из паттернов. Свободный текст анализируется по словарям тем (без отправки на сервер). Сумма нормируется так, чтобы редкие сильные сигналы не терялись, а случайный единичный ответ не делал «диагноз». Поэтому результат устойчив: он складывается из десятков независимых сигналов разных типов — это и есть смысл мультимодальности.</p></div>
+
+  <div class="m-disc">Важно: Исток — инструмент самопознания, а не медицинская или психологическая диагностика. Он не ставит диагнозов и не заменяет работу со специалистом. Если тема детства отзывается сильной болью — это повод для бережной работы с психологом или психотерапевтом.</div>
+</div></div>
 
 <script>
 'use strict';
@@ -975,9 +1062,11 @@ let cur=0,ans={},brC=0,brGo=false,brTmr2=null;
 const PLAY_SVG='<polygon points="5,3 19,12 5,21"/>';
 const PAUSE_SVG='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
 
-function saveState(){try{localStorage.setItem('istok_state',JSON.stringify({cur,ans,ts:Date.now()}));}catch(e){}}
-function loadState(){try{return JSON.parse(localStorage.getItem('istok_state')||'null');}catch(e){return null;}}
+const TEST_V=4; /* поднимать при изменении состава вопросов */
+function saveState(){try{localStorage.setItem('istok_state',JSON.stringify({v:TEST_V,cur,ans,ts:Date.now()}));}catch(e){}}
+function loadState(){try{const st=JSON.parse(localStorage.getItem('istok_state')||'null');return st&&st.v===TEST_V?st:null;}catch(e){return null;}}
 function clearState(){try{localStorage.removeItem('istok_state');}catch(e){}}
+function kbd(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();e.currentTarget.click();}}
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 /* объяснение выбранного ответа («Про твой выбор») */
 function optE(s,i){
@@ -991,10 +1080,12 @@ function oeHtml(s,a){
   return `<div class="aud-fact${e?' on':''}" id="oe">${e?'<b>Про твой выбор:</b> '+T(e):''}</div>`;
 }
 
-function showLanding(){document.getElementById('landing').style.display='';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');Music.stop();AudioIll.stop();window.scrollTo(0,0);}
+function showLanding(){document.getElementById('landing').style.display='';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');const m=document.getElementById('method-s');if(m)m.classList.remove('on');Music.stop();AudioIll.stop();window.scrollTo(0,0);}
+function showMethod(){document.getElementById('landing').style.display='none';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');document.getElementById('method-s').classList.add('on');window.scrollTo(0,0);}
 function startTest(){
   document.getElementById('landing').style.display='none';
   document.getElementById('practice-s').classList.remove('on');
+  const m=document.getElementById('method-s');if(m)m.classList.remove('on');
   document.getElementById('test-s').classList.add('on');
   window.scrollTo(0,0);
   if(Music.enabled)Music.start();
@@ -1020,8 +1111,9 @@ function render(idx){
   let html=`<div class="t-top">
     <span class="t-lbl">${lbl}</span>
     <div class="t-bar"><div class="t-fill" style="width:${pct}%"></div></div>
-    <button class="mus-btn${Music.enabled?' on':''}" id="musB" onclick="Music.toggle()" title="Фоновая музыка">
+    <div class="mus-grp"><button class="mus-btn${Music.enabled?' on':''}" id="musB" onclick="Music.toggle()" title="Фоновая музыка">
       <span class="mus-ico"><i></i><i></i><i></i></span>${Music.enabled?'звук':'тихо'}</button>
+    <input type="range" class="mus-vol" min="5" max="200" value="${Math.round(Music.vol*100)}" oninput="Music.setVol(this.value/100)" title="Громкость музыки" aria-label="Громкость музыки"></div>
   </div>`;
 
   if(s.id==='gender'){
@@ -1031,8 +1123,8 @@ function render(idx){
     <h2 class="t-q">Как к тебе обращаться?</h2>
     <p class="t-sub">Исток говорит с тобой на «ты» — и хочет делать это правильно. Выбор влияет только на форму обращения.</p>
     <div class="gen-grid">
-      <div class="gen-opt${GENDER==='f'?' sel':''}" onclick="selGender('f')"><span class="gen-sym">она</span><span class="gen-lbl">Я женщина</span></div>
-      <div class="gen-opt${GENDER==='m'?' sel':''}" onclick="selGender('m')"><span class="gen-sym">он</span><span class="gen-lbl">Я мужчина</span></div>
+      <div class="gen-opt${GENDER==='f'?' sel':''}" role="button" tabindex="0" onkeydown="kbd(event)" onclick="selGender('f')"><span class="gen-sym">она</span><span class="gen-lbl">Я женщина</span></div>
+      <div class="gen-opt${GENDER==='m'?' sel':''}" role="button" tabindex="0" onkeydown="kbd(event)" onclick="selGender('m')"><span class="gen-sym">он</span><span class="gen-lbl">Я мужчина</span></div>
     </div>
     <p class="gen-note">Никаких данных мы никуда не отправляем — всё остаётся в твоём браузере.</p>
     ${hasSaved?`<div class="resume-box">
@@ -1056,7 +1148,7 @@ function render(idx){
   } else if(s.id==='aud'){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
-    <div class="aud-pl" onclick="togIll(${cur},'${s.aType}')">
+    <div class="aud-pl" role="button" tabindex="0" onkeydown="kbd(event)" onclick="togIll(${cur},'${s.aType}')">
       <div class="play-c"><svg id="pi${cur}" viewBox="0 0 24 24">${PLAY_SVG}</svg></div>
       <div class="awaves" id="aw${cur}">${Array(20).fill(0).map((_,i)=>`<span style="height:${6+Math.abs(Math.sin(i*.7))*18}px"></span>`).join('')}</div>
       <span class="aud-lbl">${s.albl}</span>
@@ -1088,7 +1180,7 @@ function render(idx){
   } else if(s.id==='col'){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
-    <div class="col-pal">${s.colors.map((c,i)=>`<div class="col-sw${ans[cur]===i?' sel':''}" style="background:${c.h}" onclick="selC(${i})"><span class="col-sw-l" ${c.h==='#f0f0f0'?'style="color:rgba(0,0,0,.55)"':''}>${c.l}</span></div>`).join('')}</div>
+    <div class="col-pal">${s.colors.map((c,i)=>`<div class="col-sw${ans[cur]===i?' sel':''}" role="button" tabindex="0" onkeydown="kbd(event)" style="background:${c.h}" onclick="selC(${i})"><span class="col-sw-l" ${c.h==='#f0f0f0'?'style="color:rgba(0,0,0,.55)"':''}>${c.l}</span></div>`).join('')}</div>
     ${oeHtml(s,ans[cur])}
     ${nav(cur,ans[cur]!==undefined)}`;
 
@@ -1096,7 +1188,7 @@ function render(idx){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
     <div class="img-grid">${s.choices.map((c,i)=>`
-      <div class="img-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">
+      <div class="img-opt${ans[cur]===i?' sel':''}" role="button" tabindex="0" onkeydown="kbd(event)" onclick="selO(${i})">
         ${cardArt(c.ico)}<span>${c.l.replace('\n','<br>')}</span>
       </div>`).join('')}</div>
     ${nav(cur,ans[cur]!==undefined)}`;
@@ -1131,7 +1223,7 @@ function render(idx){
     <h2 class="t-q" style="text-align:center">Три вдоха, прежде чем увидеть результат</h2>
     <p class="t-sub" style="text-align:center">${T('Ты прош{ла|ёл} все 55 вопросов. Нажми на круг и сделай три медленных вдоха.')}</p>
     <div class="br-sec">
-      <div class="br-ring" id="bR" onclick="startBr()">вдох</div>
+      <div class="br-ring" id="bR" role="button" tabindex="0" onkeydown="kbd(event)" onclick="startBr()">вдох</div>
       <span class="br-cnt" id="bC">нажми, чтобы начать</span>
     </div>
     ${nav(cur,true)}`;
@@ -1729,6 +1821,16 @@ function renderResults(){
   try{
     window.ISTOK_SHARE={k:fish.k,name:fish.name,chips:axChips,idx:gidx,
       top:R.order.slice(0,3).map(p=>({name:PAT[p].name,pct:R.pct[p]}))};
+    /* история прохождений для кабинета (дозапись раз в показ, без дублей за день) */
+    try{
+      const H=JSON.parse(localStorage.getItem('istok_history')||'[]');
+      const today=new Date().toISOString().slice(0,10);
+      const entry={d:today,idx:gidx,pct:R.pct,dpct:R.dpct,fishK:fish.k,fishName:fish.name,fishEm:fish.em};
+      const last=H[H.length-1];
+      if(!last||last.d!==today||JSON.stringify(last.pct)!==JSON.stringify(R.pct)){H.push(entry);}
+      else{H[H.length-1]=entry;}
+      localStorage.setItem('istok_history',JSON.stringify(H.slice(-24)));
+    }catch(e){}
     if(window.ISTOK_RESULT){
       window.ISTOK_RESULT.fish=fish.name;
       localStorage.setItem('istok_result',JSON.stringify(window.ISTOK_RESULT));
@@ -1744,7 +1846,7 @@ function renderResults(){
   <button class="res-cta" id="aiBtn" style="margin-top:0" onclick="requestAI()">Получить ИИ-разбор →</button>
   <div class="ai-box" id="aiBox"></div>
   <p class="ai-note">Разбор создаётся на опубликованной версии сайта. Ответы отправляются только для создания разбора и нигде не сохраняются.</p>
-  <button class="res-cta" onclick="showPractice()">Начать проработку →</button>
+  <button class="res-cta" onclick="showPractice()">Открыть кабинет: мой план →</button>
   <div class="res-foot">
     <button class="btn-bk" onclick="restartTest()">Пройти ещё раз</button>
     <button class="btn-bk" onclick="showLanding()">← На главную</button>
@@ -1761,6 +1863,13 @@ const Music={
   fileAudio:null,mode:null,on:false,ducked:false,noteIx:2,chordIx:0,
   enabled:(function(){try{return localStorage.getItem('istok_music')!=='off';}catch(e){return true;}})(),
   VOL:0.16,FILE_VOL:0.35,
+  vol:(function(){try{const v=parseFloat(localStorage.getItem('istok_vol'));return isNaN(v)?1:Math.min(2,Math.max(0,v));}catch(e){return 1;}})(),
+  setVol(v){
+    this.vol=Math.min(2,Math.max(0,v));
+    try{localStorage.setItem('istok_vol',String(this.vol));}catch(e){}
+    if(this.master)try{this.master.gain.setTargetAtTime((this.ducked?this.VOL*0.15:this.VOL)*this.vol,this.ctx.currentTime,0.1);}catch(e){}
+    if(this.fileAudio)this.fileAudio.volume=Math.min(1,(this.ducked?0.08:this.FILE_VOL)*this.vol);
+  },
   CHORDS:[[110,220,261.63,329.63],[87.31,174.61,261.63,349.23],[130.81,196,261.63,329.63],[98,196,246.94,293.66]],
   SCALE:[440,523.25,587.33,659.25,783.99,880,1046.5],
   unlock(){
@@ -1776,9 +1885,9 @@ const Music={
     if(this.on)return;this.on=true;
     this.unlock();
     if(this.mode==='synth'){this.startSynth();return;}
-    if(this.mode==='file'){this.fileAudio.volume=this.ducked?0.08:this.FILE_VOL;this.fileAudio.play().catch(()=>{});return;}
+    if(this.mode==='file'){this.fileAudio.volume=Math.min(1,(this.ducked?0.08:this.FILE_VOL)*this.vol);this.fileAudio.play().catch(()=>{});return;}
     const a=new Audio('assets/music.mp3');
-    a.loop=true;a.volume=this.FILE_VOL;
+    a.loop=true;a.volume=Math.min(1,this.FILE_VOL*this.vol);
     this.fileAudio=a;
     a.addEventListener('error',()=>{if(this.on&&this.mode!=='synth'){this.mode='synth';this.startSynth();}},{once:true});
     a.play().then(()=>{this.mode='file';}).catch(()=>{if(this.on&&this.mode!=='synth'){this.mode='synth';this.startSynth();}});
@@ -1797,7 +1906,7 @@ const Music={
       const t=c.currentTime;
       this.master=c.createGain();
       this.master.gain.setValueAtTime(0.0001,t);
-      this.master.gain.exponentialRampToValueAtTime(this.ducked?this.VOL*0.15:this.VOL,t+3);
+      this.master.gain.exponentialRampToValueAtTime(Math.max(0.0001,(this.ducked?this.VOL*0.15:this.VOL)*this.vol),t+3);
       this.master.connect(c.destination);
       /* эхо для мелодии */
       this.delay=c.createDelay(1.2);this.delay.delayTime.value=0.43;
@@ -1855,11 +1964,11 @@ const Music={
   duck(d){
     this.ducked=d;
     if(!this.on)return;
-    if(this.mode==='file'&&this.fileAudio){this.fileAudio.volume=d?0.07:this.FILE_VOL;return;}
+    if(this.mode==='file'&&this.fileAudio){this.fileAudio.volume=Math.min(1,(d?0.07:this.FILE_VOL)*this.vol);return;}
     if(this.master){try{
       const t=this.ctx.currentTime;
       this.master.gain.cancelScheduledValues(t);
-      this.master.gain.setTargetAtTime(d?this.VOL*0.15:this.VOL,t,0.6);
+      this.master.gain.setTargetAtTime(Math.max(0.0001,(d?this.VOL*0.15:this.VOL)*this.vol),t,0.6);
     }catch(e){}}
   },
   stop(){
@@ -1965,6 +2074,7 @@ function isoToday(){const d=new Date();return `${d.getFullYear()}-${String(d.get
 function showPractice(){
   document.getElementById('landing').style.display='none';
   document.getElementById('test-s').classList.remove('on');
+  const m=document.getElementById('method-s');if(m)m.classList.remove('on');
   Music.stop();AudioIll.stop();
   document.getElementById('practice-s').classList.add('on');
   renderPractice();
@@ -1980,12 +2090,25 @@ function renderPractice(){
 
   if(!res||!res.patterns){
     el.innerHTML=`<div class="scr">
-      <p class="t-blk">Проработка</p>
+      <p class="t-blk">Кабинет</p>
       <h2 class="t-q">Сначала — тест</h2>
-      <p class="t-sub">${T('Ежедневные задания подбираются под твой ведущий паттерн. Пройди тест — и здесь появится персональная программа: одно основное задание в день, дневник наблюдений и серия дней.')}</p>
+      <p class="t-sub">${T('Кабинет строится вокруг твоих результатов: история прохождений, динамика паттернов и персональный план проработки. Пройди тест — и всё появится здесь.')}</p>
       <button class="btn-nx" style="width:100%;padding:1.1rem" onclick="startTest()">Пройти тест →</button>
       ${artHtml}
       <div class="res-foot"><button class="btn-bk" onclick="showLanding()">← На главную</button></div>
+    </div>`;
+    return;
+  }
+
+  /* ── мини-тест подхода в процессе ── */
+  if(window.__aq){
+    const q=AQ[window.__aq.i];
+    el.innerHTML=`<div class="scr">
+      <p class="t-blk">Твой подход · вопрос ${window.__aq.i+1} из ${AQ.length}</p>
+      <h2 class="t-q">${T(q.q)}</h2>
+      <p class="t-sub">Здесь нет правильных ответов — выбирай то, что реально про тебя, а не то, что «полезнее».</p>
+      <div class="t-opts">${q.o.map((o,i)=>`<button class="t-opt" onclick="apprPick(${i})">${T(o.t)}</button>`).join('')}</div>
+      <div class="res-foot"><button class="btn-bk" onclick="window.__aq=null;renderPractice()">Отменить</button></div>
     </div>`;
     return;
   }
@@ -1995,12 +2118,64 @@ function renderPractice(){
   const st=loadPr();
   const today=isoToday();
   if(!st.start){st.start=today;savePr(st);}
-  const dayN=Math.max(1,Math.round((Date.parse(today)-Date.parse(st.start))/86400000)+1);
   const done=st.done[today]||{};
-  const mt=TASKS[dom][(dayN-1)%TASKS[dom].length];
-  const xt=TASKS[sec][(dayN-1)%TASKS[sec].length];
 
-  /* серия: подряд идущие дни с выполненным основным заданием */
+  /* ── история и динамика ── */
+  let H=[];try{H=JSON.parse(localStorage.getItem('istok_history')||'[]');}catch(e){}
+  let histHtml='';
+  if(H.length){
+    const rows=H.slice(-6).reverse().map(h=>`<div class="hist-row"><span class="hist-d">${h.d.split('-').reverse().join('.')}</span><span class="hist-f">${h.fishEm||''} ${h.fishName||''}</span><span class="hist-i">${h.idx}%</span></div>`).join('');
+    let dyn='';
+    if(H.length>=2){
+      const a=H[H.length-2],b=H[H.length-1];
+      dyn=`<p class="dyn-lbl">Динамика с прошлого прохождения (${a.d.split('-').reverse().join('.')} → ${b.d.split('-').reverse().join('.')}):</p>
+      <div class="dyn-grid">${PKEYS.map(p=>{
+        const d=b.pct[p]-a.pct[p];
+        const cls=d<0?'down':d>0?'up':'same';
+        const sym=d<0?'↓':d>0?'↑':'=';
+        return `<div class="dyn-cell ${cls}"><span class="dyn-nm">${PAT[p].name}</span><span class="dyn-v">${b.pct[p]}% <b>${sym}${d===0?'':Math.abs(d)}</b></span></div>`;
+      }).join('')}</div>
+      <p class="dyn-note">↓ ниже — паттерн ослабевает. Сравнивай прохождения с разницей хотя бы в несколько недель: день на день не показатель.</p>`;
+    }
+    histHtml=`<h3 class="res-h2">Мои <em>результаты</em></h3>
+    <p class="res-h2sub">${T('История хранится только в этом браузере. Пройди тест снова через месяц практики — и увидишь, что сдвинулось.')}</p>
+    <div class="hist-box">${rows}</div>${dyn}`;
+  }
+
+  /* ── персональный план ── */
+  let plan=loadPlan();
+  let planHtml='';
+  if(!plan){
+    planHtml=`<h3 class="res-h2">Мой <em>путь</em></h3>
+    <p class="res-h2sub">${T('Дальше — не просто список советов, а персональный план на 28 дней: одно микрозадание в день, 5–15 минут. Чтобы задания подошли именно тебе, сначала определим, каким способом тебе легче работать с собой: через мысли, образы, тело, письмо или действия.')}</p>
+    <button class="res-cta" onclick="startApprTest()">Подобрать мой подход · 8 вопросов →</button>`;
+  } else {
+    const A=APPR[plan.appr], A2=APPR[plan.appr2];
+    const dayN=Math.min(28,Math.max(1,Math.round((Date.parse(today)-Date.parse(plan.start))/86400000)+1));
+    const doneCnt=Object.values(plan.done||{}).filter(Boolean).length;
+    const task=plan.days[dayN-1];
+    const isDone=!!(plan.done||{})[dayN];
+    let prevRows='';
+    for(let n=Math.max(1,dayN-3);n<dayN;n++){
+      const tk=plan.days[n-1];
+      prevRows+=`<div class="plan-prev${(plan.done||{})[n]?' don':''}" role="button" tabindex="0" onkeydown="kbd(event)" onclick="togPlanDay(${n})"><span>день ${n} · ${tk.tag}</span><b>${T(tk.t)}</b><em>${(plan.done||{})[n]?'✓ сделано':'отметить'}</em></div>`;
+    }
+    planHtml=`<h3 class="res-h2">Мой <em>путь</em> · день ${dayN} из 28</h3>
+    <p class="res-h2sub">Твой способ: <b>${A.name}</b> (${A.full.toLowerCase()})${A2?` с элементами «${A2.name.toLowerCase()}»`:''}. План собран под паттерны «${PAT[plan.p1].name}» и «${PAT[plan.p2].name}».</p>
+    <div class="plan-bar"><div class="plan-fill" style="width:${Math.round(doneCnt/28*100)}%"></div><span>${doneCnt} из 28 выполнено</span></div>
+    <div class="day-card">
+      <p class="day-lbl">День ${dayN} · ${task.tag}</p>
+      <p class="day-task"><b>${T(task.t)}.</b> ${T(task.d)}</p>
+      <button class="btn-done${isDone?' on':''}" onclick="togPlanDay(${dayN})">${isDone?'Выполнено ✓':'Отметить выполненным'}</button>
+    </div>
+    ${prevRows?`<p class="plan-missed">Пропущенные дни не сгорают — их можно закрыть:</p>${prevRows}`:''}
+    <div class="plan-foot">
+      <button class="flink" onclick="if(confirm('Пересобрать план с сегодняшнего дня по последним результатам теста?'))planRegen()">Пересобрать план</button>
+      <button class="flink" onclick="if(confirm('Пройти мини-тест подхода заново? Текущий план будет заменён.'))apprRetake()">Сменить подход</button>
+    </div>`;
+  }
+
+  /* серия: подряд идущие дни с выполненной практикой */
   let streak=0;
   for(let i=0;;i++){
     const d=new Date();d.setDate(d.getDate()-i);
@@ -2018,21 +2193,13 @@ function renderPractice(){
   const jr=(st.journal||[]).slice(-5).reverse();
 
   el.innerHTML=`<div class="scr">
-    <p class="t-blk">Проработка · день ${dayN}</p>
-    <h2 class="t-q">Сегодняшняя <em style="font-style:italic;color:var(--accent3)">практика</em></h2>
-    <p class="t-sub">Программа собрана под твой ведущий паттерн. Одно основное задание в день — этого достаточно; дополнительное — если есть силы.</p>
+    <p class="t-blk">Кабинет</p>
+    <h2 class="t-q">Твой <em style="font-style:italic;color:var(--accent3)">кабинет</em></h2>
+    <p class="t-sub">Всё, что тест узнал о тебе, и путь, который ты проходишь. Данные не покидают этот браузер.</p>
     <div class="pat-chips">${order.map(p=>`<span class="chip">${res.patterns[p].name} · <b>${res.patterns[p].pct}%</b></span>`).join('')}</div>
 
-    <div class="day-card">
-      <p class="day-lbl">Основное · ${PAT[dom].name}</p>
-      <p class="day-task">${T(mt)}</p>
-      <button class="btn-done${done.m?' on':''}" onclick="togDone('m')">${done.m?'Выполнено ✓':'Отметить выполненным'}</button>
-    </div>
-    <div class="extra-card">
-      <p class="day-lbl">Дополнительно · ${PAT[sec].name}</p>
-      <p class="day-task">${T(xt)}</p>
-      <button class="btn-done${done.x?' on':''}" onclick="togDone('x')">${done.x?'Выполнено ✓':'Отметить выполненным'}</button>
-    </div>
+    ${histHtml}
+    ${planHtml}
 
     <div class="streak-row">
       <span class="streak-num">${streak}</span>
@@ -2050,6 +2217,7 @@ function renderPractice(){
 
     <div class="res-foot">
       <button class="btn-bk" onclick="startTest()">Пройти тест ещё раз</button>
+      <button class="btn-bk" onclick="showMethod()">На чём основан тест</button>
       <button class="btn-bk" onclick="showLanding()">← На главную</button>
     </div>
     <p class="res-disc">Если практика поднимает сильные чувства — снизь темп. Исток — поддержка, а не замена терапии.</p>
@@ -2070,6 +2238,202 @@ function addJr(){
   st.journal=(st.journal||[]).concat([{d:isoToday(),t:v}]).slice(-40);
   savePr(st);renderPractice();
 }
+
+/* ══════════ ПОДХОД: МИНИ-ТЕСТ (каким способом тебе легче меняться) ══════════ */
+const APPR={
+ cog:{name:'Через ясность',full:'Когнитивный подход',desc:'Тебе легче всего меняться через понимание: заметить мысль, проверить её фактами, переформулировать. Это логика когнитивно-поведенческой терапии.'},
+ img:{name:'Через образы',full:'Образно-эмоциональный подход',desc:'Твой вход — образы и внутренние фигуры: разговор с собой-ребёнком, визуализация, метафора. Так работают схема-терапия и IFS.'},
+ body:{name:'Через тело',full:'Телесно-ориентированный подход',desc:'Твои чувства живут в теле, и через тело к ним короче всего: дыхание, заземление, движение, расслабление.'},
+ wri:{name:'Через письмо',full:'Письменные практики',desc:'Ты думаешь рукой: слова на бумаге дают ясность и разгружают голову. Экспрессивное письмо — один из самых исследованных методов самопомощи.'},
+ act:{name:'Через шаги',full:'Поведенческий подход',desc:'Тебя меняют не рассуждения, а опыт: маленькие безопасные эксперименты в реальной жизни, после которых мозг сам делает выводы.'}};
+const AQ=[
+ {q:'Когда тебе по-настоящему тяжело, что скорее помогает?',o:[
+  {t:'Сесть и разложить всё по полочкам: что случилось и почему',k:'cog'},
+  {t:'Уйти в образы: музыка, воспоминания, внутренний разговор',k:'img'},
+  {t:'Движение: пройтись, подышать, принять душ',k:'body'},
+  {t:'Выписать всё, что крутится в голове',k:'wri'},
+  {t:'Занять руки конкретным делом',k:'act'}]},
+ {q:'Как ты лучше всего понимаешь себя?',o:[
+  {t:'Анализирую причины и следствия своих реакций',k:'cog'},
+  {t:'Через сны, образы и метафоры — «я как будто...»',k:'img'},
+  {t:'Прислушиваюсь к ощущениям: где сжалось, где отпустило',k:'body'},
+  {t:'Пишу — и в процессе мысль формулируется сама',k:'wri'},
+  {t:'Смотрю на свои поступки со стороны: что я реально делаю',k:'act'}]},
+ {q:'Важное решение. Что ты делаешь?',o:[
+  {t:'Список «за» и «против», взвешиваю',k:'cog'},
+  {t:'Представляю оба варианта будущего и слушаю отклик',k:'img'},
+  {t:'Слушаю, что ёкает или расслабляется в теле',k:'body'},
+  {t:'Пишу про это, пока не станет ясно',k:'wri'},
+  {t:'Пробую маленьким шагом и смотрю, что получится',k:'act'}]},
+ {q:'Какой способ заботы о себе тебе ближе?',o:[
+  {t:'Поймать тревожную мысль и спокойно разобрать её',k:'cog'},
+  {t:'Мысленно обнять себя-маленьк{ую|ого}, поговорить с собой тепло',k:'img'},
+  {t:'Дыхание, растяжка, тёплая ванна',k:'body'},
+  {t:'Дневник перед сном',k:'wri'},
+  {t:'Сделать маленькое дело, которое давно откладывал{а|}',k:'act'}]},
+ {q:'В трудном разговоре ты опираешься на...',o:[
+  {t:'Аргументы: заранее продумываю логику',k:'cog'},
+  {t:'Чутьё: считываю состояние собеседника',k:'img'},
+  {t:'Тело: слежу за дыханием и позой, чтобы не сорваться',k:'body'},
+  {t:'Записанные заранее мысли — иначе всё вылетает',k:'wri'},
+  {t:'Конкретику: предлагаю, что делать дальше',k:'act'}]},
+ {q:'Если бы практика на месяц — что выберешь?',o:[
+  {t:'Дневник мыслей: ловить и проверять убеждения',k:'cog'},
+  {t:'Визуализации и работу с внутренним ребёнком',k:'img'},
+  {t:'Телесные практики: дыхание, заземление, движение',k:'body'},
+  {t:'Письменные практики: письма, свободное письмо',k:'wri'},
+  {t:'Маленькие смелые эксперименты в реальной жизни',k:'act'}]},
+ {q:'Детство чаще вспоминается...',o:[
+  {t:'Выводами: «было так — поэтому я теперь...»',k:'cog'},
+  {t:'Картинками, запахами, целыми сценами',k:'img'},
+  {t:'Ощущениями: сжатие, тепло, ком в горле',k:'body'},
+  {t:'Историями, которые хочется рассказать или записать',k:'wri'},
+  {t:'Привычками: «вот откуда мой способ всё делать сам{ой|им}»',k:'act'}]},
+ {q:'Что для тебя убедительнее всего?',o:[
+  {t:'Понять, почему это работает',k:'cog'},
+  {t:'Почувствовать состояние, к которому хочу прийти',k:'img'},
+  {t:'Заметить, как тело стало спокойнее',k:'body'},
+  {t:'Перечитать написанное месяц назад и увидеть путь',k:'wri'},
+  {t:'Увидеть измеримый результат в жизни',k:'act'}]}];
+
+/* ══════════ БАНК МИКРОЗАДАНИЙ: подход × паттерн ══════════ */
+const PLANB={
+cog:{gen:[
+ {t:'Ловец мыслей',d:'Сегодня запиши три автоматические мысли, которые вызвали неприятное чувство. Только записать, ничего с ними не делать. Учимся замечать.'},
+ {t:'Суд над мыслью',d:'Возьми одну вчерашнюю мысль и задай ей три вопроса: какие факты «за»? какие «против»? как сказал{а|} бы это друг? Запиши вердикт.'},
+ {t:'Мысль ≠ факт',d:'Выбери навязчивую мысль дня и переформулируй: вместо «я неудачник» — «у меня сейчас мысль, что я неудачник». Почувствуй расстояние.'},
+ {t:'Прогноз и реальность',d:'Утром запиши, что сегодня «точно пойдёт не так». Вечером сверь с фактами. Веди счёт: тревога против реальности.'}],
+pat:{
+ ab:[{t:'Карта фактов связи',d:'Когда включится «меня оставят» — выпиши три проверяемых факта о том, что связь в порядке. Не ощущения. Факты.'},
+     {t:'Пауза — не уход',d:'Если кто-то не отвечает, произнеси вслух: «пауза — это пауза, а не уход» — и запиши, какой прогноз строила тревога. Вечером проверь его.'}],
+ cr:[{t:'Чей это голос?',d:'Поймав самокритику, письменно ответь: кто говорил мне это первым? Это его формулировка или моя? Чужое можно вернуть.'},
+     {t:'Три «достаточно»',d:'Вечером запиши три вещи, сделанные сегодня достаточно хорошо. Не идеально — достаточно. Перечитай вслух.'}],
+ ct:[{t:'Круги контроля',d:'Выпиши тревожащую ситуацию и раздели всё на «моё» и «не моё». Про каждое «не моё» письменно закончи: «это не в моих руках, и поэтому...»'},
+     {t:'Цена контроля',d:'Посчитай честно: сколько часов на этой неделе ушло на перепроверку, переделывание за другими и прокручивание сценариев? Запиши цифру. Просто увидь её.'}],
+ cl:[{t:'Словарь чувств',d:'Три раза за день остановись и письменно назови чувство одним словом. Не «нормально» — точнее: досада? облегчение? зависть? усталость?'},
+     {t:'Разбор отказа',d:'Вспомни, когда в последний раз хотел{ась|ся} попросить о помощи и не стал{а|}. Запиши: чего именно я боял{ась|ся}? Насколько этот сценарий вероятен на самом деле?'}],
+ hr:[{t:'Моё и чужое',d:'Вечером раздели список сегодняшних забот на «моё» и «чужое». Посчитай соотношение и запиши его. Цифра работает лучше уговоров.'},
+     {t:'Проверка «должен»',d:'Поймай сегодня одно «я должн{а|}» и допроси его: кому должн{а|}? что будет, если не сделаю? откуда это правило? Запиши ответы.'}]}},
+img:{gen:[
+ {t:'Фотография из детства',d:'Найди свою детскую фотографию (или представь себя лет в шесть). Просто посмотри минуту. Что хочется сказать этому ребёнку? Скажи мысленно.'},
+ {t:'Безопасное место',d:'Закрой глаза на пять минут и построй в воображении место, где тебе полностью безопасно. Детали важны: свет, звуки, запахи. Это место теперь всегда с тобой.'},
+ {t:'Внутренний взрослый',d:'Представь себя тем взрослым, который был нужен тебе в детстве. Каким он был бы? Побудь им для себя пять минут сегодня.'},
+ {t:'Образ чувства',d:'Поймай сильное чувство и дай ему образ: какой оно формы, цвета, температуры? Где живёт в теле? Понаблюдай, как образ меняется от внимания.'}],
+pat:{
+ ab:[{t:'Ребёнок, которого не бросили',d:'Представь себя-маленьк{ую|ого} в момент, когда было страшно остаться одн{ой|ому}. Войди в сцену взрослым и скажи: «я здесь, я не уйду». Побудь там минуту.'},
+     {t:'Нить связи',d:'Закрой глаза и представь нити, соединяющие тебя с близкими людьми. Заметь: они не рвутся от паузы в переписке. Рассмотри их прочность.'}],
+ cr:[{t:'Критик на стуле',d:'Представь внутреннего критика сидящим напротив. Рассмотри его. Чей у него голос? Скажи ему: «спасибо, что пытался защитить. Дальше я сам{а|}».'},
+     {t:'Глазами любящего',d:'Представь, что на тебя смотрит тот, кто тебя по-настоящему любит. Опиши себя его глазами — вслух или мысленно, три предложения.'}],
+ ct:[{t:'Река, не плотина',d:'Пять минут с закрытыми глазами: представь свою жизнь рекой. Плотина — это контроль. Посмотри, что происходит, когда воде дают течь. Куда она несёт?'},
+     {t:'Хаос в рамке',d:'Представь самый страшный «выход из-под контроля» как картину в раме на стене галереи. Рассмотри издалека. Из безопасной точки он выглядит иначе.'}],
+ cl:[{t:'Дом с открытым окном',d:'Представь свою закрытость домом. Какие в нём стены, есть ли окна? Мысленно открой одно окно на день. Заметь: проветривать — не значит сносить стены.'},
+     {t:'Ребёнок, которому не дали сказать',d:'Вспомни сцену, где тебе-маленьк{ой|ому} не дали договорить или высмеяли. Войди туда взрослым и дай ребёнку закончить фразу. Выслушай до конца.'}],
+ hr:[{t:'Снять рюкзак',d:'Представь чужие заботы, которые ты носишь, тяжёлым рюкзаком. Мысленно сними его, поставь на землю и разбери: что здесь вообще не твоё? Оставь это на земле.'},
+     {t:'Маленьк{ая|ий} и без дел',d:'Представь себя-ребёнка, которому не нужно никого спасать: он просто играет. Побудь в этой сцене три минуты. Какое это чувство — быть, а не быть нужным?'}]}},
+body:{gen:[
+ {t:'Выдох длиннее вдоха',d:'Три раза за день: пять циклов дыхания, где выдох вдвое длиннее вдоха (4 счёта вдох — 8 выдох). Это физиологический тормоз тревоги.'},
+ {t:'Сканер тела',d:'Пять минут лёжа: медленно пройди вниманием от макушки до стоп. Где зажато? Не исправляй — просто заметь и подыши в это место.'},
+ {t:'Заземление 5-4-3-2-1',d:'В момент напряжения найди: 5 вещей, которые видишь, 4 — которые слышишь, 3 — которых касаешься, 2 запаха, 1 вкус. Тело возвращается в «сейчас».'},
+ {t:'Стряхнуть день',d:'Вечером две минуты буквально стряхивай напряжение: потряси руками, ногами, плечами, попрыгай. Животные так сбрасывают стресс — работает и у нас.'}],
+pat:{
+ ab:[{t:'Опора под ногами',d:'Когда накатит тревога «меня оставят» — встань, почувствуй стопами пол, перенеси вес с ноги на ногу. Скажи: «у меня есть опора, и она — не другой человек».'},
+     {t:'Объятие-бабочка',d:'Скрести руки на груди и медленно похлопывай ладонями по плечам, попеременно, минуту-две. Это техника самоуспокоения из EMDR — попробуй при тревоге разлуки.'}],
+ cr:[{t:'Поза достоинства',d:'Заметив самокритику, поменяй позу: расправь плечи, подними подбородок, займи больше места. Постой так минуту. Телу трудно верить критику в этой позе.'},
+     {t:'Рука на сердце',d:'Когда ругаешь себя — положи ладонь на грудь, почувствуй тепло и стук. Скажи себе то, что сказал{а|} бы другу. Прикосновение снижает кортизол — это физиология, не эзотерика.'}],
+ ct:[{t:'Расслабить хватку',d:'Контроль живёт в теле: сожми кулаки изо всех сил на пять секунд — и медленно отпусти. Повтори три раза. Запомни это чувство отпускания — оно пригодится.'},
+     {t:'Медленнее на 20%',d:'Выбери час и делай всё в нём на 20% медленнее: ходить, есть, печатать. Контроль любит спешку. Медленность — маленький бунт против него.'}],
+ cl:[{t:'Где живёт чувство',d:'Три раза за день найди текущее чувство в теле: горло? грудь? живот? Назови вслух: «злость — в челюсти». Тело — словарь, который у тебя не отняли.'},
+     {t:'Выдохнуть слово',d:'Одно невысказанное сегодня слово — выдохни его: набери воздух и произнеси на выдохе вслух, наедине с собой. Услышь свой голос, говорящий правду.'}],
+ hr:[{t:'Тяжесть на весах',d:'Вечером ляг и почувствуй, где в теле живёт усталость от чужих забот: плечи? спина? Подыши в это место пять минут. Забота о себе начинается с замечания цены.'},
+     {t:'Отдых без экрана',d:'Пятнадцать минут горизонтально, без телефона и «полезного»: просто лежать и дышать. Чувство вины придёт — поздоровайся и продолжай лежать. Оно уйдёт первым.'}]}},
+wri:{gen:[
+ {t:'Утренняя страница',d:'С утра — одна страница потоком: всё, что в голове, без цензуры и знаков препинания. Не перечитывай. Это слив фоновой тревоги, а не литература.'},
+ {t:'Письмо по методу Пеннебейкера',d:'15 минут пиши о самом заряженном воспоминании детства: что случилось, что чувствовал{а|} тогда, что чувствуешь сейчас. Никому не показывай. Это одна из самых исследованных практик.'},
+ {t:'Диалог на бумаге',d:'Напиши диалог двух своих частей: той, что устала, и той, что требует. Дай каждой высказаться по три реплики. Просто послушай их.'},
+ {t:'Перечитать себя',d:'Перечитай свои записи за неделю и подчеркни одно предложение, которое звучит правдивее всего. Выпиши его отдельно, крупно.'}],
+pat:{
+ ab:[{t:'Письмо тревоге',d:'Напиши письмо своей тревоге покинутости: поблагодари за службу в детстве и объясни, что теперь решения принимаешь ты. Подпишись.'},
+     {t:'Список остающихся',d:'Выпиши людей, которые в твоей жизни давно, и сколько лет вы знакомы. Радар видит угрозу — список видит факты. Храни его под рукой.'}],
+ cr:[{t:'Письмо от друга',d:'Напиши себе письмо от лица человека, который тебя любит. Про сегодняшнюю твою «неудачу». Его словами, не словами критика.'},
+     {t:'Инвентаризация «нельзя»',d:'Выпиши правила, по которым живёшь: «нельзя ошибаться», «нельзя хвастаться»... Рядом с каждым — чьим почерком оно написано. Твоим ли?'}],
+ ct:[{t:'Сценарий без меня',d:'Опиши письменно: что реально случится, если один день всё пойдёт без твоего контроля? Пиши подробно, до конца, до самого «и тогда...». Обычно там обнаруживается выживаемый финал.'},
+     {t:'Дневник отпущенного',d:'Каждый вечер — одна строка: «сегодня я не проконтролировал{а|} ___ — и вот что было». Собирай доказательную базу того, что мир держится не только на тебе.'}],
+ cl:[{t:'Письмо без отправки',d:'Напиши письмо человеку, которому не смог{ла|} сказать важное. Отправлять не нужно — важно, что слова впервые вышли наружу.'},
+     {t:'Продолжи фразу',d:'Закончи письменно пять раз подряд фразу «На самом деле я чувствую...» — каждый раз новым продолжением. Первые два будут дежурными. Настоящее начнётся с третьего.'}],
+ hr:[{t:'Письмо уставшему себе',d:'Напиши письмо себе — том{у|ой}, кто всех тащит. От лица того, кто видит эту усталость и не требует ничего взамен. Начни со слов «я вижу, как ты...»'},
+     {t:'Декларация прав',d:'Составь и запиши свой список из пяти прав: «я имею право отдыхать без причины», «я имею право не спасать»... Перечитывай перед сном три дня подряд.'}]}},
+act:{gen:[
+ {t:'Одно «нет» в день',d:'Найди сегодня одну маленькую возможность отказаться от того, чего не хочешь. Вежливо, без оправданий: «нет, не смогу». Заметь: мир устоял.'},
+ {t:'Эксперимент «неидеально»',d:'Сделай одно дело сознательно на «нормально», а не на «идеально»: отправь письмо без третьей перечитки. Собери данные: заметил ли кто-нибудь?'},
+ {t:'Первый шаг за 5 минут',d:'Выбери дело, которое давно висит, и сделай только первые пять минут. Не больше. Начатое перестаёт давить — проверь.'},
+ {t:'Сделать по-другому',d:'Соверши сегодня одно привычное действие непривычным способом: другой маршрут, другая рука, другой порядок. Мозгу полезно вспоминать, что можно иначе.'}],
+pat:{
+ ab:[{t:'Не проверять 30 минут',d:'Заметив импульс проверить мессенджер «а вдруг что-то не так» — поставь таймер на 30 минут и займись делом. Когда таймер прозвонит, проверь и запиши: изменилось ли что-то страшное?'},
+     {t:'Свидание с собой',d:'Проведи 30 минут наедине с собой без телефона: прогулка, кофе, музыка. Цель эксперимента — поймать момент, когда одиночество спокойное, а не страшное.'}],
+ cr:[{t:'Чистое «спасибо»',d:'Сегодня на любой комплимент отвечай только «спасибо». Без «да ладно» и «просто повезло». Посчитай, сколько раз захотелось обесценить.'},
+     {t:'Похвастаться вслух',d:'Расскажи одному человеку об одном своём успехе — прямо, без самоиронии и «но». Это упражнение, а не хвастовство: заметь, что произойдёт (спойлер: ничего плохого).'}],
+ ct:[{t:'Чужой выбор',d:'Отдай сегодня одно решение другому человеку или случаю — что на ужин, какой фильм — и не вноси правок. Ни одной. Наблюдай за собой с любопытством.'},
+     {t:'Оставить несделанным',d:'Сознательно оставь сегодня одно дело из списка несделанным. Незакрытая галочка — дискомфорт, не катастрофа. Проживи вечер с ней и убедись.'}],
+ cl:[{t:'Маленькая просьба',d:'Попроси сегодня о мелочи: передать, подсказать, помочь донести. Мышца «просить» тренируется только на практике — начни с безопасного веса.'},
+     {t:'Одно чувство вслух',d:'Скажи сегодня одному человеку одно настоящее чувство: «я расстроил{ась|ся}», «я обрадовал{ась|ся}». Не событие — чувство. Одного раза достаточно.'}],
+ hr:[{t:'Пауза перед «да»',d:'На каждую просьбу сегодня отвечай «я подумаю и скажу». Даже 30 секунд паузы ломают автоматизм спасателя. Посчитай, скольким «да» пауза изменила ответ.'},
+     {t:'Не чинить',d:'Когда кто-то пожалуется — выслушай и не предлагай решений, пока не попросят. Спроси: «тебе нужен совет или выговориться?» Записывай счёт: сколько раз хотелось броситься спасать.'}]}}};
+const REFL=[
+ {t:'Взгляд назад',d:'Перечитай (или вспомни) эту неделю: какое задание оказалось самым трудным? Именно там, где сопротивление сильнее всего, паттерн держится крепче. Запиши одно наблюдение в дневник ниже.'},
+ {t:'Письмо себе на старте',d:'Напиши два-три предложения себе — том{у|ой}, кто начинал этот план: что ты уже понял{а|} про себя, чего не знал{а|} тогда?'},
+ {t:'Самое живое',d:'Вспомни момент недели, когда ты почувствовал{а|} себя самым живым. Что это было? Как устроить, чтобы таких моментов стало больше на следующей неделе?'},
+ {t:'Чему сопротивляюсь',d:'Ответь себе честно: какое задание ты пропускал{а|} или делал{а|} формально? Не ругай себя — просто отметь. Сопротивление показывает, где болит.'}];
+const WEEKR=[
+ {t:'Итог недели: заметить сдвиг',d:'Оцени от 1 до 10: насколько сильно твой главный паттерн управлял тобой на этой неделе? Сравни с ощущением до старта плана. Сдвиг на один балл — это уже движение.'},
+ {t:'Итог недели: коллекция доказательств',d:'Выпиши три момента недели, когда ты поступил{а|} не по старому сценарию. Это доказательства, что паттерн — привычка, а не характер.'},
+ {t:'Итог недели: телу слово',d:'Спроси у тела: стало ли где-то свободнее, чем месяц назад? Плечи, челюсть, дыхание? Тело замечает изменения раньше головы.'},
+ {t:'Итог месяца: пройди тест снова',d:'Четыре недели практики позади. Пройди тест ещё раз — и сравни результаты в кабинете: цифры покажут, что сдвинулось. И реши, хочешь ли ты ещё один круг — с этим же паттерном или со следующим.'}];
+
+function loadPlan(){try{const p=JSON.parse(localStorage.getItem('istok_plan')||'null');return p&&p.v===1?p:null;}catch(e){return null;}}
+function savePlan(p){try{localStorage.setItem('istok_plan',JSON.stringify(p));}catch(e){}}
+function buildPlan(appr,p1,p2){
+  const B=PLANB[appr],days=[];
+  for(let wk=0;wk<4;wk++){
+    days.push({...B.pat[p1][wk%2],tag:PAT[p1].name});
+    days.push({...B.gen[(wk*2)%4],tag:'общая практика'});
+    days.push({...B.pat[p2][wk%2],tag:PAT[p2].name});
+    days.push({...B.gen[(wk*2+1)%4],tag:'общая практика'});
+    days.push({...B.pat[p1][(wk+1)%2],tag:PAT[p1].name});
+    days.push({...REFL[wk],tag:'рефлексия'});
+    days.push({...WEEKR[wk],tag:'итог недели'});
+  }
+  return days;
+}
+function startApprTest(){window.__aq={i:0,sc:{cog:0,img:0,body:0,wri:0,act:0}};renderPractice();}
+function apprPick(i){
+  const a=window.__aq;if(!a)return;
+  a.sc[AQ[a.i].o[i].k]++;a.i++;
+  if(a.i<AQ.length){renderPractice();return;}
+  const ord=Object.keys(a.sc).sort((x,y)=>a.sc[y]-a.sc[x]);
+  window.__aq=null;
+  let res=null;try{res=JSON.parse(localStorage.getItem('istok_result')||'null');}catch(e){}
+  const po=res&&res.patterns?Object.keys(res.patterns).sort((x,y)=>res.patterns[y].pct-res.patterns[x].pct):PKEYS.slice();
+  const plan={v:1,appr:ord[0],appr2:a.sc[ord[1]]>0&&a.sc[ord[1]]>=a.sc[ord[0]]-1?ord[1]:null,
+    start:isoToday(),p1:po[0],p2:po[1],days:buildPlan(ord[0],po[0],po[1]),done:{}};
+  savePlan(plan);renderPractice();
+}
+function togPlanDay(n){
+  const p=loadPlan();if(!p)return;
+  p.done=p.done||{};p.done[n]=!p.done[n];savePlan(p);
+  /* сегодняшняя отметка идёт и в серию практики */
+  const today=isoToday();
+  const dayN=Math.min(28,Math.max(1,Math.round((Date.parse(today)-Date.parse(p.start))/86400000)+1));
+  if(n===dayN){const st=loadPr();if(!st.done[today])st.done[today]={};st.done[today].m=p.done[n];savePr(st);}
+  renderPractice();
+}
+function planRegen(){
+  const p=loadPlan();if(!p)return;
+  let res=null;try{res=JSON.parse(localStorage.getItem('istok_result')||'null');}catch(e){}
+  const po=res&&res.patterns?Object.keys(res.patterns).sort((x,y)=>res.patterns[y].pct-res.patterns[x].pct):[p.p1,p.p2];
+  savePlan({...p,start:isoToday(),p1:po[0],p2:po[1],days:buildPlan(p.appr,po[0],po[1]),done:{}});
+  renderPractice();
+}
+function apprRetake(){try{localStorage.removeItem('istok_plan');}catch(e){}startApprTest();}
 
 /* ══════════ ИЛЛЮСТРАЦИИ РЫБ (SVG, рисуются кодом) ══════════
    Если положить фото в assets/fish/<ключ>.jpg — оно заменит рисунок. */
