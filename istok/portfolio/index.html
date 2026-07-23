@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Станислава Пыжова — AI-креатор, SMM-креативщик</title>
 <meta name="description" content="AI-креатор с фокусом на видео-контент, UGC и визуальные истории для брендов. Нейрофотосессии, генерация видео, ИИ-аватары.">
+<meta property="og:title" content="Станислава Пыжова — AI-креатор">
+<meta property="og:description" content="AI-ролики, визуалы и UGC-контент для брендов: 8 млн+ просмотров, конверсия 3 продажи на 4 просмотра.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/hero-1.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -80,11 +84,12 @@ ul{list-style:none}
 /* ============ HERO ============ */
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;overflow:hidden}
 .hero-bg{position:absolute;inset:0}
-.hero-bg img{
+.hero-bg .bg-media{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   opacity:0;transition:opacity 1.2s ease-in-out;
 }
-.hero-bg img.active{opacity:1;animation:kenburns 14s ease-in-out infinite alternate}
+.hero-bg .bg-media.active{opacity:1}
+.hero-bg img.active{animation:kenburns 14s ease-in-out infinite alternate}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.08)}}
 .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.38);z-index:1}
 .hero-content{
@@ -194,6 +199,76 @@ ul{list-style:none}
 .chip.hl{border-color:rgba(245,152,242,.5);color:var(--accent)}
 .case-link{font-size:13px;font-weight:600;color:var(--accent);display:inline-flex;gap:6px;align-items:center}
 .case-link:hover{text-decoration:underline}
+
+/* ============ VIDEO SHOWCASE ============ */
+.video-sub{margin-top:80px}
+.video-sub h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
+.video-sub .hint{font-size:14px;color:var(--muted);margin-bottom:30px}
+.videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.video-card{
+  border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0a0a0a;
+  transition:border-color .4s ease;position:relative;
+}
+.video-card:hover{border-color:rgba(245,152,242,.55)}
+.video-card video{width:100%;aspect-ratio:9/16;object-fit:contain;background:#050505;display:block;cursor:pointer}
+.sound-btn{
+  position:absolute;top:14px;right:14px;z-index:2;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+  transition:border-color .3s ease,background .3s ease;
+}
+.sound-btn:hover{border-color:var(--accent)}
+.video-card figcaption{padding:18px 20px 20px;display:flex;flex-direction:column;gap:4px}
+.video-card figcaption b{font-size:16px;font-weight:700;letter-spacing:-.01em}
+.video-card figcaption span{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+
+/* ============ RESULTS INFOGRAPHIC ============ */
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.result-card{
+  border:1px solid var(--line);border-radius:18px;background:#0a0a0a;
+  padding:34px 32px 36px;display:flex;flex-direction:column;gap:22px;
+}
+.result-card h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.result-card .note{font-size:14px;line-height:21px;color:rgba(255,255,255,.72);margin-top:auto}
+.conv-num{font-size:clamp(56px,6vw,88px);font-weight:800;letter-spacing:-.03em;line-height:1}
+.conv-num em{font-style:normal;color:var(--accent)}
+.conv-dots{display:flex;gap:14px}
+.conv-dots span{
+  width:clamp(40px,4.5vw,58px);height:clamp(40px,4.5vw,58px);border-radius:50%;
+  border:2px solid rgba(255,255,255,.3);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  transition:background .6s ease,border-color .6s ease;
+}
+.in .conv-dots span.filled{background:var(--accent);border-color:var(--accent);color:#000}
+.conv-dots span.filled{transition-delay:calc(var(--i) * .18s + .4s)}
+.bars{display:flex;flex-direction:column;gap:20px}
+.bar-row{display:flex;flex-direction:column;gap:8px}
+.bar-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.bar-lbl{font-size:14px;font-weight:600}
+.bar-val{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar-track{height:14px;border-radius:7px;background:rgba(255,255,255,.07);overflow:hidden}
+.bar{
+  height:100%;border-radius:7px;width:0;
+  transition:width 1.3s var(--ease-spring) .35s;
+}
+.bar.gray{background:rgba(255,255,255,.28)}
+.bar.pink{background:var(--accent);box-shadow:0 0 14px rgba(245,152,242,.5)}
+.in .bar{width:var(--w)}
+.speed-badge{
+  align-self:flex-start;font-size:13px;font-weight:700;color:#000;
+  background:var(--accent);border-radius:999px;padding:8px 14px;
+}
+.mega{
+  margin-top:22px;border:1px solid var(--line);border-radius:18px;background:#0a0a0a;
+  padding:48px 32px;text-align:center;
+}
+.mega .num{
+  display:block;font-size:clamp(52px,8.5vw,120px);font-weight:800;letter-spacing:-.04em;line-height:1;
+  color:var(--accent);font-variant-numeric:tabular-nums;
+}
+.mega .cap{display:block;margin-top:14px;font-size:15px;color:rgba(255,255,255,.75)}
 
 /* ============ SERVICES ============ */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:90px}
@@ -306,6 +381,11 @@ ul{list-style:none}
   .stats{grid-template-columns:1fr 1fr}
   .works-grid{grid-template-columns:1fr}
   .services-grid{grid-template-columns:1fr;margin-bottom:60px}
+  .videos-grid{grid-template-columns:1fr}
+  .results-grid{grid-template-columns:1fr}
+  .video-sub{margin-top:56px}
+  .mega{padding:36px 20px}
+  .result-card{padding:26px 22px 28px}
   .service-card{aspect-ratio:4/5}
   .steps{grid-template-columns:1fr;gap:28px}
   .about-grid{grid-template-columns:1fr;gap:40px}
@@ -333,9 +413,10 @@ ul{list-style:none}
   <div class="navbar-inner">
     <nav class="nav-links" aria-label="Основная навигация">
       <a class="nav-link" href="#works"><span class="idx">01</span><span class="label">Работы</span></a>
-      <a class="nav-link" href="#services"><span class="idx">02</span><span class="label">Услуги</span></a>
-      <a class="nav-link" href="#about"><span class="idx">03</span><span class="label">Обо мне</span></a>
-      <a class="nav-link" href="#contact"><span class="idx">04</span><span class="label">Контакты</span></a>
+      <a class="nav-link" href="#results"><span class="idx">02</span><span class="label">Результаты</span></a>
+      <a class="nav-link" href="#services"><span class="idx">03</span><span class="label">Услуги</span></a>
+      <a class="nav-link" href="#about"><span class="idx">04</span><span class="label">Обо мне</span></a>
+      <a class="nav-link" href="#contact"><span class="idx">05</span><span class="label">Контакты</span></a>
     </nav>
     <button class="burger" id="burger" aria-expanded="false" aria-controls="mobilePanel">Меню</button>
     <div class="nav-meta">
@@ -347,6 +428,7 @@ ul{list-style:none}
     <div class="mobile-panel-inner">
       <nav aria-label="Мобильная навигация">
         <a href="#works">Работы</a>
+        <a href="#results">Результаты</a>
         <a href="#services">Услуги</a>
         <a href="#about">Обо мне</a>
         <a href="#contact">Контакты</a>
@@ -359,16 +441,16 @@ ul{list-style:none}
 <!-- ============ HERO ============ -->
 <section class="hero" aria-label="Главный экран">
   <div class="hero-bg" aria-hidden="true">
-    <img src="assets/hero-1.jpg" alt="" class="active" loading="eager">
-    <img src="assets/hero-2.jpg" alt="" loading="lazy">
-    <img src="assets/hero-3.jpg" alt="" loading="lazy">
+    <video class="bg-media active" src="assets/hero-angel.mp4" poster="assets/hero-angel-poster.jpg" muted autoplay loop playsinline preload="auto"></video>
+    <video class="bg-media" src="assets/hero-wave.mp4" poster="assets/hero-wave-poster.jpg" muted loop playsinline preload="metadata"></video>
+    <img class="bg-media" src="assets/hero-1.jpg" alt="" loading="lazy">
   </div>
   <div class="hero-content">
     <div class="hero-upper">
       <div class="hero-switcher" role="group" aria-label="Примеры генераций">
-        <button class="switch-btn active" data-slide="0"><span class="idx">01</span><span class="label">Нейрофотосессия</span></button>
-        <button class="switch-btn" data-slide="1"><span class="idx">02</span><span class="label">Предметная съёмка</span></button>
-        <button class="switch-btn" data-slide="2"><span class="idx">03</span><span class="label">Киногенерация</span></button>
+        <button class="switch-btn active" data-slide="0"><span class="idx">01</span><span class="label">Киногенерация</span></button>
+        <button class="switch-btn" data-slide="1"><span class="idx">02</span><span class="label">Генерация по фото</span></button>
+        <button class="switch-btn" data-slide="2"><span class="idx">03</span><span class="label">Нейрофотосессия</span></button>
       </div>
       <div class="availability" role="status">
         <span class="dot" aria-hidden="true"></span>
@@ -413,10 +495,10 @@ ul{list-style:none}
     </div>
 
     <div class="stats reveal-up">
-      <div class="stat"><div class="num">8&nbsp;млн<em>+</em></div><div class="lbl">просмотров контента для Cata-Kor</div></div>
+      <div class="stat"><div class="num"><span data-count="8">0</span>&nbsp;млн<em>+</em></div><div class="lbl">просмотров контента для Cata-Kor</div></div>
       <div class="stat"><div class="num">3&nbsp;из&nbsp;4</div><div class="lbl">лучшая конверсия: продажи на просмотр товара</div></div>
-      <div class="stat"><div class="num">900&nbsp;тыс<em>+</em></div><div class="lbl">просмотров в нише с жёсткими блокировками</div></div>
-      <div class="stat"><div class="num">6</div><div class="lbl">уникальных AI-видео в день — стабильный продакшен</div></div>
+      <div class="stat"><div class="num"><span data-count="900">0</span>&nbsp;тыс<em>+</em></div><div class="lbl">просмотров в нише с жёсткими блокировками</div></div>
+      <div class="stat"><div class="num"><span data-count="6">0</span></div><div class="lbl">уникальных AI-видео в день — стабильный продакшен</div></div>
     </div>
 
     <div class="works-grid">
@@ -488,6 +570,76 @@ ul{list-style:none}
         </div>
       </article>
     </div>
+
+    <div class="video-sub">
+      <h3 class="reveal-up">AI-видео в действии</h3>
+      <p class="hint reveal-up">Ролики полностью созданы с помощью нейросетей — от сценария до монтажа. Нажми на видео, чтобы включить звук.</p>
+      <div class="videos-grid">
+        <figure class="video-card reveal-up">
+          <video src="assets/video-avatar-mic.mp4" poster="assets/video-avatar-mic-poster.jpg" muted loop playsinline preload="metadata" aria-label="AI-аватар, сгенерированный по одному фото"></video>
+          <button class="sound-btn" aria-label="Включить звук">🔇</button>
+          <figcaption><b>AI-аватар по одному фото</b><span>Генерация по фото · UGC</span></figcaption>
+        </figure>
+        <figure class="video-card reveal-up delay-1">
+          <video src="assets/video-priest.mp4" poster="assets/video-priest-poster.jpg" muted loop playsinline preload="metadata" aria-label="Рекламный креатив для латиноамериканского рынка"></video>
+          <button class="sound-btn" aria-label="Включить звук">🔇</button>
+          <figcaption><b>Креатив для лат. рынка</b><span>Арбитраж · локализация</span></figcaption>
+        </figure>
+        <figure class="video-card reveal-up delay-2">
+          <video src="assets/video-postpartum.mp4" poster="assets/video-postpartum-poster.jpg" muted loop playsinline preload="metadata" aria-label="ИИ-аватар для ниши health and wellness"></video>
+          <button class="sound-btn" aria-label="Включить звук">🔇</button>
+          <figcaption><b>ИИ-аватар для health-ниши</b><span>UGC · США</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="section-head reveal-up">
+      <span class="idx">02</span>
+      <div>
+        <h2>Результаты</h2>
+        <p class="section-sub">Не «красивые картинки», а метрики, которые влияют на продажи: конверсия, скорость и масштаб.</p>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card reveal-up">
+        <h3>Конверсия витрины товара</h3>
+        <div class="conv-dots" aria-hidden="true">
+          <span class="filled" style="--i:0">✓</span>
+          <span class="filled" style="--i:1">✓</span>
+          <span class="filled" style="--i:2">✓</span>
+          <span style="--i:3"></span>
+        </div>
+        <div class="conv-num"><em data-count="75" data-suffix="%">0%</em></div>
+        <p class="note">3 продажи на каждые 4 просмотра товара — лучший результат моего контента для Cata-Kor (ТОП-1 по продажам БАДов в США).</p>
+      </div>
+
+      <div class="result-card reveal-up delay-1">
+        <h3>Скорость продакшена</h3>
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-lbl">Классический продакшен</span><span class="bar-val">недели</span></div>
+            <div class="bar-track"><div class="bar gray" style="--w:100%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-head"><span class="bar-lbl">AI-продакшен</span><span class="bar-val">дни</span></div>
+            <div class="bar-track"><div class="bar pink" style="--w:15%"></div></div>
+          </div>
+        </div>
+        <span class="speed-badge">до 6 уникальных видео в день</span>
+        <p class="note">AI-инструменты сжимают цикл производства с недель до дней: быстрее тесты гипотез — быстрее находится креатив, который продаёт.</p>
+      </div>
+    </div>
+
+    <div class="mega reveal-up">
+      <span class="num" data-count="8000000" data-suffix="+">0</span>
+      <span class="cap">просмотров принёс брендам мой AI-контент</span>
+    </div>
   </div>
 </section>
 
@@ -495,7 +647,7 @@ ul{list-style:none}
 <section class="section" id="services">
   <div class="container">
     <div class="section-head reveal-up">
-      <span class="idx">02</span>
+      <span class="idx">03</span>
       <div>
         <h2>Услуги</h2>
         <p class="section-sub">Продакшен занимает дни, а не недели: AI-инструменты позволяют быстро тестировать гипотезы и масштабировать то, что работает.</p>
@@ -561,7 +713,7 @@ ul{list-style:none}
 <section class="section" id="about">
   <div class="container">
     <div class="section-head reveal-up">
-      <span class="idx">03</span>
+      <span class="idx">04</span>
       <div><h2>Обо мне</h2></div>
     </div>
 
@@ -642,7 +794,7 @@ ul{list-style:none}
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact">
   <div class="container">
-    <p class="kicker reveal-up">04 · Контакты</p>
+    <p class="kicker reveal-up">05 · Контакты</p>
     <a class="contact-mail reveal-up" href="mailto:pyzhova.stanislava@yandex.ru">pyzhova.stanislava@yandex.ru</a>
     <div class="contact-tg reveal-up delay-1">
       <a class="cta-btn" href="https://t.me/stasy_p" target="_blank" rel="noopener">telegram · @stasy_p</a>
@@ -677,12 +829,18 @@ ul{list-style:none}
 
 // ---------- Переключатель фонов hero ----------
 (function(){
-  var imgs = document.querySelectorAll('.hero-bg img');
+  var imgs = document.querySelectorAll('.hero-bg .bg-media');
   var btns = document.querySelectorAll('.switch-btn');
   var current = 0, timer;
   function show(i){
     current = i;
-    imgs.forEach(function(img, k){ img.classList.toggle('active', k === i); });
+    imgs.forEach(function(img, k){
+      img.classList.toggle('active', k === i);
+      if(img.tagName === 'VIDEO'){
+        if(k === i){ img.play().catch(function(){}); }
+        else { img.pause(); }
+      }
+    });
     btns.forEach(function(b, k){ b.classList.toggle('active', k === i); });
   }
   btns.forEach(function(btn){
@@ -738,6 +896,70 @@ ul{list-style:none}
 (function(){
   var track = document.getElementById('marqueeTrack');
   track.innerHTML += track.innerHTML;
+})();
+
+// ---------- Витрина видео: автоплей в кадре + звук по клику ----------
+(function(){
+  var cards = document.querySelectorAll('.video-card');
+  if('IntersectionObserver' in window){
+    var vio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var v = e.target.querySelector('video');
+        if(e.isIntersecting){ v.play().catch(function(){}); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.25 });
+    cards.forEach(function(c){ vio.observe(c); });
+  } else {
+    cards.forEach(function(c){ c.querySelector('video').play().catch(function(){}); });
+  }
+  function setSound(card, on){
+    var v = card.querySelector('video');
+    var b = card.querySelector('.sound-btn');
+    v.muted = !on;
+    b.textContent = on ? '🔊' : '🔇';
+    b.setAttribute('aria-label', on ? 'Выключить звук' : 'Включить звук');
+  }
+  cards.forEach(function(card){
+    function toggle(){
+      var willUnmute = card.querySelector('video').muted;
+      cards.forEach(function(c){ setSound(c, false); });
+      if(willUnmute) setSound(card, true);
+    }
+    card.querySelector('video').addEventListener('click', toggle);
+    card.querySelector('.sound-btn').addEventListener('click', toggle);
+  });
+})();
+
+// ---------- Анимированные счётчики ----------
+(function(){
+  var els = document.querySelectorAll('[data-count]');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function fmt(n){ return n.toLocaleString('ru-RU'); }
+  function run(el){
+    var target = parseInt(el.dataset.count, 10);
+    var suffix = el.dataset.suffix || '';
+    if(reduced){ el.textContent = fmt(target) + suffix; return; }
+    var dur = 1500, t0 = null;
+    function step(t){
+      if(!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(target * eased)) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(el){ el.textContent = fmt(parseInt(el.dataset.count,10)) + (el.dataset.suffix||''); });
+    return;
+  }
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ run(e.target); cio.unobserve(e.target); }
+    });
+  }, { threshold: 0.4, rootMargin: '0px 0px 5% 0px' });
+  els.forEach(function(el){ cio.observe(el); });
 })();
 
 // ---------- Текущий год ----------
