@@ -356,8 +356,13 @@ ul{list-style:none}
 .exp-item .role span{font-size:13px;color:var(--muted)}
 .exp-item .desc{font-size:14px;line-height:21px;color:rgba(255,255,255,.72)}
 .tools{margin-top:64px}
-.tools h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:28px}
-.tools-cloud{display:flex;flex-wrap:wrap;gap:10px}
+.tools h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:32px}
+.tools-groups{display:grid;grid-template-columns:repeat(4,1fr);gap:32px 22px}
+.tool-group h4{
+  font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);
+  font-weight:700;margin-bottom:14px;
+}
+.tools-cloud{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start}
 
 /* ============ CONTACT ============ */
 .contact{padding:130px 0 40px;text-align:center}
@@ -387,6 +392,7 @@ ul{list-style:none}
   .hero-aside{padding-left:24px}
   .steps{grid-template-columns:repeat(2,1fr)}
   .offer-grid{grid-template-columns:repeat(2,1fr)}
+  .tools-groups{grid-template-columns:repeat(2,1fr)}
   .about-grid{gap:36px}
 }
 
@@ -413,6 +419,7 @@ ul{list-style:none}
   .results-grid{grid-template-columns:1fr}
   .offer-grid{grid-template-columns:1fr}
   .offer{margin-top:60px}
+  .tools-groups{grid-template-columns:1fr 1fr;gap:24px 16px}
   .extra-sub{margin-top:56px}
   .extra-card{grid-template-columns:1fr}
   .extra-card .case-media{aspect-ratio:16/10;min-height:0}
@@ -848,14 +855,39 @@ ul{list-style:none}
 
     <div class="tools reveal-up">
       <h3>AI-инструменты</h3>
-      <div class="tools-cloud">
-        <span class="chip hl">ChatGPT</span><span class="chip hl">Claude</span><span class="chip hl">Perplexity</span><span class="chip hl">DeepSeek</span>
-        <span class="chip">Midjourney</span><span class="chip">Reve</span><span class="chip">Nano Banana</span>
-        <span class="chip">Runway</span><span class="chip">Pika</span><span class="chip">Veo 3</span><span class="chip">Sora 2</span><span class="chip">Krea</span><span class="chip">Kling</span><span class="chip">Seedance</span>
-        <span class="chip">HeyGen</span><span class="chip">Captions</span><span class="chip">FaceSwap AI</span>
-        <span class="chip">ElevenLabs</span><span class="chip">Suno</span><span class="chip">Udio</span>
-        <span class="chip">CapCut</span><span class="chip">After Effects</span>
-        <span class="chip">Cursor</span><span class="chip">Figma</span>
+      <div class="tools-groups">
+        <div class="tool-group">
+          <h4>Тексты · сценарии · аналитика</h4>
+          <div class="tools-cloud"><span class="chip">ChatGPT</span><span class="chip">Claude</span><span class="chip">Perplexity</span><span class="chip">DeepSeek</span></div>
+        </div>
+        <div class="tool-group">
+          <h4>Визуалы</h4>
+          <div class="tools-cloud"><span class="chip">Midjourney</span><span class="chip">Reve</span><span class="chip">Nano Banana</span></div>
+        </div>
+        <div class="tool-group">
+          <h4>AI-видео</h4>
+          <div class="tools-cloud"><span class="chip">Runway</span><span class="chip">Pika</span><span class="chip">Veo 3</span><span class="chip">Sora 2</span><span class="chip">Krea</span><span class="chip">Kling</span><span class="chip">Seedance</span></div>
+        </div>
+        <div class="tool-group">
+          <h4>Аватары · субтитры</h4>
+          <div class="tools-cloud"><span class="chip">HeyGen</span><span class="chip">Captions</span><span class="chip">FaceSwap AI</span></div>
+        </div>
+        <div class="tool-group">
+          <h4>Озвучка</h4>
+          <div class="tools-cloud"><span class="chip">ElevenLabs</span></div>
+        </div>
+        <div class="tool-group">
+          <h4>Музыка · саунд</h4>
+          <div class="tools-cloud"><span class="chip">Suno</span><span class="chip">Udio</span></div>
+        </div>
+        <div class="tool-group">
+          <h4>Монтаж</h4>
+          <div class="tools-cloud"><span class="chip">CapCut</span><span class="chip">After Effects</span></div>
+        </div>
+        <div class="tool-group">
+          <h4>Vibe-coding · дизайн</h4>
+          <div class="tools-cloud"><span class="chip">Cursor</span><span class="chip">Figma</span></div>
+        </div>
       </div>
     </div>
   </div>
