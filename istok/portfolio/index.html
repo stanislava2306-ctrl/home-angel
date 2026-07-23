@@ -205,6 +205,11 @@ ul{list-style:none}
 .video-sub h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
 .video-sub .hint{font-size:14px;color:var(--muted);margin-bottom:30px}
 .videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.extra-sub{margin-top:80px}
+.extra-sub h3{font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.01em;color:var(--muted);margin-bottom:24px}
+.extra-card{display:grid;grid-template-columns:300px 1fr;align-items:stretch}
+.extra-card .case-media{aspect-ratio:3/4;height:auto}
+.extra-card .case-metrics{margin-top:6px}
 .video-card{
   border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0a0a0a;
   transition:border-color .4s ease;position:relative;
@@ -234,6 +239,7 @@ ul{list-style:none}
 .result-card .note{font-size:14px;line-height:21px;color:rgba(255,255,255,.72);margin-top:auto}
 .conv-num{font-size:clamp(56px,6vw,88px);font-weight:800;letter-spacing:-.03em;line-height:1}
 .conv-num em{font-style:normal;color:var(--accent)}
+.conv-num .upto{font-size:.32em;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .conv-dots{display:flex;gap:14px}
 .conv-dots span{
   width:clamp(40px,4.5vw,58px);height:clamp(40px,4.5vw,58px);border-radius:50%;
@@ -297,6 +303,22 @@ ul{list-style:none}
 .step h4{font-size:17px;font-weight:700;margin-bottom:10px;letter-spacing:-.01em}
 .step p{font-size:13.5px;line-height:20px;color:var(--muted)}
 
+/* ============ OFFER ============ */
+.offer{border-top:1px solid var(--line);margin-top:90px;padding-top:48px}
+.offer h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:36px}
+.offer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.offer-item{
+  border:1px solid var(--line);border-radius:18px;background:#0a0a0a;
+  padding:26px 24px 28px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;
+  transition:border-color .4s ease;
+}
+.offer-item:hover{border-color:rgba(245,152,242,.55)}
+.offer-item b{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.offer-item p{font-size:13.5px;line-height:20px;color:rgba(255,255,255,.72);flex:1}
+.offer-item .chip{border-color:rgba(245,152,242,.5);color:var(--accent)}
+.offer-cta{display:flex;align-items:center;gap:24px;margin-top:32px;flex-wrap:wrap}
+.offer-note{font-size:14px;color:var(--muted)}
+
 /* ============ ABOUT ============ */
 .about-grid{display:grid;grid-template-columns:5fr 7fr;gap:60px;align-items:center}
 .about-photo{position:relative;display:flex;justify-content:center}
@@ -318,7 +340,8 @@ ul{list-style:none}
 }
 .about-block li b{color:#fff;font-weight:700}
 .exp{margin-top:80px}
-.exp h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:36px}
+.exp h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
+.exp-note{font-size:14px;color:var(--muted);margin-bottom:32px}
 .exp-item{
   display:grid;grid-template-columns:140px 1fr 2fr;gap:20px;
   padding:26px 0;border-top:1px solid var(--line);
@@ -359,6 +382,7 @@ ul{list-style:none}
   .hero-bottom{gap:28px;padding-bottom:52px}
   .hero-aside{padding-left:24px}
   .steps{grid-template-columns:repeat(2,1fr)}
+  .offer-grid{grid-template-columns:repeat(2,1fr)}
   .about-grid{gap:36px}
 }
 
@@ -383,6 +407,11 @@ ul{list-style:none}
   .services-grid{grid-template-columns:1fr;margin-bottom:60px}
   .videos-grid{grid-template-columns:1fr}
   .results-grid{grid-template-columns:1fr}
+  .offer-grid{grid-template-columns:1fr}
+  .offer{margin-top:60px}
+  .extra-sub{margin-top:56px}
+  .extra-card{grid-template-columns:1fr}
+  .extra-card .case-media{aspect-ratio:16/10;min-height:0}
   .video-sub{margin-top:56px}
   .mega{padding:36px 20px}
   .result-card{padding:26px 22px 28px}
@@ -496,7 +525,7 @@ ul{list-style:none}
 
     <div class="stats reveal-up">
       <div class="stat"><div class="num"><span data-count="8">0</span>&nbsp;млн<em>+</em></div><div class="lbl">просмотров контента для Cata-Kor</div></div>
-      <div class="stat"><div class="num">3&nbsp;из&nbsp;4</div><div class="lbl">лучшая конверсия: продажи на просмотр товара</div></div>
+      <div class="stat"><div class="num">до&nbsp;75<em>%</em></div><div class="lbl">пиковая конверсия лучшего креатива: 3 продажи на 4 перехода в карточку</div></div>
       <div class="stat"><div class="num"><span data-count="900">0</span>&nbsp;тыс<em>+</em></div><div class="lbl">просмотров в нише с жёсткими блокировками</div></div>
       <div class="stat"><div class="num"><span data-count="6">0</span></div><div class="lbl">уникальных AI-видео в день — стабильный продакшен</div></div>
     </div>
@@ -507,10 +536,10 @@ ul{list-style:none}
         <div class="case-body">
           <div class="case-top"><span class="case-num">Кейс 01</span><span class="case-tag">SMM / AI-контент</span></div>
           <h3 class="case-title">Cata-Kor — ТОП-1 по продажам БАДов в США</h3>
-          <p class="case-text">Тексты, сценарии, визуалы и видео для Instagram, TikTok и YouTube с использованием нейросетей. Вела 6+ аккаунтов с ежедневным выпуском контента.</p>
+          <p class="case-text">2024–2025. Тексты, сценарии, визуалы и видео для Instagram, TikTok и YouTube с использованием нейросетей. Вела 6+ аккаунтов с ежедневным выпуском контента.</p>
           <div class="case-metrics">
             <span class="chip hl">8 млн+ просмотров</span>
-            <span class="chip hl">конверсия 3 продажи / 4 просмотра</span>
+            <span class="chip hl">пик: 3 продажи на 4 перехода в карточку</span>
             <span class="chip">MidJourney · Veo 3 · Sora 2 · HeyGen</span>
           </div>
         </div>
@@ -556,19 +585,6 @@ ul{list-style:none}
         </div>
       </article>
 
-      <article class="case-card reveal-up">
-        <div class="case-media"><img src="assets/case-5.jpg" alt="Сайт-приглашение на свадьбу" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Кейс 05</span><span class="case-tag">Vibe-coding / Web</span></div>
-          <h3 class="case-title">Сайт-приглашение за 1 день</h3>
-          <p class="case-text">Одностраничный сайт-приглашение на свадьбу: макет в Figma, графика и тексты сгенерированы через Gemini и ChatGPT, сборка на Taplink.</p>
-          <div class="case-metrics">
-            <span class="chip hl">срок — 1 день</span>
-            <span class="chip">Figma · Gemini · ChatGPT</span>
-          </div>
-          <a class="case-link" href="https://taplink.cc/weddingromanveronika" target="_blank" rel="noopener">Посмотреть сайт (мобильная версия) →</a>
-        </div>
-      </article>
     </div>
 
     <div class="video-sub">
@@ -592,6 +608,23 @@ ul{list-style:none}
         </figure>
       </div>
     </div>
+
+    <div class="extra-sub">
+      <h3 class="reveal-up">Дополнительно · vibe-coding</h3>
+      <article class="case-card extra-card reveal-up">
+        <div class="case-media"><img src="assets/case-5.jpg" alt="Сайт-приглашение на свадьбу" loading="lazy"></div>
+        <div class="case-body">
+          <div class="case-top"><span class="case-num">Side-проект</span><span class="case-tag">Vibe-coding / Web</span></div>
+          <h3 class="case-title">Сайт-приглашение за 1 день</h3>
+          <p class="case-text">Одностраничный сайт-приглашение на свадьбу: макет в Figma, графика и тексты сгенерированы через Gemini и ChatGPT, сборка на Taplink. Тот же AI-подход работает и для лендингов брендов.</p>
+          <div class="case-metrics">
+            <span class="chip hl">срок — 1 день</span>
+            <span class="chip">Figma · Gemini · ChatGPT</span>
+          </div>
+          <a class="case-link" href="https://taplink.cc/weddingromanveronika" target="_blank" rel="noopener">Посмотреть сайт →</a>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -608,15 +641,15 @@ ul{list-style:none}
 
     <div class="results-grid">
       <div class="result-card reveal-up">
-        <h3>Конверсия витрины товара</h3>
+        <h3>Пиковая конверсия лучшего креатива</h3>
         <div class="conv-dots" aria-hidden="true">
           <span class="filled" style="--i:0">✓</span>
           <span class="filled" style="--i:1">✓</span>
           <span class="filled" style="--i:2">✓</span>
           <span style="--i:3"></span>
         </div>
-        <div class="conv-num"><em data-count="75" data-suffix="%">0%</em></div>
-        <p class="note">3 продажи на каждые 4 просмотра товара — лучший результат моего контента для Cata-Kor (ТОП-1 по продажам БАДов в США).</p>
+        <div class="conv-num"><span class="upto">до</span> <em data-count="75" data-suffix="%">0%</em></div>
+        <p class="note">3 продажи на каждые 4 перехода в карточку отдельного товара — результат лучшего креатива для Cata-Kor (ТОП-1 по продажам БАДов в США). Это пиковый срез, не средняя по аккаунту.</p>
       </div>
 
       <div class="result-card reveal-up delay-1">
@@ -706,6 +739,36 @@ ul{list-style:none}
         </div>
       </div>
     </div>
+
+    <div class="offer reveal-up">
+      <h3>Что можно заказать</h3>
+      <div class="offer-grid">
+        <div class="offer-item">
+          <b>UGC-пакет</b>
+          <p>Серия коротких роликов под TikTok / Reels / Shorts: сценарии, съёмка-генерация, монтаж, адаптация под платформу.</p>
+          <span class="chip">от 3 дней</span>
+        </div>
+        <div class="offer-item">
+          <b>AI-аватар бренда</b>
+          <p>Персонаж под ключ: внешность, голос, характер, история — и регулярный выпуск видео с ним.</p>
+          <span class="chip">от 5 дней</span>
+        </div>
+        <div class="offer-item">
+          <b>Нейрофотосессия</b>
+          <p>Фотогенерации с повторением внешности 1 в 1 или предметная съёмка товара без студии.</p>
+          <span class="chip">1–2 дня</span>
+        </div>
+        <div class="offer-item">
+          <b>Тест гипотез</b>
+          <p>Несколько AI-концепций под разные сценарии + запуск теста и аналитика по итогам.</p>
+          <span class="chip">от 3 дней</span>
+        </div>
+      </div>
+      <div class="offer-cta">
+        <p class="offer-note">Стоимость зависит от задачи и объёма — обсудим на созвоне.</p>
+        <a class="cta-btn" href="#contact">связаться со мной</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -732,7 +795,7 @@ ul{list-style:none}
             <h4 style="margin-top:26px">Языки</h4>
             <ul>
               <li><b>Русский</b> — родной</li>
-              <li><b>Английский</b> — B2</li>
+              <li><b>Английский</b> — B2 · сценарии для US-рынка прохожу через нейтив-редактуру (AI-проверка)</li>
               <li><b>Немецкий</b> — C1</li>
               <li><b>Китайский</b> — HSK 4</li>
             </ul>
@@ -754,25 +817,26 @@ ul{list-style:none}
 
     <div class="exp reveal-up">
       <h3>Опыт</h3>
+      <p class="exp-note">С 2025 года работаю в формате проектной занятости, поэтому роли могут идти параллельно.</p>
       <div class="exp-item">
         <span class="years">2024–2025</span>
         <div class="role"><b>AI-контент-мейкер / SMM</b><span>Cata-Kor (США) — бренд БАДов</span></div>
-        <p class="desc">AI-контент: видео, визуалы, сценарии, аватары, голос. 6+ аккаунтов в TikTok, Instagram и YouTube, 8 млн+ просмотров, максимальная конверсия — 3 продажи на 4 просмотра товара.</p>
+        <p class="desc">AI-контент полного цикла: видео, визуалы, сценарии, аватары, голос. Вела 6+ аккаунтов в TikTok, Instagram и YouTube — метрики в кейсе 01.</p>
       </div>
       <div class="exp-item">
         <span class="years">2025–2026</span>
-        <div class="role"><b>Контент-креатор / SMM</b><span>Гемблинг-ниша · NDA</span></div>
-        <p class="desc">Полное формирование контент-плана под нишу с жёсткими ограничениями платформ. Средний охват 50–100 тыс просмотров в месяц с учётом резки трафика.</p>
+        <div class="role"><b>Контент-креатор / SMM</b><span>Гемблинг-ниша · NDA · проектно</span></div>
+        <p class="desc">Контент-план и трендвочинг в нише с жёсткими ограничениями платформ — подробности в кейсе 02.</p>
       </div>
       <div class="exp-item">
         <span class="years">2026</span>
-        <div class="role"><b>Монтажёр-AI-креатор</b><span>Арбитраж трафика · Amalgama</span></div>
-        <p class="desc">Адаптация креативов под разные гео, работа с материалами от 15 секунд до 2 часов, сложный монтаж, A/B-тесты, достижение целевых KPI проекта.</p>
+        <div class="role"><b>Монтажёр-AI-креатор</b><span>Арбитраж трафика · Amalgama · проектно</span></div>
+        <p class="desc">Локализация креативов под разные гео: монтаж, переозвучка, A/B-тесты — подробности в кейсе 03.</p>
       </div>
       <div class="exp-item">
         <span class="years">2026</span>
-        <div class="role"><b>AI-креатор</b><span>Нутра-ниша · NDA</span></div>
-        <p class="desc">Короткий динамичный видео-контент для TikTok и Reels: средний охват 70 тыс просмотров в месяц, форматы на удержание, лояльность аудитории и нативные продажи.</p>
+        <div class="role"><b>AI-креатор</b><span>Нутра-ниша · NDA · проектно</span></div>
+        <p class="desc">Короткий динамичный видео-контент для TikTok и Reels: удержание, лояльность аудитории, нативные продажи — подробности в кейсе 04.</p>
       </div>
     </div>
 
@@ -780,7 +844,7 @@ ul{list-style:none}
       <h3>AI-инструменты</h3>
       <div class="tools-cloud">
         <span class="chip hl">ChatGPT</span><span class="chip hl">Claude</span><span class="chip hl">Perplexity</span><span class="chip hl">DeepSeek</span>
-        <span class="chip">Midjourney</span><span class="chip">Reve</span><span class="chip">NanoBanana</span>
+        <span class="chip">Midjourney</span><span class="chip">Reve</span><span class="chip">Nano Banana</span>
         <span class="chip">Runway</span><span class="chip">Pika</span><span class="chip">Veo 3</span><span class="chip">Sora 2</span><span class="chip">Krea</span><span class="chip">Kling</span><span class="chip">Seedance</span>
         <span class="chip">HeyGen</span><span class="chip">Captions</span><span class="chip">FaceSwap AI</span>
         <span class="chip">ElevenLabs</span><span class="chip">Suno</span><span class="chip">Udio</span>
