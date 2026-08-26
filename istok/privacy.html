@@ -8,12 +8,15 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d0f1a'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='40' fill='%23b9aef0' text-anchor='middle'%3EИ%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d0f1a;--text:#e8e4f0;--text2:#b9b3c9;--text3:#79738c;--accent3:#b9aef0}
+:root{--bg:#0d0f1a;--text:#e8e4f0;--text2:#b9b3c9;--text3:#79738c;--accent3:#b9aef0;--tap-min:44px}
+@media(prefers-color-scheme:light){:root{--bg:#f7f4fc;--text:#241f38;--text2:#554a70;--text3:#8d81a2;--accent3:#6a5cae}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+a:focus-visible{outline:2px solid var(--accent3);outline-offset:3px}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;line-height:1.85}
 .wrap{max-width:680px;margin:0 auto;padding:2.2rem 1.4rem 4rem}
 nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:3rem}
-.logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.28em;color:var(--text);text-decoration:none}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.28em;color:var(--text);text-decoration:none;padding:.6rem 0;margin:-.6rem 0;display:inline-flex;align-items:center;min-height:var(--tap-min)}
 .logo span{color:var(--accent3)}
 h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.9rem;margin-bottom:1.4rem}
 h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.25rem;margin:1.8rem 0 .6rem}

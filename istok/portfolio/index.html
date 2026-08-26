@@ -26,6 +26,10 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
 body{
   background:var(--bg);
   color:var(--text);
@@ -72,7 +76,7 @@ ul{list-style:none}
 }
 .nav-meta a:hover::after{transform:scaleX(1);transform-origin:left}
 .nav-meta .clock{color:var(--muted);font-variant-numeric:tabular-nums}
-.burger{display:none;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:-.12px;padding:4px 0}
+.burger{display:none;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:-.12px;padding:14px 8px;margin:-14px -8px;min-height:44px;align-items:center}
 .mobile-panel{
   display:none;
   grid-template-rows:0fr;
@@ -107,6 +111,7 @@ ul{list-style:none}
 .switch-btn{
   display:flex;gap:6px;align-items:flex-start;text-transform:uppercase;
   opacity:.55;transition:opacity .3s ease,transform .35s var(--ease-spring);
+  padding:10px 0;margin:-10px 0;min-height:44px;
 }
 .switch-btn:hover{opacity:.75;transform:translateX(4px)}
 .switch-btn.active{opacity:1}
@@ -143,6 +148,7 @@ ul{list-style:none}
 }
 .cta-btn:hover{color:#000;border-color:var(--accent)}
 .cta-btn:hover::before{transform:translateY(0)}
+.cta-btn:active{transform:scale(.97)}
 
 /* ============ REVEAL ANIMATIONS ============ */
 .reveal-up,.reveal-right{opacity:0}
@@ -222,13 +228,14 @@ ul{list-style:none}
 .video-card video{width:100%;aspect-ratio:9/16;object-fit:contain;background:#050505;display:block;cursor:pointer}
 .sound-btn{
   position:absolute;top:14px;right:14px;z-index:2;
-  width:40px;height:40px;border-radius:50%;
+  width:44px;height:44px;border-radius:50%;
   background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
   border:1px solid rgba(255,255,255,.25);
   display:flex;align-items:center;justify-content:center;font-size:16px;
-  transition:border-color .3s ease,background .3s ease;
+  transition:border-color .3s ease,background .3s ease,transform .1s cubic-bezier(0,0,.58,1);
 }
 .sound-btn:hover{border-color:var(--accent)}
+.sound-btn:active{transform:scale(.94)}
 .video-card figcaption{padding:18px 20px 20px;display:flex;flex-direction:column;gap:4px}
 .video-card figcaption b{font-size:16px;font-weight:700;letter-spacing:-.01em}
 .video-card figcaption span{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
