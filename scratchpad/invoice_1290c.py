@@ -6,14 +6,14 @@ OUT_DIR = Path("/mnt/user-data/outputs")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 lines = [
-    ("Electricity supply to event venues — day-ahead market",
-     "Active energy delivered to sports-event facilities, PUN reference", "45.00", "MWh", 142.50, 6412.50),
-    ("Temporary power supply & distribution — outdoor sports events",
-     "Provision, metering and management of temporary power for event sites", "1.00", "service", 1850.00, 1850.00),
-    ("Energy procurement & supply-management commission",
-     "Sourcing, contract placement and supply coordination for the client", "1.00", "service", 936.00, 936.00),
-    ("Balancing services & imbalance settlement",
-     "Real-time balancing coordination and imbalance charges pass-through", "1.00", "service", 512.72, 512.72),
+    ("Electricity supply — floodlighting & broadcast load",
+     "Active energy for venue lighting and broadcast infrastructure, day-ahead market", "42.00", "MWh", 138.00, 5796.00),
+    ("Guarantees of Origin — renewable energy certificates",
+     "Procurement of Guarantees of Origin certifying renewable-sourced supply", "250.00", "GO", 6.20, 1550.00),
+    ("Grid connection, metering & on-site technical assistance",
+     "Connection setup, meter installation and technical support at event sites", "1.00", "service", 1650.00, 1650.00),
+    ("Load-planning & energy-consumption consultancy",
+     "Demand forecasting, load scheduling and consumption-optimisation advisory", "1.00", "service", 974.17, 974.17),
 ]
 
 subtotal = sum(l[5] for l in lines)
@@ -40,7 +40,7 @@ for desc, sub, qty, unit, rate, amt in lines:
 
 html = f"""<!doctype html>
 <html><head><meta charset="utf-8">
-<title>Invoice 1287C</title>
+<title>Invoice 1290C</title>
 <style>
   @page {{ size: A4; margin: 11mm 14mm 9mm 14mm; }}
   * {{ box-sizing: border-box; }}
@@ -133,8 +133,8 @@ html = f"""<!doctype html>
     </div>
     <div class="doc-meta">
       <div class="kind">Fattura / Invoice</div>
-      <div class="num">N° 1287C</div>
-      <div class="date">Biella, 27 August 2026</div>
+      <div class="num">N° 1290C</div>
+      <div class="date">Biella, 28 August 2026</div>
     </div>
   </div>
 
@@ -198,12 +198,12 @@ html = f"""<!doctype html>
       <div class="row" style="font-size:7.8pt;color:#555">18–20 Amarousiou Chalandriou Ave., Marousi 151 25 &nbsp;·&nbsp; VAT: EL999846755</div>
       <div class="row" style="margin-top:2px"><b>IBAN</b> &nbsp; GR56 0570 0000 0006 8459 2624 836</div>
       <div class="row"><b>BIC / SWIFT</b> &nbsp; PRXBGRAA</div>
-      <div class="row"><b>Currency</b> &nbsp; EUR &nbsp;·&nbsp; <b>Reference</b> INV 1287C</div>
+      <div class="row"><b>Currency</b> &nbsp; EUR &nbsp;·&nbsp; <b>Reference</b> INV 1290C</div>
     </div>
     <div class="box">
       <div class="label">Terms</div>
-      <div class="row"><b>Issue date</b> &nbsp; 27/08/2026</div>
-      <div class="row"><b>Due date</b> &nbsp; 26/09/2026 (30 days)</div>
+      <div class="row"><b>Issue date</b> &nbsp; 28/08/2026</div>
+      <div class="row"><b>Due date</b> &nbsp; 27/09/2026 (30 days)</div>
       <div class="row"><b>Late-payment interest</b> &nbsp; per D. Lgs. 231/2002</div>
       <div class="row" style="margin-top:4px; font-size:8pt; color:#555">
         Please quote invoice number on all correspondence and remittance.
@@ -227,10 +227,7 @@ html = f"""<!doctype html>
 
 </body></html>"""
 
-html_path = OUT_DIR / "Invoice_1287C_BiellaCompany.html"
-html_path.write_text(html, encoding="utf-8")
-
-pdf_path = OUT_DIR / "Invoice_1287C_BiellaCompany.pdf"
+pdf_path = OUT_DIR / "Invoice_1290C_BiellaCompany.pdf"
 HTML(string=html, base_url=str(OUT_DIR)).write_pdf(str(pdf_path))
 print("WROTE:", pdf_path)
 print("SIZE:", pdf_path.stat().st_size, "bytes")
