@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Исток — познай себя</title>
-<meta name="description" content="Исток — глубокий мультимодальный тест на 55 вопросов: найди паттерны из детства, которые управляют твоей жизнью сегодня.">
+<meta name="description" content="Исток — глубокий мультимодальный тест на 56 вопросов: найди паттерны из детства, которые управляют твоей жизнью сегодня.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Исток — какие паттерны из детства управляют твоей жизнью?">
-<meta property="og:description" content="Глубокий тест на 55 вопросов: звуковые и визуальные иллюзии, незаконченные предложения, цвета и воспоминания. В конце — твоя рыба-тотем. Всё бесплатно и приватно.">
+<meta property="og:description" content="Глубокий тест на 56 вопросов: звуковые и зрительные иллюзии, незаконченные предложения, цвета, слова на время и воспоминания. В конце — твоя рыба-тотем. Бесплатно и приватно.">
 <meta property="og:image" content="https://istokyoursoul.netlify.app/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -367,6 +367,264 @@ a.flink{color:var(--text3);}
 .att-cab span{color:var(--text3);font-size:.8rem;}
 .att-cab .flink{margin:0;}
 @media(max-width:520px){#att-s{padding:5rem 1.1rem 4rem;}}
+
+/* ═══════════════════════════════════════════════════════════
+   ГЛУБОКАЯ ВОДА — визуальная система v2
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --glass:linear-gradient(158deg,rgba(255,255,255,.062) 0%,rgba(255,255,255,.022) 46%,rgba(255,255,255,.010) 100%);
+  --glass-hi:linear-gradient(158deg,rgba(255,255,255,.092) 0%,rgba(255,255,255,.034) 46%,rgba(255,255,255,.014) 100%);
+  --edge:linear-gradient(150deg,rgba(255,255,255,.20),rgba(255,255,255,.045) 38%,rgba(139,127,190,.16) 100%);
+  --edge-hi:linear-gradient(150deg,rgba(200,190,255,.42),rgba(255,255,255,.10) 40%,rgba(139,127,190,.34) 100%);
+  --shadow:0 24px 64px -28px rgba(0,0,0,.85),0 2px 10px -4px rgba(0,0,0,.5);
+  --shadow-hi:0 34px 80px -26px rgba(0,0,0,.9),0 0 46px -14px rgba(139,127,190,.34);
+  --r:18px;
+}
+
+/* ── толща воды: глубина, лучи, каустика, частицы ── */
+#ocean{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;
+  background:
+    radial-gradient(120% 70% at 50% -14%,rgba(122,110,190,.20) 0%,rgba(30,28,62,.10) 38%,transparent 70%),
+    linear-gradient(180deg,#151a38 0%,#111428 18%,#0d0f1a 46%,#0a0b14 74%,#06070d 100%);
+  background-attachment:fixed;}
+#ocean .ph{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease;}
+#ocean .ph.on{opacity:.5;}
+#rays{position:fixed;inset:-10% -20% auto -20%;height:120vh;z-index:-1;pointer-events:none;opacity:.55;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.5) 42%,transparent 78%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.5) 42%,transparent 78%);}
+#rays i{position:absolute;top:-30%;height:150%;transform-origin:50% 0;filter:blur(14px);
+  background:linear-gradient(180deg,rgba(174,166,232,.16),rgba(174,166,232,.05) 45%,transparent 82%);
+  animation:ray 17s ease-in-out infinite;}
+#rays i:nth-child(1){left:12%;width:120px;transform:rotate(9deg);animation-duration:19s;}
+#rays i:nth-child(2){left:32%;width:190px;transform:rotate(5deg);opacity:.75;animation-duration:23s;animation-delay:-6s;}
+#rays i:nth-child(3){left:56%;width:96px;transform:rotate(-6deg);opacity:.6;animation-duration:21s;animation-delay:-11s;}
+#rays i:nth-child(4){left:74%;width:160px;transform:rotate(-10deg);opacity:.5;animation-duration:26s;animation-delay:-3s;}
+@keyframes ray{0%,100%{opacity:.42;transform:translateX(0) scaleX(1) rotate(var(--rr,0deg))}
+  50%{opacity:.9;transform:translateX(26px) scaleX(1.16) rotate(var(--rr,0deg))}}
+#motes{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.85;}
+#caustic{position:fixed;top:0;left:0;right:0;height:52vh;z-index:-1;pointer-events:none;opacity:.13;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.011' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.62 0 0 0 0 0.60 0 0 0 0 0.86 0 0 0 -2.1 1.05'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23c)'/%3E%3C/svg%3E");
+  filter:blur(1.5px);
+  mask-image:radial-gradient(120% 100% at 50% 0%,rgba(0,0,0,.9) 0%,rgba(0,0,0,.45) 45%,transparent 85%);
+  -webkit-mask-image:radial-gradient(120% 100% at 50% 0%,rgba(0,0,0,.9) 0%,rgba(0,0,0,.45) 45%,transparent 85%);
+  animation:caus 46s linear infinite;}
+@keyframes caus{0%{background-position:0 0}100%{background-position:600px 300px}}
+html{background:#0a0b14;}
+body{background:transparent;}
+
+/* ── стекло ── */
+.glass{position:relative;background:var(--glass);backdrop-filter:blur(16px) saturate(1.35);
+  -webkit-backdrop-filter:blur(16px) saturate(1.35);border:none;border-radius:var(--r);
+  box-shadow:var(--shadow);transition:transform .45s cubic-bezier(.22,.9,.3,1),box-shadow .45s,background .45s;}
+.glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--edge);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;transition:background .45s;}
+.glass::after{content:'';position:absolute;left:12%;right:12%;top:0;height:1px;border-radius:2px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(214,206,255,.5),transparent);opacity:.7;}
+.glass:hover{transform:translateY(-5px);box-shadow:var(--shadow-hi);background:var(--glass-hi);}
+.glass:hover::before{background:var(--edge-hi);}
+
+/* карточки лендинга становятся стеклом */
+.acard,.step,.bcard{background:var(--glass);backdrop-filter:blur(16px) saturate(1.35);
+  -webkit-backdrop-filter:blur(16px) saturate(1.35);border:none;border-radius:var(--r);box-shadow:var(--shadow);
+  position:relative;transition:transform .45s cubic-bezier(.22,.9,.3,1),box-shadow .45s,background .45s;}
+.acard::before,.step::before,.bcard::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:var(--edge);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;transform:none;transition:background .45s;}
+.step:hover,.bcard:hover,.acard:hover{transform:translateY(-5px);background:var(--glass-hi);box-shadow:var(--shadow-hi);}
+.step:hover::before,.bcard:hover::before,.acard:hover::before{background:var(--edge-hi);transform:none;}
+.steps{gap:1.4rem;}
+.step{padding:2.6rem 2.1rem;}
+.bcard{padding:2.1rem;overflow:hidden;}
+
+/* блик, следующий за курсором */
+.step,.bcard,.acard{overflow:hidden;}
+.step .sheen,.bcard .sheen,.acard .sheen{position:absolute;width:340px;height:340px;border-radius:50%;pointer-events:none;
+  left:var(--mx,50%);top:var(--my,50%);transform:translate(-50%,-50%);opacity:0;transition:opacity .4s;
+  background:radial-gradient(circle,rgba(163,150,232,.17) 0%,transparent 66%);}
+.step:hover .sheen,.bcard:hover .sheen,.acard:hover .sheen{opacity:1;}
+
+/* ── секции без плоских заливок ── */
+#landing section.sec{background:transparent!important;border:none!important;position:relative;}
+.sec-band{position:relative;}
+.sec-band::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background:linear-gradient(180deg,transparent,rgba(24,26,54,.62) 14%,rgba(24,26,54,.62) 86%,transparent);
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);}
+.sec-band::after{content:'';position:absolute;left:8%;right:8%;top:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(139,127,190,.32),transparent);}
+
+/* ── типографика ── */
+h1.hero-h em,.sec-ttl em,.t-q em,.res-h2 em,.m-h1 em{
+  background:linear-gradient(102deg,#cfc6ff 0%,#9d8fe0 46%,#7fa8d8 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+h1.hero-h{letter-spacing:-.015em;text-shadow:0 0 62px rgba(139,127,190,.28);}
+.hero-sub{color:#b4aec8;font-size:1.06rem;}
+.sec-ttl{letter-spacing:-.01em;}
+.abt-txt{color:#a7a1bb;}
+
+/* ── кнопки ── */
+.hero-cta,.res-cta,.btn-nx{position:relative;overflow:hidden;border-radius:99px;
+  background:linear-gradient(122deg,#6d5fb4 0%,#8b7fbe 52%,#7a6fc0 100%);
+  box-shadow:0 12px 34px -12px rgba(139,127,190,.62),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .35s cubic-bezier(.22,.9,.3,1),box-shadow .35s,filter .35s;}
+.hero-cta::after,.res-cta::after,.btn-nx::after{content:'';position:absolute;top:0;bottom:0;width:44%;left:-60%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.30),transparent);transform:skewX(-18deg);transition:left .7s ease;}
+.hero-cta:hover,.res-cta:hover,.btn-nx:hover:not(:disabled){transform:translateY(-3px);filter:brightness(1.1);
+  box-shadow:0 20px 46px -12px rgba(139,127,190,.8),inset 0 1px 0 rgba(255,255,255,.3);}
+.hero-cta:hover::after,.res-cta:hover::after,.btn-nx:hover:not(:disabled)::after{left:120%;}
+.hero-cta{padding:1.15rem 2.9rem;}
+.nav-cta{border-radius:99px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+nav.scrolled{background:rgba(10,12,22,.72);}
+
+/* ── появление при скролле ── */
+.rv{opacity:0;transform:translateY(30px);filter:blur(7px);
+  transition:opacity 1s cubic-bezier(.22,.9,.3,1),transform 1s cubic-bezier(.22,.9,.3,1),filter 1s;}
+.rv.in{opacity:1;transform:none;filter:none;}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;filter:none;transition:none;}
+  #rays i,#caustic{animation:none;} }
+
+/* ── hero: слои и параллакс ── */
+#hero{min-height:100svh;}
+.hero-in{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+  will-change:transform;transition:transform .5s cubic-bezier(.2,.9,.3,1);}
+.hg1{width:min(84vw,860px);height:min(84vw,860px);
+  background:radial-gradient(circle,rgba(126,112,200,.20) 0%,rgba(107,95,168,.07) 42%,transparent 70%);}
+.hero-fish{position:absolute;z-index:1;pointer-events:none;opacity:0;
+  filter:drop-shadow(0 0 26px rgba(150,138,220,.4));animation:swim 34s linear infinite,fadeFish 3s ease forwards 1.4s;}
+@keyframes fadeFish{to{opacity:.5}}
+@keyframes swim{0%{transform:translate(-16vw,0) scale(1)}50%{transform:translate(52vw,-38px) scale(1.06)}100%{transform:translate(118vw,0) scale(1)}}
+.hero-fish.f1{top:11%;width:132px;animation-duration:52s,3s;}
+.hero-fish.f2{top:82%;width:84px;opacity:0;animation-duration:70s,3s;animation-delay:-26s,2.4s;}
+.sline{background:linear-gradient(to bottom,transparent,var(--accent3));}
+
+/* ── карточки «о проекте»: больше не наезжают ── */
+.abt-vis{height:auto;display:flex;flex-direction:column;gap:1.4rem;}
+.acard{position:relative;top:auto;left:auto;right:auto;bottom:auto;padding:2.1rem;}
+.acard:nth-child(1),.acard:nth-child(2){top:auto;left:auto;right:auto;bottom:auto;background:var(--glass);}
+.acard:nth-child(2){margin-left:2.4rem;}
+.cnum{background:linear-gradient(150deg,#cfc6ff,#8b7fbe);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;opacity:1;font-size:3.4rem;}
+.cdesc{color:#a7a1bb;}
+
+/* ── экраны теста и кабинета: тоже на стекле ── */
+#test-s,#practice-s,#att-s,#method-s{background:transparent;}
+.t-opt,.gen-opt,.img-opt,.aud-pl,.sc-btn,.att-adv,.hist-box,.plan-prev,.att-cab,.day-card,.extra-card,.jr-item,.art{
+  border-radius:14px;}
+.t-opt,.gen-opt,.img-opt,.aud-pl{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.085);transition:all .3s cubic-bezier(.22,.9,.3,1);}
+.t-opt:hover,.gen-opt:hover,.img-opt:hover,.aud-pl:hover{background:var(--glass-hi);border-color:rgba(255,255,255,.17);
+  transform:translateX(4px);box-shadow:0 12px 30px -16px rgba(0,0,0,.8);}
+.gen-opt:hover,.img-opt:hover{transform:translateY(-4px);}
+.t-opt.sel,.gen-opt.sel,.img-opt.sel{background:linear-gradient(140deg,rgba(139,127,190,.28),rgba(139,127,190,.10));
+  border-color:rgba(184,174,232,.55);box-shadow:0 0 30px -8px rgba(139,127,190,.5);}
+.t-bar{height:2px;border-radius:2px;background:rgba(255,255,255,.09);overflow:hidden;}
+.t-fill{background:linear-gradient(90deg,#6b5fa8,#b8aee8);box-shadow:0 0 14px rgba(184,174,232,.8);}
+.tc-bg{border-radius:99px;overflow:hidden;}
+.tc-fill{background:linear-gradient(90deg,#6b5fa8,#b8aee8)!important;box-shadow:0 0 12px rgba(184,174,232,.55);}
+.scr{animation:scrIn .62s cubic-bezier(.22,.9,.3,1) both;}
+@keyframes scrIn{from{opacity:0;transform:translateY(22px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+
+/* ── рыба в результатах ── */
+.fish-art{aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;position:relative;background:#080a14;
+  box-shadow:var(--shadow),inset 0 0 90px -30px rgba(139,127,190,.5);}
+.fish-art::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.10);
+  background:radial-gradient(120% 80% at 50% 0%,rgba(139,127,190,.16),transparent 62%);}
+.fish-art svg,.fish-art img{transition:transform 1.2s cubic-bezier(.22,.9,.3,1);}
+.fish-art:hover svg,.fish-art:hover img{transform:scale(1.045);}
+
+/* ── карточки результатов и кабинета: то же стекло ── */
+.tc-card,.str-card,.ins,.extra-card,.day-card,.art,.hist-box,.att-adv,.att-cab,.plan-prev,.m-disc,.att-link{
+  border-radius:14px;background:var(--glass);backdrop-filter:blur(14px) saturate(1.25);
+  -webkit-backdrop-filter:blur(14px) saturate(1.25);border:1px solid rgba(255,255,255,.085);
+  box-shadow:0 16px 40px -26px rgba(0,0,0,.8);}
+.tc-card:hover,.str-card:hover,.art:hover{background:var(--glass-hi);}
+.day-card{border:1px solid rgba(184,174,232,.42);
+  background:linear-gradient(140deg,rgba(122,110,196,.26),rgba(139,127,190,.07));
+  box-shadow:0 20px 50px -26px rgba(0,0,0,.85),0 0 40px -18px rgba(139,127,190,.5);}
+.ins{border:1px solid rgba(184,174,232,.34);background:linear-gradient(140deg,rgba(139,127,190,.14),rgba(139,127,190,.03));}
+.att-link{border-left:2px solid var(--accent2);}
+.chip{border-radius:99px;background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.11);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.dom-item{border-left-color:rgba(184,174,232,.5);}
+.res-cta{border-radius:99px;}
+.m-item{border-left-color:rgba(184,174,232,.28);}
+
+/* внутри теста и кабинета вода тише — чтобы не мешать сосредоточиться */
+body.focus #motes{opacity:.32;}
+body.focus #rays{opacity:.24;}
+body.focus #caustic{opacity:.06;}
+
+@media(max-width:860px){
+  .abt-vis .acard:nth-child(2){margin-left:0;}
+  #rays{opacity:.4;}
+}
+@media(max-width:640px){
+  .sec{padding:5.5rem 1.2rem;}
+  .grid-2{grid-template-columns:1fr;gap:2.6rem;}
+  .steps,.bgrids{grid-template-columns:1fr;}
+  .hero-cta{padding:1rem 2rem;}
+}
+
+/* ── сетка слов «первый импульс» ── */
+.wd-timer{height:2px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:1.6rem;}
+.wd-tfill{height:100%;width:100%;background:linear-gradient(90deg,#b8aee8,#6b5fa8);box-shadow:0 0 12px rgba(184,174,232,.7);}
+.wd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem;margin-bottom:1.2rem;}
+.wd{padding:1.15rem .9rem;border-radius:14px;background:var(--glass);backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.085);color:var(--text2);
+  font-family:var(--fb);font-weight:300;font-size:.98rem;letter-spacing:.02em;cursor:pointer;
+  min-height:var(--tap-min,44px);transition:all .28s cubic-bezier(.22,.9,.3,1);}
+.wd:hover{background:var(--glass-hi);color:var(--text);transform:translateY(-3px);
+  box-shadow:0 14px 32px -18px rgba(0,0,0,.85);}
+.wd:active{transform:scale(.97);}
+.wd.sel{background:linear-gradient(140deg,rgba(139,127,190,.32),rgba(139,127,190,.12));
+  border-color:rgba(184,174,232,.6);color:var(--text);
+  box-shadow:0 0 30px -8px rgba(139,127,190,.6);transform:translateY(-2px);}
+.wd-hint{font-size:.76rem;color:var(--text3);margin-bottom:1.6rem;line-height:1.6;}
+@media(prefers-color-scheme:light){
+  .wd{border-color:rgba(48,38,82,.12);}
+  .wd.sel{background:linear-gradient(140deg,rgba(93,80,150,.20),rgba(93,80,150,.07));border-color:rgba(93,80,150,.5);}
+}
+/* ── светлая тема: та же вода, но мелководье под солнцем ── */
+@media(prefers-color-scheme:light){
+  html{background:#eef0fb;}
+  #ocean{background:
+    radial-gradient(120% 70% at 50% -14%,rgba(255,255,255,.9) 0%,rgba(226,232,252,.6) 36%,transparent 70%),
+    linear-gradient(180deg,#f6f7ff 0%,#e9ecfb 26%,#dfe3f7 58%,#d5daf2 100%);}
+  #ocean .ph.on{opacity:.22;}
+  #rays{opacity:.5;}
+  #rays i{background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(214,222,255,.35) 45%,transparent 82%);}
+  #caustic{opacity:.22;mix-blend-mode:multiply;}
+  #motes{opacity:.5;}
+  :root{
+    --glass:linear-gradient(158deg,rgba(255,255,255,.86) 0%,rgba(255,255,255,.6) 46%,rgba(255,255,255,.48) 100%);
+    --glass-hi:linear-gradient(158deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.76) 46%,rgba(255,255,255,.62) 100%);
+    --edge:linear-gradient(150deg,rgba(93,80,150,.26),rgba(93,80,150,.08) 38%,rgba(93,80,150,.18) 100%);
+    --edge-hi:linear-gradient(150deg,rgba(74,62,128,.5),rgba(93,80,150,.16) 40%,rgba(93,80,150,.4) 100%);
+    --shadow:0 20px 50px -30px rgba(48,38,82,.42),0 2px 8px -4px rgba(48,38,82,.18);
+    --shadow-hi:0 30px 66px -28px rgba(48,38,82,.5),0 0 40px -16px rgba(93,80,150,.3);
+  }
+  .glass::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);}
+  h1.hero-h em,.sec-ttl em,.t-q em,.res-h2 em,.m-h1 em{
+    background:linear-gradient(102deg,#5b4ea0 0%,#6f5fb6 46%,#4a6fa8 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  h1.hero-h{text-shadow:none;}
+  .hero-sub{color:#554a70;}
+  .abt-txt,.cdesc{color:#554a70;}
+  .sec-band::before{background:linear-gradient(180deg,transparent,rgba(255,255,255,.62) 14%,rgba(255,255,255,.62) 86%,transparent);}
+  .sec-band::after{background:linear-gradient(90deg,transparent,rgba(93,80,150,.24),transparent);}
+  nav.scrolled{background:rgba(247,244,252,.82);}
+  .t-opt,.gen-opt,.img-opt,.aud-pl,.tc-card,.str-card,.extra-card,.art,.hist-box,.att-adv,.att-cab,.plan-prev,.m-disc{
+    border-color:rgba(48,38,82,.12);}
+  .t-opt.sel,.gen-opt.sel,.img-opt.sel{background:linear-gradient(140deg,rgba(93,80,150,.20),rgba(93,80,150,.07));
+    border-color:rgba(93,80,150,.5);box-shadow:0 0 24px -10px rgba(93,80,150,.5);}
+  .chip{background:rgba(255,255,255,.7);border-color:rgba(48,38,82,.14);}
+  .fish-art{background:#e7eaf8;}
+  .hero-fish{filter:drop-shadow(0 0 18px rgba(93,80,150,.28));}
+}
 /* ═══ PRACTICE ═══ */
 #practice-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
 #practice-s.on{display:flex;}
@@ -438,6 +696,12 @@ a.flink{color:var(--text3);}
 </head>
 <body>
 
+<!-- толща воды: глубина, фотослой, лучи, каустика, взвесь -->
+<div id="ocean" aria-hidden="true"><div class="ph" id="oceanPh"></div></div>
+<div id="rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div id="caustic" aria-hidden="true"></div>
+<canvas id="motes" aria-hidden="true"></canvas>
+
 <nav id="nav" aria-label="Главная навигация">
   <button class="logo" onclick="showLanding()"><span>И</span>СТОК</button>
   <div class="nav-r">
@@ -449,52 +713,60 @@ a.flink{color:var(--text3);}
 <main id="landing">
   <section id="hero">
     <div class="hg hg1"></div><div class="hg hg2"></div><div class="hg hg3"></div>
-    <p class="eyebrow">Психология · самопознание · трансформация</p>
-    <h1 class="hero-h">Всё начинается<br>в <em>детстве</em></h1>
-    <p class="hero-sub">Исток помогает найти паттерны из прошлого, которые управляют твоей жизнью сегодня — и начать их менять.</p>
-    <button class="hero-cta" onclick="startTest()">Начать исследование <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    <svg class="hero-fish f1" viewBox="0 0 200 110" fill="none" stroke="rgba(184,174,232,.85)" stroke-width="1.2">
+      <ellipse cx="104" cy="55" rx="52" ry="21"/><path d="M52,55 L18,34 C25,45 25,65 18,76 Z"/>
+      <path d="M86,34 Q104,20 122,34"/><path d="M86,76 Q104,90 122,76"/><circle cx="140" cy="49" r="3.2" fill="rgba(184,174,232,.85)"/></svg>
+    <svg class="hero-fish f2" viewBox="0 0 200 110" fill="none" stroke="rgba(150,140,205,.7)" stroke-width="1.4">
+      <ellipse cx="104" cy="55" rx="44" ry="17"/><path d="M60,55 L30,38 C36,47 36,63 30,72 Z"/>
+      <circle cx="134" cy="50" r="2.8" fill="rgba(150,140,205,.7)"/></svg>
+    <div class="hero-in">
+      <p class="eyebrow">Психология · самопознание · трансформация</p>
+      <h1 class="hero-h">Всё начинается<br>в <em>детстве</em></h1>
+      <p class="hero-sub">Исток помогает найти паттерны из прошлого, которые управляют твоей жизнью сегодня — и начать их менять.</p>
+      <button class="hero-cta" onclick="startTest()">Начать исследование <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
     <div class="sline-wrap"><div class="sline"></div><span class="stxt">Листай</span></div>
   </section>
 
-  <section class="sec" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-    <div class="sec-in grid-2">
+  <section class="sec sec-band">
+    <div class="sec-in grid-2 rv">
       <div>
         <p class="sec-lbl">О проекте</p>
         <h2 class="sec-ttl">Твои реакции —<br>это не <em>случайность</em></h2>
         <p class="abt-txt">Почему ты замолкаешь, когда нужно говорить. Почему уходишь, когда нужно остаться. Почему снова и снова выбираешь одно и то же.</p>
         <p class="abt-txt">Всё это — паттерны из детства. Они сформировались как способ выжить. Теперь они мешают жить.</p>
-        <p class="abt-txt">Исток — глубокий диагностический тест: 55 вопросов, 6 типов заданий и контекст твоего детства. Не опросник. Зеркало.</p>
+        <p class="abt-txt">Исток — глубокий диагностический тест: 56 вопросов, 7 типов заданий и контекст твоего детства. Не опросник. Зеркало.</p>
       </div>
       <div class="abt-vis">
-        <div class="acard"><div class="cnum">55</div><div class="ctitle">вопросов и заданий</div><div class="cdesc">Звуковые иллюзии, проективные картинки, незаконченные предложения, цвета, образы, шкалы воспоминаний — и вопросы о контексте: семья, порядок рождения, атмосфера дома.</div></div>
-        <div class="acard"><div class="cnum">8</div><div class="ctitle">шкал в результате</div><div class="cdesc">Пять глубинных паттернов — покинутость, критик, контроль, закрытость, гиперответственность — и три дополнительных следа: отвержение, недоверие, недолюбленность.</div></div>
+        <div class="acard rv"><div class="sheen"></div><div class="cnum">56</div><div class="ctitle">вопросов и заданий</div><div class="cdesc">Звуковые иллюзии, проективные картинки, незаконченные предложения, цвета, образы, шкалы воспоминаний — и вопросы о контексте: семья, порядок рождения, атмосфера дома.</div></div>
+        <div class="acard rv"><div class="sheen"></div><div class="cnum">8</div><div class="ctitle">шкал в результате</div><div class="cdesc">Пять глубинных паттернов — покинутость, критик, контроль, закрытость, гиперответственность — и три дополнительных следа: отвержение, недоверие, недолюбленность.</div></div>
       </div>
     </div>
   </section>
 
   <section class="sec">
     <div class="sec-in">
-      <div class="sh"><p class="sec-lbl">Как это работает</p><h2 class="sec-ttl" style="margin-bottom:0">Три шага к <em>себе</em></h2></div>
+      <div class="sh rv"><p class="sec-lbl">Как это работает</p><h2 class="sec-ttl" style="margin-bottom:0">Три шага к <em>себе</em></h2></div>
       <div class="steps">
-        <div class="step"><div class="step-n">01</div><div class="step-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Пройди тест</h3><p>55 вопросов, 6 блоков. Настоящие звуковые и зрительные иллюзии — с разбором каждого твоего выбора. Фоновая музыка помогает отвечать честно.</p></div>
-        <div class="step"><div class="step-n">02</div><div class="step-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3>Получи аналитику</h3><p>Восемь шкал, твоё состояние «прямо сейчас», разбор по сферам жизни — отношения, карьера, деньги, дружба, семья — и твоё тотемное животное.</p></div>
-        <div class="step"><div class="step-n">03</div><div class="step-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Прорабатывай каждый день</h3><p>Персональные задания под твой тип мышления. Реальные практики из КПТ, ACT и нарративной терапии.</p></div>
+        <div class="step rv"><div class="sheen"></div><div class="step-n">01</div><div class="step-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Пройди тест</h3><p>56 вопросов, 6 блоков. Настоящие звуковые и зрительные иллюзии — с разбором каждого твоего выбора. Фоновая музыка помогает отвечать честно.</p></div>
+        <div class="step rv"><div class="sheen"></div><div class="step-n">02</div><div class="step-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3>Получи аналитику</h3><p>Восемь шкал, твоё состояние «прямо сейчас», разбор по сферам жизни — отношения, карьера, деньги, дружба, семья — и твоё тотемное животное.</p></div>
+        <div class="step rv"><div class="sheen"></div><div class="step-n">03</div><div class="step-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Прорабатывай каждый день</h3><p>Персональные задания под твой тип мышления. Реальные практики из КПТ, ACT и нарративной терапии.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="sec" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <section class="sec sec-band">
     <div class="sec-in">
-      <div class="sh"><p class="sec-lbl">Структура теста</p><h2 class="sec-ttl" style="margin-bottom:0">Шесть способов <em>увидеть</em> себя</h2></div>
+      <div class="sh rv"><p class="sec-lbl">Структура теста</p><h2 class="sec-ttl" style="margin-bottom:0">Шесть способов <em>увидеть</em> себя</h2></div>
       <div class="bgrids">
-        <div class="bcard"><span class="btag">Аудио · 4</span><h3>Что ты слышишь?</h3><p>Настоящие звуковые иллюзии — тон Шепарда, тритоновый парадокс. Звук создаётся прямо в твоём браузере, и каждый слышит его по-своему.</p></div>
-        <div class="bcard"><span class="btag">Визуал · 6</span><h3>Что ты видишь?</h3><p>Классические двойственные образы: ваза Рубина, утка-кролик, куб Неккера. Что заметишь первым — сигнал о твоём внутреннем состоянии.</p></div>
-        <div class="bcard"><span class="btag">Предложения · 15</span><h3>Что ты чувствуешь?</h3><p>Незаконченные фразы из клинической практики. Первый импульс — самый честный ответ о себе.</p></div>
-        <div class="bcard"><span class="btag">Цвет · 5</span><h3>Что резонирует?</h3><p>Цветовые ассоциации и тест Люшера. Тихий язык бессознательного без слов и объяснений.</p></div>
-        <div class="bcard"><span class="btag">Образы · 12</span><h3>Кем ты себя видишь?</h3><p>Метафорические карты, сценарии из детства, дом твоего детства и внутренний ребёнок — самые глубокие вопросы теста.</p></div>
-        <div class="bcard"><span class="btag">Шкалы + контекст · 13</span><h3>Как ты оцениваешь?</h3><p>Шкалы воспоминаний и контекст: полная ли семья, порядок рождения, атмосфера дома. Без этого читать остальное некорректно.</p></div>
+        <div class="bcard rv"><div class="sheen"></div><span class="btag">Аудио · 4</span><h3>Что ты слышишь?</h3><p>Настоящие звуковые иллюзии — тон Шепарда, тритоновый парадокс. Звук создаётся прямо в твоём браузере, и каждый слышит его по-своему.</p></div>
+        <div class="bcard rv"><div class="sheen"></div><span class="btag">Визуал · 6</span><h3>Что ты видишь?</h3><p>Классические двойственные образы: ваза Рубина, утка-кролик, куб Неккера. Что заметишь первым — сигнал о твоём внутреннем состоянии.</p></div>
+        <div class="bcard rv"><div class="sheen"></div><span class="btag">Предложения · 15</span><h3>Что ты чувствуешь?</h3><p>Незаконченные фразы из клинической практики. Первый импульс — самый честный ответ о себе.</p></div>
+        <div class="bcard rv"><div class="sheen"></div><span class="btag">Цвет · 5</span><h3>Что резонирует?</h3><p>Цветовые ассоциации и тест Люшера. Тихий язык бессознательного без слов и объяснений.</p></div>
+        <div class="bcard rv"><div class="sheen"></div><span class="btag">Образы · 13</span><h3>Кем ты себя видишь?</h3><p>Метафорические карты, сценарии из детства, дом детства и внутренний ребёнок. Плюс сетка слов на 20 секунд — отвечает первый импульс, а не редактор в голове.</p></div>
+        <div class="bcard rv"><div class="sheen"></div><span class="btag">Шкалы + контекст · 13</span><h3>Как ты оцениваешь?</h3><p>Шкалы воспоминаний и контекст: полная ли семья, порядок рождения, атмосфера дома. Без этого читать остальное некорректно.</p></div>
       </div>
-      <div class="cta-c"><button class="hero-cta" onclick="startTest()">Начать тест <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="width:16px;height:16px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      <div class="cta-c rv"><button class="hero-cta" onclick="startTest()">Начать тест <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="width:16px;height:16px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
       <p class="att-entry">Есть три минуты? <button class="att-entry-b" onclick="showAtt()">Узнай свой стиль привязанности →</button></p>
     </div>
   </section>
@@ -774,7 +1046,7 @@ const Q=[
   {t:'В основном с одним родителем',w:[1,0,0,0,1],e:'Дети из таких семей часто раньше времени становятся «вторым взрослым» — это учтено в подсчёте.'},
   {t:'Меня во многом растили бабушка и дедушка или другие родственники',w:[1,0,0,1,0],e:'Когда растят не родители, у ребёнка часто возникает невысказанный вопрос «почему?» — и свои выводы о нужности.'},
   {t:'По-разному: переезды, разные дома, разные взрослые',w:[1,0,1,0,0],e:'Нестабильность среды — почва для контроля и тревоги связи. Мы учтём это в шкалах.'}]},
-{id:'ctx',ctx:'sib',blk:'Перед тестом — контекст',n:2,
+{id:'ctx',ctx:'sib',blk:'Перед тестом — контекст',n:2,noshuf:1,
  q:'Кто ты по порядку рождения?',
  sub:'Позиция среди братьев и сестёр задаёт роль, которую мы получаем раньше, чем успеваем выбрать.',
  opts:[
@@ -792,7 +1064,7 @@ const Q=[
   {t:'Родители расстались, и это чувствовалось',w:[2,0,0,0,0],e:'Развод сам по себе не травма — травмой становится то, как ребёнок остался с этим один.'}]},
 
 // ─── БЛОК 1: АУДИО-ИЛЛЮЗИИ (4) ───
-{id:'aud',blk:'Блок 1 из 6 — Звуковые иллюзии',n:4,aType:'shepard',
+{id:'aud',blk:'Блок 1 из 6 — Звуковые иллюзии',n:4,qk:'aud_shepard',aType:'shepard',
  q:'Послушай этот звук 15–20 секунд. Что с тобой происходит, пока он поднимается?',
  sub:'Нажми воспроизвести. Звук будет подниматься — слушай, не анализируя, и заметь свою реакцию.',
  albl:'Иллюзия Шепарда — Риссе · бесконечный подъём',
@@ -822,7 +1094,7 @@ const Q=[
   {t:'Тройками, как вальс',w:[0,0,0,0,0],e:'Вальсовые тройки — более редкая, «творческая» группировка: восприятие свободно играет со структурой.'},
   {t:'Ровно, без всякой группировки',w:[0,0,0,1,0],e:'Слышать ровный поток без группировки — либо точный слух, либо привычка не вовлекаться. Ты знаешь, что из этого твоё.'},
   {t:'Я почти сразу начал{а|} ждать, когда ритм собьётся',w:[0,0,2,0,0],e:'Ожидание сбоя в ровном ритме — след жизни рядом с непредсказуемостью: даже стабильность проверяется на подвох.'}]},
-{id:'aud',blk:'Блок 1 из 6 — Звуковые иллюзии',n:7,aType:'waves',
+{id:'aud',blk:'Блок 1 из 6 — Звуковые иллюзии',n:7,qk:'aud_waves',aType:'waves',
  q:'Этот звук «дышит» — волны накатывают и отступают. Какой была первая реакция тела?',
  sub:'Не анализируй. Просто первое, что возникло — до того, как ты начал{а|} думать.',
  albl:'Акустические биения · медленные волны',
@@ -866,7 +1138,7 @@ const Q=[
   {t:'Перевёрнутая — мир вверх дном',w:[0,0,0,0,0],e:'Перевёрнутая первой — нестандартный ракурс: ты легко допускаешь, что мир может стоять вверх ногами.'},
   {t:'Вижу обе и переключаюсь свободно',w:[0,0,0,0,0],e:'Свободное переключение — гибкость восприятия: двусмысленность не пугает, а разворачивается.'},
   {t:'Вторая версия не давалась, пока я не заставил{а|} себя её увидеть',w:[0,0,1,0,0],e:'«Заставить себя увидеть» — смена рамки требует у тебя волевого усилия, а не происходит сама. Это утомляет больше, чем кажется.'}]},
-{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:12,illT:'kanizsa',
+{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:12,qk:'ill_kanizsa',illT:'kanizsa',
  q:'Здесь есть белый треугольник, которого на самом деле нет: мозг достроил его из намёков',
  sub:'Точно так же мы достраиваем смыслы в отношениях — по паузе, по взгляду, по тону сообщения. Как это устроено у тебя?',
  opts:[
@@ -874,7 +1146,7 @@ const Q=[
   {t:'Я «вижу» настроение людей раньше, чем они что-то скажут',w:[1,0,1,0,0],e:'Видеть настроение раньше слов — гипервосприимчивость. В детстве это был навык выживания: угадать взрослого до взрыва.'},
   {t:'Я часто достраиваю худший вариант — и живу с ним, не проверив',w:[1,1,1,0,0],e:'Достраивать худшее и жить с ним — тревожное чтение мира: «треугольник» рисуется сам и всегда тёмный. Это учтено и в шкале недоверия.'},
   {t:'Я стараюсь вообще не додумывать — только факты',w:[0,0,0,1,0],e:'Запрет на додумывание — контрстратегия: похоже, когда-то интуиция приносила слишком болезненные картинки.'}]},
-{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:13,illT:'spiral',
+{id:'ill',blk:'Блок 2 из 6 — Зрительные иллюзии',n:13,qk:'ill_spiral',illT:'spiral',
  q:'Посмотри в центр спирали десять секунд. Что ты чувствуешь?',
  sub:'Не что видишь — а что чувствуешь. Это разные вещи.',
  opts:[
@@ -906,7 +1178,7 @@ const Q=[
  stems:['Когда я смотрю на своё детство, я вижу...','Я стараюсь не думать о...','Больше всего в детстве я хотел{а|}...']},
 
 // ─── БЛОК 4: ЦВЕТ (5) ───
-{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:29,
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:29,qk:'col_child',
  q:'Выбери цвет, который ассоциируется с твоим детством',
  sub:'По мотивам теста Люшера. Первый импульс — без анализа.',
  colors:[
@@ -918,7 +1190,7 @@ const Q=[
   {h:'#4a6080',l:'Сталь',w:[0,0,1,1,0],e:'Сталь — холод и дисциплина: порядок в доме был важнее нежности.'},
   {h:'#252535',l:'Темнота',w:[1,0,0,1,0],e:'Темнота — тяжесть или пустота в воспоминаниях: туда не хочется смотреть. Мы учли это и в шкале недолюбленности.'},
   {h:'#a8a098',l:'Туман',w:[1,0,0,1,0],e:'Туман — размытость: детство плохо помнится или не хочет вспоминаться. Это само по себе информация.'}]},
-{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:30,
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:30,qk:'col_today',
  q:'Теперь выбери цвет, который описывает тебя сегодня',
  sub:'Не думай — просто тот, который тянет.',
  colors:[
@@ -930,7 +1202,7 @@ const Q=[
   {h:'#4a6080',l:'Сталь',w:[0,0,1,1,0],e:'Сталь — собранность на пределе: держишься, но жёстко.'},
   {h:'#252535',l:'Темнота',w:[1,0,0,1,0],e:'Темнота про сегодня — тяжёлый период. Обрати внимание на блок «как ты сейчас» в результатах.'},
   {h:'#a8a098',l:'Туман',w:[1,0,0,1,0],e:'Туман — неясность: сейчас сложно понять, что именно ты чувствуешь. Это тоже состояние, и оно проходит.'}]},
-{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:31,
+{id:'col',blk:'Блок 4 из 6 — Цветовое восприятие',n:31,qk:'col_reject',
  q:'Выбери цвет, который ты отвергаешь — он неприятен, раздражает',
  sub:'Отвергаемый цвет говорит о подавленной потребности.',
  colors:[
@@ -968,7 +1240,23 @@ const Q=[
   {h:'#ffc0cb',l:'Розовый',w:[0,0,0,0,0]}]},
 
 // ─── БЛОК 5: ОБРАЗЫ И СЦЕНАРИИ (12) ───
-{id:'img',blk:'Блок 5 из 6 — Образы и сценарии',n:34,
+{id:'word',blk:'Блок 5 из 6 — Образы и сценарии',n:34,qk:'word_impulse',
+ q:'Выбери три слова, которые сейчас отзываются',
+ sub:'Не выбирай «правильные» — выбирай те, на которых внутри что-то дёрнулось. У тебя 20 секунд: так отвечает первый импульс, а не редактор в голове.',
+ words:[
+  {t:'тишина',w:[1,0,0,2,0]},
+  {t:'опора',w:[0,0,0,0,0]},
+  {t:'спешка',w:[0,1,2,0,2]},
+  {t:'вина',w:[0,3,0,0,2]},
+  {t:'свет',w:[0,0,0,0,0]},
+  {t:'пустота',w:[3,1,0,1,0]},
+  {t:'долг',w:[0,1,1,0,3]},
+  {t:'стена',w:[1,0,1,3,0]},
+  {t:'ожидание',w:[3,0,0,0,0]},
+  {t:'порядок',w:[0,0,3,0,1]},
+  {t:'нежность',w:[0,0,0,0,0]},
+  {t:'усталость',w:[0,1,0,1,3]}]},
+{id:'img',blk:'Блок 5 из 6 — Образы и сценарии',n:35,
  q:'Какой образ описывает тебя в детстве?',
  sub:'Выбери интуитивно — не думай.',
  choices:[
@@ -976,7 +1264,7 @@ const Q=[
   {ico:'tree',l:'Дерево на ветру\nгнётся, но держится',w:[0,0,0,0,2]},
   {ico:'stone',l:'Камень в воде\nвсё обтекает',w:[0,0,0,2,0]},
   {ico:'candle',l:'Свеча\nсветит другим, сгорая',w:[0,0,0,0,3]}]},
-{id:'img',blk:'Блок 5 из 6 — Образы и сценарии',n:35,
+{id:'img',blk:'Блок 5 из 6 — Образы и сценарии',n:36,qk:'img_today',
  q:'Какой образ описывает тебя сегодня?',
  sub:'Может совпасть с предыдущим — или нет.',
  choices:[
@@ -984,71 +1272,71 @@ const Q=[
   {ico:'tree',l:'Дерево на ветру\nгнётся, но держится',w:[0,0,0,0,2]},
   {ico:'stone',l:'Камень в воде\nвсё обтекает',w:[0,0,0,2,0]},
   {ico:'candle',l:'Свеча\nсветит другим, сгорая',w:[0,0,0,0,3]}]},
-{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:36,
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:37,
  scene:'Тебе 8 лет. Ты приходишь домой с плохой оценкой. Ты останавливаешься у двери и думаешь — что делать.',
  q:'Что ты делаешь?',
  opts:[
-  {t:'Вхожу как обычно — скажу правду',w:[0,0,0,0,0]},
-  {t:'Прячу дневник и надеюсь, что не спросят',w:[0,1,0,2,0]},
-  {t:'Придумываю объяснение заранее, репетирую слова',w:[0,0,2,1,0]},
-  {t:'Начинаю плакать ещё на улице',w:[1,2,0,0,0]}]},
-{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:37,
+  {t:'Открываю дверь и говорю сразу, пока не передумал{а|}',w:[0,0,0,0,0]},
+  {t:'Дневник уходит на дно рюкзака. Может, не спросят',w:[0,1,0,2,0]},
+  {t:'Стою у двери и повторяю формулировку, пока она не станет гладкой',w:[0,0,2,1,0]},
+  {t:'Слёзы начинаются раньше, чем я дошл{а|} до подъезда',w:[1,2,0,0,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:38,
  scene:'Тебе 10 лет. Ты хочешь что-то — новую игрушку, поход с друзьями. Тебе нужно попросить родителей.',
  q:'Как ты это делаешь?',
  opts:[
-  {t:'Прошу прямо — просто говорю, что хочу',w:[0,0,0,0,0]},
-  {t:'Намекаю издалека и жду, что сами поймут',w:[1,0,0,1,0]},
-  {t:'Долго выжидаю момент, когда настроение дома хорошее',w:[0,0,2,0,1]},
-  {t:'Решаю обойтись — лучше не просить',w:[0,1,0,3,0]}]},
-{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:38,
+  {t:'Говорю словами: «я хочу вот это»',w:[0,0,0,0,0]},
+  {t:'Несколько раз упоминаю вслух — вдруг догадаются сами',w:[1,0,0,1,0]},
+  {t:'Слежу за настроением дома и жду подходящего вечера',w:[0,0,2,0,1]},
+  {t:'Молчу. Как-нибудь обойдусь',w:[0,1,0,3,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:39,
  scene:'Тебе 9 лет. Родители ругаются. Ты слышишь это из своей комнаты.',
  q:'Что ты делаешь?',
  opts:[
-  {t:'Выхожу и пытаюсь помирить их',w:[0,0,1,0,3]},
-  {t:'Закрываюсь глубже — уши, подушка, книга',w:[0,0,0,2,0]},
-  {t:'Замираю и жду, когда закончится',w:[2,0,1,0,0]},
-  {t:'Начинаю убирать или делать что-то полезное',w:[0,1,0,0,2]}]},
-{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:39,
+  {t:'Иду туда — что-то сказать, отвлечь, разрядить',w:[0,0,1,0,3]},
+  {t:'Одеяло на голову, наушники, книга — куда угодно',w:[0,0,0,2,0]},
+  {t:'Сижу не двигаясь, пока не станет тихо',w:[2,0,1,0,0]},
+  {t:'Иду мыть посуду или наводить порядок в комнате',w:[0,1,0,0,2]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:40,qk:'scen_shamed',
  scene:'Тебе 11 лет. {Подруга|Друг} сказал{а|} что-то обидное при всех. Тебе больно.',
  q:'Что происходит внутри?',
  opts:[
-  {t:'Злость — хочу ответить или уйти',w:[0,0,0,0,0]},
-  {t:'Стыд — наверное, я сам{а|} виноват{а|}',w:[0,3,0,0,0]},
-  {t:'Желание стать невидим{ой|ым}',w:[0,1,0,2,0]},
-  {t:'Обида, которую я скрываю — и улыбаюсь',w:[0,0,0,2,1]}]},
-{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:40,
+  {t:'Отвечаю тем же — или разворачиваюсь и ухожу',w:[0,0,0,0,0]},
+  {t:'Быстро перебираю, что я сделал{а|} не так',w:[0,3,0,0,0]},
+  {t:'Хочется, чтобы пол разошёлся и меня никто не видел',w:[0,1,0,2,0]},
+  {t:'Лицо продолжает улыбаться, внутри всё сжимается',w:[0,0,0,2,1]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:41,qk:'scen_excluded',
  scene:'Тебе 7 лет. Тебя не взяли играть — компания детей сказала «нет».',
  q:'Что ты чувствуешь и что делаешь?',
  opts:[
-  {t:'Ухожу и нахожу что-то другое — мне нормально',w:[0,0,0,0,0]},
-  {t:'Пытаюсь снова — предлагаю что-нибудь, чтобы взяли',w:[2,0,0,0,1]},
-  {t:'Ухожу и долго чувствую себя плохо',w:[2,1,0,0,0]},
-  {t:'Злюсь — на них и на себя',w:[0,2,0,0,0]}]},
-{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:41,
+  {t:'Ухожу заниматься своим — вечер не испорчен',w:[0,0,0,0,0]},
+  {t:'Возвращаюсь и предлагаю что-нибудь, лишь бы взяли',w:[2,0,0,0,1]},
+  {t:'Ухожу — и это остаётся со мной ещё несколько дней',w:[2,1,0,0,0]},
+  {t:'Хочется что-нибудь пнуть — и заодно себя',w:[0,2,0,0,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:42,qk:'scen_praise',
  scene:'Взрослый — учитель или родственник — хвалит тебя при всех. Говорит, что ты умн{ая|ый} и молодец.',
  q:'Как ты реагируешь внутри?',
  opts:[
-  {t:'Радость — мне приятно, и я это принимаю',w:[0,0,0,0,0]},
-  {t:'Смущение — хочется спрятаться',w:[0,1,0,1,0]},
-  {t:'Недоверие — наверное, говорит неискренне',w:[0,1,0,2,0]},
-  {t:'Тревога — теперь нельзя подвести',w:[0,1,1,0,2]}]},
-{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:42,
+  {t:'Мне тепло, и я спокойно это принимаю',w:[0,0,0,0,0]},
+  {t:'Смотрю в пол и жду, когда он закончит',w:[0,1,0,1,0]},
+  {t:'Думаю: он просто так говорит, при всех положено',w:[0,1,0,2,0]},
+  {t:'Сразу считаю, что теперь придётся держать эту планку',w:[0,1,1,0,2]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:43,
  scene:'Тебе нужна помощь — с уроком, с чем-то тяжёлым. Рядом есть кто-то, кто может помочь.',
  q:'Что ты делаешь?',
  opts:[
-  {t:'Прошу помощи — это нормально',w:[0,0,0,0,0]},
-  {t:'Пытаюсь справиться сам{а|} как можно дольше',w:[0,0,1,1,1]},
-  {t:'Намекаю косвенно — вдруг сами предложат',w:[1,0,0,1,0]},
-  {t:'Отказываюсь, даже когда предлагают',w:[0,0,1,2,0]}]},
-{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:43,
+  {t:'Подхожу и прошу',w:[0,0,0,0,0]},
+  {t:'Тяну до последнего — вдруг разберусь сам{а|}',w:[0,0,1,1,1]},
+  {t:'Вздыхаю рядом погромче — может, заметят',w:[1,0,0,1,0]},
+  {t:'Говорю «спасибо, не надо», даже когда надо',w:[0,0,1,2,0]}]},
+{id:'scen',blk:'Блок 5 из 6 — Образы и сценарии',n:44,qk:'scen_leaving',
  scene:'Ты узнаёшь, что кто-то близкий уедет надолго или уйдёт из твоей жизни.',
  q:'Первая реакция — что происходит внутри?',
  opts:[
-  {t:'Грусть — буду скучать, но всё будет хорошо',w:[0,0,0,0,0]},
-  {t:'Паника — не хочу, чтобы уходили',w:[3,0,0,0,0]},
-  {t:'Онемение — я как будто отключаюсь',w:[1,0,0,2,0]},
-  {t:'Злость — почему они уходят',w:[2,0,0,0,0]}]},
-{id:'single',blk:'Блок 5 из 6 — Образы и сценарии',n:44,
+  {t:'Будет не хватать — но это переживаемо',w:[0,0,0,0,0]},
+  {t:'В груди холодеет: только не это',w:[3,0,0,0,0]},
+  {t:'Как будто выключили звук — я ничего не чувствую',w:[1,0,0,2,0]},
+  {t:'Первое, что появляется: «ну и уходи»',w:[2,0,0,0,0]}]},
+{id:'single',blk:'Блок 5 из 6 — Образы и сценарии',n:45,qk:'single_home',
  q:'Если представить дом твоего детства как образ — что это?',
  sub:'Не реальный дом — ощущение от него. Первое, что откликнулось.',
  opts:[
@@ -1057,7 +1345,7 @@ const Q=[
   {t:'Музей — красиво, но ничего нельзя трогать',w:[0,2,1,0,0],e:'Дом-музей — про правила и оценку: важнее, как выглядит, чем как чувствуется. Отсюда часто растёт внутренний критик.'},
   {t:'Поле после бури — тревожно и не убрано',w:[1,0,2,0,0],e:'Поле после бури — про хаос и небезопасность: ребёнку там приходилось выживать, а не расти.'},
   {t:'Крепость — надёжно, но наружу нельзя',w:[0,0,2,1,0],e:'Дом-крепость — про защиту, которая стала ограничением: безопасно, но тесно.'}]},
-{id:'single',blk:'Блок 5 из 6 — Образы и сценарии',n:45,
+{id:'single',blk:'Блок 5 из 6 — Образы и сценарии',n:46,qk:'single_child',
  q:'Представь: внутри тебя до сих пор живёт ребёнок. Что он делает прямо сейчас?',
  sub:'Ответ приходит сам — не подбирай «красивый».',
  opts:[
@@ -1068,28 +1356,28 @@ const Q=[
   {t:'Зовёт кого-то — ему одиноко',w:[2,0,0,0,0],e:'Зовущий ребёнок — самая честная строчка этого теста: части тебя не хватает контакта прямо сейчас. Мы учли это в блоке «как ты сейчас».'}]},
 
 // ─── БЛОК 6: ШКАЛЫ (9) + СЛОВО (1) ───
-{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'46–48',
+{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'47–49',qk:'sc_loved',
  q:'Оцени своё детство',
  sub:'Нет правильного ответа. Первое число, которое чувствуется верным.',
  scales:[
   {q:'Насколько ты чувствовал{а|} себя любим{ой|ым} в детстве?',lo:'совсем нет',hi:'безусловно',w:[2,1,0,0,0]},
   {q:'Насколько дома было физически и эмоционально безопасно?',lo:'совсем нет',hi:'очень безопасно',w:[1,0,2,0,0]},
   {q:'Насколько тебя слышали и понимали родители?',lo:'никогда',hi:'всегда',w:[1,0,0,2,0]}]},
-{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'49–51',
+{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'50–52',qk:'sc_praised',
  q:'Продолжаем',
  sub:'',
  scales:[
   {q:'Насколько часто тебя хвалили в детстве?',lo:'никогда',hi:'очень часто',w:[0,3,0,0,0]},
   {q:'Насколько ты мог{ла|} выражать злость или недовольство дома?',lo:'никогда — это было опасно',hi:'всегда свободно',w:[0,0,0,3,0]},
   {q:'Насколько ты чувствовал{а|} себя нужн{ой|ым} просто так — а не за помощь и достижения?',lo:'совсем нет',hi:'абсолютно',w:[1,1,0,0,1]}]},
-{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'52–54',
+{id:'sc',blk:'Блок 6 из 6 — Воспоминания о детстве',n:'53–55',qk:'sc_self',
  q:'Последний набор',
  sub:'Ты почти у финала.',
  scales:[
   {q:'Насколько предсказуемой была жизнь дома?',lo:'абсолютный хаос',hi:'стабильно и ясно',w:[0,0,3,0,0]},
   {q:'Насколько ты мог{ла|} быть собой — со своими интересами и странностями?',lo:'совсем нет',hi:'полностью',w:[0,2,0,0,1]},
   {q:'Насколько ты доверяешь своим детским воспоминаниям?',lo:'совсем не доверяю',hi:'полностью доверяю',w:[0,0,0,1,0]}]},
-{id:'single',blk:'Блок 6 из 6 — Воспоминания о детстве',n:55,
+{id:'single',blk:'Блок 6 из 6 — Воспоминания о детстве',n:56,qk:'single_word',
  q:'Последний вопрос теста',
  sub:'Если бы детство можно было описать одним словом — какое бы это было слово?',
  opts:[
@@ -1110,8 +1398,32 @@ const Q=[
 (function(){let acc=1;Q.forEach(s=>{s.qs=acc;
  if(s.stems)acc+=s.stems.length;else if(s.scales)acc+=s.scales.length;
  else if(!['gender','intro','breath','results'].includes(s.id))acc+=1;});})();
-const TOTAL_Q=55;
+const TOTAL_Q=56;
 function qByN(n){return Q.find(s=>s.n===n);}
+function qByK(k){return Q.find(s=>s.qk===k);}
+/* Порядок вариантов перемешивается при показе — чтобы «правильный» ответ
+   нельзя было угадать по позиции. Ответ хранится по исходному индексу,
+   поэтому веса и подсчёт не затрагиваются. Порядок стабилен внутри одного
+   прохождения: seed живёт вместе с сохранённым прогрессом. */
+let ORDSEED=0;
+function ordSeed(){
+  if(ORDSEED)return ORDSEED;
+  try{const st=JSON.parse(localStorage.getItem('istok_state')||'null');
+    if(st&&st.seed){ORDSEED=st.seed;return ORDSEED;}}catch(e){}
+  ORDSEED=(Math.floor(Math.random()*2147483646)+1)>>>0;
+  return ORDSEED;
+}
+function shuffleIdx(n,seed){
+  const a=[...Array(n).keys()];let x=(seed>>>0)||1;
+  for(let i=n-1;i>0;i--){x=(Math.imul(x,1103515245)+12345)>>>0;const j=x%(i+1);const t=a[i];a[i]=a[j];a[j]=t;}
+  return a;
+}
+function optList(s){
+  const src=s.opts||s.choices||s.words||[];
+  if(s.noshuf)return src.map((o,i)=>({o,i}));
+  if(!s._ord)s._ord=shuffleIdx(src.length,ordSeed()+(s.qs||1)*7919);
+  return s._ord.map(i=>({o:src[i],i}));
+}
 </script>
 <script>
 'use strict';
@@ -1120,7 +1432,7 @@ const PLAY_SVG='<polygon points="5,3 19,12 5,21"/>';
 const PAUSE_SVG='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
 
 const TEST_V=4; /* поднимать при изменении состава вопросов */
-function saveState(){try{localStorage.setItem('istok_state',JSON.stringify({v:TEST_V,cur,ans,ts:Date.now()}));}catch(e){}}
+function saveState(){try{localStorage.setItem('istok_state',JSON.stringify({v:TEST_V,cur,ans,seed:ordSeed(),ts:Date.now()}));}catch(e){}}
 function loadState(){try{const st=JSON.parse(localStorage.getItem('istok_state')||'null');return st&&st.v===TEST_V?st:null;}catch(e){return null;}}
 function clearState(){try{localStorage.removeItem('istok_state');}catch(e){}}
 function kbd(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();e.currentTarget.click();}}
@@ -1137,9 +1449,10 @@ function oeHtml(s,a){
   return `<div class="aud-fact${e?' on':''}" id="oe">${e?'<b>Про твой выбор:</b> '+T(e):''}</div>`;
 }
 
-function showLanding(){document.getElementById('landing').style.display='';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');['method-s','att-s'].forEach(id=>{const m=document.getElementById(id);if(m)m.classList.remove('on');});Music.stop();AudioIll.stop();window.scrollTo(0,0);}
-function showMethod(){document.getElementById('landing').style.display='none';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');const a=document.getElementById('att-s');if(a)a.classList.remove('on');document.getElementById('method-s').classList.add('on');window.scrollTo(0,0);}
+function showLanding(){document.body.classList.remove('focus');document.getElementById('landing').style.display='';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');['method-s','att-s'].forEach(id=>{const m=document.getElementById(id);if(m)m.classList.remove('on');});Music.stop();AudioIll.stop();window.scrollTo(0,0);}
+function showMethod(){document.body.classList.add('focus');document.getElementById('landing').style.display='none';document.getElementById('test-s').classList.remove('on');document.getElementById('practice-s').classList.remove('on');const a=document.getElementById('att-s');if(a)a.classList.remove('on');document.getElementById('method-s').classList.add('on');window.scrollTo(0,0);}
 function startTest(){
+  document.body.classList.add('focus');
   document.getElementById('landing').style.display='none';
   document.getElementById('practice-s').classList.remove('on');
   ['method-s','att-s'].forEach(id=>{const m=document.getElementById(id);if(m)m.classList.remove('on');});
@@ -1194,7 +1507,7 @@ function render(idx){
   } else if(s.id==='intro'){
     html+=`<p class="t-blk">Добро пожаловать</p>
     <h2 class="t-q" style="font-size:clamp(2rem,5vw,3.5rem);margin-bottom:1rem">${T('{Готова|Готов}')} заглянуть<br><em style="color:var(--accent3)">внутрь?</em></h2>
-    <p class="t-sub">Этот тест состоит из 55 вопросов и займёт 25–30 минут.<br><br>
+    <p class="t-sub">Этот тест состоит из 56 вопросов и займёт 25–30 минут.<br><br>
     Сначала — три коротких вопроса о контексте детства, затем 6 блоков: звуковые иллюзии → зрительные иллюзии → незаконченные предложения → цвета → образы и сценарии → шкалы воспоминаний. После большинства ответов ты сразу увидишь, что именно значит твой выбор.<br><br>
     Здесь нет правильных и неправильных ответов. Есть только твоё восприятие. Чем честнее — тем точнее результат.<br><br>
     Фоновая музыка помогает не «думать головой» — её можно выключить кнопкой сверху.<br><br>
@@ -1212,7 +1525,7 @@ function render(idx){
     </div>
     <p class="aud-hint">${s.aType==='tritone'||s.aType==='waves'?'Лучше слушать в наушниках. ':''}Звук синтезируется прямо в браузере — слушай сколько нужно.</p>
     ${s.fact?`<div class="aud-fact" id="af${cur}">${T(s.fact)}</div>`:''}
-    <div class="t-opts">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    <div class="t-opts">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
     ${oeHtml(s,ans[cur])}
     ${nav(cur,ans[cur]!==undefined)}`;
 
@@ -1220,7 +1533,7 @@ function render(idx){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
     <div class="ill-wrap"><div class="ill-fr">${illArt(s.illT)}</div><span class="ill-hint">смотри глубже</span></div>
-    <div class="t-opts">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    <div class="t-opts">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
     ${oeHtml(s,ans[cur])}
     ${nav(cur,ans[cur]!==undefined)}`;
 
@@ -1244,17 +1557,26 @@ function render(idx){
   } else if(s.id==='img'){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
-    <div class="img-grid">${s.choices.map((c,i)=>`
+    <div class="img-grid">${optList(s).map(({o:c,i})=>`
       <div class="img-opt${ans[cur]===i?' sel':''}" role="button" tabindex="0" onkeydown="kbd(event)" onclick="selO(${i})">
         ${cardArt(c.ico)}<span>${c.l.replace('\n','<br>')}</span>
       </div>`).join('')}</div>
     ${nav(cur,ans[cur]!==undefined)}`;
 
+  } else if(s.id==='word'){
+    const sel=Array.isArray(ans[cur])?ans[cur]:[];
+    html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
+    <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
+    <div class="wd-timer" aria-hidden="true"><div class="wd-tfill" id="wdT"></div></div>
+    <div class="wd-grid">${optList(s).map(({o,i})=>`<button class="wd${sel.includes(i)?' sel':''}" onclick="selW(${i})">${T(o.t)}</button>`).join('')}</div>
+    <p class="wd-hint" id="wdH">${sel.length>=3?'Готово — можно идти дальше':`Выбрано ${sel.length} из 3`}</p>
+    ${nav(cur,sel.length===3)}`;
+
   } else if(s.id==='scen'){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <div class="scen-box">${T(s.scene)}</div>
     <h2 class="t-q" style="font-size:1.5rem">${T(s.q)}</h2>
-    <div class="t-opts" style="margin-top:1rem">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    <div class="t-opts" style="margin-top:1rem">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
     ${nav(cur,ans[cur]!==undefined)}`;
 
   } else if(s.id==='sc'){
@@ -1271,14 +1593,14 @@ function render(idx){
   } else if(s.id==='single'||s.id==='ctx'){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
-    <div class="t-opts">${s.opts.map((o,i)=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    <div class="t-opts">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
     ${oeHtml(s,ans[cur])}
     ${nav(cur,ans[cur]!==undefined)}`;
 
   } else if(s.id==='breath'){
     html+=`<p class="t-blk">Заземление</p>
     <h2 class="t-q" style="text-align:center">Три вдоха, прежде чем увидеть результат</h2>
-    <p class="t-sub" style="text-align:center">${T('Ты прош{ла|ёл} все 55 вопросов. Нажми на круг и сделай три медленных вдоха.')}</p>
+    <p class="t-sub" style="text-align:center">${T('Ты прош{ла|ёл} все 56 вопросов. Нажми на круг и сделай три медленных вдоха.')}</p>
     <div class="br-sec">
       <div class="br-ring" id="bR" role="button" tabindex="0" onkeydown="kbd(event)" onclick="startBr()">вдох</div>
       <span class="br-cnt" id="bC">нажми, чтобы начать</span>
@@ -1291,6 +1613,7 @@ function render(idx){
 
   el.innerHTML=`<div class="scr">${html}</div>`;
   window.scrollTo(0,0);
+  if(s.id==='word')startWordTimer(); else clearTimeout(wdTmr);
   if(s.id!=='results')saveState();
 
   if(s.id==='results'){
@@ -1318,6 +1641,40 @@ function showOE(i){
   const e=optE(Q[cur],i);
   if(e){oe.innerHTML='<b>Про твой выбор:</b> '+T(e);oe.classList.add('on');}
   else oe.classList.remove('on');
+}
+function selW(i){
+  const s=Q[cur];
+  let sel=Array.isArray(ans[cur])?ans[cur].slice():[];
+  const at=sel.indexOf(i);
+  if(at>=0)sel.splice(at,1);
+  else{ if(sel.length>=3)return; sel.push(i); }
+  ans[cur]=sel;
+  document.querySelectorAll('.wd').forEach((b,k)=>{
+    const oi=optList(s)[k].i;
+    b.classList.toggle('sel',sel.includes(oi));
+  });
+  const h=document.getElementById('wdH');
+  if(h)h.textContent=sel.length>=3?'Готово — можно идти дальше':`Выбрано ${sel.length} из 3`;
+  const b=document.getElementById('bN');
+  if(b)b.disabled=sel.length!==3;
+  saveState();
+}
+/* 20-секундная полоса: подгоняет к первому импульсу, но не блокирует выбор */
+let wdTmr=null;
+function startWordTimer(){
+  clearTimeout(wdTmr);
+  const bar=document.getElementById('wdT');
+  if(!bar)return;
+  bar.style.transition='none';bar.style.width='100%';
+  requestAnimationFrame(()=>{
+    bar.style.transition='width 20s linear';
+    bar.style.width='0%';
+  });
+  wdTmr=setTimeout(()=>{
+    const h=document.getElementById('wdH');
+    const sel=Array.isArray(ans[cur])?ans[cur]:[];
+    if(h&&sel.length<3)h.textContent='Двадцать секунд прошли — но выбрать всё равно нужно три. Бери те, что первыми зацепили.';
+  },20000);
 }
 function selO(i){
   ans[cur]=i;
@@ -1625,6 +1982,14 @@ function computeResults(){
         });
       });
     }
+    else if(s.words){
+      /* максимум — три самых «тяжёлых» слова по каждому паттерну */
+      PKEYS.forEach((p,pi)=>{
+        const ws=s.words.map(o=>o.w[pi]).sort((x,y)=>y-x);
+        max[p]+=(ws[0]||0)+(ws[1]||0)+(ws[2]||0);
+      });
+      if(Array.isArray(a))a.forEach(ix=>{if(s.words[ix])addScore(s.words[ix].w);});
+    }
     else if(s.stems&&Array.isArray(a)){freeText+=' '+a.filter(Boolean).join(' | ');}
   });
   const low=freeText.toLowerCase();
@@ -1644,41 +2009,41 @@ function computeResults(){
   Q.forEach((s,idx)=>{if(s.resColor&&ans[idx]!==undefined&&s.colors[ans[idx]])resColor=s.colors[ans[idx]];});
 
   /* ── «Как ты сейчас»: острое состояние из косвенных сигналов ── */
-  const val=n=>{const s=qByN(n);return s?ans[Q.indexOf(s)]:undefined;};
+  const val=k=>{const s=qByK(k);return s?ans[Q.indexOf(s)]:undefined;};
   let acute=0;
-  const addA=(n,map)=>{const a=val(n);if(a!==undefined&&map[a])acute+=map[a];};
-  addA(4,{2:1});            // шепард: «что-то надвигается»
-  addA(7,{1:1,3:2});        // волны: замирание / грусть без причины
-  addA(12,{2:1});           // каница: достраиваю худшее
-  addA(13,{2:1,3:1});       // спираль: дискомфорт
-  addA(30,{0:1,4:2,6:2.5,7:1.5}); // цвет «сегодня»: ночь/тревога/темнота/туман
-  addA(35,{0:1});           // образ сегодня: птица в клетке
-  addA(45,{1:2,4:2});       // внутренний ребёнок: прячется / зовёт
+  const addA=(k,map)=>{const a=val(k);if(a!==undefined&&map[a])acute+=map[a];};
+  addA('aud_shepard',{2:1});            // шепард: «что-то надвигается»
+  addA('aud_waves',{1:1,3:2});        // волны: замирание / грусть без причины
+  addA('ill_kanizsa',{2:1});           // каница: достраиваю худшее
+  addA('ill_spiral',{2:1,3:1});       // спираль: дискомфорт
+  addA('col_today',{0:1,4:2,6:2.5,7:1.5}); // цвет «сегодня»: ночь/тревога/темнота/туман
+  addA('img_today',{0:1});           // образ сегодня: птица в клетке
+  addA('single_child',{1:2,4:2});       // внутренний ребёнок: прячется / зовёт
   const acuteLvl=acute>=5.5?'high':acute>=3?'mid':'low';
 
   /* ── 3 дополнительные шкалы: отвержение, недоверие, недолюбленность ── */
   const D={rj:{s:0,m:0},tr:{s:0,m:0},dp:{s:0,m:0}};
-  const addD=(k,n,map,mx)=>{D[k].m+=mx;const a=val(n);if(a!==undefined&&map[a])D[k].s+=map[a];};
-  const addDS=(k,n,si,w)=>{D[k].m+=w;const a=val(n);const v=a&&a[si];if(v)D[k].s+=w*(10-v)/9;};
+  const addD=(k,qk,map,mx)=>{D[k].m+=mx;const a=val(qk);if(a!==undefined&&map[a])D[k].s+=map[a];};
+  const addDS=(k,qk,si,w)=>{D[k].m+=w;const a=val(qk);const v=a&&a[si];if(v)D[k].s+=w*(10-v)/9;};
   // страх отвержения
-  addD('rj',39,{1:3,2:2,3:1},3);   // обида при всех: стыд/невидимость
-  addD('rj',40,{1:1,2:2,3:2},2);   // не взяли играть
-  addD('rj',41,{1:1},1);           // похвала: смущение
-  addDS('rj','52–54',1,3);         // «быть собой» (обратная)
-  addD('rj',55,{2:1,7:2},2);       // слово: одинокое/пустое
+  addD('rj','scen_shamed',{1:3,2:2,3:1},3);   // обида при всех: стыд/невидимость
+  addD('rj','scen_excluded',{1:1,2:2,3:2},2);   // не взяли играть
+  addD('rj','scen_praise',{1:1},1);           // похвала: смущение
+  addDS('rj','sc_self',1,3);         // «быть собой» (обратная)
+  addD('rj','single_word',{2:1,7:2},2);       // слово: одинокое/пустое
   // недоверие и предательство
-  addD('tr',41,{2:3},3);           // похвала: «говорит неискренне»
-  addD('tr',12,{1:1,2:2},2);       // каница: достраивание худшего
-  addD('tr',43,{3:2},2);           // уход близкого: злость
-  addDS('tr','52–54',2,2);         // доверие воспоминаниям (обратная)
-  addD('tr',31,{2:1},1);           // отвергаемый синий
+  addD('tr','scen_praise',{2:3},3);           // похвала: «говорит неискренне»
+  addD('tr','ill_kanizsa',{1:1,2:2},2);       // каница: достраивание худшего
+  addD('tr','scen_leaving',{3:2},2);           // уход близкого: злость
+  addDS('tr','sc_self',2,2);         // доверие воспоминаниям (обратная)
+  addD('tr','col_reject',{2:1},1);           // отвергаемый синий
   // эмоциональная недолюбленность
-  addDS('dp','46–48',0,3);         // любимой (обратная)
-  addDS('dp','49–51',0,3);         // хвалили (обратная)
-  addDS('dp','49–51',2,2);         // нужной просто так (обратная)
-  addD('dp',29,{4:1,6:1.5,7:1},1.5); // цвет детства
-  addD('dp',44,{1:1,2:1},1);       // дом: вокзал/музей
-  addD('dp',55,{5:1,7:2},2);       // слово: тяжёлое/пустое
+  addDS('dp','sc_loved',0,3);         // любимой (обратная)
+  addDS('dp','sc_praised',0,3);         // хвалили (обратная)
+  addDS('dp','sc_praised',2,2);         // нужной просто так (обратная)
+  addD('dp','col_child',{4:1,6:1.5,7:1},1.5); // цвет детства
+  addD('dp','single_home',{1:1,2:1},1);       // дом: вокзал/музей
+  addD('dp','single_word',{5:1,7:2},2);       // слово: тяжёлое/пустое
   Object.keys(DLEX).forEach(k=>{
     let h=0;DLEX[k].forEach(st=>{if(low.includes(st))h++;});
     D[k].s+=Math.min(6,h*2);D[k].m+=6;
@@ -1703,6 +2068,8 @@ function buildPayload(R){
     else if(s.choices)items.push({n:s.n,type:'image',question:T(s.q),answer:s.choices[a]?s.choices[a].l.replace('\n',' — '):null});
     else if(s.stems)s.stems.forEach((st,i)=>items.push({n:s.n,type:'sentence',question:T(st),answer:(a[i]||'').trim()}));
     else if(s.scales)s.scales.forEach((sc,i)=>items.push({n:s.n,type:'scale',question:T(sc.q),answer:a[i]||null}));
+    else if(s.words&&Array.isArray(a))items.push({n:s.n,type:'words',question:T(s.q),
+      answer:a.map(ix=>s.words[ix]&&T(s.words[ix].t)).filter(Boolean).join(', ')});
   });
   return {version:3,gender:GENDER||'f',finishedAt:new Date().toISOString(),
     patterns:Object.fromEntries(PKEYS.map(p=>[p,{name:PAT[p].name,pct:R.pct[p]}])),
@@ -1732,7 +2099,7 @@ function renderResults(){
   let html=`<div class="res-head">
     <p class="t-blk">Твоя аналитика</p>
     <h2 class="res-ttl">Паттерны из <em style="font-style:italic;color:var(--accent3)">твоего прошлого</em></h2>
-    <p class="res-sub">${T('Рассчитано по твоим 55 ответам: контекст, выборы, шкалы, цвета и слова, которые ты написал{а|} сам{а|}. Это не диагноз — это зеркало. Точка начала пути.')}</p>
+    <p class="res-sub">${T('Рассчитано по твоим 56 ответам: контекст, выборы, шкалы, цвета и слова, которые ты написал{а|} сам{а|}. Это не диагноз — это зеркало. Точка начала пути.')}</p>
   </div>
 
   <div class="lead-card" style="margin-bottom:1rem;${R.acute==='high'?'border-color:#c4a060;':''}">
@@ -1825,11 +2192,11 @@ function renderResults(){
 
   /* ── Твоя рыба: пять осей из паттернов → ближайший реальный вид ── */
   const acuteN=R.acute==='high'?0.8:R.acute==='mid'?0.45:0.1;
-  const valN=n=>{const s2=qByN(n);return s2?ans[Q.indexOf(s2)]:undefined;};
-  let predU=0.3+(R.dpct.tr/100)*0.2;           /* «зубастость»: злость наружу или внутрь */
-  if(valN(39)===0)predU+=0.3;                  /* обида → злость, хочу ответить */
-  if(valN(43)===3)predU+=0.3;                  /* уход близкого → злость */
-  if(valN(31)===4)predU-=0.25;                 /* отвергаемый красный = подавленная злость */
+  const valN=k=>{const s2=qByK(k);return s2?ans[Q.indexOf(s2)]:undefined;};
+  let predU=0.3+(R.dpct.tr/100)*0.2;              /* «зубастость»: злость наружу или внутрь */
+  if(valN('scen_shamed')===0)predU+=0.3;          /* обида → ответить тем же */
+  if(valN('scen_leaving')===3)predU+=0.3;         /* уход близкого → «ну и уходи» */
+  if(valN('col_reject')===4)predU-=0.25;          /* отвергаемый красный = подавленная злость */
   predU=Math.max(0,Math.min(1,predU));
   const U=[ /* [глубина, одиночество, скрытность, размер, знакомая вода, тёплая вода, скорость, зубастость] */
     Math.min(1,(R.dpct.dp/100)*0.4+(R.pct.cl/100)*0.3+acuteN*0.3),
@@ -1899,7 +2266,7 @@ function renderResults(){
     <p class="ins-t">${T(INSIGHT[dom])}</p>
   </div>
   <h3 class="res-h2">Глубокий <em>ИИ-разбор</em></h3>
-  <p class="res-h2sub">${T('Персональный текстовый разбор всех твоих 50 ответов — включая то, что ты написал{а|} в незаконченных предложениях своими словами.')}</p>
+  <p class="res-h2sub">${T('Персональный текстовый разбор всех твоих 56 ответов — включая то, что ты написал{а|} в незаконченных предложениях своими словами.')}</p>
   <button class="res-cta" id="aiBtn" style="margin-top:0" onclick="requestAI()">Получить ИИ-разбор →</button>
   <div class="ai-box" id="aiBox"></div>
   <p class="ai-note">Разбор создаётся на опубликованной версии сайта. Ответы отправляются только для создания разбора и нигде не сохраняются.</p>
@@ -2129,6 +2496,7 @@ function savePr(st){try{localStorage.setItem('istok_practice',JSON.stringify(st)
 function isoToday(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 
 function showPractice(){
+  document.body.classList.add('focus');
   document.getElementById('landing').style.display='none';
   document.getElementById('test-s').classList.remove('on');
   const m=document.getElementById('method-s');if(m)m.classList.remove('on');
@@ -2997,6 +3365,7 @@ const ATT_RES={
 
 function loadAtt(){try{const a=JSON.parse(localStorage.getItem('istok_att')||'null');return a&&a.v===1?a:null;}catch(e){return null;}}
 function showAtt(){
+  document.body.classList.add('focus');
   document.getElementById('landing').style.display='none';
   document.getElementById('test-s').classList.remove('on');
   document.getElementById('practice-s').classList.remove('on');
@@ -3160,6 +3529,123 @@ function soundCheck(){
     },450);
   }catch(e){show('Ошибка аудио: '+e.message);}
 }
+
+
+/* ══════════════════════════════════════════════════════════
+   ЖИВАЯ ВОДА: взвесь, параллакс, появление, блик за курсором
+   ══════════════════════════════════════════════════════════ */
+(function(){
+  const RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── фотослой глубины, если фон положен в assets/bg/deep.jpg ── */
+  (function(){
+    const ph=document.getElementById('oceanPh'); if(!ph)return;
+    const img=new Image();
+    img.onload=()=>{ph.style.backgroundImage=`url(${img.src})`;ph.classList.add('on');};
+    img.src='assets/bg/deep.jpg';
+  })();
+
+  /* ── взвесь: частицы, медленно всплывающие в толще ── */
+  (function(){
+    const cv=document.getElementById('motes'); if(!cv||RM)return;
+    const LIGHT = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    const ctx=cv.getContext('2d',{alpha:true});
+    let w=0,h=0,dpr=1,parts=[],raf=null,run=true;
+    function size(){
+      dpr=Math.min(2,window.devicePixelRatio||1);
+      w=window.innerWidth;h=window.innerHeight;
+      cv.width=Math.floor(w*dpr);cv.height=Math.floor(h*dpr);
+      cv.style.width=w+'px';cv.style.height=h+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      const n=Math.round(Math.min(78,Math.max(26,w*h/26000)));
+      parts=Array.from({length:n},()=>spawn(true));
+    }
+    function spawn(anywhere){
+      return {x:Math.random()*w, y:anywhere?Math.random()*h:h+12,
+        r:.5+Math.random()*1.9, sp:.10+Math.random()*.34,
+        a:.10+Math.random()*.42, ph:Math.random()*Math.PI*2,
+        sw:.16+Math.random()*.5, warm:Math.random()<.22};
+    }
+    function frame(t){
+      if(!run){raf=null;return;}
+      ctx.clearRect(0,0,w,h);
+      for(let i=0;i<parts.length;i++){
+        const p=parts[i];
+        p.y-=p.sp; p.ph+=0.006;
+        const x=p.x+Math.sin(p.ph)*p.sw*14;
+        if(p.y<-14){parts[i]=spawn(false);continue;}
+        const fade=Math.min(1,Math.min(p.y,h-p.y)/110);
+        const g=ctx.createRadialGradient(x,p.y,0,x,p.y,p.r*5.5);
+        const col=LIGHT?(p.warm?'120,102,180':'92,110,168'):(p.warm?'214,198,255':'176,196,240');
+        g.addColorStop(0,`rgba(${col},${p.a*fade})`);
+        g.addColorStop(1,`rgba(${col},0)`);
+        ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,p.y,p.r*5.5,0,6.284);ctx.fill();
+      }
+      raf=requestAnimationFrame(frame);
+    }
+    size();
+    addEventListener('resize',()=>{clearTimeout(window.__mzT);window.__mzT=setTimeout(size,180)});
+    document.addEventListener('visibilitychange',()=>{
+      run=!document.hidden;
+      if(run&&!raf)raf=requestAnimationFrame(frame);
+    });
+    raf=requestAnimationFrame(frame);
+  })();
+
+  /* ── появление при скролле, каскадом ── */
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const el=e.target;
+      const sibs=el.parentElement?[...el.parentElement.children].filter(c=>c.classList.contains('rv')):[el];
+      const i=Math.max(0,sibs.indexOf(el));
+      setTimeout(()=>el.classList.add('in'),Math.min(i,5)*95);
+      io.unobserve(el);
+    });
+  },{rootMargin:'0px 0px -12% 0px',threshold:.12}) : null;
+  function watchReveals(root){
+    (root||document).querySelectorAll('.rv:not(.in)').forEach(el=>{
+      if(io)io.observe(el);else el.classList.add('in');
+    });
+  }
+  window.watchReveals=watchReveals;
+  watchReveals();
+
+  /* ── параллакс: hero уплывает вглубь, лучи сдвигаются ── */
+  if(!RM){
+    const hin=document.querySelector('.hero-in'), rays=document.getElementById('rays');
+    let ticking=false;
+    addEventListener('scroll',()=>{
+      if(ticking)return;ticking=true;
+      requestAnimationFrame(()=>{
+        const y=window.scrollY;
+        if(hin&&y<window.innerHeight*1.2){
+          hin.style.transform=`translateY(${y*0.22}px)`;
+          hin.style.opacity=String(Math.max(0,1-y/(window.innerHeight*0.75)));
+        }
+        if(rays)rays.style.transform=`translateY(${y*-0.06}px)`;
+        ticking=false;
+      });
+    },{passive:true});
+
+    /* мягкий отклик на мышь */
+    addEventListener('mousemove',(e)=>{
+      const dx=(e.clientX/window.innerWidth-.5), dy=(e.clientY/window.innerHeight-.5);
+      const g1=document.querySelector('.hg1');
+      if(g1)g1.style.transform=`translate(calc(-50% + ${dx*34}px), calc(-50% + ${dy*24}px))`;
+      if(rays)rays.style.marginLeft=(dx*22)+'px';
+    },{passive:true});
+  }
+
+  /* ── блик, следующий за курсором внутри карточек ── */
+  document.addEventListener('mousemove',(e)=>{
+    const c=e.target.closest && e.target.closest('.step,.bcard,.acard');
+    if(!c)return;
+    const r=c.getBoundingClientRect();
+    c.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    c.style.setProperty('--my',(e.clientY-r.top)+'px');
+  },{passive:true});
+})();
 
 </script>
 </body>
