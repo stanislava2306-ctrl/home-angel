@@ -18,7 +18,9 @@
 <meta name="twitter:image" content="https://istokyoursoul.netlify.app/assets/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d0f1a'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='40' fill='%23b9aef0' text-anchor='middle'%3EИ%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0d0f1a;--bg2:#111422;--surface:#1a1e30;--surface2:#1f2438;
@@ -26,7 +28,9 @@
   --text:#e8e4f0;--text2:#9b96b0;--text3:#5e5a72;
   --accent:#8b7fbe;--accent2:#6b5fa8;--accent3:#b8aee8;
   --mist:rgba(139,127,190,0.12);--mist2:rgba(139,127,190,0.05);
-  --fd:'Cormorant Garamond',serif;--fb:'Jost',sans-serif;
+  --fb:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --fd:'Inter',system-ui,-apple-system,sans-serif;
+  --fs:'Instrument Serif','Times New Roman',Times,serif;
   /* HIG structural tokens: 8pt spacing grid, concentric radii, motion, touch target */
   --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;
   --r-sm:8px;--r-md:12px;--r-lg:16px;--r-full:9999px;
@@ -297,7 +301,7 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 .fish-art{width:100%;aspect-ratio:16/10;background:#0c0f1e;position:relative;}
 .fish-art svg,.fish-art img{width:100%;height:100%;display:block;object-fit:cover;}
 
-.snd-chk{margin-top:1.6rem;background:none;border:1px solid var(--border);color:var(--text2);font-family:'Jost',sans-serif;font-size:.78rem;letter-spacing:.08em;padding:.55rem 1.3rem;min-height:40px;border-radius:99px;cursor:pointer;transition:border-color .2s,color .2s,transform var(--dur-instant) var(--ease-out);}
+.snd-chk{margin-top:1.6rem;background:none;border:1px solid var(--border);color:var(--text2);font-family:var(--fb);font-size:.78rem;letter-spacing:.08em;padding:.55rem 1.3rem;min-height:40px;border-radius:99px;cursor:pointer;transition:border-color .2s,color .2s,transform var(--dur-instant) var(--ease-out);}
 .snd-chk:hover{border-color:var(--accent);color:var(--text);}
 .snd-chk:active{transform:scale(.96);}
 .snd-res{font-size:.72rem;color:var(--text3);max-width:430px;margin:.7rem auto 0;line-height:1.7;}
@@ -311,14 +315,14 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 @media(max-width:520px){.mus-vol{width:44px;}}
 #method-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
 #method-s.on{display:flex;}
-.m-h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:2.4rem;margin-bottom:1.2rem;}
+.m-h1{font-family:var(--fb);font-weight:500;letter-spacing:-.04em;font-size:2.4rem;margin-bottom:1.2rem;}
 .m-h1 em{color:var(--accent2);}
 .m-lead{color:var(--text2);line-height:1.8;max-width:640px;margin-bottom:2.6rem;}
 .m-item{border-left:2px solid var(--border2);padding:0 0 0 1.4rem;margin-bottom:2.2rem;max-width:680px;}
-.m-item h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.35rem;margin-bottom:.6rem;color:var(--text);}
+.m-item h3{font-family:var(--fb);font-weight:500;letter-spacing:-.025em;font-size:1.15rem;margin-bottom:.6rem;color:var(--text);}
 .m-item p{color:var(--text2);line-height:1.85;font-size:.92rem;}
 .m-disc{background:var(--mist2);border-left:2px solid var(--accent2);padding:1.1rem 1.4rem;color:var(--text2);font-size:.85rem;line-height:1.8;max-width:680px;margin-top:2.5rem;}
-.flink{background:none;border:none;color:var(--text3);font-family:'Jost',sans-serif;font-size:.78rem;letter-spacing:.06em;cursor:pointer;text-decoration:underline;text-underline-offset:4px;margin-top:1.4rem;display:block;}
+.flink{background:none;border:none;color:var(--text3);font-family:var(--fb);font-size:.78rem;letter-spacing:.06em;cursor:pointer;text-decoration:underline;text-underline-offset:4px;margin-top:1.4rem;display:block;}
 .flink:hover{color:var(--text2);}
 @media(max-width:520px){#method-s{padding:5rem 1.1rem 4rem;}}
 /* кабинет */
@@ -327,7 +331,7 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 .hist-row:last-child{border-bottom:none;}
 .hist-d{color:var(--text3);min-width:82px;}
 .hist-f{flex:1;color:var(--text2);}
-.hist-i{color:var(--accent3);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;}
+.hist-i{color:var(--accent3);font-family:var(--fs);font-style:italic;font-size:1.15rem;}
 .dyn-lbl{font-size:.8rem;color:var(--text3);margin:.4rem 0 .7rem;}
 .dyn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;margin-bottom:.7rem;}
 .dyn-cell{border:1px solid var(--border);border-radius:9px;padding:.6rem .8rem;display:flex;flex-direction:column;gap:.25rem;}
@@ -356,7 +360,7 @@ a.flink{color:var(--text3);}
 #att-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
 #att-s.on{display:flex;}
 .att-entry{margin-top:1.4rem;text-align:center;font-size:.85rem;color:var(--text3);}
-.att-entry-b{background:none;border:none;color:var(--accent3);font-family:'Jost',sans-serif;font-size:.85rem;cursor:pointer;text-decoration:underline;text-underline-offset:4px;}
+.att-entry-b{background:none;border:none;color:var(--accent3);font-family:var(--fb);font-size:.85rem;cursor:pointer;text-decoration:underline;text-underline-offset:4px;}
 .att-entry-b:hover{color:var(--text);}
 .att-axes{margin:1.6rem 0 1.8rem;display:flex;flex-direction:column;gap:1rem;max-width:520px;}
 .att-p{color:var(--text2);line-height:1.85;margin-bottom:1.1rem;max-width:660px;font-size:.93rem;}
@@ -883,6 +887,103 @@ nav#nav{padding:22px 40px 10px;}
   .aud-lbl{display:none;}
   .ill-fr{width:260px;height:260px;}
 }
+
+/* ═══════════════════════════════════════════════════════════
+   ПЕРЕРАБОТКА ПО ЯЗЫКУ РЕФЕРЕНСОВ
+   Чисто: без дымки, без липкой шапки, без плашек-карточек.
+   Крупная типографика Inter с плотным трекингом, серифный курсив
+   только акцентом, кадры во всю ширину.
+   ═══════════════════════════════════════════════════════════ */
+
+/* — убираем всё, что мутило картинку — */
+#caustic{display:none!important;}
+#ocean .ph{display:none!important;}
+#rays{opacity:.18!important;}
+#grain{opacity:.13!important;}
+.sec-band::before,.sec-band::after{display:none!important;}
+#ocean{background:linear-gradient(180deg,#0a0b14 0%,#080910 50%,#05060b 100%)!important;}
+body::before{display:none;}
+
+/* — шапка больше не липнет: она часть первого кадра — */
+nav#nav{position:absolute!important;background:transparent!important;border:none!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:26px 40px;}
+nav#nav.scrolled{background:transparent!important;border:none!important;backdrop-filter:none!important;}
+.logo{font-family:var(--fb);font-size:15.5px;font-weight:600;letter-spacing:-.03em;}
+.logo span{color:#fff;}
+
+/* — типографика — */
+body{font-family:var(--fb);font-weight:400;letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+h1.hero-h{font-family:var(--fb);font-weight:500;letter-spacing:-.045em;line-height:1.08;}
+h1.hero-h em,.scene em{font-family:var(--fs);font-style:italic;font-weight:400;font-size:1.06em;
+  letter-spacing:-.03em;color:var(--accent-serif);}
+.badge{font-size:12.5px;letter-spacing:-.01em;border-radius:5px;}
+.hero-sub{font-weight:400;letter-spacing:-.015em;}
+.stat b{font-family:var(--fb);font-weight:500;font-size:1.15em;letter-spacing:-.03em;}
+
+/* — общая сцена — */
+.scene{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;
+  padding:120px 72px;background:transparent;}
+.scene h2{font-family:var(--fb);font-weight:500;font-size:clamp(2.1rem,4.4vw,3.6rem);line-height:1.08;
+  letter-spacing:-.045em;color:#f4f1fb;margin-bottom:28px;}
+.eyebrow{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:#7d7699;margin-bottom:20px;}
+.scene-txt{max-width:460px;color:#a49dbe;font-size:16px;line-height:1.62;letter-spacing:-.012em;margin-bottom:16px;}
+.scene-note{margin-top:26px;font-size:13px;letter-spacing:.02em;color:#6f6890;}
+
+/* сцена-разворот */
+.scene--split{gap:80px;justify-content:space-between;}
+.scene-copy{flex:1 1 46%;max-width:560px;}
+.scene-shot{flex:0 1 46%;max-width:640px;margin:0;overflow:hidden;border-radius:2px;}
+.scene-shot img{display:block;width:100%;height:auto;aspect-ratio:16/11;object-fit:cover;}
+
+/* сцена-список */
+.scene--list{flex-direction:column;align-items:stretch;justify-content:center;}
+.scene-head{margin-bottom:56px;max-width:640px;}
+.lines{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.1);}
+.lines li{display:grid;grid-template-columns:56px minmax(190px,1fr) minmax(0,2fr) 56px;align-items:baseline;
+  gap:24px;padding:26px 0;border-bottom:1px solid rgba(255,255,255,.1);
+  transition:background .4s,padding-left .4s var(--ease-out);}
+.lines li:hover{background:rgba(255,255,255,.028);padding-left:14px;}
+.ln{font-size:12px;letter-spacing:.1em;color:#6f6890;}
+.lt{font-size:clamp(1.1rem,1.8vw,1.55rem);font-weight:500;letter-spacing:-.03em;color:#f0edf8;}
+.ld{font-size:14.5px;line-height:1.6;letter-spacing:-.01em;color:#948daf;}
+.lc{font-size:13px;color:#6f6890;text-align:right;}
+
+/* финальный кадр */
+.scene--full{justify-content:center;text-align:center;overflow:hidden;padding:120px 24px;}
+.scene-bg{position:absolute;inset:0;}
+.scene-bg img{width:100%;height:100%;object-fit:cover;}
+.scene-bg::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,#0a0b14 0%,rgba(10,11,20,.5) 26%,rgba(10,11,20,.5) 62%,#0a0b14 100%);}
+.scene-center{position:relative;z-index:1;max-width:720px;}
+.scene--full h2{text-shadow:0 2px 40px rgba(6,7,14,.9),0 0 90px rgba(6,7,14,.7);}
+.scene--full .scene-txt{color:#c6c0da;text-shadow:0 1px 26px rgba(6,7,14,.95);}
+.scene--full .scene-bg::after{background:
+  radial-gradient(58% 46% at 50% 44%,rgba(6,7,14,.72) 0%,rgba(6,7,14,.34) 60%,transparent 100%),
+  linear-gradient(180deg,#0a0b14 0%,rgba(10,11,20,.42) 24%,rgba(10,11,20,.42) 64%,#0a0b14 100%);}
+.scene-center .scene-txt{margin:0 auto 30px;}
+.scene-center .hero-actions{justify-content:center;}
+
+/* подвал — тихая строка, а не блок */
+footer{padding:56px 72px;border-top:1px solid rgba(255,255,255,.08);background:transparent;}
+.flogo{font-family:var(--fb);font-weight:600;font-size:14px;letter-spacing:-.02em;}
+.fnote,.flink,.fver,.snd-chk,.snd-res{font-size:12.5px;letter-spacing:-.005em;}
+
+@media(max-width:1100px){
+  .scene{padding:96px 40px;}
+  .lines li{grid-template-columns:44px 1fr 44px;}
+  .ld{grid-column:1/-1;margin-top:6px;}
+}
+@media(max-width:900px){
+  .scene{min-height:auto;padding:76px 20px;flex-direction:column;align-items:flex-start;gap:36px;}
+  .scene--split{gap:36px;}
+  .scene-copy,.scene-shot{max-width:100%;flex:1 1 auto;width:100%;}
+  .scene h2{font-size:clamp(1.9rem,8vw,2.4rem);}
+  .scene--full{align-items:center;text-align:center;}
+  .lines li{gap:12px;padding:20px 0;}
+  footer{padding:40px 20px;}
+}
+
 </style>
 </head>
 <body>
@@ -945,46 +1046,44 @@ nav#nav{padding:22px 40px 10px;}
     <div class="sline-wrap" aria-hidden="true"><div class="sline"></div><span class="stxt">Листай</span></div>
   </section>
 
-  <section class="sec sec-band">
-    <div class="sec-in grid-2 rv">
-      <div>
-        <p class="sec-lbl">О проекте</p>
-        <h2 class="sec-ttl">Твои реакции —<br>это не <em>случайность</em></h2>
-        <p class="abt-txt">Почему ты замолкаешь, когда нужно говорить. Почему уходишь, когда нужно остаться. Почему снова и снова выбираешь одно и то же.</p>
-        <p class="abt-txt">Всё это — паттерны из детства. Они сформировались как способ выжить. Теперь они мешают жить.</p>
-        <p class="abt-txt">Исток — глубокий диагностический тест: 56 вопросов, 7 типов заданий и контекст твоего детства. Не опросник. Зеркало.</p>
-      </div>
-      <div class="abt-vis">
-        <div class="acard rv"><div class="sheen"></div><div class="cnum">56</div><div class="ctitle">вопросов и заданий</div><div class="cdesc">Звуковые иллюзии, проективные картинки, незаконченные предложения, цвета, образы, шкалы воспоминаний — и вопросы о контексте: семья, порядок рождения, атмосфера дома.</div></div>
-        <div class="acard rv"><div class="sheen"></div><div class="cnum">8</div><div class="ctitle">шкал в результате</div><div class="cdesc">Пять глубинных паттернов — покинутость, критик, контроль, закрытость, гиперответственность — и три дополнительных следа: отвержение, недоверие, недолюбленность.</div></div>
-      </div>
+  <!-- сцена 1: крупный кадр справа, текст слева -->
+  <section class="scene scene--split">
+    <div class="scene-copy rv">
+      <p class="eyebrow">О проекте</p>
+      <h2>Твои реакции —<br>это не <em>случайность</em></h2>
+      <p class="scene-txt">Почему ты замолкаешь, когда нужно говорить. Почему уходишь, когда нужно остаться. Почему снова и снова выбираешь одно и то же.</p>
+      <p class="scene-txt">Всё это — паттерны из детства. Они сформировались как способ выжить. Теперь они мешают жить.</p>
+      <p class="scene-note">56 вопросов · 7 типов заданий · 8 шкал в результате</p>
     </div>
+    <figure class="scene-shot rv"><img src="assets/fish/seahorse.jpg" alt="" loading="lazy" decoding="async"></figure>
   </section>
 
-  <section class="sec">
-    <div class="sec-in">
-      <div class="sh rv"><p class="sec-lbl">Как это работает</p><h2 class="sec-ttl" style="margin-bottom:0">Три шага к <em>себе</em></h2></div>
-      <div class="steps">
-        <div class="step rv"><div class="sheen"></div><div class="step-n">01</div><div class="step-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Пройди тест</h3><p>56 вопросов, 6 блоков. Настоящие звуковые и зрительные иллюзии — с разбором каждого твоего выбора. Фоновая музыка помогает отвечать честно.</p></div>
-        <div class="step rv"><div class="sheen"></div><div class="step-n">02</div><div class="step-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3>Получи аналитику</h3><p>Восемь шкал, твоё состояние «прямо сейчас», разбор по сферам жизни — отношения, карьера, деньги, дружба, семья — и твоё тотемное животное.</p></div>
-        <div class="step rv"><div class="sheen"></div><div class="step-n">03</div><div class="step-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Прорабатывай каждый день</h3><p>Персональные задания под твой тип мышления. Реальные практики из КПТ, ACT и нарративной терапии.</p></div>
-      </div>
+  <!-- сцена 2: структура теста списком, без плашек -->
+  <section class="scene scene--list">
+    <div class="scene-head rv">
+      <p class="eyebrow">Структура</p>
+      <h2>Шесть способов <em>увидеть</em> себя</h2>
     </div>
+    <ol class="lines">
+      <li class="rv"><span class="ln">01</span><span class="lt">Что ты слышишь</span><span class="ld">Звуковые иллюзии — тон Шепарда, тритоновый парадокс. Звук рождается в браузере, и каждый слышит своё.</span><span class="lc">4</span></li>
+      <li class="rv"><span class="ln">02</span><span class="lt">Что ты видишь</span><span class="ld">Двойственные образы: ваза Рубина, утка-кролик, куб Неккера. Что заметишь первым — то и сигнал.</span><span class="lc">6</span></li>
+      <li class="rv"><span class="ln">03</span><span class="lt">Что ты чувствуешь</span><span class="ld">Незаконченные фразы из клинической практики. Первый импульс — самый честный ответ.</span><span class="lc">15</span></li>
+      <li class="rv"><span class="ln">04</span><span class="lt">Что резонирует</span><span class="ld">Цветовые ассоциации и тест Люшера. Тихий язык без слов и объяснений.</span><span class="lc">5</span></li>
+      <li class="rv"><span class="ln">05</span><span class="lt">Кем ты себя видишь</span><span class="ld">Метафорические карты, сцены из детства и сетка слов на 20 секунд — отвечает импульс, а не редактор в голове.</span><span class="lc">13</span></li>
+      <li class="rv"><span class="ln">06</span><span class="lt">Как ты оцениваешь</span><span class="ld">Шкалы воспоминаний и контекст: семья, порядок рождения, атмосфера дома.</span><span class="lc">13</span></li>
+    </ol>
   </section>
 
-  <section class="sec sec-band">
-    <div class="sec-in">
-      <div class="sh rv"><p class="sec-lbl">Структура теста</p><h2 class="sec-ttl" style="margin-bottom:0">Шесть способов <em>увидеть</em> себя</h2></div>
-      <div class="bgrids">
-        <div class="bcard rv"><div class="sheen"></div><span class="btag">Аудио · 4</span><h3>Что ты слышишь?</h3><p>Настоящие звуковые иллюзии — тон Шепарда, тритоновый парадокс. Звук создаётся прямо в твоём браузере, и каждый слышит его по-своему.</p></div>
-        <div class="bcard rv"><div class="sheen"></div><span class="btag">Визуал · 6</span><h3>Что ты видишь?</h3><p>Классические двойственные образы: ваза Рубина, утка-кролик, куб Неккера. Что заметишь первым — сигнал о твоём внутреннем состоянии.</p></div>
-        <div class="bcard rv"><div class="sheen"></div><span class="btag">Предложения · 15</span><h3>Что ты чувствуешь?</h3><p>Незаконченные фразы из клинической практики. Первый импульс — самый честный ответ о себе.</p></div>
-        <div class="bcard rv"><div class="sheen"></div><span class="btag">Цвет · 5</span><h3>Что резонирует?</h3><p>Цветовые ассоциации и тест Люшера. Тихий язык бессознательного без слов и объяснений.</p></div>
-        <div class="bcard rv"><div class="sheen"></div><span class="btag">Образы · 13</span><h3>Кем ты себя видишь?</h3><p>Метафорические карты, сценарии из детства, дом детства и внутренний ребёнок. Плюс сетка слов на 20 секунд — отвечает первый импульс, а не редактор в голове.</p></div>
-        <div class="bcard rv"><div class="sheen"></div><span class="btag">Шкалы + контекст · 13</span><h3>Как ты оцениваешь?</h3><p>Шкалы воспоминаний и контекст: полная ли семья, порядок рождения, атмосфера дома. Без этого читать остальное некорректно.</p></div>
+  <!-- сцена 3: финальный кадр во всю ширину -->
+  <section class="scene scene--full">
+    <div class="scene-bg" aria-hidden="true"><img src="assets/fish/whaleshark.jpg" alt="" loading="lazy" decoding="async"></div>
+    <div class="scene-center rv">
+      <h2>Какая рыба живёт<br>в твоём <em>истоке</em></h2>
+      <p class="scene-txt">В конце теста — твой образ по восьми осям: глубина, стая или одиночество, свет или тьма. И карточка, которой можно поделиться.</p>
+      <div class="hero-actions">
+        <button class="btn btn-solid" onclick="startTest()">Пройти тест</button>
+        <button class="btn btn-ghost" onclick="showAtt()">Стиль привязанности · 3 минуты</button>
       </div>
-      <div class="cta-c rv"><button class="hero-cta" onclick="startTest()">Начать тест <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" style="width:16px;height:16px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
-      <p class="att-entry">Есть три минуты? <button class="att-entry-b" onclick="showAtt()">Узнай свой стиль привязанности →</button></p>
     </div>
   </section>
 
@@ -3414,8 +3513,8 @@ async function shareFish(){
   /* ждём шрифты, но не дольше двух секунд — иначе карточка не соберётся вовсе */
   try{await Promise.race([
     Promise.all([
-      document.fonts.load('300 78px "Cormorant Garamond"'),
-      document.fonts.load('300 30px "Jost"')
+      document.fonts.load('italic 400 78px "Instrument Serif"'),
+      document.fonts.load('400 30px "Inter"')
     ]),
     new Promise(r=>setTimeout(r,2000))
   ]);}catch(e){}
@@ -3430,9 +3529,9 @@ async function shareFish(){
   x.fillStyle=rg;x.fillRect(0,0,1080,940);
   /* шапка */
   x.textAlign='center';
-  x.fillStyle='#b8aee8';x.font='300 36px Jost, sans-serif';
+  x.fillStyle='#b8aee8';x.font='300 36px Inter, sans-serif';
   x.fillText('И  С  Т  О  К',540,96);
-  x.fillStyle='#5e5a72';x.font='300 26px Jost, sans-serif';
+  x.fillStyle='#5e5a72';x.font='300 26px Inter, sans-serif';
   x.fillText('тест о паттернах детства',540,138);
   /* рыба */
   const load=src=>new Promise((res,rej)=>{
@@ -3459,10 +3558,10 @@ async function shareFish(){
   }catch(e){}
   x.strokeStyle='rgba(255,255,255,.14)';x.lineWidth=2;x.strokeRect(120,178,840,525);
   /* имя */
-  x.fillStyle='#e8e4f0';x.font='italic 300 76px "Cormorant Garamond", serif';
+  x.fillStyle='#e8e4f0';x.font='italic 400 78px "Instrument Serif", serif';
   x.fillText(S.name,540,788);
   /* теги в 2-3 ряда */
-  x.font='300 26px Jost, sans-serif';
+  x.font='300 26px Inter, sans-serif';
   const rows=[];let row=[],wsum=0;
   S.chips.forEach(ch=>{
     const w=x.measureText(ch).width+44;
@@ -3485,18 +3584,18 @@ async function shareFish(){
   /* топ-3 паттерна */
   cy+=26;
   S.top.forEach(t=>{
-    x.textAlign='left';x.fillStyle='#e8e4f0';x.font='300 31px Jost, sans-serif';
+    x.textAlign='left';x.fillStyle='#e8e4f0';x.font='300 31px Inter, sans-serif';
     x.fillText(t.name,140,cy);
-    x.textAlign='right';x.fillStyle='#b8aee8';x.font='italic 300 34px "Cormorant Garamond", serif';
+    x.textAlign='right';x.fillStyle='#b8aee8';x.font='italic 400 36px "Instrument Serif", serif';
     x.fillText(t.pct+'%',940,cy);
     x.fillStyle='rgba(255,255,255,.13)';x.fillRect(140,cy+16,800,3);
     x.fillStyle='#8b7fbe';x.fillRect(140,cy+16,800*Math.min(100,t.pct)/100,3);
     cy+=80;x.textAlign='center';
   });
   /* индекс + футер */
-  x.fillStyle='#5e5a72';x.font='300 26px Jost, sans-serif';
+  x.fillStyle='#5e5a72';x.font='300 26px Inter, sans-serif';
   x.fillText('общий индекс детского следа — '+S.idx+'%',540,cy+6);
-  x.fillStyle='#8b7fbe';x.font='300 30px Jost, sans-serif';
+  x.fillStyle='#8b7fbe';x.font='300 30px Inter, sans-serif';
   x.fillText('Какая рыба живёт в твоём истоке?',540,1318);
   /* экспорт: share или скачивание */
   c.toBlob(async b=>{
