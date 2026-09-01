@@ -6,12 +6,12 @@ OUT_DIR = Path("/mnt/user-data/outputs")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 lines = [
-    ("Wholesale electricity supply — day-ahead market",
-     "Delivered volume, PUN reference — August 2026", "45.00", "MWh", 142.50, 6412.50),
-    ("Energy brokerage & portfolio management commission",
-     "Bilateral contracts placement, counterparty scouting — Aug 2026", "1.00", "service", 1850.00, 1850.00),
-    ("EV charging network operation & settlement",
-     "Station uptime monitoring, tariff configuration, revenue reconciliation — 12 stations", "12.00", "station", 78.00, 936.00),
+    ("Electricity supply to event venues — day-ahead market",
+     "Active energy delivered to sports-event facilities, PUN reference — August 2026", "45.00", "MWh", 142.50, 6412.50),
+    ("Temporary power supply & distribution — outdoor sports events",
+     "Provision, metering and management of temporary power for event sites — Aug 2026", "1.00", "service", 1850.00, 1850.00),
+    ("Energy procurement & supply-management commission",
+     "Sourcing, contract placement and supply coordination for the client — Aug 2026", "1.00", "service", 936.00, 936.00),
     ("Balancing services & imbalance settlement",
      "Real-time balancing coordination, imbalance charges pass-through — Aug 2026", "1.00", "service", 512.72, 512.72),
 ]
