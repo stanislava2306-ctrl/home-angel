@@ -3194,9 +3194,13 @@ function rr(x,a,b,w,h,r){x.beginPath();x.roundRect?x.roundRect(a,b,w,h,r):x.rect
 async function shareFish(){
   const S=window.ISTOK_SHARE;
   if(!S)return;
-  try{await Promise.all([
-    document.fonts.load('300 78px "Cormorant Garamond"'),
-    document.fonts.load('300 30px "Jost"')
+  /* ждём шрифты, но не дольше двух секунд — иначе карточка не соберётся вовсе */
+  try{await Promise.race([
+    Promise.all([
+      document.fonts.load('300 78px "Cormorant Garamond"'),
+      document.fonts.load('300 30px "Jost"')
+    ]),
+    new Promise(r=>setTimeout(r,2000))
   ]);}catch(e){}
   const c=document.createElement('canvas');c.width=1080;c.height=1350;
   const x=c.getContext('2d');
@@ -3214,12 +3218,27 @@ async function shareFish(){
   x.fillStyle='#5e5a72';x.font='300 26px Jost, sans-serif';
   x.fillText('тест о паттернах детства',540,138);
   /* рыба */
+  const load=src=>new Promise((res,rej)=>{
+    const im=new Image();const t=setTimeout(()=>rej(new Error('timeout')),4000);
+    im.onload=()=>{clearTimeout(t);res(im);};im.onerror=e=>{clearTimeout(t);rej(e);};im.src=src;});
   const svg=(FISH_ART[S.k]||'').replace('<svg ','<svg width="840" height="525" ');
   try{
-    const img=new Image();
-    await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;
-      img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);});
-    x.drawImage(img,120,178,840,525);
+    let img=null;
+    /* сначала пробуем настоящую иллюстрацию, рисунок — запасной вариант */
+    try{img=await load('assets/fish/'+S.k+'.jpg');}catch(e){}
+    if(img){
+      /* вписываем «по обрезке», чтобы не искажать пропорции */
+      const dw=840,dh=525,sr=img.width/img.height,dr=dw/dh;
+      let sw=img.width,sh=img.height,sx=0,sy=0;
+      if(sr>dr){sw=img.height*dr;sx=(img.width-sw)/2;}
+      else{sh=img.width/dr;sy=(img.height-sh)/2;}
+      x.save();rr(x,120,178,dw,dh,18);x.clip();
+      x.drawImage(img,sx,sy,sw,sh,120,178,dw,dh);
+      x.restore();
+    }else{
+      img=await load('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg));
+      x.drawImage(img,120,178,840,525);
+    }
   }catch(e){}
   x.strokeStyle='rgba(255,255,255,.14)';x.lineWidth=2;x.strokeRect(120,178,840,525);
   /* имя */
