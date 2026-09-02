@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Invoice 2026-08-01</title>
+<style>
+  @page { size: A4; margin: 0; }
+
+  html { -weasy-font-variant-ligatures: none; }
+  body {
+    margin: 0;
+    font-family: "Inter", "Liberation Sans", Arial, sans-serif;
+    color: #14150F;
+    background: #EFEDE8;
+    font-size: 8.2pt;
+    line-height: 1.55;
+    -weasy-hyphens: none;
+  }
+
+  .sheet {
+    width: 210mm; height: 297mm;
+    box-sizing: border-box;
+    padding: 26mm 24mm 20mm 24mm;
+    background: #EFEDE8;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead { display: flex; justify-content: space-between; align-items: flex-start; }
+  .issuer {
+    font-size: 14.5pt; font-weight: 500; letter-spacing: -0.015em;
+    line-height: 1.18; margin: 0; white-space: nowrap; flex: 0 0 auto;
+  }
+  .wordmark { flex: 0 0 auto;
+    font-size: 33pt; font-weight: 500; letter-spacing: -0.028em;
+    line-height: 0.9; margin: 0; text-align: right;
+  }
+
+  /* ---------- meta row ---------- */
+  .meta { display: flex; margin-top: 15mm; }
+  .meta .col { flex: 1; padding-right: 8mm; }
+  .meta .col.num { flex: 0 0 42mm; padding-right: 0; text-align: right; }
+
+  .eyebrow {
+    font-size: 6.2pt; font-weight: 600; letter-spacing: 0.17em;
+    text-transform: uppercase; color: #8C8A82; margin: 0 0 3.2mm 0;
+  }
+  .field { display: flex; margin-bottom: 0.9mm; }
+  .field .k {
+    flex: 0 0 19mm; color: #8C8A82; font-weight: 400;
+  }
+  .field .v { flex: 1; }
+  .party-name { font-weight: 600; margin-bottom: 1.6mm; }
+  .invnum { font-size: 12.5pt; font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; }
+  .invmeta { margin-top: 3.5mm; }
+  .invmeta .field .k { flex: 0 0 auto; margin-right: 4mm; }
+  .invmeta .field { justify-content: flex-end; }
+
+  /* ---------- description ---------- */
+  h2.section {
+    font-size: 15pt; font-weight: 500; letter-spacing: -0.018em;
+    margin: 15mm 0 0 0;
+  }
+  table.items { width: 100%; border-collapse: collapse; margin-top: 8mm; }
+  table.items td { padding: 0 0 5.2mm 0; vertical-align: top; }
+  table.items tr:last-child td { padding-bottom: 0; }
+  td.desc { padding-right: 12mm; }
+  td.desc .t { display: block; }
+  td.desc .s { display: block; color: #8C8A82; font-size: 7.2pt; margin-top: 0.6mm; }
+  td.amt { text-align: right; white-space: nowrap; width: 34mm; }
+
+  .rule { border: 0; border-top: 0.5pt solid #C9C6BC; margin: 7mm 0 0 0; }
+
+  /* ---------- totals ---------- */
+  .totals { margin-top: 5.5mm; display: flex; justify-content: flex-end; }
+  .totals table { border-collapse: collapse; width: 78mm; }
+  .totals td { padding: 1.5mm 0; }
+  .totals td.l { color: #14150F; }
+  .totals td.r { text-align: right; white-space: nowrap; }
+  .totals tr.grand td { font-weight: 600; }
+  .totals td.muted { color: #8C8A82; }
+  .totals tr.sep td { padding: 0; }
+  .totals tr.sep hr { border: 0; border-top: 0.5pt solid #C9C6BC; margin: 2.6mm 0; }
+  .totals tr.due td { padding-top: 1.5mm; }
+
+  /* ---------- footer blocks ---------- */
+  .foot { display: flex; margin-top: auto; padding-top: 14mm; }
+  .foot .col { flex: 1; padding-right: 12mm; }
+  .foot .col:last-child { padding-right: 0; }
+  h3.blocktitle {
+    font-size: 11.5pt; font-weight: 500; letter-spacing: -0.012em; margin: 0 0 4mm 0;
+  }
+  .foot p { margin: 0; max-width: 74mm; }
+  .note { color: #6E6C64; }
+  .colophon {
+    margin-top: 11mm; padding-top: 3.5mm; border-top: 0.5pt solid #C9C6BC;
+    display: flex; justify-content: space-between;
+    font-size: 6.4pt; letter-spacing: 0.09em; text-transform: uppercase; color: #97958D;
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="masthead">
+    <p class="issuer">Jose Luis<br>Serrano Anson</p>
+    <p class="wordmark">INVOICE</p>
+  </div>
+
+  <div class="meta">
+    <div class="col">
+      <p class="eyebrow">From</p>
+      <div class="party-name">Jose Luis Serrano Anson</div>
+      <div class="field"><span class="k">Address</span><span class="v">Calle de Majo 16<br>28014 Barcelona<br>Spain</span></div>
+    </div>
+
+    <div class="col">
+      <p class="eyebrow">Bill to</p>
+      <div class="party-name">ZBK PRO</div>
+      <div class="field"><span class="k">Address</span><span class="v">28 Rue Julien Gracq<br>37100 Tours<br>France</span></div>
+    </div>
+
+    <div class="col num">
+      <p class="eyebrow">Invoice</p>
+      <div class="invnum">#2026-08-01</div>
+      <div class="invmeta">
+        <div class="field"><span class="k" style="color:#8C8A82">Issued</span><span class="v" style="flex:0 0 auto">31 August 2026</span></div>
+        <div class="field"><span class="k" style="color:#8C8A82">Service date</span><span class="v" style="flex:0 0 auto">31 August 2026</span></div>
+        <div class="field"><span class="k" style="color:#8C8A82">Currency</span><span class="v" style="flex:0 0 auto">EUR</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section">Description</h2>
+
+  <table class="items">
+    <tr>
+      <td class="desc">
+        <span class="t">Browser advertising campaign setup and audience targeting</span>
+        <span class="s">0.50 h &nbsp;·&nbsp; &euro;80.00 / h</span>
+      </td>
+      <td class="amt">&euro;40.00</td>
+    </tr>
+    <tr>
+      <td class="desc">
+        <span class="t">Email advertising campaign preparation and distribution</span>
+        <span class="s">0.75 h &nbsp;·&nbsp; &euro;60.00 / h</span>
+      </td>
+      <td class="amt">&euro;45.00</td>
+    </tr>
+    <tr>
+      <td class="desc">
+        <span class="t">Ad copy adaptation and campaign performance review</span>
+        <span class="s">0.25 h &nbsp;·&nbsp; &euro;100.00 / h</span>
+      </td>
+      <td class="amt">&euro;25.00</td>
+    </tr>
+  </table>
+
+  <hr class="rule">
+
+  <div class="totals">
+    <table>
+      <tr><td class="l">Subtotal</td><td class="r">&euro;110.00</td></tr>
+      <tr><td class="l">VAT</td><td class="r muted">Not applicable</td></tr>
+      <tr class="grand"><td class="l">Total due</td><td class="r">&euro;110.00</td></tr>
+      <tr class="sep"><td colspan="2"><hr></td></tr>
+      <tr class="due"><td class="l">Due date</td><td class="r">15 September 2026</td></tr>
+    </table>
+  </div>
+
+  <div class="foot">
+    <div class="col">
+      <h3 class="blocktitle">Payment</h3>
+      <p>Payment by bank transfer in euro to the account of Jose Luis Serrano Anson.</p>
+      <p class="note" style="margin-top:2.5mm">Bank details are provided to the client separately. Please quote invoice #2026-08-01 as the payment reference.</p>
+    </div>
+    <div class="col">
+      <h3 class="blocktitle">Terms</h3>
+      <p>Payment is due within 15 days of the invoice date. The services above were supplied on 31 August 2026 and are billed in full.</p>
+      <p class="note" style="margin-top:2.5mm">VAT is not applicable: the services are supplied by a private individual who is not registered as a taxable person for VAT purposes, so no VAT is charged and no reverse charge applies.</p>
+    </div>
+  </div>
+
+  <div class="colophon">
+    <span>Jose Luis Serrano Anson &nbsp;·&nbsp; Barcelona, Spain</span>
+    <span>Invoice #2026-08-01 &nbsp;·&nbsp; Page 1 of 1</span>
+  </div>
+
+</div>
+</body>
+</html>
