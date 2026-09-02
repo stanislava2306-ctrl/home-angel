@@ -616,11 +616,11 @@ body.focus #caustic{opacity:.06;}
 /* плита: вода на полную силу + световой прожектор, открывающий глубину */
 .plate{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
 .plate-base,.plate-reveal{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;}
-.plate-base{background-image:url('assets/bg/deep.jpg');transform:scale(1.06);
+.plate-base{background-image:url('assets/scene/origin.jpg');transform:scale(1.06);
   animation:plateZoom 2.4s var(--ease-out) forwards;}
 @keyframes plateZoom{to{transform:scale(1)}}
 /* второй слой виден только внутри мягкого круга под курсором */
-.plate-reveal{background-image:url('assets/fish/whaleshark.jpg');opacity:0;transition:opacity .5s ease;
+.plate-reveal{background-image:url('assets/scene/fish.jpg');opacity:0;transition:opacity .5s ease;
   -webkit-mask-image:radial-gradient(circle var(--spot) at var(--mx,50%) var(--my,42%),
     #000 0%,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);
   mask-image:radial-gradient(circle var(--spot) at var(--mx,50%) var(--my,42%),
@@ -1100,12 +1100,12 @@ footer{border-top-color:rgba(242,239,233,.08);}
 .mini-echo b{color:var(--ink);font-weight:500;}
 
 /* подсказка про прожектор */
-.spot-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:3;
+.spot-hint{position:absolute;left:50%;bottom:112px;transform:translateX(-50%);z-index:3;
   font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#5f5a53;pointer-events:none;
   opacity:0;animation:hintIn 1.2s var(--ease-out) 2.6s forwards;}
 @keyframes hintIn{to{opacity:1}}
-body.spot-on .spot-hint{opacity:0;transition:opacity .5s;}
-@media(max-width:900px){.spot-hint{bottom:14px;font-size:10.5px;}}
+body.spot-on .spot-hint{opacity:0!important;animation:none!important;transition:opacity .35s;}
+@media(max-width:900px){.spot-hint{bottom:auto;top:calc(100vh - 210px);font-size:10.5px;}}
 
 
 /* ═══════════════════════════════════════════════════════════
@@ -1136,7 +1136,7 @@ body.spot-on .spot-hint{opacity:0;transition:opacity .5s;}
 /* убираем старую анимацию fu — она конфликтовала с системой .rv */
 .eyebrow.rv,h1.hero-h{animation-name:none;}
 h1.hero-h{opacity:1;}
-.hline{opacity:1;transform:none;animation:none;}
+.hline{opacity:1;transform:none;animation:none;overflow:visible;padding:.02em .12em .18em;}
 
 /* параллакс сцен задаётся из JS через --py */
 .scene-shot img,.scene-bg img{transform:translate3d(0,var(--py,0px),0) scale(1.08);}
@@ -1152,6 +1152,18 @@ h1.hero-h{opacity:1;}
 .plate-video.ready{opacity:1;}
 .plate-video.ready ~ .plate-base,body.has-video .plate-base{opacity:0;transition:opacity 1.6s ease;}
 @media(prefers-reduced-motion:reduce){.plate-video{display:none;}}
+
+
+/* кадр серии как тихая подложка сцены */
+.scene-veil{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1;}
+.scene-veil img{width:100%;height:100%;object-fit:cover;opacity:.34;
+  transform:translate3d(0,var(--py,0px),0) scale(1.08);}
+.scene-veil::after{content:'';position:absolute;inset:0;background:
+  linear-gradient(180deg,var(--void) 0%,rgba(6,6,7,.62) 22%,rgba(6,6,7,.62) 78%,var(--void) 100%),
+  linear-gradient(90deg,rgba(6,6,7,.86) 0%,rgba(6,6,7,.4) 46%,rgba(6,6,7,.72) 100%);}
+.scene--list,.scene--mini{position:relative;}
+/* видео тяжёлое: на узких экранах и при экономии трафика остаёмся на кадре */
+@media(max-width:900px){.plate-video{display:none;}}
 
 </style>
 </head>
@@ -1177,7 +1189,7 @@ h1.hero-h{opacity:1;}
     <!-- полнокадровая плита: вода на полную силу, только вымеренное затухание вниз -->
     <div class="plate" aria-hidden="true">
       <div class="plate-base"></div>
-      <video class="plate-video" id="plateVideo" autoplay muted loop playsinline preload="auto" poster="assets/bg/deep.jpg">
+      <video class="plate-video" id="plateVideo" autoplay muted loop playsinline preload="auto" poster="assets/scene/origin.jpg">
         <source src="assets/video/hero.mp4" type="video/mp4">
       </video>
       <div class="plate-reveal" id="plateReveal"></div>
@@ -1215,7 +1227,6 @@ h1.hero-h{opacity:1;}
       </span>
     </div>
 
-    <p class="spot-hint">Веди курсором — глубина откликается</p>
   </section>
 
   <!-- СЦЕНА 02 — THE QUESTION: знакомые реакции проявляются по одной -->
@@ -1230,11 +1241,12 @@ h1.hero-h{opacity:1;}
       <p class="qafter">Всё это — паттерны из детства. Они сформировались как способ выжить. Теперь они мешают жить.</p>
       <p class="scene-note rv">56 вопросов · 7 типов заданий · 8 шкал в результате</p>
     </div>
-    <figure class="scene-shot rv"><img src="assets/fish/seahorse.jpg" alt="" loading="lazy" decoding="async"></figure>
+    <figure class="scene-shot rv"><img src="assets/scene/childhood.jpg" alt="" loading="lazy" decoding="async"></figure>
   </section>
 
   <!-- СЦЕНА 04 — MINI EXPERIENCE: настоящий фрагмент теста прямо здесь -->
   <section class="scene scene--mini" id="mini">
+    <div class="scene-veil" aria-hidden="true"><img src="assets/scene/memory.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="mini">
       <p class="eyebrow rv">Фрагмент теста · попробуй прямо сейчас</p>
       <h2 class="mini-q rv">Послушай этот звук. Что с тобой происходит, пока он поднимается?</h2>
@@ -1256,6 +1268,7 @@ h1.hero-h{opacity:1;}
 
   <!-- сцена 2: структура теста списком, без плашек -->
   <section class="scene scene--list">
+    <div class="scene-veil" aria-hidden="true"><img src="assets/scene/perception.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="scene-head rv">
       <p class="eyebrow">Структура</p>
       <h2>Шесть способов <em>увидеть</em> себя</h2>
@@ -1272,7 +1285,7 @@ h1.hero-h{opacity:1;}
 
   <!-- сцена 3: финальный кадр во всю ширину -->
   <section class="scene scene--full">
-    <div class="scene-bg" aria-hidden="true"><img src="assets/fish/whaleshark.jpg" alt="" loading="lazy" decoding="async"></div>
+    <div class="scene-bg" aria-hidden="true"><img src="assets/scene/result.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="scene-center rv">
       <h2>Какая рыба живёт<br>в твоём <em>истоке</em></h2>
       <p class="scene-txt">В конце теста — твой образ по восьми осям: глубина, стая или одиночество, свет или тьма. И карточка, которой можно поделиться.</p>
@@ -4207,18 +4220,20 @@ function soundCheck(){
     v.addEventListener('error',()=>{ v.remove(); });
     /* если через 4 секунды видео не пошло — остаёмся на фотокадре */
     setTimeout(()=>{ if(!ok)v.remove(); },4000);
+    const c=navigator.connection;
+    if((c&&(c.saveData||/2g/.test(c.effectiveType||'')))||innerWidth<900){v.remove();return;}
     const p=v.play(); if(p&&p.catch)p.catch(()=>{});
   })();
   /* ── SCROLL PARALLAX: кадры сцен движутся вместе с прокруткой ── */
   (function(){
     if(RM)return;
-    const shots=[...document.querySelectorAll('.scene-shot img,.scene-bg img')];
+    const shots=[...document.querySelectorAll('.scene-shot img,.scene-bg img,.scene-veil img')];
     if(!shots.length)return;
     let ticking=false;
     function upd(){
       const vh=innerHeight;
       shots.forEach(img=>{
-        const host=img.closest('.scene-shot,.scene-bg');
+        const host=img.closest('.scene-shot,.scene-bg,.scene-veil');
         const r=host.getBoundingClientRect();
         if(r.bottom<-200||r.top>vh+200)return;
         /* -1 сверху экрана → +1 внизу */
