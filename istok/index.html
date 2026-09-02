@@ -20,7 +20,7 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300..700&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0d0f1a;--bg2:#111422;--surface:#1a1e30;--surface2:#1f2438;
@@ -28,9 +28,9 @@
   --text:#e8e4f0;--text2:#9b96b0;--text3:#5e5a72;
   --accent:#8b7fbe;--accent2:#6b5fa8;--accent3:#b8aee8;
   --mist:rgba(139,127,190,0.12);--mist2:rgba(139,127,190,0.05);
-  --fb:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  --fd:'Inter',system-ui,-apple-system,sans-serif;
-  --fs:'Instrument Serif','Times New Roman',Times,serif;
+  --fb:'Onest',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --fd:'Onest',system-ui,-apple-system,sans-serif;
+  --fs:'Playfair Display','Times New Roman',Times,serif;
   /* HIG structural tokens: 8pt spacing grid, concentric radii, motion, touch target */
   --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;
   --r-sm:8px;--r-md:12px;--r-lg:16px;--r-full:9999px;
@@ -3720,7 +3720,7 @@ async function shareFish(){
   /* ждём шрифты, но не дольше двух секунд — иначе карточка не соберётся вовсе */
   try{await Promise.race([
     Promise.all([
-      document.fonts.load('italic 400 78px "Instrument Serif"'),
+      document.fonts.load('italic 400 78px "Playfair Display"'),
       document.fonts.load('400 30px "Inter"')
     ]),
     new Promise(r=>setTimeout(r,2000))
@@ -3765,7 +3765,7 @@ async function shareFish(){
   }catch(e){}
   x.strokeStyle='rgba(255,255,255,.14)';x.lineWidth=2;x.strokeRect(120,178,840,525);
   /* имя */
-  x.fillStyle='#e8e4f0';x.font='italic 400 78px "Instrument Serif", serif';
+  x.fillStyle='#e8e4f0';x.font='italic 400 78px "Playfair Display", serif';
   x.fillText(S.name,540,788);
   /* теги в 2-3 ряда */
   x.font='300 26px Inter, sans-serif';
@@ -3793,7 +3793,7 @@ async function shareFish(){
   S.top.forEach(t=>{
     x.textAlign='left';x.fillStyle='#e8e4f0';x.font='300 31px Inter, sans-serif';
     x.fillText(t.name,140,cy);
-    x.textAlign='right';x.fillStyle='#b8aee8';x.font='italic 400 36px "Instrument Serif", serif';
+    x.textAlign='right';x.fillStyle='#b8aee8';x.font='italic 400 36px "Playfair Display", serif';
     x.fillText(t.pct+'%',940,cy);
     x.fillStyle='rgba(255,255,255,.13)';x.fillRect(140,cy+16,800,3);
     x.fillStyle='#8b7fbe';x.fillRect(140,cy+16,800*Math.min(100,t.pct)/100,3);
