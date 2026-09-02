@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Invoice 0001 — Fourtress Commerce Ltd</title>
+<style>
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-Regular.ttf');font-weight:400;}
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-Medium.ttf');font-weight:500;}
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-SemiBold.ttf');font-weight:600;}
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-Bold.ttf');font-weight:700;}
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-Black.ttf');font-weight:900;}
+
+@page{size:A4;margin:12mm 14mm 10mm 14mm;}
+
+:root{
+  --ink:#16171A;
+  --ink-soft:#3C3E44;
+  --ink-mute:#6E7076;
+  --paper:#E7E3DA;
+  --line:#B6B1A5;
+  --hair:#CFCABE;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--paper);}
+body{
+  font-family:'InterX',Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  font-size:7.6pt;
+  line-height:1.5;
+  -weasy-hyphens:none;
+}
+
+/* ---------- wordmark ---------- */
+.brandline{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:6.6pt;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-soft);
+  padding-bottom:4mm;
+}
+.wordmark{
+  font-weight:900;
+  font-size:113pt;
+  line-height:.80;
+  letter-spacing:-.042em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  transform:scaleX(1.012);
+  transform-origin:left center;
+}
+.rule{border-top:.7pt solid var(--line);}
+.hair{border-top:.45pt solid var(--hair);}
+
+/* ---------- parties ---------- */
+.parties{
+  display:flex;gap:9mm;
+  padding:5.5mm 0 5.5mm;
+}
+.parties .col{flex:1;}
+.parties .col.meta{flex:.92;text-align:right;}
+.label{
+  font-size:6.4pt;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--ink);margin-bottom:2.4mm;
+}
+.who{font-weight:700;font-size:8.4pt;letter-spacing:-.005em;margin-bottom:.9mm;}
+.parties p{color:var(--ink-soft);font-size:7.4pt;line-height:1.62;}
+.meta .row{display:flex;justify-content:flex-end;gap:3mm;color:var(--ink-soft);font-size:7.4pt;line-height:1.62;}
+.meta .row b{font-weight:600;color:var(--ink);}
+.meta .big{font-weight:900;font-size:12pt;letter-spacing:-.02em;color:var(--ink);margin-bottom:1mm;}
+
+/* ---------- table ---------- */
+table{width:100%;border-collapse:collapse;table-layout:fixed;}
+thead th{
+  font-size:6.4pt;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  text-align:left;padding:2.3mm 3mm;
+  border-top:.7pt solid var(--line);
+  border-bottom:.7pt solid var(--line);
+}
+tbody td{
+  padding:2.9mm 3mm;
+  border-bottom:.45pt solid var(--hair);
+  vertical-align:top;
+}
+th.c,td.c{text-align:center;}
+th.r,td.r{text-align:right;}
+.sep{border-left:.45pt solid var(--hair);}
+.item{font-weight:700;font-size:7.7pt;letter-spacing:-.005em;}
+.desc{color:var(--ink-soft);font-size:7.1pt;line-height:1.5;}
+td.num{font-variant-numeric:tabular-nums;font-size:7.5pt;color:var(--ink-soft);}
+td.tot{font-variant-numeric:tabular-nums;font-size:7.8pt;font-weight:600;color:var(--ink);}
+
+.summary{display:flex;gap:12mm;align-items:flex-start;padding-top:4mm;}
+.projectnote{flex:1;font-size:6.9pt;color:var(--ink-mute);letter-spacing:.01em;line-height:1.55;}
+.projectnote b{color:var(--ink-soft);font-weight:600;}
+
+/* ---------- totals ---------- */
+.box{width:78mm;flex:none;}
+.box .l{
+  display:flex;justify-content:space-between;
+  font-size:7.3pt;padding:1.5mm 0;color:var(--ink-soft);
+}
+.box .l span:first-child{font-weight:700;letter-spacing:.13em;text-transform:uppercase;font-size:6.5pt;color:var(--ink);}
+.box .l span:last-child{font-variant-numeric:tabular-nums;font-weight:500;}
+.box .grand{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-top:2.6mm;padding-top:2.8mm;border-top:.7pt solid var(--line);
+}
+.box .grand span:first-child{font-weight:900;letter-spacing:.13em;text-transform:uppercase;font-size:7.6pt;}
+.box .grand span:last-child{font-weight:900;font-size:15pt;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+
+/* ---------- lower blocks ---------- */
+.lower{display:flex;gap:9mm;padding:5.5mm 0 0;}
+.lower .col{flex:1;}
+.lower .col.wide{flex:1.28;}
+.lower p{color:var(--ink-soft);font-size:7.1pt;line-height:1.62;}
+.kv{display:flex;gap:2mm;font-size:7.1pt;line-height:1.6;color:var(--ink-soft);}
+.kv .k{width:15mm;flex:none;color:var(--ink-mute);letter-spacing:.05em;text-transform:uppercase;font-size:6.2pt;font-weight:600;padding-top:.35mm;}
+.kv .v{font-variant-numeric:tabular-nums;}
+
+/* ---------- signature ---------- */
+.foot{padding-top:7mm;}
+.signrow{display:flex;justify-content:space-between;align-items:flex-end;gap:10mm;padding-top:4mm;}
+.contact{font-size:6.9pt;font-weight:700;letter-spacing:.09em;text-transform:uppercase;line-height:1.7;color:var(--ink);}
+.contact em{display:block;font-style:normal;font-weight:500;letter-spacing:.02em;text-transform:none;font-size:7.2pt;color:var(--ink-soft);margin-top:1mm;}
+.sign{width:62mm;text-align:left;}
+.signline{height:12mm;border-bottom:.7pt solid var(--line);}
+.signname{display:flex;justify-content:space-between;padding-top:2mm;font-size:6.6pt;font-weight:700;letter-spacing:.15em;text-transform:uppercase;}
+.signname span:last-child{font-weight:500;color:var(--ink-mute);}
+</style>
+</head>
+<body>
+
+<div class="brandline">
+  <span>Fourtress Commerce&nbsp;Ltd</span>
+  <span>Varna · Bulgaria</span>
+</div>
+<div class="wordmark">Invoice</div>
+<div class="rule" style="margin-top:3.5mm"></div>
+
+<div class="parties">
+  <div class="col">
+    <div class="label">From</div>
+    <div class="who">Fourtress Commerce Ltd</div>
+    <p>
+      Company No. 204154873<br>
+      5, Parizhka Komuna Str., Office 3,<br>
+      Ground Floor, Varna 9000, Bulgaria<br>
+      fortreskltd@gmail.com<br>
+      +359 877 173 509
+    </p>
+  </div>
+  <div class="col">
+    <div class="label">Bill to</div>
+    <div class="who">Guerrero Sanz Jose Eugenio</div>
+    <p>
+      C. Sirio 38, DR P04 C<br>
+      Madrid, Spain
+    </p>
+  </div>
+  <div class="col meta">
+    <div class="label">Invoice</div>
+    <div class="big">#0001</div>
+    <div class="row"><span>Invoice date</span><b>31.08.2026</b></div>
+    <div class="row"><span>Due date</span><b>15.09.2026</b></div>
+    <div class="row"><span>Currency</span><b>EUR (€)</b></div>
+  </div>
+</div>
+
+<table>
+  <colgroup>
+    <col style="width:31%"><col style="width:38%"><col style="width:8%"><col style="width:10%"><col style="width:13%">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Item / Service</th>
+      <th class="sep">Description</th>
+      <th class="c sep">Qty&nbsp;(h)</th>
+      <th class="r sep">Rate</th>
+      <th class="r sep">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="item">Discovery &amp; Specification</td>
+      <td class="desc sep">Requirements workshop, technical specification, sitemap and information architecture</td>
+      <td class="c num sep">6</td>
+      <td class="r num sep">€65.00</td>
+      <td class="r tot sep">€390.00</td>
+    </tr>
+    <tr>
+      <td class="item">UI / UX Design</td>
+      <td class="desc sep">Visual design system, wireframes and responsive page layouts for desktop, tablet and mobile</td>
+      <td class="c num sep">10</td>
+      <td class="r num sep">€70.00</td>
+      <td class="r tot sep">€700.00</td>
+    </tr>
+    <tr>
+      <td class="item">Front-End Development</td>
+      <td class="desc sep">Semantic HTML / CSS / JavaScript build, responsive implementation and cross-browser testing</td>
+      <td class="c num sep">12</td>
+      <td class="r num sep">€60.00</td>
+      <td class="r tot sep">€720.00</td>
+    </tr>
+    <tr>
+      <td class="item">Back-End &amp; CMS Integration</td>
+      <td class="desc sep">Server-side logic, CMS setup, contact forms, data layer and third-party API connections</td>
+      <td class="c num sep">6</td>
+      <td class="r num sep">€75.00</td>
+      <td class="r tot sep">€450.00</td>
+    </tr>
+    <tr>
+      <td class="item">Launch &amp; Optimisation</td>
+      <td class="desc sep">On-page SEO, performance tuning, quality assurance, hosting setup and production deployment</td>
+      <td class="c num sep">4</td>
+      <td class="r num sep">€60.00</td>
+      <td class="r tot sep">€240.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="summary">
+  <div class="projectnote">
+    <b>Single project.</b> All items above form one indivisible engagement — the full-cycle development and launch of the Client's website — and are billed together as a single deliverable. Total 38 hours.
+  </div>
+  <div class="box">
+    <div class="l"><span>Subtotal</span><span>€2,500.00</span></div>
+    <div class="l"><span>VAT 20%</span><span>€500.00</span></div>
+    <div class="grand"><span>Total due</span><span>€3,000.00</span></div>
+  </div>
+</div>
+
+<div class="rule" style="margin-top:6mm"></div>
+
+<div class="lower">
+  <div class="col wide">
+    <div class="label">Bank details</div>
+    <div class="kv"><span class="k">Bank</span><span class="v">VIVABANK S.A.<br>18–20 Amarousiou Chalandriou Ave.,<br>Marousi 151 25, Greece</span></div>
+    <div class="kv" style="margin-top:1.4mm"><span class="k">IBAN</span><span class="v">GR39 0570 0000 0007 9018 6298 335</span></div>
+    <div class="kv"><span class="k">SWIFT</span><span class="v">PRXBGRAA</span></div>
+    <div class="kv"><span class="k">Currency</span><span class="v">EUR</span></div>
+    <div class="kv"><span class="k">Benef.</span><span class="v">Fourtress Commerce Ltd</span></div>
+  </div>
+  <div class="col">
+    <div class="label">Terms &amp; conditions</div>
+    <p>Payment is due within 15 calendar days of the invoice date by bank transfer to the account stated. All bank charges on the sender's side are borne by the Client. Intellectual property in the delivered work transfers to the Client upon receipt of payment in full. Services are invoiced as one project; partial acceptance of individual items does not apply.</p>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="hair"></div>
+  <div class="signrow">
+    <div class="contact">
+      For any questions, please contact<br>
+      fortreskltd@gmail.com&nbsp; or&nbsp; +359 877 173 509
+      <em>Thank you for your business.</em>
+    </div>
+    <div class="sign">
+      <div class="signline"></div>
+      <div class="signname"><span>Sergey Sergeev</span><span>Director</span></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
