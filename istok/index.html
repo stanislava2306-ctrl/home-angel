@@ -733,6 +733,7 @@ nav#nav{padding:22px 40px 10px;}
 /* ── адаптив первого экрана ── */
 @media(max-width:900px){
   nav#nav{padding:16px 18px 8px;}
+  .plate-reveal{display:block;}
   .hero-stats{gap:16px;flex-direction:column;padding:34px 20px 26px;white-space:normal;}
   .stat{white-space:normal;}
   h1.hero-h{font-size:clamp(2.1rem,10vw,3rem);}
@@ -984,6 +985,128 @@ footer{padding:56px 72px;border-top:1px solid rgba(255,255,255,.08);background:t
   footer{padding:40px 20px;}
 }
 
+
+/* ═══════════════════════════════════════════════════════════
+   ФИНАЛЬНАЯ ART DIRECTION ПО БРИФУ
+   Почти чёрный фон, тёплый off-white текст, один акцент из мира
+   воды. Интерфейс тихий — главный герой кадр, а не кнопка.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --ink:#f2efe9;              /* тёплый off-white, не стерильный белый */
+  --muted:#9c968c;            /* приглушённый серо-бежевый */
+  --accent-serif:#8fa8b8;     /* единственный акцент — из палитры воды */
+  --void:#060607;             /* почти чёрный */
+  --void2:#0a0a0c;
+}
+html{background:var(--void)!important;}
+#ocean{background:linear-gradient(180deg,#0a0a0c 0%,#070708 52%,#050505 100%)!important;}
+body{color:var(--ink);}
+.hero-sub,.scene-txt{color:var(--muted);}
+h1.hero-h,.scene h2{color:var(--ink);}
+.stat{color:#8b857b;}
+.stat b{color:var(--ink);}
+.eyebrow{color:#6f6a62;}
+.scene-note,.ln,.lc{color:#6f6a62;}
+.lt{color:var(--ink);}
+.ld{color:var(--muted);}
+.lines,.lines li{border-color:rgba(242,239,233,.09);}
+footer{border-top-color:rgba(242,239,233,.08);}
+.plate-fade{background:
+  linear-gradient(to bottom,rgba(6,6,7,.30) 0%,rgba(6,6,7,.10) 18%,rgba(6,6,7,0) 40%,
+    rgba(6,6,7,.28) 62%,rgba(6,6,7,.66) 76%,rgba(6,6,7,.90) 88%,var(--void) 100%),
+  linear-gradient(to right,rgba(6,6,7,.46),transparent 22%,transparent 78%,rgba(6,6,7,.46));}
+.scene-bg::after{background:
+  radial-gradient(58% 46% at 50% 44%,rgba(6,6,7,.70) 0%,rgba(6,6,7,.32) 60%,transparent 100%),
+  linear-gradient(180deg,var(--void) 0%,rgba(6,6,7,.40) 24%,rgba(6,6,7,.40) 64%,var(--void) 100%);}
+.sec-band::before{display:none;}
+
+/* интерфейс тише: убираем избыточное свечение с кнопок */
+.btn-solid{background:linear-gradient(180deg,#faf8f4 0%,#eae6de 52%,#d9d4ca 100%);color:#101012;border-color:#faf8f4;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);}
+.btn-solid:hover{background:linear-gradient(180deg,#fff 0%,#f2efe9 46%,#e0dbd1 100%);
+  transform:translateY(-1px) scale(1.012);box-shadow:inset 0 1px 0 #fff,0 6px 18px rgba(0,0,0,.5);}
+.btn-ghost{border-color:rgba(242,239,233,.28);
+  background:linear-gradient(135deg,rgba(242,239,233,.08),rgba(6,6,7,.5) 46%,rgba(143,168,184,.06));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1);}
+.btn-ghost:hover{border-color:rgba(242,239,233,.5);transform:translateY(-1px) scale(1.012);
+  background:linear-gradient(135deg,rgba(242,239,233,.13),rgba(6,6,7,.42) 48%,rgba(143,168,184,.1));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16);}
+.nav-cta{border-color:rgba(242,239,233,.24);color:var(--ink);
+  background:linear-gradient(105deg,rgba(10,10,12,.72) 0%,rgba(26,26,30,.72) 48%,rgba(40,40,46,.72) 100%);}
+.nav-cta:hover{border-color:rgba(242,239,233,.46);box-shadow:none;
+  background:linear-gradient(105deg,rgba(16,16,19,.8) 0%,rgba(34,34,39,.8) 45%,rgba(52,52,60,.8) 100%);}
+.badge{background:linear-gradient(90deg,rgba(90,88,84,.5) 0%,rgba(26,26,28,.8) 52%,rgba(8,8,9,.85) 100%);
+  color:#ded9d0;}
+.badge-star{filter:none;animation:none;opacity:.7;}
+.t-fill,.tc-fill{background:linear-gradient(90deg,#6d6a64,#cfc8bd)!important;box-shadow:none!important;}
+#grain{opacity:.10!important;}
+#rays{opacity:.12!important;}
+
+/* — CINEMATIC DRIFT: кадры живут, а не стоят — */
+@media(prefers-reduced-motion:no-preference){
+  .scene-shot img,.scene-bg img{will-change:transform;animation:drift 26s ease-in-out infinite alternate;}
+  .scene-bg img{animation-duration:34s;}
+  @keyframes drift{from{transform:scale(1.06) translate3d(0,0,0)}to{transform:scale(1.12) translate3d(-1.6%,-1.4%,0)}}
+}
+
+/* — SCROLL CHOREOGRAPHY: сцены перетекают, а не начинаются — */
+.scene{transition:opacity .9s var(--ease-out);}
+.scene-shot{position:relative;overflow:hidden;}
+.scene-shot::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,6,7,.34),transparent 30%,transparent 70%,rgba(6,6,7,.34));}
+
+/* — SCENE 02: фразы проявляются по очереди, на разных слоях — */
+.qlines{display:flex;flex-direction:column;gap:.55rem;max-width:640px;}
+.qline{font-size:clamp(1.25rem,2.3vw,1.85rem);font-weight:400;line-height:1.34;letter-spacing:-.03em;
+  color:var(--ink);opacity:0;transform:translateY(16px);filter:blur(6px);
+  transition:opacity 1.1s var(--ease-out),transform 1.1s var(--ease-out),filter 1.1s var(--ease-out);}
+.qline.in{opacity:1;transform:none;filter:none;}
+.qline:nth-child(2){padding-left:clamp(0px,4vw,64px);}
+.qline:nth-child(3){padding-left:clamp(0px,8vw,128px);}
+.qline em{font-family:var(--fs);font-style:italic;color:var(--accent-serif);}
+.qafter{margin-top:34px;max-width:520px;color:var(--muted);font-size:16px;line-height:1.62;
+  opacity:0;transform:translateY(12px);transition:opacity 1s var(--ease-out) .25s,transform 1s var(--ease-out) .25s;}
+.qafter.in{opacity:1;transform:none;}
+
+/* — МИНИ-ОПЫТ: настоящий фрагмент теста на лендинге — */
+.mini{max-width:720px;}
+.mini-q{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:500;letter-spacing:-.035em;color:var(--ink);margin:14px 0 10px;}
+.mini-hint{color:var(--muted);font-size:15px;line-height:1.6;margin-bottom:26px;max-width:520px;}
+.mini-play{display:inline-flex;align-items:center;gap:16px;padding:16px 26px 16px 18px;cursor:pointer;
+  border:1px solid rgba(242,239,233,.18);border-radius:999px;background:rgba(242,239,233,.03);
+  color:var(--ink);font-family:var(--fb);font-size:14.5px;letter-spacing:-.01em;
+  transition:border-color .35s,background .35s,transform .35s var(--ease-out);}
+.mini-play:hover{border-color:rgba(242,239,233,.4);background:rgba(242,239,233,.06);transform:translateY(-1px);}
+.mini-ico{width:34px;height:34px;border-radius:50%;border:1px solid rgba(242,239,233,.28);
+  display:grid;place-items:center;flex:none;}
+.mini-ico svg{width:13px;height:13px;fill:var(--ink);}
+.mini-wave{display:inline-flex;align-items:flex-end;gap:3px;height:20px;}
+.mini-wave i{width:2px;height:4px;background:rgba(242,239,233,.5);border-radius:1px;}
+.mini.playing .mini-wave i{animation:mw 1s ease-in-out infinite;}
+.mini-wave i:nth-child(2){animation-delay:.12s}.mini-wave i:nth-child(3){animation-delay:.24s}
+.mini-wave i:nth-child(4){animation-delay:.36s}.mini-wave i:nth-child(5){animation-delay:.48s}
+@keyframes mw{0%,100%{height:4px}50%{height:18px}}
+.mini-opts{display:flex;flex-direction:column;gap:.5rem;margin-top:30px;max-width:560px;}
+.mini-opt{text-align:left;padding:15px 20px;border-radius:10px;cursor:pointer;
+  border:1px solid rgba(242,239,233,.12);background:rgba(242,239,233,.02);
+  color:var(--muted);font-family:var(--fb);font-size:14.5px;letter-spacing:-.01em;
+  transition:all .3s var(--ease-out);}
+.mini-opt:hover{border-color:rgba(242,239,233,.3);color:var(--ink);transform:translateX(4px);}
+.mini-opt.sel{border-color:rgba(143,168,184,.6);color:var(--ink);background:rgba(143,168,184,.08);}
+.mini-echo{margin-top:22px;max-width:560px;color:var(--muted);font-size:15px;line-height:1.65;
+  border-left:1px solid rgba(143,168,184,.5);padding-left:18px;
+  opacity:0;transform:translateY(10px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out);}
+.mini-echo.on{opacity:1;transform:none;}
+.mini-echo b{color:var(--ink);font-weight:500;}
+
+/* подсказка про прожектор */
+.spot-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:3;
+  font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#5f5a53;pointer-events:none;
+  opacity:0;animation:hintIn 1.2s var(--ease-out) 2.6s forwards;}
+@keyframes hintIn{to{opacity:1}}
+body.spot-on .spot-hint{opacity:0;transition:opacity .5s;}
+@media(max-width:900px){.spot-hint{bottom:14px;font-size:10.5px;}}
+
 </style>
 </head>
 <body>
@@ -1043,19 +1166,43 @@ footer{padding:56px 72px;border-top:1px solid rgba(255,255,255,.08);background:t
       </span>
     </div>
 
-    <div class="sline-wrap" aria-hidden="true"><div class="sline"></div><span class="stxt">Листай</span></div>
+    <p class="spot-hint">Веди курсором — глубина откликается</p>
   </section>
 
-  <!-- сцена 1: крупный кадр справа, текст слева -->
-  <section class="scene scene--split">
-    <div class="scene-copy rv">
-      <p class="eyebrow">О проекте</p>
-      <h2>Твои реакции —<br>это не <em>случайность</em></h2>
-      <p class="scene-txt">Почему ты замолкаешь, когда нужно говорить. Почему уходишь, когда нужно остаться. Почему снова и снова выбираешь одно и то же.</p>
-      <p class="scene-txt">Всё это — паттерны из детства. Они сформировались как способ выжить. Теперь они мешают жить.</p>
-      <p class="scene-note">56 вопросов · 7 типов заданий · 8 шкал в результате</p>
+  <!-- СЦЕНА 02 — THE QUESTION: знакомые реакции проявляются по одной -->
+  <section class="scene scene--split" id="question">
+    <div class="scene-copy">
+      <p class="eyebrow rv">О проекте</p>
+      <div class="qlines">
+        <p class="qline">Почему ты замолкаешь, когда нужно говорить.</p>
+        <p class="qline">Почему уходишь, когда нужно остаться.</p>
+        <p class="qline">Почему снова и снова выбираешь <em>одно и то же</em>.</p>
+      </div>
+      <p class="qafter">Всё это — паттерны из детства. Они сформировались как способ выжить. Теперь они мешают жить.</p>
+      <p class="scene-note rv">56 вопросов · 7 типов заданий · 8 шкал в результате</p>
     </div>
     <figure class="scene-shot rv"><img src="assets/fish/seahorse.jpg" alt="" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <!-- СЦЕНА 04 — MINI EXPERIENCE: настоящий фрагмент теста прямо здесь -->
+  <section class="scene scene--mini" id="mini">
+    <div class="mini">
+      <p class="eyebrow rv">Фрагмент теста · попробуй прямо сейчас</p>
+      <h2 class="mini-q rv">Послушай этот звук. Что с тобой происходит, пока он поднимается?</h2>
+      <p class="mini-hint rv">Это тон Шепарда — иллюзия бесконечно растущей высоты. Звук рождается прямо в твоём браузере, ничего не загружается. Каждый слышит его по-своему.</p>
+      <button class="mini-play rv" id="miniPlay" onclick="miniToggle()" aria-label="Воспроизвести звуковую иллюзию">
+        <span class="mini-ico" id="miniIco"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="mini-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <span id="miniLbl">Слушать 15 секунд</span>
+      </button>
+      <div class="mini-opts rv" id="miniOpts">
+        <button class="mini-opt" onclick="miniPick(0)">Интерес — красиво, хотелось понять, как это устроено</button>
+        <button class="mini-opt" onclick="miniPick(1)">Нарастающее напряжение — когда же это закончится</button>
+        <button class="mini-opt" onclick="miniPick(2)">Тревогу — как будто что-то надвигается</button>
+        <button class="mini-opt" onclick="miniPick(3)">Ничего особенного — просто звук</button>
+      </div>
+      <p class="mini-echo" id="miniEcho"></p>
+    </div>
   </section>
 
   <!-- сцена 2: структура теста списком, без плашек -->
@@ -3996,6 +4143,80 @@ function soundCheck(){
     }
   })();
 
+
+  /* ── SCENE 02: фразы проявляются по очереди, каскадом ── */
+  (function(){
+    const wrap=document.querySelector('.qlines'); if(!wrap)return;
+    const lines=[...wrap.querySelectorAll('.qline')];
+    const after=document.querySelector('.qafter');
+    if(RM){lines.forEach(l=>l.classList.add('in'));if(after)after.classList.add('in');return;}
+    if(!('IntersectionObserver' in window)){lines.forEach(l=>l.classList.add('in'));if(after)after.classList.add('in');return;}
+    const io=new IntersectionObserver(es=>{
+      es.forEach(e=>{
+        if(!e.isIntersecting)return;
+        lines.forEach((l,i)=>setTimeout(()=>l.classList.add('in'),i*420));
+        if(after)setTimeout(()=>after.classList.add('in'),lines.length*420+180);
+        io.disconnect();
+      });
+    },{threshold:.35});
+    io.observe(wrap);
+  })();
+
+  /* ── МИНИ-ОПЫТ: настоящая иллюзия Шепарда прямо на лендинге ── */
+  const MINI_ECHO=[
+    '<b>Любопытство.</b> Ты идёшь к неопределённости с интересом, а не с защитой — в тесте это обычно совпадает с низкой тревогой ожидания.',
+    '<b>Ожидание конца.</b> Напряжение росло не от звука, а от невозможности предсказать, когда он остановится. Это язык контроля.',
+    '<b>Предчувствие.</b> Нейтральный сигнал прочитался как угроза — так работает радар, настроенный в детстве.',
+    '<b>Ровно.</b> Иллюзия не зацепила — это тоже ответ: не каждый стимул обязан отзываться.'
+  ];
+  let miniOn=false;
+  function miniToggle(){
+    const box=document.querySelector('.mini'), lbl=document.getElementById('miniLbl'),
+          ico=document.getElementById('miniIco');
+    if(!box)return;
+    if(miniOn){ AudioIll.stop(); return; }
+    /* контекст создаётся внутри клика — иначе Safari не даст звук */
+    try{ if(typeof Music!=='undefined'&&Music.unlock)Music.unlock(); }catch(e){}
+    miniOn=true; box.classList.add('playing');
+    if(lbl)lbl.textContent='Остановить';
+    if(ico)ico.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+    AudioIll.play('shepard',-1,()=>{
+      miniOn=false; box.classList.remove('playing');
+      if(lbl)lbl.textContent='Послушать ещё раз';
+      if(ico)ico.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    });
+  }
+  function miniPick(i){
+    document.querySelectorAll('.mini-opt').forEach((b,k)=>b.classList.toggle('sel',k===i));
+    const e=document.getElementById('miniEcho');
+    if(!e)return;
+    e.innerHTML=MINI_ECHO[i]+' <span style="color:#6f6a62">Полный тест разбирает так каждый из 56 ответов.</span>';
+    e.classList.add('on');
+  }
+  window.miniToggle=miniToggle; window.miniPick=miniPick;
+
+  /* ── DISCOVERY на телефоне: прожектор ведётся пальцем ── */
+  (function(){
+    const plate=document.querySelector('.plate'); if(!plate||RM)return;
+    if(window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+    const hero=document.getElementById('hero'); if(!hero)return;
+    let raf=null; const sm={x:0,y:0}; const raw={x:0,y:0}; let started=false;
+    function set(e){
+      const t=e.touches&&e.touches[0]; if(!t)return;
+      raw.x=t.clientX; raw.y=t.clientY;
+      if(!started){started=true;sm.x=raw.x;sm.y=raw.y;document.body.classList.add('spot-on');}
+      if(!raf)raf=requestAnimationFrame(tick);
+    }
+    function tick(){
+      sm.x+=(raw.x-sm.x)*.18; sm.y+=(raw.y-sm.y)*.18;
+      const r=plate.getBoundingClientRect();
+      plate.style.setProperty('--mx',(sm.x-r.left)+'px');
+      plate.style.setProperty('--my',(sm.y-r.top)+'px');
+      raf=(Math.abs(raw.x-sm.x)>.5||Math.abs(raw.y-sm.y)>.5)?requestAnimationFrame(tick):null;
+    }
+    hero.addEventListener('touchstart',set,{passive:true});
+    hero.addEventListener('touchmove',set,{passive:true});
+  })();
   /* ── появление: каждый элемент сам гасит свою анимацию, плюс страховка ── */
   (function(){
     const els=[...document.querySelectorAll('.appear')];
