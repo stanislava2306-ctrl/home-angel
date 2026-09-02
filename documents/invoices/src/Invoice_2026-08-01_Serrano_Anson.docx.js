@@ -128,7 +128,7 @@ const doc = new Document({
           cell([
             p(r('Payment', { size: 23, spacing: -6 }), { after: 200, line: 300 }),
             p(r('Payment by bank transfer in euro to the account of Jose Luis Serrano Anson.'), { after: 150 }),
-            p(r('Bank details are provided to the client separately. Please quote invoice #2026-08-01 as the payment reference.', { color: SOFT })),
+            p(r('Bank details are provided to the client separately.', { color: SOFT })),
           ], 4592, 600),
           cell([
             p(r('Terms', { size: 23, spacing: -6 }), { after: 200, line: 300 }),
