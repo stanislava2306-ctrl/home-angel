@@ -37,18 +37,12 @@
   --ease-out:cubic-bezier(0,0,.58,1);--ease-spring:cubic-bezier(.175,.885,.32,1.275);
   --dur-instant:100ms;--dur-fast:200ms;--dur-normal:300ms;
   --tap-min:44px;
+  /* кадр всегда тёмный: это часть art direction, а не тема оформления.
+     Раньше здесь жила светлая схема, но фон принудительно тёмный —
+     светлые токены давали тёмный текст на почти чёрном (контраст 2.4:1). */
+  color-scheme:dark;
 }
 /* HIG: light appearance keeps the Исток violet identity, remapped for a light background */
-@media(prefers-color-scheme:light){
-  :root{
-    --bg:#f7f4fc;--bg2:#efe8f8;--surface:#ffffff;--surface2:#f5f0fb;
-    --border:rgba(48,38,82,0.10);--border2:rgba(48,38,82,0.18);
-    --text:#241f38;--text2:#554a70;--text3:#8d81a2;
-    --accent:#5c4f96;--accent2:#493d80;--accent3:#6a5cae;
-    --mist:rgba(93,80,150,0.10);--mist2:rgba(93,80,150,0.05);
-  }
-  body::before{opacity:.18;}
-}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
 }
@@ -391,8 +385,6 @@ a.flink{color:var(--text3);}
     radial-gradient(120% 70% at 50% -14%,rgba(122,110,190,.20) 0%,rgba(30,28,62,.10) 38%,transparent 70%),
     linear-gradient(180deg,#151a38 0%,#111428 18%,#0d0f1a 46%,#0a0b14 74%,#06070d 100%);
   background-attachment:fixed;}
-#ocean .ph{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease;}
-#ocean .ph.on{opacity:.5;}
 #rays{position:fixed;left:0;right:0;top:-10%;height:120vh;z-index:-1;pointer-events:none;opacity:.55;overflow:hidden;
   mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.5) 42%,transparent 78%);
   -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.5) 42%,transparent 78%);}
@@ -588,10 +580,6 @@ body.focus #caustic{opacity:.06;}
   border-color:rgba(184,174,232,.6);color:var(--text);
   box-shadow:0 0 30px -8px rgba(139,127,190,.6);transform:translateY(-2px);}
 .wd-hint{font-size:.76rem;color:var(--text3);margin-bottom:1.6rem;line-height:1.6;}
-@media(prefers-color-scheme:light){
-  .wd{border-color:rgba(48,38,82,.12);}
-  .wd.sel{background:linear-gradient(140deg,rgba(93,80,150,.20),rgba(93,80,150,.07));border-color:rgba(93,80,150,.5);}
-}
 
 /* ═══════════════════════════════════════════════════════════
    КИНЕМАТОГРАФИЧЕСКИЙ ПЕРВЫЙ ЭКРАН
@@ -739,7 +727,6 @@ nav#nav{padding:22px 40px 10px;}
   h1.hero-h{font-size:clamp(2.1rem,10vw,3rem);}
   .hero-sub{font-size:15px;margin-top:14px;}
   .hero-actions{margin-top:20px;}
-  .plate-reveal{display:none;}
   .sline-wrap{display:none;}
 }
 @media(max-width:560px){
@@ -773,54 +760,8 @@ nav#nav{padding:22px 40px 10px;}
 }
 
 /* первый экран всегда стоит на тёмном кадре — его типографика не зависит от темы */
-@media(prefers-color-scheme:light){
-  #hero .hero-sub{color:#d5cfe8;text-shadow:0 1px 20px rgba(5,6,14,.8);}
-  #hero .hero-stats{color:#cfc9e6;}
-  #hero .stat b{color:#f4f1fb;}
-  nav#nav:not(.scrolled) .logo{color:#fff;}
-  nav#nav:not(.scrolled) .logo span{color:#cfc9e6;}
-  nav#nav:not(.scrolled) .nav-cta{color:#f3f1fa;border-color:rgba(255,255,255,.42);
-    background:linear-gradient(105deg,rgba(11,12,22,.72) 0%,rgba(38,34,56,.72) 48%,rgba(65,58,94,.72) 100%);}
-  #hero .btn-ghost{color:#fff;}
-}
 
 /* ── светлая тема: та же вода, но мелководье под солнцем ── */
-@media(prefers-color-scheme:light){
-  html{background:#eef0fb;}
-  #ocean{background:
-    radial-gradient(120% 70% at 50% -14%,rgba(255,255,255,.9) 0%,rgba(226,232,252,.6) 36%,transparent 70%),
-    linear-gradient(180deg,#f6f7ff 0%,#e9ecfb 26%,#dfe3f7 58%,#d5daf2 100%);}
-  #ocean .ph.on{opacity:.22;}
-  #rays{opacity:.5;}
-  #rays i{background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(214,222,255,.35) 45%,transparent 82%);}
-  #caustic{opacity:.22;mix-blend-mode:multiply;}
-  #motes{opacity:.5;}
-  :root{
-    --glass:linear-gradient(158deg,rgba(255,255,255,.86) 0%,rgba(255,255,255,.6) 46%,rgba(255,255,255,.48) 100%);
-    --glass-hi:linear-gradient(158deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.76) 46%,rgba(255,255,255,.62) 100%);
-    --edge:linear-gradient(150deg,rgba(93,80,150,.26),rgba(93,80,150,.08) 38%,rgba(93,80,150,.18) 100%);
-    --edge-hi:linear-gradient(150deg,rgba(74,62,128,.5),rgba(93,80,150,.16) 40%,rgba(93,80,150,.4) 100%);
-    --shadow:0 20px 50px -30px rgba(48,38,82,.42),0 2px 8px -4px rgba(48,38,82,.18);
-    --shadow-hi:0 30px 66px -28px rgba(48,38,82,.5),0 0 40px -16px rgba(93,80,150,.3);
-  }
-  .glass::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);}
-  h1.hero-h em,.sec-ttl em,.t-q em,.res-h2 em,.m-h1 em{
-    background:linear-gradient(102deg,#5b4ea0 0%,#6f5fb6 46%,#4a6fa8 100%);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-  h1.hero-h{text-shadow:none;}
-  .hero-sub{color:#554a70;}
-  .abt-txt,.cdesc{color:#554a70;}
-  .sec-band::before{background:linear-gradient(180deg,transparent,rgba(255,255,255,.62) 14%,rgba(255,255,255,.62) 86%,transparent);}
-  .sec-band::after{background:linear-gradient(90deg,transparent,rgba(93,80,150,.24),transparent);}
-  nav.scrolled{background:rgba(247,244,252,.82);}
-  .t-opt,.gen-opt,.img-opt,.aud-pl,.tc-card,.str-card,.extra-card,.art,.hist-box,.att-adv,.att-cab,.plan-prev,.m-disc{
-    border-color:rgba(48,38,82,.12);}
-  .t-opt.sel,.gen-opt.sel,.img-opt.sel{background:linear-gradient(140deg,rgba(93,80,150,.20),rgba(93,80,150,.07));
-    border-color:rgba(93,80,150,.5);box-shadow:0 0 24px -10px rgba(93,80,150,.5);}
-  .chip{background:rgba(255,255,255,.7);border-color:rgba(48,38,82,.14);}
-  .fish-art{background:#e7eaf8;}
-  .hero-fish{filter:drop-shadow(0 0 18px rgba(93,80,150,.28));}
-}
 /* ═══ PRACTICE ═══ */
 #practice-s{display:none;min-height:100vh;padding:6rem 2rem 5rem;justify-content:center;background:var(--bg);}
 #practice-s.on{display:flex;}
@@ -898,7 +839,6 @@ nav#nav{padding:22px 40px 10px;}
 
 /* — убираем всё, что мутило картинку — */
 #caustic{display:none!important;}
-#ocean .ph{display:none!important;}
 #rays{opacity:.18!important;}
 #grain{opacity:.13!important;}
 .sec-band::before,.sec-band::after{display:none!important;}
@@ -1165,13 +1105,50 @@ h1.hero-h{opacity:1;}
 /* видео тяжёлое: на узких экранах и при экономии трафика остаёмся на кадре */
 @media(max-width:900px){.plate-video{display:none;}}
 
+
+/* ── рыба как сквозной герой: тот же силуэт плывёт через средние сцены ── */
+.scene-fish{position:absolute;left:0;top:26%;width:104px;height:auto;z-index:0;
+  pointer-events:none;fill:rgba(143,168,184,.16);
+  animation:sceneSwim 74s linear infinite;}
+.scene-fish.sf-b{top:74%;width:68px;animation-duration:96s;animation-delay:-38s;
+  fill:rgba(143,168,184,.11);transform:scaleX(-1);}
+@keyframes sceneSwim{
+  0%{transform:translate3d(-18vw,0,0)}
+  50%{transform:translate3d(52vw,-26px,0)}
+  100%{transform:translate3d(122vw,0,0)}}
+.scene-fish.sf-b{animation-name:sceneSwimBack;}
+@keyframes sceneSwimBack{
+  0%{transform:translate3d(122vw,0,0) scaleX(-1)}
+  50%{transform:translate3d(48vw,22px,0) scaleX(-1)}
+  100%{transform:translate3d(-18vw,0,0) scaleX(-1)}}
+@media(prefers-reduced-motion:reduce){.scene-fish{display:none;}}
+@media(max-width:900px){.scene-fish{width:72px;}.scene-fish.sf-b{width:52px;}}
+
+/* ── сцена «основание»: кадр слева, список источников справа ── */
+.scene--rev{flex-direction:row-reverse;}
+.mref{list-style:none;margin-top:26px;padding:0;display:flex;flex-direction:column;}
+.mref li{display:flex;flex-direction:column;gap:3px;padding:15px 0;
+  border-top:1px solid rgba(242,239,233,.09);}
+.mref li:last-child{border-bottom:1px solid rgba(242,239,233,.09);}
+.mref b{font-weight:500;font-size:14.5px;letter-spacing:-.01em;color:var(--ink);}
+.mref span{font-size:13.5px;line-height:1.55;color:#6f6a62;}
+/* ссылка без плашки: подчёркивание, а не кнопка — язык тонких линий */
+.mlink{margin-top:26px;align-self:flex-start;background:none;border:0;padding:6px 0;cursor:pointer;
+  font-family:var(--fb);font-size:14.5px;letter-spacing:-.01em;color:var(--ink);
+  display:inline-flex;align-items:center;gap:9px;position:relative;}
+.mlink::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:rgba(242,239,233,.28);transform-origin:left;transition:background .3s,transform .45s var(--ease-out);}
+.mlink:hover::after{background:var(--accent-serif);}
+.mlink span{transition:transform .45s var(--ease-out);}
+.mlink:hover span{transform:translateX(5px);}
+@media(max-width:900px){.scene--rev{flex-direction:column;}}
 </style>
 </head>
 <body>
 
 <!-- толща воды: глубина, фотослой, лучи, каустика, взвесь -->
 <div id="grain" aria-hidden="true"></div>
-<div id="ocean" aria-hidden="true"><div class="ph" id="oceanPh"></div></div>
+<div id="ocean" aria-hidden="true"></div>
 <div id="rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div id="caustic" aria-hidden="true"></div>
 <canvas id="motes" aria-hidden="true"></canvas>
@@ -1189,9 +1166,8 @@ h1.hero-h{opacity:1;}
     <!-- полнокадровая плита: вода на полную силу, только вымеренное затухание вниз -->
     <div class="plate" aria-hidden="true">
       <div class="plate-base"></div>
-      <video class="plate-video" id="plateVideo" autoplay muted loop playsinline preload="auto" poster="assets/scene/origin.jpg">
-        <source src="assets/video/hero.mp4" type="video/mp4">
-      </video>
+      <video class="plate-video" id="plateVideo" muted loop playsinline preload="none"
+             poster="assets/scene/origin.jpg" data-src="assets/video/hero.mp4"></video>
       <div class="plate-reveal" id="plateReveal"></div>
       <div class="plate-fade"></div>
     </div>
@@ -1246,6 +1222,7 @@ h1.hero-h{opacity:1;}
 
   <!-- СЦЕНА 04 — MINI EXPERIENCE: настоящий фрагмент теста прямо здесь -->
   <section class="scene scene--mini" id="mini">
+    <svg class="scene-fish" viewBox="0 0 120 48" aria-hidden="true"><path d="M6 24c14-15 34-21 54-19 13 1 24 7 32 16-8 9-19 15-32 16C40 39 20 33 6 24Z"/><path d="M92 21 116 6l-6 18 6 18-24-15Z"/><circle cx="30" cy="20" r="2.4"/></svg>
     <div class="scene-veil" aria-hidden="true"><img src="assets/scene/memory.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="mini">
       <p class="eyebrow rv">Фрагмент теста · попробуй прямо сейчас</p>
@@ -1268,6 +1245,7 @@ h1.hero-h{opacity:1;}
 
   <!-- сцена 2: структура теста списком, без плашек -->
   <section class="scene scene--list">
+    <svg class="scene-fish sf-b" viewBox="0 0 120 48" aria-hidden="true"><path d="M6 24c14-15 34-21 54-19 13 1 24 7 32 16-8 9-19 15-32 16C40 39 20 33 6 24Z"/><path d="M92 21 116 6l-6 18 6 18-24-15Z"/><circle cx="30" cy="20" r="2.4"/></svg>
     <div class="scene-veil" aria-hidden="true"><img src="assets/scene/perception.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="scene-head rv">
       <p class="eyebrow">Структура</p>
@@ -1281,6 +1259,24 @@ h1.hero-h{opacity:1;}
       <li class="rv"><span class="ln">05</span><span class="lt">Кем ты себя видишь</span><span class="ld">Метафорические карты, сцены из детства и сетка слов на 20 секунд — отвечает импульс, а не редактор в голове.</span><span class="lc">13</span></li>
       <li class="rv"><span class="ln">06</span><span class="lt">Как ты оцениваешь</span><span class="ld">Шкалы воспоминаний и контекст: семья, порядок рождения, атмосфера дома.</span><span class="lc">13</span></li>
     </ol>
+  </section>
+
+
+  <!-- сцена: на чём это основано — кадром, а не сноской в подвале -->
+  <section class="scene scene--split scene--rev" id="method-scene">
+    <figure class="scene-shot rv"><img src="assets/scene/transition.jpg" alt="" loading="lazy" decoding="async"></figure>
+    <div class="scene-copy">
+      <p class="eyebrow rv">Основание</p>
+      <h2 class="rv" style="margin-bottom:22px">Это не <em>гадание</em></h2>
+      <p class="scene-txt rv">Каждый блок опирается на методику с историей — мы называем источники прямо, вместе с их границами.</p>
+      <ul class="mref">
+        <li class="rv"><b>Сакс и Леви, 1950</b><span>Незаконченные предложения</span></li>
+        <li class="rv"><b>Люшер, 1949</b><span>Цветовые предпочтения — мягко, как подсказка</span></li>
+        <li class="rv"><b>Роршах, ТАТ</b><span>Неоднозначный стимул вместо прямого вопроса</span></li>
+        <li class="rv"><b>ACE, 1998 · схема-терапия Янга</b><span>Пять паттернов и шкалы воспоминаний</span></li>
+      </ul>
+      <button class="mlink rv" onclick="showMethod()">Как считается результат <span aria-hidden="true">→</span></button>
+    </div>
   </section>
 
   <!-- сцена 3: финальный кадр во всю ширину -->
@@ -1764,7 +1760,7 @@ const Q=[
   {h:'#f0f0f0',l:'Белый',w:[0,0,0,0,0]},
   {h:'#ffc0cb',l:'Розовый',w:[0,0,0,0,0]}]},
 
-// ─── БЛОК 5: ОБРАЗЫ И СЦЕНАРИИ (12) ───
+// ─── БЛОК 5: ОБРАЗЫ И СЦЕНАРИИ (13) ───
 {id:'word',blk:'Блок 5 из 6 — Образы и сценарии',n:34,qk:'word_impulse',
  q:'Выбери три слова, которые сейчас отзываются',
  sub:'Не выбирай «правильные» — выбирай те, на которых внутри что-то дёрнулось. У тебя 20 секунд: так отвечает первый импульс, а не редактор в голове.',
@@ -1956,7 +1952,7 @@ let cur=0,ans={},brC=0,brGo=false,brTmr2=null;
 const PLAY_SVG='<polygon points="5,3 19,12 5,21"/>';
 const PAUSE_SVG='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
 
-const TEST_V=4; /* поднимать при изменении состава вопросов */
+const TEST_V=5; /* поднимать при изменении состава вопросов */
 function saveState(){try{localStorage.setItem('istok_state',JSON.stringify({v:TEST_V,cur,ans,seed:ordSeed(),ts:Date.now()}));}catch(e){}}
 function loadState(){try{const st=JSON.parse(localStorage.getItem('istok_state')||'null');return st&&st.v===TEST_V?st:null;}catch(e){return null;}}
 function clearState(){try{localStorage.removeItem('istok_state');}catch(e){}}
@@ -2050,7 +2046,7 @@ function render(idx){
     </div>
     <p class="aud-hint">${s.aType==='tritone'||s.aType==='waves'?'Лучше слушать в наушниках. ':''}Звук синтезируется прямо в браузере — слушай сколько нужно.</p>
     ${s.fact?`<div class="aud-fact" id="af${cur}">${T(s.fact)}</div>`:''}
-    <div class="t-opts">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    <div class="t-opts">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" data-oi="${i}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
     ${oeHtml(s,ans[cur])}
     ${nav(cur,ans[cur]!==undefined)}`;
 
@@ -2058,7 +2054,7 @@ function render(idx){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
     <div class="ill-wrap"><div class="ill-fr">${illArt(s.illT)}</div><span class="ill-hint">смотри глубже</span></div>
-    <div class="t-opts">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    <div class="t-opts">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" data-oi="${i}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
     ${oeHtml(s,ans[cur])}
     ${nav(cur,ans[cur]!==undefined)}`;
 
@@ -2083,7 +2079,7 @@ function render(idx){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
     <div class="img-grid">${optList(s).map(({o:c,i})=>`
-      <div class="img-opt${ans[cur]===i?' sel':''}" role="button" tabindex="0" onkeydown="kbd(event)" onclick="selO(${i})">
+      <div class="img-opt${ans[cur]===i?' sel':''}" data-oi="${i}" role="button" tabindex="0" onkeydown="kbd(event)" onclick="selO(${i})">
         ${cardArt(c.ico)}<span>${c.l.replace('\n','<br>')}</span>
       </div>`).join('')}</div>
     ${nav(cur,ans[cur]!==undefined)}`;
@@ -2093,7 +2089,7 @@ function render(idx){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
     <div class="wd-timer" aria-hidden="true"><div class="wd-tfill" id="wdT"></div></div>
-    <div class="wd-grid">${optList(s).map(({o,i})=>`<button class="wd${sel.includes(i)?' sel':''}" onclick="selW(${i})">${T(o.t)}</button>`).join('')}</div>
+    <div class="wd-grid">${optList(s).map(({o,i})=>`<button class="wd${sel.includes(i)?' sel':''}" data-oi="${i}" onclick="selW(${i})">${T(o.t)}</button>`).join('')}</div>
     <p class="wd-hint" id="wdH">${sel.length>=3?'Готово — можно идти дальше':`Выбрано ${sel.length} из 3`}</p>
     ${nav(cur,sel.length===3)}`;
 
@@ -2101,7 +2097,7 @@ function render(idx){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <div class="scen-box">${T(s.scene)}</div>
     <h2 class="t-q" style="font-size:1.5rem">${T(s.q)}</h2>
-    <div class="t-opts" style="margin-top:1rem">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    <div class="t-opts" style="margin-top:1rem">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" data-oi="${i}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
     ${nav(cur,ans[cur]!==undefined)}`;
 
   } else if(s.id==='sc'){
@@ -2118,7 +2114,7 @@ function render(idx){
   } else if(s.id==='single'||s.id==='ctx'){
     html+=`<p class="t-blk">${s.blk} · вопрос ${s.n}</p>
     <h2 class="t-q">${T(s.q)}</h2><p class="t-sub">${T(s.sub)}</p>
-    <div class="t-opts">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
+    <div class="t-opts">${optList(s).map(({o,i})=>`<button class="t-opt${ans[cur]===i?' sel':''}" data-oi="${i}" onclick="selO(${i})">${T(o.t)}</button>`).join('')}</div>
     ${oeHtml(s,ans[cur])}
     ${nav(cur,ans[cur]!==undefined)}`;
 
@@ -2174,10 +2170,7 @@ function selW(i){
   if(at>=0)sel.splice(at,1);
   else{ if(sel.length>=3)return; sel.push(i); }
   ans[cur]=sel;
-  document.querySelectorAll('.wd').forEach((b,k)=>{
-    const oi=optList(s)[k].i;
-    b.classList.toggle('sel',sel.includes(oi));
-  });
+  document.querySelectorAll('.wd').forEach(b=>b.classList.toggle('sel',sel.includes(+b.dataset.oi)));
   const h=document.getElementById('wdH');
   if(h)h.textContent=sel.length>=3?'Готово — можно идти дальше':`Выбрано ${sel.length} из 3`;
   const b=document.getElementById('bN');
@@ -2203,7 +2196,8 @@ function startWordTimer(){
 }
 function selO(i){
   ans[cur]=i;
-  document.querySelectorAll('.t-opt,.img-opt').forEach((el,j)=>el.classList.toggle('sel',j===i));
+  /* порядок вариантов перемешан, поэтому сверяем исходный индекс, а не позицию */
+  document.querySelectorAll('.t-opt,.img-opt').forEach(el=>el.classList.toggle('sel',+el.dataset.oi===i));
   const b=document.getElementById('bN');if(b)b.disabled=false;
   const af=document.getElementById('af'+cur);if(af)af.classList.add('on');
   showOE(i);
@@ -2247,9 +2241,11 @@ const AudioIll={
     this.nodes=[];
     if(this.playing!==null){this.playing=null;if(this.onEnd)this.onEnd();this.onEnd=null;}
   },
+  /* возвращает false, если звук завести не удалось — вызывающий код
+     должен вернуть кнопку в исходное состояние, а не залипнуть */
   play(type,idx,onEnd){
     this.stop();
-    const c=this.ac();if(!c)return;
+    const c=this.ac();if(!c)return false;
     this.playing=idx;this.onEnd=onEnd;
     const master=c.createGain();master.gain.value=0.5;master.connect(c.destination);
     this.nodes.push(master);
@@ -2260,6 +2256,7 @@ const AudioIll={
     else if(type==='waves')dur=this.waves(c,master);
     const endT=setTimeout(()=>{if(this.playing===idx)this.stop();},dur*1000);
     this.timers.push(endT);
+    return true;
   },
   /* Тон Шепарда—Риссе: бесконечный подъём */
   shepard(c,out){
@@ -4081,18 +4078,9 @@ function soundCheck(){
 (function(){
   const RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── фотослой глубины, если фон положен в assets/bg/deep.jpg ── */
-  (function(){
-    const ph=document.getElementById('oceanPh'); if(!ph)return;
-    const img=new Image();
-    img.onload=()=>{ph.style.backgroundImage=`url(${img.src})`;ph.classList.add('on');};
-    img.src='assets/bg/deep.jpg';
-  })();
-
   /* ── взвесь: частицы, медленно всплывающие в толще ── */
   (function(){
     const cv=document.getElementById('motes'); if(!cv||RM)return;
-    const LIGHT = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
     const ctx=cv.getContext('2d',{alpha:true});
     let w=0,h=0,dpr=1,parts=[],raf=null,run=true;
     function size(){
@@ -4120,7 +4108,7 @@ function soundCheck(){
         if(p.y<-14){parts[i]=spawn(false);continue;}
         const fade=Math.min(1,Math.min(p.y,h-p.y)/110);
         const g=ctx.createRadialGradient(x,p.y,0,x,p.y,p.r*5.5);
-        const col=LIGHT?(p.warm?'120,102,180':'92,110,168'):(p.warm?'214,198,255':'176,196,240');
+        const col=p.warm?'214,198,255':'176,196,240';
         g.addColorStop(0,`rgba(${col},${p.a*fade})`);
         g.addColorStop(1,`rgba(${col},0)`);
         ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,p.y,p.r*5.5,0,6.284);ctx.fill();
@@ -4211,7 +4199,11 @@ function soundCheck(){
   /* ── видеофон включается только если файл реально играет ── */
   (function(){
     const v=document.getElementById('plateVideo'); if(!v)return;
-    if(RM){v.remove();return;}
+    /* сначала отсекаем, кому видео не положено: файл на 10 МБ, качать его
+       на телефоне, в экономии трафика или при reduce-motion незачем.
+       У тега нет ни autoplay, ни source — загрузка стартует только ниже. */
+    const c=navigator.connection;
+    if(RM||(c&&(c.saveData||/2g/.test(c.effectiveType||'')))||innerWidth<900){v.remove();return;}
     let ok=false;
     const on=()=>{ if(ok)return; ok=true;
       v.classList.add('ready'); document.body.classList.add('has-video'); };
@@ -4220,8 +4212,7 @@ function soundCheck(){
     v.addEventListener('error',()=>{ v.remove(); });
     /* если через 4 секунды видео не пошло — остаёмся на фотокадре */
     setTimeout(()=>{ if(!ok)v.remove(); },4000);
-    const c=navigator.connection;
-    if((c&&(c.saveData||/2g/.test(c.effectiveType||'')))||innerWidth<900){v.remove();return;}
+    v.src=v.dataset.src; v.load();
     const p=v.play(); if(p&&p.catch)p.catch(()=>{});
   })();
   /* ── SCROLL PARALLAX: кадры сцен движутся вместе с прокруткой ── */
@@ -4279,14 +4270,18 @@ function soundCheck(){
     if(miniOn){ AudioIll.stop(); return; }
     /* контекст создаётся внутри клика — иначе Safari не даст звук */
     try{ if(typeof Music!=='undefined'&&Music.unlock)Music.unlock(); }catch(e){}
-    miniOn=true; box.classList.add('playing');
-    if(lbl)lbl.textContent='Остановить';
-    if(ico)ico.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
-    AudioIll.play('shepard',-1,()=>{
+    const idle=()=>{
       miniOn=false; box.classList.remove('playing');
       if(lbl)lbl.textContent='Послушать ещё раз';
       if(ico)ico.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
-    });
+    };
+    /* если звук не завёлся — сразу возвращаемся в исходное состояние,
+       иначе кнопка навсегда остаётся «Остановить» и больше не играет */
+    const started=AudioIll.play('shepard',-1,idle);
+    if(started===false){ idle(); return; }
+    miniOn=true; box.classList.add('playing');
+    if(lbl)lbl.textContent='Остановить';
+    if(ico)ico.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
   }
   function miniPick(i){
     document.querySelectorAll('.mini-opt').forEach((b,k)=>b.classList.toggle('sel',k===i));
