@@ -45,6 +45,10 @@ const kv = (k, lines) => tbl([new TableRow({
   children: [cell([p(r(k, { color: MUTED }))], 820), cell(lines.map((l) => p(r(l))), 1880)],
 })], [820, 1880]);
 
+const bank = (k, v) => tbl([new TableRow({
+  children: [cell([p(r(k, { color: MUTED }))], 1000), cell([p(r(v))], 2992)],
+})], [1000, 2992]);
+
 const items = [
   ['Browser advertising campaign setup and audience targeting', '0.50 h  ·  €80.00 / h', '€40.00'],
   ['Email advertising campaign preparation and distribution', '0.75 h  ·  €60.00 / h', '€45.00'],
@@ -126,9 +130,11 @@ const doc = new Document({
       tbl([new TableRow({
         children: [
           cell([
-            p(r('Payment', { size: 23, spacing: -6 }), { after: 200, line: 300 }),
-            p(r('Payment by bank transfer in euro to the account of Jose Luis Serrano Anson.'), { after: 150 }),
-            p(r('Bank details are provided to the client separately.', { color: SOFT })),
+            p(r('Bank Details', { size: 23, spacing: -6 }), { after: 200, line: 300 }),
+            bank('Holder', 'Jose Luis Serrano Anson'),
+            bank('IBAN', 'ES31 2100 0415 0101 0138 1953'),
+            gap(170),
+            p(r('Payment by bank transfer in euro to the account above.', { color: SOFT })),
           ], 4592, 600),
           cell([
             p(r('Terms', { size: 23, spacing: -6 }), { after: 200, line: 300 }),
