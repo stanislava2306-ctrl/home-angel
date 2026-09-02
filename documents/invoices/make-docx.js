@@ -93,7 +93,7 @@ const parties = table([new TableRow({ children: [
   ], { w: 34, mr: 300 }),
   cell([
     p(run("Invoice", { size: 12, bold: true, ls: 32, caps: true }), { after: 60, align: AlignmentType.RIGHT }),
-    p(run("#0001", { size: 24, bold: true }), { after: 60, align: AlignmentType.RIGHT }),
+    p(run("#109", { size: 24, bold: true }), { after: 60, align: AlignmentType.RIGHT }),
     metaRow("Invoice date", "31.08.2026"),
     metaRow("Due date", "15.09.2026"),
     metaRow("Currency", "EUR (€)"),
@@ -248,6 +248,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buf => {
-  fs.writeFileSync("Invoice_0001_Fourtress_Commerce_Ltd.docx", buf);
+  fs.writeFileSync("Invoice_109_Fourtress_Commerce_Ltd.docx", buf);
   console.log("docx written", buf.length);
 });
