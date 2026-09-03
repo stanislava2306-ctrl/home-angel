@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Исток — первый экран, версия 2</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300..700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   ИСТОК · ЧИСТЫЙ СЛОЙ, ВЕРСИЯ 2
+   Ни одного правила из старого файла. Всё, что здесь есть,
+   объявлено один раз и нигде не переопределяется.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root{
+  color-scheme:dark;
+
+  /* ── цвет: почти чёрная вода, тёплый белый, один холодный акцент ── */
+  --void:#050506;
+  --ink:#f2efe9;
+  --muted:#8d877e;
+  --faint:#5e5951;
+  --accent:#8fa8b8;
+
+  /* ── шрифт ── */
+  --sans:'Onest',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --serif:'Playfair Display','Times New Roman',Times,serif;
+
+  /* ── движение: одна кривая на весь проект ── */
+  --ease:cubic-bezier(.16,1,.3,1);
+
+  /* ── прожектор под курсором ── */
+  --spot:420px;
+  --mx:50%;
+  --my:45%;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--void);-webkit-text-size-adjust:100%}
+body{background:var(--void);color:var(--ink);font-family:var(--sans);font-weight:400;
+  line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img,video{display:block;max-width:100%}
+:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+
+/* ═══ ШАПКА ═══
+   Не панель. Три текстовые метки поверх кадра: не липнет, не темнеет,
+   не конкурирует с кадром. Плашек нет. */
+.top{position:absolute;top:0;left:0;right:0;z-index:5;
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:30px 40px;pointer-events:none}
+.top>*{pointer-events:auto}
+.mark{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--ink);
+  text-shadow:0 1px 24px rgba(5,5,6,.9)}
+.top-nav{display:flex;gap:30px}
+.top-nav button{font-size:13px;letter-spacing:-.005em;color:rgba(242,239,233,.62);
+  text-shadow:0 1px 24px rgba(5,5,6,.9);transition:color .35s var(--ease)}
+.top-nav button:hover{color:var(--ink)}
+
+/* ═══ ПЕРВЫЙ ЭКРАН ═══ */
+.screen{position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:flex-end;align-items:center;
+  padding:0 24px clamp(64px,11vh,116px);overflow:clip;isolation:isolate}
+
+/* кадр во весь экран: фото, поверх — видео, поверх — слой прожектора */
+.frame{position:absolute;inset:0;z-index:-1;overflow:clip;pointer-events:none}
+.frame-still,.frame-lit{position:absolute;inset:0;
+  background:center/cover no-repeat}
+.frame-still{background-image:url('assets/scene/origin.jpg');
+  transform:scale(1.05);animation:settle 3.4s var(--ease) forwards}
+@keyframes settle{to{transform:scale(1)}}
+.frame-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity 1.8s ease}
+.frame-video.on{opacity:1}
+.frame-video.on ~ .frame-still{opacity:0;transition:opacity 1.8s ease}
+
+/* Прожектор. Второй кадр живёт только внутри круга под курсором —
+   вода расступается, и видно, что там кто-то есть. */
+.frame-lit{background-image:url('assets/fish/goldfish.jpg');
+  filter:saturate(1.1) brightness(1.25);
+  opacity:0;transition:opacity .8s ease;
+  -webkit-mask-image:radial-gradient(circle var(--spot) at var(--mx) var(--my),
+    #000 0%,#000 38%,rgba(0,0,0,.7) 58%,rgba(0,0,0,.32) 76%,transparent 100%);
+  mask-image:radial-gradient(circle var(--spot) at var(--mx) var(--my),
+    #000 0%,#000 38%,rgba(0,0,0,.7) 58%,rgba(0,0,0,.32) 76%,transparent 100%)}
+body.lit .frame-lit{opacity:1}
+
+/* Единственное затемнение на всей странице: вымеренный градиент вниз,
+   чтобы текст читался. Никаких дымок поверх кадра. */
+.frame-fade{position:absolute;inset:0;
+  background:linear-gradient(to bottom,
+    rgba(5,5,6,.34) 0%,rgba(5,5,6,.06) 22%,rgba(5,5,6,0) 44%,
+    rgba(5,5,6,.42) 68%,rgba(5,5,6,.82) 86%,var(--void) 100%)}
+
+/* ═══ ТИПОГРАФИКА ЭКРАНА ═══ */
+.copy{position:relative;z-index:2;text-align:center;max-width:1100px}
+h1{font-size:clamp(2.6rem,8.4vw,7rem);font-weight:500;letter-spacing:-.045em;
+  line-height:1.02;text-wrap:balance}
+h1 .row{display:block;padding-bottom:.12em}
+h1 em{font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:1.04em;letter-spacing:-.02em;color:var(--accent)}
+/* слова собираются по одному — кадр успевает подышать до текста */
+.w{display:inline-block;opacity:0;transform:translateY(.34em);
+  animation:word 1.5s var(--ease) forwards;animation-delay:var(--d,0s)}
+@keyframes word{to{opacity:1;transform:none}}
+
+/* Одно действие на экран. Подчёркивание, а не кнопка. */
+.go{position:relative;z-index:2;margin-top:clamp(30px,5vh,52px);
+  display:inline-flex;align-items:center;gap:11px;padding:9px 1px;
+  font-size:15px;font-weight:500;letter-spacing:-.01em;
+  opacity:0;animation:word 1.6s var(--ease) 2.15s forwards}
+.go::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:rgba(242,239,233,.3);transition:background .4s var(--ease)}
+.go:hover::after{background:var(--accent)}
+.go i{font-style:normal;transition:transform .5s var(--ease)}
+.go:hover i{transform:translateX(7px)}
+
+/* подсказка о прожекторе: уходит, как только им воспользовались */
+.hint{position:absolute;left:50%;bottom:26px;translate:-50% 0;z-index:2;
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);
+  opacity:0;animation:word 2s var(--ease) 3.6s forwards;
+  transition:opacity .5s ease;pointer-events:none}
+body.lit .hint{opacity:0;animation:none}
+
+@media(max-width:900px){
+  .top{padding:20px 20px}
+  .top-nav{gap:20px}
+  .screen{padding-bottom:clamp(48px,9vh,80px)}
+  :root{--spot:230px}
+}
+@media(hover:hover) and (pointer:fine){
+  .screen{cursor:crosshair}
+}
+@media(hover:none){.hint{content:''}}
+
+@media(prefers-reduced-motion:reduce){
+  .w,.go,.hint,.frame-still{animation:none;opacity:1;transform:none}
+  .frame-lit{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="mark">ИСТОК</div>
+  <nav class="top-nav">
+    <button type="button">Кабинет</button>
+    <button type="button">Пройти тест</button>
+  </nav>
+</header>
+
+<section class="screen">
+  <div class="frame" aria-hidden="true">
+    <video class="frame-video" id="vid" muted loop playsinline preload="none"
+           poster="assets/scene/origin.jpg" data-src="assets/video/hero.mp4"></video>
+    <div class="frame-still"></div>
+    <div class="frame-lit"></div>
+    <div class="frame-fade"></div>
+  </div>
+
+  <div class="copy">
+    <h1>
+      <span class="row"><span class="w" style="--d:1.1s">Всё</span> <span class="w" style="--d:1.28s">начинается</span> <span class="w" style="--d:1.46s">в</span></span>
+      <span class="row"><em class="w" style="--d:1.72s">детстве</em></span>
+    </h1>
+  </div>
+  <button class="go" type="button">Начать исследование <i aria-hidden="true">&#8594;</i></button>
+
+  <p class="hint">веди курсором</p>
+</section>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── видео включается только там, где оно уместно: файл тяжёлый,
+        и до этих проверок не загружается ни один байт ── */
+  (function(){
+    var v = document.getElementById('vid');
+    var c = navigator.connection;
+    if (reduce || innerWidth < 900 || (c && (c.saveData || /2g/.test(c.effectiveType||'')))) { v.remove(); return; }
+    var ok = false;
+    v.addEventListener('playing', function(){ ok = true; v.classList.add('on'); });
+    v.addEventListener('error', function(){ v.remove(); });
+    setTimeout(function(){ if (!ok) v.remove(); }, 4000);
+    v.src = v.dataset.src;
+    var p = v.play();
+    if (p && p.catch) p.catch(function(){});
+  })();
+
+  /* ── прожектор: позиция сглажена, чтобы свет тянулся за курсором,
+        а не прыгал за ним ── */
+  (function(){
+    if (reduce) return;
+    var frame = document.querySelector('.frame');
+    var raw = {x:0,y:0}, smooth = {x:0,y:0}, raf = null, started = false;
+
+    function aim(x, y){
+      raw.x = x; raw.y = y;
+      if (!started){ started = true; smooth.x = x; smooth.y = y; document.body.classList.add('lit'); }
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+    function tick(){
+      smooth.x += (raw.x - smooth.x) * .12;
+      smooth.y += (raw.y - smooth.y) * .12;
+      frame.style.setProperty('--mx', smooth.x + 'px');
+      frame.style.setProperty('--my', smooth.y + 'px');
+      raf = (Math.abs(raw.x - smooth.x) > .5 || Math.abs(raw.y - smooth.y) > .5)
+        ? requestAnimationFrame(tick) : null;
+    }
+
+    addEventListener('mousemove', function(e){ aim(e.clientX, e.clientY); }, {passive:true});
+    addEventListener('mouseleave', function(){ document.body.classList.remove('lit'); started = false; });
+    addEventListener('touchstart', function(e){ var t = e.touches[0]; if (t) aim(t.clientX, t.clientY); }, {passive:true});
+    addEventListener('touchmove',  function(e){ var t = e.touches[0]; if (t) aim(t.clientX, t.clientY); }, {passive:true});
+  })();
+})();
+</script>
+</body>
+</html>
