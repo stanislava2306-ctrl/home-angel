@@ -1092,7 +1092,7 @@ h1.hero-h{line-height:1.14;margin-bottom:0;}
 }
 
 
-/* видеофон: включается сам, если файл лежит в assets/video/hero.mp4 */
+/* видеофон: кадр ролика привязан к прокрутке первой сцены */
 .plate-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   opacity:0;transition:opacity 1.6s ease;pointer-events:none;}
 .plate-video.ready{opacity:1;}
@@ -1108,8 +1108,6 @@ h1.hero-h{line-height:1.14;margin-bottom:0;}
   linear-gradient(180deg,var(--void) 0%,rgba(6,6,7,.62) 22%,rgba(6,6,7,.62) 78%,var(--void) 100%),
   linear-gradient(90deg,rgba(6,6,7,.86) 0%,rgba(6,6,7,.4) 46%,rgba(6,6,7,.72) 100%);}
 .scene--list,.scene--mini{position:relative;}
-/* видео тяжёлое: на узких экранах и при экономии трафика остаёмся на кадре */
-@media(max-width:900px){.plate-video{display:none;}}
 
 
 /* ── рыба как сквозной герой: тот же силуэт плывёт через средние сцены ── */
@@ -1184,7 +1182,10 @@ h1.hero-h{line-height:1.14;margin-bottom:0;}
   font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(242,239,233,.3);
   opacity:0;animation:ctaIn 2s var(--ease-out) 3s forwards;pointer-events:none;}
 body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
-@media(hover:none){.spot-hint{content:none;}}
+/* без курсора подсказка бессмысленна, а на узком экране ещё и налезает
+   на заголовок: content:none её не прятал — это свойство работает
+   только на псевдоэлементах */
+@media(hover:none){.spot-hint{display:none;}}
 
 /* ── СЦЕНА 02: фразы приходят по одной ── */
 .qlines{max-width:820px;text-align:center;}
@@ -1439,8 +1440,8 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   <section id="hero" class="st">
     <div class="plate" aria-hidden="true">
       <div class="plate-base"></div>
-      <video class="plate-video" id="plateVideo" muted loop playsinline preload="none"
-             poster="assets/scene/origin.jpg" data-src="assets/video/hero.mp4"></video>
+      <video class="plate-video" id="plateVideo" muted playsinline preload="auto"
+             poster="assets/scene/origin.jpg"></video>
       <div class="plate-reveal" id="plateReveal"></div>
       <div class="plate-fade"></div>
     </div>
@@ -4482,24 +4483,47 @@ function soundCheck(){
 
 
 
-  /* ── видеофон включается только если файл реально играет ── */
+  /* ── видеофон: кадр ролика привязан к прокрутке первой сцены ──
+     Ролик не крутится сам. На нулевом кадре рыба смотрит в упор, к концу
+     сцены она уходит из кадра — то есть движение делает не таймер, а сам
+     посетитель. Заодно исчез стык петли: раньше десятисекундный ролик
+     возвращался с пустой воды на морду рыбы резкой склейкой.
+     Перемотка точна и не требует ни буфера, ни выгрузки кадров в память:
+     ролик закодирован all-intra, каждый кадр опорный (12 к/с, 1.9 МБ). */
   (function(){
     const v=document.getElementById('plateVideo'); if(!v)return;
-    /* сначала отсекаем, кому видео не положено: файл на 10 МБ, качать его
-       на телефоне, в экономии трафика или при reduce-motion незачем.
-       У тега нет ни autoplay, ни source — загрузка стартует только ниже. */
+    const hero=document.getElementById('hero');
+    /* отсекаем, кому видео не положено: экономия трафика, 2G, reduce-motion.
+       Узкие экраны больше не отсекаются — им отдаётся версия на 577 КБ. */
     const c=navigator.connection;
-    if(RM||(c&&(c.saveData||/2g/.test(c.effectiveType||'')))||innerWidth<900){v.remove();return;}
-    let ok=false;
-    const on=()=>{ if(ok)return; ok=true;
-      v.classList.add('ready'); document.body.classList.add('has-video'); };
-    v.addEventListener('loadeddata',()=>{ if(v.readyState>=2)on(); });
-    v.addEventListener('playing',on);
+    if(RM||(c&&(c.saveData||/2g/.test(c.effectiveType||'')))){v.remove();return;}
+    v.src = innerWidth<900 ? 'assets/video/hero-sm.mp4' : 'assets/video/hero.mp4';
+    let ok=false,dur=0,seeking=false,raf=null;
+    v.addEventListener('loadeddata',()=>{
+      if(ok||v.readyState<2)return;
+      ok=true; dur=v.duration||0;
+      v.classList.add('ready'); document.body.classList.add('has-video');
+      draw();
+    });
+    v.addEventListener('seeked',()=>{ seeking=false; });
     v.addEventListener('error',()=>{ v.remove(); });
-    /* если через 4 секунды видео не пошло — остаёмся на фотокадре */
-    setTimeout(()=>{ if(!ok)v.remove(); },4000);
-    v.src=v.dataset.src; v.load();
-    const p=v.play(); if(p&&p.catch)p.catch(()=>{});
+    /* если через 6 секунд первый кадр не пришёл — остаёмся на фотокадре */
+    setTimeout(()=>{ if(!ok)v.remove(); },6000);
+
+    /* Прогресс первой сцены: 0 — рыба смотрит в упор, 1 — рыба ушла.
+       Диапазон обрывается на 72% высоты экрана, а не на всей: дальше кадр
+       уже уползает за верхнюю кромку, и уход рыбы там просто некому видеть.
+       Оставшийся отрезок держит пустую воду — паузу перед темнотой сцены 02. */
+    function draw(){
+      raf=null;
+      if(!ok||!dur)return;
+      const h=((hero&&hero.offsetHeight)||innerHeight)*.72;
+      const t=Math.max(0,Math.min(1,scrollY/h))*(dur-.05);
+      if(!seeking&&Math.abs(v.currentTime-t)>.02){ seeking=true; v.currentTime=t; }
+    }
+    const nudge=()=>{ if(!raf)raf=requestAnimationFrame(draw); };
+    addEventListener('scroll',nudge,{passive:true});
+    addEventListener('resize',nudge,{passive:true});
   })();
   /* ── SCROLL PARALLAX: кадры сцен движутся вместе с прокруткой ── */
   (function(){
