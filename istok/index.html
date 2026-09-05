@@ -601,7 +601,7 @@ body.focus #caustic{opacity:.06;}
 /* плита: вода на полную силу + световой прожектор, открывающий глубину */
 .plate{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
 .plate-base,.plate-reveal{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;}
-.plate-base{background-image:url('assets/scene/origin.jpg');transform:scale(1.06);
+.plate-base{background-image:url('assets/scene/childhood.jpg');transform:scale(1.06);
   animation:plateZoom 2.4s var(--ease-out) forwards;}
 @keyframes plateZoom{to{transform:scale(1)}}
 /* второй слой виден только внутри мягкого круга под курсором */
@@ -1441,8 +1441,12 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
     <div class="plate" aria-hidden="true">
       <div class="plate-base"></div>
       <video class="plate-video" id="plateVideo" muted playsinline preload="auto"
-             poster="assets/scene/origin.jpg"></video>
-      <div class="plate-reveal" id="plateReveal"></div>
+             poster="assets/scene/childhood.jpg"></video>
+      <!-- Раскрытие под курсором временно снято: оно показывало fish.jpg —
+           кадр из другой серии, который мы всё равно переснимаем. Вернуть =
+           раскомментировать строку ниже и подсказку «веди курсором», когда
+           будет кадр в той же художественной серии, что и комната.
+      <div class="plate-reveal" id="plateReveal"></div> -->
       <div class="plate-fade"></div>
     </div>
 
@@ -1454,7 +1458,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
       <button class="st-cta" onclick="startTest()">Начать исследование <span aria-hidden="true">&#8594;</span></button>
     </div>
 
-    <p class="spot-hint" id="spotHint" aria-hidden="true">веди курсором</p>
+    <!-- <p class="spot-hint" id="spotHint" aria-hidden="true">веди курсором</p> -->
   </section>
 
   <!-- ═══ СЦЕНА 02 · ВОПРОС ═══
