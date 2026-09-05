@@ -20,7 +20,7 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300..700&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300..700&family=Unbounded:wght@200;300&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0d0f1a;--bg2:#111422;--surface:#1a1e30;--surface2:#1f2438;
@@ -30,7 +30,7 @@
   --mist:rgba(139,127,190,0.12);--mist2:rgba(139,127,190,0.05);
   --fb:'Onest',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --fd:'Onest',system-ui,-apple-system,sans-serif;
-  --fs:'Playfair Display','Times New Roman',Times,serif;
+  --fs:'Unbounded',system-ui,-apple-system,sans-serif;   /* акцент: широкий геометрический, не антиква */
   /* HIG structural tokens: 8pt spacing grid, concentric radii, motion, touch target */
   --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;
   --r-sm:8px;--r-md:12px;--r-lg:16px;--r-full:9999px;
@@ -323,7 +323,7 @@ footer{padding:2.5rem 3rem;border-top:1px solid var(--border);display:flex;justi
 .hist-row:last-child{border-bottom:none;}
 .hist-d{color:var(--text3);min-width:82px;}
 .hist-f{flex:1;color:var(--text2);}
-.hist-i{color:var(--accent3);font-family:var(--fs);font-style:italic;font-size:1.15rem;}
+.hist-i{color:var(--accent3);font-family:var(--fs);font-style:normal;font-weight:200;font-size:1.05rem;}
 .dyn-lbl{font-size:.8rem;color:var(--text3);margin:.4rem 0 .7rem;}
 .dyn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;margin-bottom:.7rem;}
 .dyn-cell{border:1px solid var(--border);border-radius:9px;padding:.6rem .8rem;display:flex;flex-direction:column;gap:.25rem;}
@@ -636,7 +636,7 @@ body.spot-on .plate-reveal{opacity:1;}
 .badge-star{opacity:.5;}
 
 /* заголовок: маскированные строки, плотный трекинг */
-h1.hero-h{font-family:var(--fd);font-weight:300;font-size:clamp(2.5rem,7.2vw,5.4rem);line-height:1.06;
+h1.hero-h{font-family:var(--fd);font-weight:300;font-size:clamp(2.1rem,5.6vw,4.2rem);line-height:1.06;
   letter-spacing:-.045em;color:var(--ink);margin:0;display:flex;flex-direction:column;align-items:center;
   text-shadow:0 2px 60px rgba(5,6,14,.85);}
 .hline{display:block;overflow:hidden;padding:.02em .15em .1em;margin-bottom:-.08em;}
@@ -728,7 +728,7 @@ nav#nav{padding:22px 40px 10px;}
   .plate-reveal{display:block;}
   .hero-stats{gap:16px;flex-direction:column;padding:34px 20px 26px;white-space:normal;}
   .stat{white-space:normal;}
-  h1.hero-h{font-size:clamp(2.1rem,10vw,3rem);}
+  h1.hero-h{font-size:clamp(1.7rem,7.6vw,2.4rem);}
   .hero-sub{font-size:15px;margin-top:14px;}
   .hero-actions{margin-top:20px;}
   .sline-wrap{display:none;}
@@ -858,8 +858,10 @@ nav#nav{position:absolute!important;background:transparent!important;border:none
 /* — типографика — */
 body{font-family:var(--fb);font-weight:400;letter-spacing:-.01em;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-h1.hero-h{font-family:var(--fb);font-weight:500;letter-spacing:-.045em;line-height:1.08;}
-h1.hero-h em,.scene em{font-family:var(--fs);font-style:italic;font-weight:400;font-size:1.06em;
+h1.hero-h{font-family:var(--fs);font-weight:200;letter-spacing:-.03em;line-height:1.2;}
+/* Unbounded — не антиква, поэтому акцентное слово держится не наклоном,
+   а цветом: строка остаётся одной гарнитурой, как в выбранном образце. */
+h1.hero-h em,.scene em{font-family:var(--fs);font-style:normal;font-weight:200;font-size:1em;
   letter-spacing:-.03em;color:var(--accent-serif);}
 .badge{font-size:12.5px;letter-spacing:-.01em;border-radius:5px;}
 .hero-sub{font-weight:400;letter-spacing:-.015em;}
@@ -1004,7 +1006,7 @@ footer{border-top-color:rgba(242,239,233,.08);}
 .qline.in{opacity:1;transform:none;filter:none;}
 .qline:nth-child(2){padding-left:clamp(0px,4vw,64px);}
 .qline:nth-child(3){padding-left:clamp(0px,8vw,128px);}
-.qline em{font-family:var(--fs);font-style:italic;color:var(--accent-serif);}
+.qline em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 .qafter{margin-top:34px;max-width:520px;color:var(--muted);font-size:16px;line-height:1.62;
   opacity:0;transform:translateY(12px);transition:opacity 1s var(--ease-out) .25s,transform 1s var(--ease-out) .25s;}
 .qafter.in{opacity:1;transform:none;}
@@ -1077,10 +1079,9 @@ body.spot-on .spot-hint{opacity:0!important;animation:none!important;transition:
 /* убираем старую анимацию fu — она конфликтовала с системой .rv */
 .eyebrow.rv,h1.hero-h{animation-name:none;}
 h1.hero-h{opacity:1;}
-/* курсив крупнее строки и с выносным хвостом: даём строке запас снизу,
-   иначе «детстве» наезжает на подзаголовок */
+/* запас снизу был нужен курсиву с выносным хвостом; у Unbounded его нет */
 .hline{opacity:1;transform:none;animation:none;overflow:visible;
-  padding:.02em .12em .3em;margin-bottom:0;line-height:1.14;}
+  padding:.02em .12em .14em;margin-bottom:0;line-height:1.2;}
 h1.hero-h{line-height:1.14;margin-bottom:0;}
 .hero-sub{margin-top:30px;}
 
@@ -1198,7 +1199,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 .qline.in{opacity:1;transform:none;filter:none;}
 /* прочитанные фразы гаснут — на экране всегда живёт одна мысль */
 .qline.past{opacity:.16;filter:blur(1.5px);transition-duration:1.8s;}
-.qline em{font-family:var(--fs);font-style:italic;color:var(--accent-serif);}
+.qline em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 
 /* ── СЦЕНА 03: узнавание, и первый фрагмент рыбы ── */
 .disc{max-width:760px;text-align:center;position:relative;z-index:2;}
@@ -1243,7 +1244,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 .mini-cue{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#6f6a62;margin-bottom:26px;}
 .mini-q{font-size:clamp(1.5rem,3.4vw,2.5rem);font-weight:400;letter-spacing:-.03em;
   line-height:1.24;color:var(--ink);margin-bottom:44px;}
-.mini-q em{font-family:var(--fs);font-style:italic;color:var(--accent-serif);}
+.mini-q em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 #mini .mini-play{margin:0 auto;}
 .mini-hint{margin-top:26px;font-size:13px;line-height:1.65;color:#6f6a62;max-width:440px;
   margin-left:auto;margin-right:auto;transition:opacity .6s;}
@@ -1285,7 +1286,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 .six-n{font-size:10.5px;letter-spacing:.24em;color:#5c5850;margin-bottom:16px;align-self:end;}
 .six-h{font-size:clamp(1.5rem,3.2vw,2.35rem);font-weight:400;letter-spacing:-.03em;
   color:var(--ink);margin-bottom:0;line-height:1.2;}
-.six-h em{font-family:var(--fs);font-style:italic;color:var(--accent-serif);}
+.six-h em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 .six-stage.swap .six-n,.six-stage.swap .six-h,.six-stage.swap .six-demo{opacity:0;transform:translateY(12px);}
 .six-n,.six-h,.six-demo{transition:opacity .45s var(--ease-out),transform .45s var(--ease-out);}
 .six-demo{display:flex;flex-direction:column;gap:22px;}
@@ -1335,7 +1336,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 .fish-copy{flex:1 1 46%;}
 #fish-scene h2{font-size:clamp(1.9rem,4.4vw,3.4rem);font-weight:400;letter-spacing:-.035em;
   line-height:1.1;color:var(--ink);margin-bottom:24px;}
-#fish-scene h2 em{font-family:var(--fs);font-style:italic;color:var(--accent-serif);}
+#fish-scene h2 em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 .fish-note{margin-top:22px;font-size:12.5px;letter-spacing:.02em;color:#6f6a62;}
 /* карточка результата — артефакт, а не панель с показателями */
 .rc{flex:0 1 380px;background:linear-gradient(170deg,rgba(20,21,24,.86),rgba(9,9,11,.92));
@@ -1344,7 +1345,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 .rc-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;}
 .rc-body{padding:24px 26px 28px;}
 .rc-lbl{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#5c5850;}
-.rc-name{font-family:var(--fs);font-style:italic;font-size:2rem;color:var(--ink);
+.rc-name{font-family:var(--fs);font-style:normal;font-weight:300;font-size:1.6rem;color:var(--ink);
   margin:6px 0 12px;line-height:1.1;}
 .rc-txt{font-size:13px;line-height:1.65;color:var(--muted);margin-bottom:20px;}
 .rc-ax div{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:12px;
@@ -1360,7 +1361,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 .mth{width:100%;max-width:760px;}
 #method-scene h2{font-size:clamp(1.9rem,4.2vw,3rem);font-weight:400;letter-spacing:-.035em;
   color:var(--ink);margin-bottom:20px;}
-#method-scene h2 em{font-family:var(--fs);font-style:italic;color:var(--accent-serif);}
+#method-scene h2 em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 .mref{list-style:none;margin-top:38px;padding:0;}
 .mref li{border-top:1px solid rgba(242,239,233,.09);}
 .mref li:last-child{border-bottom:1px solid rgba(242,239,233,.09);}
@@ -1382,7 +1383,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 .fin-l{font-size:13px;letter-spacing:.02em;color:#6f6a62;margin-bottom:20px;}
 .fin-h{font-size:clamp(1.8rem,4.4vw,3.2rem);font-weight:400;letter-spacing:-.035em;
   line-height:1.14;color:var(--ink);}
-.fin-h em{font-family:var(--fs);font-style:italic;color:var(--accent-serif);}
+.fin-h em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 #final .st-cta{animation:none;opacity:1;margin-top:40px;}
 #final .mlink{display:block;margin-left:auto;margin-right:auto;color:#6f6a62;font-size:13px;}
 
@@ -4010,7 +4011,7 @@ async function shareFish(){
   /* ждём шрифты, но не дольше двух секунд — иначе карточка не соберётся вовсе */
   try{await Promise.race([
     Promise.all([
-      document.fonts.load('italic 400 78px "Playfair Display"'),
+      document.fonts.load('300 66px "Unbounded"'),
       document.fonts.load('400 30px "Inter"')
     ]),
     new Promise(r=>setTimeout(r,2000))
@@ -4055,7 +4056,7 @@ async function shareFish(){
   }catch(e){}
   x.strokeStyle='rgba(255,255,255,.14)';x.lineWidth=2;x.strokeRect(120,178,840,525);
   /* имя */
-  x.fillStyle='#e8e4f0';x.font='italic 400 78px "Playfair Display", serif';
+  x.fillStyle='#e8e4f0';x.font='300 66px "Unbounded", sans-serif';
   x.fillText(S.name,540,788);
   /* теги в 2-3 ряда */
   x.font='300 26px Inter, sans-serif';
@@ -4083,7 +4084,7 @@ async function shareFish(){
   S.top.forEach(t=>{
     x.textAlign='left';x.fillStyle='#e8e4f0';x.font='300 31px Inter, sans-serif';
     x.fillText(t.name,140,cy);
-    x.textAlign='right';x.fillStyle='#b8aee8';x.font='italic 400 36px "Playfair Display", serif';
+    x.textAlign='right';x.fillStyle='#b8aee8';x.font='300 32px "Unbounded", sans-serif';
     x.fillText(t.pct+'%',940,cy);
     x.fillStyle='rgba(255,255,255,.13)';x.fillRect(140,cy+16,800,3);
     x.fillStyle='#8b7fbe';x.fillRect(140,cy+16,800*Math.min(100,t.pct)/100,3);
