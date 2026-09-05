@@ -605,13 +605,16 @@ body.focus #caustic{opacity:.06;}
   animation:plateZoom 2.4s var(--ease-out) forwards;}
 @keyframes plateZoom{to{transform:scale(1)}}
 /* второй слой виден только внутри мягкого круга под курсором */
-.plate-reveal{background-image:url('assets/scene/fish.jpg');opacity:0;transition:opacity .7s ease;
-  filter:saturate(1.15) brightness(1.35);
+.plate-reveal{background-image:url('assets/scene/childhood-dry.jpg');opacity:0;transition:opacity .7s ease;
+  filter:saturate(1.05) brightness(1.12);
   -webkit-mask-image:radial-gradient(circle var(--spot) at var(--mx,50%) var(--my,42%),
     #000 0%,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);
   mask-image:radial-gradient(circle var(--spot) at var(--mx,50%) var(--my,42%),
     #000 0%,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);}
-body.spot-on .plate-reveal{opacity:1;}
+/* Кадр сухой комнаты лежит отдельным файлом. Пока его нет, механики нет
+   вовсе — вместо пустого круга под курсором. Класс ставит JS. */
+body.reveal-on.spot-on .plate-reveal{opacity:1;}
+body:not(.reveal-on) .spot-hint{display:none!important;}
 /* только вымеренное затухание вниз — никаких декоративных плёнок поверх */
 .plate-fade{position:absolute;inset:0;background:
   linear-gradient(to bottom,rgba(10,11,20,.34) 0%,rgba(10,11,20,.12) 18%,rgba(10,11,20,0) 40%,
@@ -1441,13 +1444,9 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   <section id="hero" class="st">
     <div class="plate" aria-hidden="true">
       <div class="plate-base"></div>
-      <video class="plate-video" id="plateVideo" muted playsinline preload="auto"
+      <video class="plate-video" id="plateVideo" muted loop autoplay playsinline preload="auto"
              poster="assets/scene/childhood.jpg"></video>
-      <!-- Раскрытие под курсором временно снято: оно показывало fish.jpg —
-           кадр из другой серии, который мы всё равно переснимаем. Вернуть =
-           раскомментировать строку ниже и подсказку «веди курсором», когда
-           будет кадр в той же художественной серии, что и комната.
-      <div class="plate-reveal" id="plateReveal"></div> -->
+      <div class="plate-reveal" id="plateReveal"></div>
       <div class="plate-fade"></div>
     </div>
 
@@ -1459,7 +1458,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
       <button class="st-cta" onclick="startTest()">Начать исследование <span aria-hidden="true">&#8594;</span></button>
     </div>
 
-    <!-- <p class="spot-hint" id="spotHint" aria-hidden="true">веди курсором</p> -->
+    <p class="spot-hint" id="spotHint" aria-hidden="true">веди курсором</p>
   </section>
 
   <!-- ═══ СЦЕНА 02 · ВОПРОС ═══
@@ -4462,7 +4461,12 @@ function soundCheck(){
   }
 
 
-  /* ── прожектор: круг света под курсором открывает то, что под водой ── */
+  /* ── прожектор: под курсором вода уходит и та же комната видна сухой ── */
+  (function(){
+    const probe=new Image();
+    probe.onload=()=>document.body.classList.add('reveal-on');
+    probe.src='assets/scene/childhood-dry.jpg';
+  })();
   (function(){
     const plate=document.querySelector('.plate');
     if(!plate||RM)return;
@@ -4488,47 +4492,29 @@ function soundCheck(){
 
 
 
-  /* ── видеофон: кадр ролика привязан к прокрутке первой сцены ──
-     Ролик не крутится сам. На нулевом кадре рыба смотрит в упор, к концу
-     сцены она уходит из кадра — то есть движение делает не таймер, а сам
-     посетитель. Заодно исчез стык петли: раньше десятисекундный ролик
-     возвращался с пустой воды на морду рыбы резкой склейкой.
-     Перемотка точна и не требует ни буфера, ни выгрузки кадров в память:
-     ролик закодирован all-intra, каждый кадр опорный (12 к/с, 1.9 МБ). */
+  /* ── видеофон первого экрана ──
+     Ролик идёт сам с начала и по кругу. Шва на стыке нет, потому что он
+     собран «туда-обратно»: прямой проход плюс обратный, и последний кадр
+     совпадает с первым. Просто loop здесь дёргался бы — за десять секунд
+     камера заметно подъезжает, и возврат был бы виден рывком.
+     Отказ от покадрового кодирования окупил удвоение длины: 20 секунд
+     весят 1.41 МБ против прежних 1.93 МБ за десять. */
   (function(){
     const v=document.getElementById('plateVideo'); if(!v)return;
-    const hero=document.getElementById('hero');
     /* отсекаем, кому видео не положено: экономия трафика, 2G, reduce-motion.
-       Узкие экраны больше не отсекаются — им отдаётся версия на 577 КБ. */
+       Узкие экраны получают версию на 492 КБ, а не заглушку. */
     const c=navigator.connection;
     if(RM||(c&&(c.saveData||/2g/.test(c.effectiveType||'')))){v.remove();return;}
     v.src = innerWidth<900 ? 'assets/video/hero-sm.mp4' : 'assets/video/hero.mp4';
-    let ok=false,dur=0,seeking=false,raf=null;
-    v.addEventListener('loadeddata',()=>{
-      if(ok||v.readyState<2)return;
-      ok=true; dur=v.duration||0;
-      v.classList.add('ready'); document.body.classList.add('has-video');
-      draw();
-    });
-    v.addEventListener('seeked',()=>{ seeking=false; });
+    let ok=false;
+    const on=()=>{ if(ok)return; ok=true;
+      v.classList.add('ready'); document.body.classList.add('has-video'); };
+    v.addEventListener('loadeddata',()=>{ if(v.readyState>=2)on(); });
+    v.addEventListener('playing',on);
     v.addEventListener('error',()=>{ v.remove(); });
     /* если через 6 секунд первый кадр не пришёл — остаёмся на фотокадре */
     setTimeout(()=>{ if(!ok)v.remove(); },6000);
-
-    /* Прогресс первой сцены: 0 — рыба смотрит в упор, 1 — рыба ушла.
-       Диапазон обрывается на 72% высоты экрана, а не на всей: дальше кадр
-       уже уползает за верхнюю кромку, и уход рыбы там просто некому видеть.
-       Оставшийся отрезок держит пустую воду — паузу перед темнотой сцены 02. */
-    function draw(){
-      raf=null;
-      if(!ok||!dur)return;
-      const h=((hero&&hero.offsetHeight)||innerHeight)*.72;
-      const t=Math.max(0,Math.min(1,scrollY/h))*(dur-.05);
-      if(!seeking&&Math.abs(v.currentTime-t)>.02){ seeking=true; v.currentTime=t; }
-    }
-    const nudge=()=>{ if(!raf)raf=requestAnimationFrame(draw); };
-    addEventListener('scroll',nudge,{passive:true});
-    addEventListener('resize',nudge,{passive:true});
+    const pr=v.play(); if(pr&&pr.catch)pr.catch(()=>{});
   })();
   /* ── SCROLL PARALLAX: кадры сцен движутся вместе с прокруткой ── */
   (function(){
