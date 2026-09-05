@@ -605,13 +605,16 @@ body.focus #caustic{opacity:.06;}
   animation:plateZoom 2.4s var(--ease-out) forwards;}
 @keyframes plateZoom{to{transform:scale(1)}}
 /* второй слой виден только внутри мягкого круга под курсором */
-.plate-reveal{background-image:url('assets/scene/fish.jpg');opacity:0;transition:opacity .7s ease;
-  filter:saturate(1.15) brightness(1.35);
+.plate-reveal{background-image:url('assets/scene/childhood-dry.jpg');opacity:0;transition:opacity .7s ease;
+  filter:saturate(1.05) brightness(1.12);
   -webkit-mask-image:radial-gradient(circle var(--spot) at var(--mx,50%) var(--my,42%),
     #000 0%,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);
   mask-image:radial-gradient(circle var(--spot) at var(--mx,50%) var(--my,42%),
     #000 0%,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);}
-body.spot-on .plate-reveal{opacity:1;}
+/* Кадр сухой комнаты лежит отдельным файлом. Пока его нет, механики нет
+   вовсе — вместо пустого круга под курсором. Класс ставит JS. */
+body.reveal-on.spot-on .plate-reveal{opacity:1;}
+body:not(.reveal-on) .spot-hint{display:none!important;}
 /* только вымеренное затухание вниз — никаких декоративных плёнок поверх */
 .plate-fade{position:absolute;inset:0;background:
   linear-gradient(to bottom,rgba(10,11,20,.34) 0%,rgba(10,11,20,.12) 18%,rgba(10,11,20,0) 40%,
@@ -1231,9 +1234,15 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 @media(max-width:900px){.fx--eye::after{left:24%;top:78%;width:76px;height:76px;}}
 /* стадия «уход»: силуэт медленно растворяется в глубине */
 /* Стадия «уход»: форма размыта до пятна в воде, а не до контура рыбы */
-.fx--leave .fx{width:min(110vw,1000px);animation:fxLeave 34s ease-in-out infinite;
-  filter:blur(13px);}
-.fx--leave .fx path,.fx--leave .fx circle{fill:rgba(143,168,184,.13);}
+/* Векторную рыбу здесь не показываем — по той же причине, что и в сцене 03:
+   контур читается клипартом. Крупный и размытый он давал серое пятно во
+   весь экран, мелкий и чёткий — мультяшную рыбку. Вместо формы уходит
+   уплотнение воды: масса без контура, которую взгляд достраивает сам. */
+.fx--leave .fx{display:none;}
+.fx--leave::before{content:'';position:absolute;left:50%;top:56%;translate:-50% -50%;
+  width:min(72vw,780px);aspect-ratio:2.4/1;pointer-events:none;
+  background:radial-gradient(54% 60% at 50% 50%,rgba(143,168,184,.085),transparent 68%);
+  animation:fxLeave 34s ease-in-out infinite;}
 @keyframes fxLeave{0%{transform:translate3d(6%,0,0) scale(1);opacity:.9}
                    60%{transform:translate3d(-14%,-4%,0) scale(.82);opacity:.35}
                    100%{transform:translate3d(-30%,-7%,0) scale(.7);opacity:0}}
@@ -1278,25 +1287,33 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   background:var(--accent-serif);transform:scaleX(0);transform-origin:center;
   transition:transform .5s var(--ease-out);}
 .six-t.on::after{transform:scaleX(1);}
-.six-stage{min-height:400px;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);
-  gap:56px;align-items:start;}
-.six-stage>.six-n,.six-stage>.six-h{grid-column:1;}
-.six-stage>.six-demo{grid-column:2;grid-row:1 / span 3;}
-.six-stage>.six-echo{grid-column:1;}
-.six-n{font-size:10.5px;letter-spacing:.24em;color:#5c5850;margin-bottom:16px;align-self:end;}
+/* Строки задаём явно и прижимаем содержимое к верху. Раньше строки тянулись
+   на всю min-height, счётчик висел по низу своей строки, и левая колонка
+   уезжала вниз, пока правая начиналась сверху — между ними зияла дыра. */
+.six-stage{min-height:400px;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1fr);
+  grid-template-rows:auto auto 1fr;gap:0 56px;align-items:start;align-content:start;}
+.six-stage>.six-n{grid-column:1;grid-row:1;}
+.six-stage>.six-h{grid-column:1;grid-row:2;}
+.six-stage>.six-echo{grid-column:1;grid-row:3;}
+.six-stage>.six-demo{grid-column:2;grid-row:1 / span 3;align-self:start;}
+.six-n{font-size:10.5px;letter-spacing:.24em;color:#5c5850;margin-bottom:14px;}
 .six-h{font-size:clamp(1.5rem,3.2vw,2.35rem);font-weight:400;letter-spacing:-.03em;
-  color:var(--ink);margin-bottom:0;line-height:1.2;}
+  color:var(--ink);margin-bottom:26px;line-height:1.2;}
 .six-h em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 .six-stage.swap .six-n,.six-stage.swap .six-h,.six-stage.swap .six-demo{opacity:0;transform:translateY(12px);}
 .six-n,.six-h,.six-demo{transition:opacity .45s var(--ease-out),transform .45s var(--ease-out);}
 .six-demo{display:flex;flex-direction:column;gap:22px;}
-.six-row{display:flex;flex-wrap:wrap;gap:10px;}
+.six-row{display:flex;flex-wrap:wrap;gap:4px 22px;}
 /* один тихий вид кнопки на все шесть демо — без плашек и скруглений-кружочков */
-.six-b{background:none;border:1px solid rgba(242,239,233,.13);padding:12px 18px;cursor:pointer;
+/* Не плашка, а подпись с волосяной чертой — тот же язык, что у главной
+   кнопки сайта. Рамка со всех сторон делала из сцены обычную форму. */
+.six-b{background:none;border:0;border-bottom:1px solid rgba(242,239,233,.16);
+  padding:10px 2px 8px;margin-right:8px;cursor:pointer;min-height:var(--tap-min);
   font-family:var(--fb);font-size:14px;letter-spacing:-.01em;color:var(--muted);
-  transition:color .3s,border-color .3s,transform .3s var(--ease-out);}
-.six-b:hover{color:var(--ink);border-color:rgba(242,239,233,.3);transform:translateY(-2px);}
-.six-b.on{color:var(--ink);border-color:var(--accent-serif);}
+  transition:color .3s,border-color .3s;}
+.six-b:hover{color:var(--ink);border-bottom-color:rgba(242,239,233,.42);}
+.six-b.on{color:var(--ink);border-bottom-color:var(--accent-serif);}
+.six-b:focus-visible{outline:1px solid var(--accent-serif);outline-offset:4px;}
 .six-ill{width:min(100%,340px);aspect-ratio:16/10;overflow:hidden;
   border:1px solid rgba(242,239,233,.09);}
 .six-ill svg{width:100%;height:100%;display:block;}
@@ -1441,13 +1458,9 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   <section id="hero" class="st">
     <div class="plate" aria-hidden="true">
       <div class="plate-base"></div>
-      <video class="plate-video" id="plateVideo" muted playsinline preload="auto"
+      <video class="plate-video" id="plateVideo" muted loop autoplay playsinline preload="auto"
              poster="assets/scene/childhood.jpg"></video>
-      <!-- Раскрытие под курсором временно снято: оно показывало fish.jpg —
-           кадр из другой серии, который мы всё равно переснимаем. Вернуть =
-           раскомментировать строку ниже и подсказку «веди курсором», когда
-           будет кадр в той же художественной серии, что и комната.
-      <div class="plate-reveal" id="plateReveal"></div> -->
+      <div class="plate-reveal" id="plateReveal"></div>
       <div class="plate-fade"></div>
     </div>
 
@@ -1459,7 +1472,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
       <button class="st-cta" onclick="startTest()">Начать исследование <span aria-hidden="true">&#8594;</span></button>
     </div>
 
-    <!-- <p class="spot-hint" id="spotHint" aria-hidden="true">веди курсором</p> -->
+    <p class="spot-hint" id="spotHint" aria-hidden="true">веди курсором</p>
   </section>
 
   <!-- ═══ СЦЕНА 02 · ВОПРОС ═══
@@ -1579,7 +1592,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
         <circle class="fx-eye" cx="44" cy="36" r="4.6"/>
       </svg></div>
     <div class="fin">
-      <p class="fin-l rv">Ты уже начал{а|} исследовать себя.</p>
+      <p class="fin-l rv">Исследование уже началось.</p>
       <h2 class="fin-h rv" style="--rd:.4s">Осталось узнать,<br>куда это <em>ведёт</em></h2>
       <button class="st-cta rv" style="--rd:.9s" onclick="startTest()">Начать исследование <span aria-hidden="true">&#8594;</span></button>
       <button class="mlink rv" style="--rd:1.1s;margin-top:22px" onclick="showAtt()">Или короткий тест на стиль привязанности <span aria-hidden="true">&#8594;</span></button>
@@ -4462,7 +4475,12 @@ function soundCheck(){
   }
 
 
-  /* ── прожектор: круг света под курсором открывает то, что под водой ── */
+  /* ── прожектор: под курсором вода уходит и та же комната видна сухой ── */
+  (function(){
+    const probe=new Image();
+    probe.onload=()=>document.body.classList.add('reveal-on');
+    probe.src='assets/scene/childhood-dry.jpg';
+  })();
   (function(){
     const plate=document.querySelector('.plate');
     if(!plate||RM)return;
@@ -4488,47 +4506,29 @@ function soundCheck(){
 
 
 
-  /* ── видеофон: кадр ролика привязан к прокрутке первой сцены ──
-     Ролик не крутится сам. На нулевом кадре рыба смотрит в упор, к концу
-     сцены она уходит из кадра — то есть движение делает не таймер, а сам
-     посетитель. Заодно исчез стык петли: раньше десятисекундный ролик
-     возвращался с пустой воды на морду рыбы резкой склейкой.
-     Перемотка точна и не требует ни буфера, ни выгрузки кадров в память:
-     ролик закодирован all-intra, каждый кадр опорный (12 к/с, 1.9 МБ). */
+  /* ── видеофон первого экрана ──
+     Ролик идёт сам с начала и по кругу. Шва на стыке нет, потому что он
+     собран «туда-обратно»: прямой проход плюс обратный, и последний кадр
+     совпадает с первым. Просто loop здесь дёргался бы — за десять секунд
+     камера заметно подъезжает, и возврат был бы виден рывком.
+     Отказ от покадрового кодирования окупил удвоение длины: 20 секунд
+     весят 1.41 МБ против прежних 1.93 МБ за десять. */
   (function(){
     const v=document.getElementById('plateVideo'); if(!v)return;
-    const hero=document.getElementById('hero');
     /* отсекаем, кому видео не положено: экономия трафика, 2G, reduce-motion.
-       Узкие экраны больше не отсекаются — им отдаётся версия на 577 КБ. */
+       Узкие экраны получают версию на 492 КБ, а не заглушку. */
     const c=navigator.connection;
     if(RM||(c&&(c.saveData||/2g/.test(c.effectiveType||'')))){v.remove();return;}
     v.src = innerWidth<900 ? 'assets/video/hero-sm.mp4' : 'assets/video/hero.mp4';
-    let ok=false,dur=0,seeking=false,raf=null;
-    v.addEventListener('loadeddata',()=>{
-      if(ok||v.readyState<2)return;
-      ok=true; dur=v.duration||0;
-      v.classList.add('ready'); document.body.classList.add('has-video');
-      draw();
-    });
-    v.addEventListener('seeked',()=>{ seeking=false; });
+    let ok=false;
+    const on=()=>{ if(ok)return; ok=true;
+      v.classList.add('ready'); document.body.classList.add('has-video'); };
+    v.addEventListener('loadeddata',()=>{ if(v.readyState>=2)on(); });
+    v.addEventListener('playing',on);
     v.addEventListener('error',()=>{ v.remove(); });
     /* если через 6 секунд первый кадр не пришёл — остаёмся на фотокадре */
     setTimeout(()=>{ if(!ok)v.remove(); },6000);
-
-    /* Прогресс первой сцены: 0 — рыба смотрит в упор, 1 — рыба ушла.
-       Диапазон обрывается на 72% высоты экрана, а не на всей: дальше кадр
-       уже уползает за верхнюю кромку, и уход рыбы там просто некому видеть.
-       Оставшийся отрезок держит пустую воду — паузу перед темнотой сцены 02. */
-    function draw(){
-      raf=null;
-      if(!ok||!dur)return;
-      const h=((hero&&hero.offsetHeight)||innerHeight)*.72;
-      const t=Math.max(0,Math.min(1,scrollY/h))*(dur-.05);
-      if(!seeking&&Math.abs(v.currentTime-t)>.02){ seeking=true; v.currentTime=t; }
-    }
-    const nudge=()=>{ if(!raf)raf=requestAnimationFrame(draw); };
-    addEventListener('scroll',nudge,{passive:true});
-    addEventListener('resize',nudge,{passive:true});
+    const pr=v.play(); if(pr&&pr.catch)pr.catch(()=>{});
   })();
   /* ── SCROLL PARALLAX: кадры сцен движутся вместе с прокруткой ── */
   (function(){
@@ -4707,10 +4707,10 @@ function soundCheck(){
     {tab:'Слышишь',  n:'01', h:'Что ты <em>слышишь</em>',
      sub:'Тритоновый парадокс: одна и та же пара тонов слышится кому-то вверх, кому-то вниз.',
      kind:'audio', aType:'tritone',
-     opts:['Вверх','Вниз','Не разобрал{а|}'],
+     opts:['Вверх','Вниз','Не различаю'],
      echo:['<b>Вверх.</b> Так слышит примерно половина людей — и это зависит от языковой среды детства, а не от слуха.',
            '<b>Вниз.</b> Вторая половина слышит ровно наоборот. Правильного ответа нет: сигнал физически неоднозначен.',
-           '<b>Не разобрал{а|}.</b> Тоже ответ: не каждый неоднозначный стимул обязан раскладываться по полочкам.']},
+           '<b>Не различаю.</b> Тоже ответ: не каждый неоднозначный стимул обязан раскладываться по полочкам.']},
     {tab:'Видишь',   n:'02', h:'Что ты <em>видишь</em>',
      sub:'Ваза Рубина: два лица или сосуд. Что проявилось первым — то и сигнал.',
      kind:'ill', illT:'rubin',
