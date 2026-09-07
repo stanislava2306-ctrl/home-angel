@@ -956,6 +956,38 @@ html{background:var(--void)!important;}
     radial-gradient(120% 60% at 50% -14%, var(--w-shaft,rgba(150,185,200,.10)), transparent 62%),
     linear-gradient(180deg, var(--w-top,#0b1a20) 0%, var(--w-mid,#081318) 48%, var(--w-bot,#050708) 100%)!important;
   transition:background .3s linear;}
+
+/* ── КАУСТИКА: свет как сквозной слой ──
+   Раньше этот кадр лежал фоном внутри одной сцены. Теперь он живёт в самой
+   воде и тянется через весь документ, поэтому световая сетка проходит через
+   стыки секций — границе просто негде прочитаться. Яркость ведёт прокрутка:
+   базовая — от глубины (у поверхности свет есть, ко дну его нет), плюс
+   подсветка ровно в тот момент, когда стык двух сцен идёт через экран. */
+.cau{position:absolute;left:-10%;right:-10%;top:-16%;height:132%;
+  background:url('assets/scene/transition.jpg') center 62%/cover no-repeat;
+  mix-blend-mode:screen;pointer-events:none;
+  /* верх кадра — мягкие лучи, они дублировали бы уже существующий столб
+     света в градиенте воды; оставляем только саму сетку бликов */
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,rgba(0,0,0,.45) 16%,#000 40%,#000 88%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,rgba(0,0,0,.45) 16%,#000 40%,#000 88%,transparent 100%);
+  will-change:transform,opacity;}
+.cau--a{opacity:calc(var(--cau,0)*.55);animation:cauA 41s ease-in-out infinite alternate;}
+/* вторая копия крупнее и медленнее — две скорости дают воде объём,
+   а не одну плоскую картинку */
+.cau--b{opacity:calc(var(--cau,0)*.3);filter:blur(2px);
+  animation:cauB 67s ease-in-out infinite alternate;}
+@keyframes cauA{
+  from{transform:translate3d(-1.5%,-2%,0) scale(1.06);}
+  to  {transform:translate3d(1.5%,3%,0) scale(1.13);}}
+@keyframes cauB{
+  from{transform:translate3d(2%,4%,0) scale(1.5) rotate(.6deg);}
+  to  {transform:translate3d(-2%,-3%,0) scale(1.66) rotate(-.6deg);}}
+@media (prefers-reduced-motion:reduce){
+  .cau{animation:none;transform:none;}
+  .cau--b{display:none;}}
+/* на телефоне хватает одного слоя: размытая копия во весь экран — самая
+   дорогая часть эффекта, а выигрыш в объёме там почти не читается */
+@media (max-width:900px){.cau--b{display:none;}}
 body{color:var(--ink);}
 .hero-sub,.scene-txt{color:var(--muted);}
 h1.hero-h,.scene h2{color:var(--ink);}
@@ -1074,6 +1106,10 @@ body.spot-on .spot-hint{opacity:0!important;animation:none!important;transition:
   .hw{display:inline-block;opacity:0;transform:translateY(38%) rotate(1.2deg);
       animation:wordIn 1.15s var(--ease-out) forwards;animation-delay:var(--wd,0s);}
   @keyframes wordIn{to{opacity:1;transform:none}}
+  /* «детстве» — такое же слово строки. Раньше его перехватывала анимация
+     курсива, оставшаяся от антиквы: она отменяла wordIn, и слово навсегда
+     застревало сдвинутым вниз и повёрнутым. */
+  h1.hero-h em.hw{animation:wordIn 1.15s var(--ease-out) forwards;animation-delay:var(--wd,0s);}
 
   /* показатели внизу еле заметно дышат — кадр остаётся живым */
   .stat svg{animation:pulse 6s ease-in-out infinite;}
@@ -1189,9 +1225,10 @@ body.dive #depth{opacity:1;}
 @media(max-width:900px){#depth{right:10px;font-size:9px;}#depth .d-rail{height:24vh;}}
 @media(prefers-reduced-motion:reduce){#depth{display:none;}}
 .st--dark{background:transparent;}
-/* стык сцен: не резкая граница, а растворение */
-.st--dark + .st--dark::before{content:'';position:absolute;left:50%;top:0;translate:-50% 0;
-  width:min(70vw,760px);height:1px;background:linear-gradient(90deg,transparent,rgba(242,239,233,.10),transparent);}
+/* Стык сцен ничем не отмечен. Раньше здесь лежала волосяная линия — она
+   осталась от вёрстки блоками и делала ровно то, чего делать не должна:
+   показывала, где кончается одна сцена и начинается другая. Переход теперь
+   держит каустика в слое воды. */
 
 /* ── СЦЕНА 01: только заголовок и одно действие ── */
 /* композиция прижата к низу кадра, но с запасом: подсказка о курсоре
@@ -1546,7 +1583,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 
 <!-- толща воды: глубина, фотослой, лучи, каустика, взвесь -->
 <div id="grain" aria-hidden="true"></div>
-<div id="ocean" aria-hidden="true"></div>
+<div id="ocean" aria-hidden="true"><i class="cau cau--a"></i><i class="cau cau--b"></i></div>
 <div id="rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div id="caustic" aria-hidden="true"></div>
 <canvas id="motes" aria-hidden="true"></canvas>
@@ -1601,7 +1638,6 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
        Ответ на предыдущую сцену. Здесь впервые проступает глаз — но не рыба. -->
   <section class="st--dark" id="discovery">
     <div class="d-stick">
-    <div class="scene-veil" aria-hidden="true"><img src="assets/scene/transition.jpg" alt="" loading="lazy" decoding="async"></div>
     <!-- Здесь рыба впервые проходит мимо — далеко и не в фокусе. Это первый
          намёк на то, что в воде кто-то есть, до полного показа в сцене 06. -->
     <span class="swim swim--far" id="discFish" aria-hidden="true"><img src="assets/fish/whaleshark-cut.webp" alt="" loading="lazy" decoding="async"></span>
@@ -4663,6 +4699,24 @@ function soundCheck(){
         ','+(A[3]+(B[3]-A[3])*t).toFixed(3)+')';}
     var val=box&&box.querySelector('.d-val'), cur=box&&box.querySelector('.d-cur'),
         nm=box&&box.querySelector('.d-name'), raf=null;
+    /* Границы секций — те самые стыки, которые нельзя показывать.
+       Держим их список, чтобы усиливать каустику ровно на подходе к стыку. */
+    var edges=[];
+    function measure(){
+      var main=document.getElementById('landing');
+      edges=main?[].slice.call(main.children).map(function(el){
+        return el.getBoundingClientRect().top+scrollY;}).filter(function(y){return y>1;}):[];
+    }
+    /* 0 у поверхности стыка нет, 1 — стык ровно посреди экрана */
+    function seamAt(mid){
+      if(!edges.length)return 0;
+      var reach=innerHeight*.62,best=0;
+      for(var k=0;k<edges.length;k++){
+        var d=Math.abs(edges[k]-mid);
+        if(d<reach){var v=1-d/reach; if(v>best)best=v;}
+      }
+      return best*best*(3-2*best); /* сглаживание, чтобы свет не «щёлкал» */
+    }
     function apply(){
       raf=null;
       var H=document.documentElement.scrollHeight-innerHeight;
@@ -4673,13 +4727,20 @@ function soundCheck(){
       ocean.style.setProperty('--w-mid',mixH(a.mid,b.mid,t));
       ocean.style.setProperty('--w-bot',mixH(a.bot,b.bot,t));
       ocean.style.setProperty('--w-shaft',mixR(a.sh,b.sh,t));
+      /* Свет: у поверхности его много, ко дну почти нет; плюс волна на стыке,
+         которая на глубине заметнее, потому что там ей не с чем спорить. */
+      var base=Math.pow(1-g,1.5),
+          seam=seamAt(scrollY+innerHeight/2),
+          cau=Math.min(1,base*.56+seam*(.28+.14*(1-g)));
+      ocean.style.setProperty('--cau',cau.toFixed(3));
       if(val){val.textContent=Math.round(g*240)+' м';cur.style.top=(g*100).toFixed(1)+'%';
         nm.textContent=(t<.5?a.n:b.n);}
       document.body.classList.toggle('dive', g>0.02);
     }
     addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(apply);},{passive:true});
-    addEventListener('resize',function(){if(!raf)raf=requestAnimationFrame(apply);},{passive:true});
-    apply();
+    addEventListener('resize',function(){measure();if(!raf)raf=requestAnimationFrame(apply);},{passive:true});
+    addEventListener('load',function(){measure();apply();});
+    measure();apply();
   })();
 
   /* ── сцена 02: прокрутка ведёт фразы, на экране ровно одна ── */
