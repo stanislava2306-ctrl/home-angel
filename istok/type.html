@@ -4,61 +4,131 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Исток — шрифт первого экрана</title>
+<title>Исток — шрифтовые пары</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400&family=Unbounded:wght@200;300&family=Manrope:wght@200;300&family=Forum&family=Cormorant+Garamond:wght@300;400&family=Prata&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400&family=Unbounded:wght@300;400&family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Marck+Script&family=Caveat:wght@400;500&family=Bad+Script&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#080d10;color:#F2EFE9;font-family:'Onest',system-ui,sans-serif;font-weight:300}
-.opt{position:relative;height:82svh;min-height:520px;overflow:hidden;
-  display:flex;align-items:flex-end;justify-content:center;padding:0 24px 9vh}
+body{background:#070b0e;color:#F2EFE9;font-family:'Onest',system-ui,sans-serif;font-weight:300}
+
+.lead{max-width:760px;margin:0 auto;padding:11vh 24px 7vh}
+.lead h2{font-weight:300;font-size:clamp(1.3rem,3vw,1.9rem);letter-spacing:-.03em;margin-bottom:18px}
+.lead p{color:#8ea3ad;font-size:15px;line-height:1.7;margin-bottom:12px}
+.lead b{color:#F2EFE9;font-weight:400}
+
+.opt{position:relative;min-height:86svh;overflow:hidden;
+  display:flex;align-items:flex-end;justify-content:center;padding:0 24px 8vh}
 .bg{position:absolute;inset:0;background:url('assets/scene/childhood.jpg') center/cover no-repeat}
 .veil{position:absolute;inset:0;background:linear-gradient(180deg,
-  rgba(6,14,18,.5) 0%,rgba(6,14,18,0) 26%,rgba(6,14,18,.08) 54%,rgba(8,14,18,.8) 100%)}
-.in{position:relative;z-index:2;text-align:center;width:100%}
-h1{font-weight:200;font-size:clamp(1.9rem,5.4vw,4rem);line-height:1.2;letter-spacing:-.03em}
-h1 em{font-style:normal;color:#A9C6D4}
-.tag{position:absolute;top:22px;left:22px;z-index:3;font-size:11px;letter-spacing:.24em;
-  text-transform:uppercase;color:#8ea3ad;font-family:'Onest',sans-serif;font-weight:400}
-.note{position:absolute;top:22px;right:22px;z-index:3;font-size:11.5px;color:#6d7f88;
-  max-width:34ch;text-align:right;font-family:'Onest',sans-serif;line-height:1.5}
-.cta{display:inline-flex;gap:.6em;margin-top:26px;font-family:'Onest',sans-serif;
-  font-size:.85rem;font-weight:400;color:#F2EFE9;border-bottom:1px solid rgba(242,239,233,.34);
-  padding-bottom:6px}
+  rgba(6,14,18,.55) 0%,rgba(6,14,18,0) 24%,rgba(6,14,18,.10) 52%,rgba(7,11,14,.86) 100%)}
+.in{position:relative;z-index:2;text-align:center;width:100%;max-width:1100px}
 
-.f1 h1{font-family:'Unbounded',sans-serif}
-.f2 h1{font-family:'Manrope',sans-serif;letter-spacing:-.04em}
-.f3 h1{font-family:'Forum',Georgia,serif;font-weight:400;letter-spacing:.005em}
-.f4 h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;
-  font-size:clamp(2.4rem,7vw,5.2rem);letter-spacing:0}
-.f5 h1{font-family:'Onest',sans-serif;font-weight:200;letter-spacing:-.04em}
+h1{font-weight:200;font-size:clamp(2.1rem,6.4vw,4.8rem);line-height:1.14;letter-spacing:-.035em}
+h1 em{font-style:normal;color:#A9C6D4}
+.body{margin-top:34px;color:#9fb2bb;font-size:clamp(14px,1.5vw,17px);line-height:1.7;
+  max-width:46ch;margin-left:auto;margin-right:auto}
+.body em{font-style:normal;color:#A9C6D4}
+
+.tag{position:absolute;top:20px;left:22px;z-index:3;font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;color:#9db2bc;font-family:'Onest',sans-serif;font-weight:400}
+.note{position:absolute;top:18px;right:22px;z-index:3;font-size:12px;color:#7d919b;
+  max-width:38ch;text-align:right;font-family:'Onest',sans-serif;font-weight:300;line-height:1.55}
+.note b{color:#c9d7dd;font-weight:400}
+@media(max-width:760px){.note{position:static;text-align:center;max-width:none;
+  margin:0 auto 26px;order:-1}.in{padding-top:74px}}
+
+/* 01 — что стоит сейчас */
+.p1 h1 em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:400;font-size:1.12em}
+.p1 .body em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:400;font-size:1.1em}
+
+/* 02 — рукописный курсив, ближе всего к shelly / allegretto */
+.p2 h1 em{font-family:'Marck Script',cursive;font-weight:400;font-size:1.34em;letter-spacing:0}
+.p2 .body em{font-family:'Marck Script',cursive;font-size:1.24em}
+
+/* 03 — тёплый почерк */
+.p3 h1 em{font-family:'Caveat',cursive;font-weight:500;font-size:1.42em;letter-spacing:0}
+.p3 .body em{font-family:'Caveat',cursive;font-weight:500;font-size:1.3em}
+
+/* 04 — перо, наклон сильнее */
+.p4 h1 em{font-family:'Bad Script',cursive;font-weight:400;font-size:1.28em;letter-spacing:0}
+.p4 .body em{font-family:'Bad Script',cursive;font-size:1.2em}
+
+/* 05 — структура WIDOCK / involve: тяжёлые капсы плюс лёгкий строчной */
+.p5 h1{font-family:'Unbounded',sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(1.6rem,5.6vw,4.4rem);letter-spacing:-.01em;line-height:1.06}
+.p5 h1 em{display:block;font-family:'Onest',sans-serif;font-weight:200;text-transform:none;
+  font-size:.58em;letter-spacing:-.03em;margin-top:.28em;color:#dfe8ec}
+.p5 .body em{font-family:'Onest',sans-serif;font-weight:400;color:#dfe8ec}
 </style>
 </head>
 <body>
-<section class="opt f1"><div class="bg"></div><div class="veil"></div>
-  <span class="tag">01 · Unbounded — сейчас</span>
-  <span class="note">Геометрический дисплейный. Заметный характер, но читается как «техно» и спорит с настроением воды.</span>
-  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
 
-<section class="opt f2"><div class="bg"></div><div class="veil"></div>
-  <span class="tag">02 · Manrope Extra Light</span>
-  <span class="note">Тот же класс, но без причуд. Тише, современнее, не тянет внимание на себя.</span>
-  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
+<div class="lead">
+  <h2>Пять пар на нашем кадре</h2>
+  <p>Одна и та же строка, один и тот же кадр — меняется только гарнитура. Ниже
+  каждой пары идёт кусок обычного текста, потому что шрифт решается не на
+  заголовке, а на строчке в 15 пунктов.</p>
+  <p><b>Что важно знать:</b> сами Shelly, Allegretto и Widock — латинские
+  коммерческие гарнитуры, кириллицы у них нет. Так что вопрос не «взять их или
+  нет», а какой характер из них нам нужен: строгий каллиграфический курсив,
+  живой почерк или тяжёлые капсы.</p>
+</div>
 
-<section class="opt f3"><div class="bg"></div><div class="veil"></div>
-  <span class="tag">03 · Forum</span>
-  <span class="note">Прямая антиква с родной кириллицей. Музейное, спокойное, взрослое.</span>
-  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
+<section class="opt p1"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">01 · Onest + Cormorant Garamond Italic</span>
+  <p class="note"><b>Стоит сейчас.</b> Курсив антиквы: сдержанный,
+  «книжный». Не почерк — типографика.</p>
+  <div class="in">
+    <h1>Всё начинается<br>в <em>детстве</em></h1>
+    <p class="body">Тест не ставит диагноз. Он показывает, какие сценарии
+    ты повторяешь <em>снова и снова</em>.</p>
+  </div>
+</section>
 
-<section class="opt f4"><div class="bg"></div><div class="veil"></div>
-  <span class="tag">04 · Cormorant Garamond Light</span>
-  <span class="note">Высокий контраст, тонкие штрихи. Дороже всех, но требует крупного кегля.</span>
-  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
+<section class="opt p2"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">02 · Onest + Marck Script</span>
+  <p class="note"><b>Ближе всего к твоему рефу.</b> Настоящий рукописный
+  курсив с кириллицей, тонкий и связный.</p>
+  <div class="in">
+    <h1>Всё начинается<br>в <em>детстве</em></h1>
+    <p class="body">Тест не ставит диагноз. Он показывает, какие сценарии
+    ты повторяешь <em>снова и снова</em>.</p>
+  </div>
+</section>
 
-<section class="opt f5"><div class="bg"></div><div class="veil"></div>
-  <span class="tag">05 · Onest Extra Light — без дисплейной пары</span>
-  <span class="note">Одна гарнитура на весь сайт. Главным героем остаётся картинка, а не буквы.</span>
-  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
+<section class="opt p3"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">03 · Onest + Caveat</span>
+  <p class="note">Тёплый живой почерк. Личное и негромкое — но ближе
+  к дневнику, чем к каллиграфии.</p>
+  <div class="in">
+    <h1>Всё начинается<br>в <em>детстве</em></h1>
+    <p class="body">Тест не ставит диагноз. Он показывает, какие сценарии
+    ты повторяешь <em>снова и снова</em>.</p>
+  </div>
+</section>
+
+<section class="opt p4"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">04 · Onest + Bad Script</span>
+  <p class="note">Перо с сильным наклоном. Резче второго варианта,
+  заметнее в строке.</p>
+  <div class="in">
+    <h1>Всё начинается<br>в <em>детстве</em></h1>
+    <p class="body">Тест не ставит диагноз. Он показывает, какие сценарии
+    ты повторяешь <em>снова и снова</em>.</p>
+  </div>
+</section>
+
+<section class="opt p5"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">05 · Unbounded капсы + Onest Light</span>
+  <p class="note">Структура WIDOCK / involve. Тяжёлые капсы и лёгкий
+  строчной под ними.</p>
+  <div class="in">
+    <h1>Всё начинается<em>в детстве</em></h1>
+    <p class="body">Тест не ставит диагноз. Он показывает, какие сценарии
+    ты повторяешь <em>снова и снова</em>.</p>
+  </div>
+</section>
+
 </body>
 </html>
