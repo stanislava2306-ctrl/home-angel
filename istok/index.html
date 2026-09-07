@@ -1247,6 +1247,12 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
    смешивается не с водой, а с пустотой внутри секции — вокруг рыбы
    появляется тёмный прямоугольник. Там, где рыба плывёт, изоляцию снимаем. */
 #discovery,#fish-scene{isolation:auto;}
+/* Сцену держим на месте, пока она проходит. Иначе собственная прокрутка
+   секции уносит рыбу вверх быстрее, чем её опускает траектория, и дуга
+   просто не видна: 558 пикселей снижения против 1800 пикселей проката. */
+#discovery{height:230svh;display:block;padding:0;}
+.d-stick{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;
+  align-items:center;justify-content:center;padding:0 clamp(20px,5vw,72px);}
 .swim--far{width:min(56vw,760px);top:30%;}
 .swim--far img{filter:brightness(.42) saturate(.7);}
 @media(max-width:900px){.swim--far{width:min(120vw,560px);top:24%;}}
@@ -1454,7 +1460,12 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   border:1px solid rgba(242,239,233,.1);overflow:hidden;
   box-shadow:0 40px 90px -50px rgba(0,0,0,.95);}
 .swim{position:absolute;left:0;top:54%;translate:0 -50%;z-index:1;line-height:0;
-  width:min(96vw,1240px);mix-blend-mode:screen;pointer-events:none;will-change:transform;}
+  width:min(96vw,1240px);pointer-events:none;will-change:transform;}
+/* Вырезка с прозрачностью вместо режима наложения. screen убирал чёрный фон
+   бесплатно, но ломался каждый раз, когда над рыбой появлялся новый контекст
+   наложения: сначала из-за isolation у секций, потом из-за position:sticky и
+   overflow у закреплённой сцены. Альфа взята из яркости — фон снят на чистом
+   чёрном, поэтому вырезка точна вплоть до полупрозрачной ткани плавников. */
 .swim img{display:block;width:100%;height:auto;}
 @media(max-width:900px){.swim{width:min(160vw,720px);top:34%;}}
 @media(prefers-reduced-motion:reduce){.swim{transform:translate3d(-14vw,0,0);}}
@@ -1565,8 +1576,8 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 
     <div class="hero-in">
       <h1 class="hero-h">
-        <span class="hline"><span class="hw" style="--wd:.9s">Всё</span> <span class="hw" style="--wd:1.05s">начинается</span> <span class="hw" style="--wd:1.2s">в</span></span>
-        <span class="hline"><em class="hw" style="--wd:1.4s">детстве</em></span>
+        <span class="hline"><span class="hw" style="--wd:.9s">Всё</span> <span class="hw" style="--wd:1.05s">начинается</span></span>
+        <span class="hline"><span class="hw" style="--wd:1.2s">в</span>&nbsp;<em class="hw" style="--wd:1.4s">детстве</em></span>
       </h1>
       <button class="st-cta" onclick="startTest()">Начать исследование <span aria-hidden="true">&#8594;</span></button>
     </div>
@@ -1581,23 +1592,25 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
       <div class="qlines">
         <p class="qline">Почему ты замолкаешь,<br>когда нужно говорить.</p>
         <p class="qline">Почему уходишь,<br>когда нужно остаться.</p>
-        <p class="qline">Почему снова и снова<br>выбираешь <em>одно и то же</em>.</p>
+        <p class="qline">Почему снова и&nbsp;снова<br>выбираешь <em>одно и&nbsp;то же</em>.</p>
       </div>
     </div>
   </section>
 
   <!-- ═══ СЦЕНА 03 · УЗНАВАНИЕ ═══
        Ответ на предыдущую сцену. Здесь впервые проступает глаз — но не рыба. -->
-  <section class="st st--dark" id="discovery">
+  <section class="st--dark" id="discovery">
+    <div class="d-stick">
     <div class="scene-veil" aria-hidden="true"><img src="assets/scene/transition.jpg" alt="" loading="lazy" decoding="async"></div>
     <!-- Здесь рыба впервые проходит мимо — далеко и не в фокусе. Это первый
          намёк на то, что в воде кто-то есть, до полного показа в сцене 06. -->
-    <span class="swim swim--far" id="discFish" aria-hidden="true"><img src="assets/fish/whaleshark.jpg" alt="" loading="lazy" decoding="async"></span>
+    <span class="swim swim--far" id="discFish" aria-hidden="true"><img src="assets/fish/whaleshark-cut.webp" alt="" loading="lazy" decoding="async"></span>
     <div class="disc">
-      <p class="disc-l rv">Это не случайность.</p>
+      <p class="disc-l rv">Это не&nbsp;случайность.</p>
       <p class="disc-l rv" style="--rd:.5s">Это паттерны.</p>
-      <p class="disc-t rv" style="--rd:1.1s">Они сформировались как способ выжить.<br>
+      <p class="disc-t rv" style="--rd:1.1s">Они сформировались как&nbsp;способ выжить.<br>
         <span class="disc-em">Теперь они мешают жить.</span></p>
+    </div>
     </div>
   </section>
 
@@ -1608,8 +1621,8 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
     <div class="scene-veil" aria-hidden="true"><img src="assets/scene/memory.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="mini" id="miniWrap">
       <p class="mini-cue rv">вопрос 35 из 56</p>
-      <h2 class="mini-q rv">Какой образ описывает тебя <em>в детстве</em>?</h2>
-      <p class="mini-hint">Выбери интуитивно, не думай. Это настоящий вопрос из теста — блок «Образы и сценарии».</p>
+      <h2 class="mini-q rv">Какой образ описывает тебя <em>в&nbsp;детстве</em>?</h2>
+      <p class="mini-hint">Выбери интуитивно, не&nbsp;думай. Это настоящий вопрос из&nbsp;теста — блок «Образы и&nbsp;сценарии».</p>
       <div class="mini-cards" id="miniCards"></div>
       <p class="mini-echo" id="miniEcho"></p>
     </div>
@@ -1622,24 +1635,24 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
     <div class="scene-veil" aria-hidden="true"><img src="assets/scene/perception.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="six-in">
       <p class="six-lead rv">Один фрагмент ты уже прошёл. Дальше — ещё пять способов,
-        и каждый спрашивает не мнение, а реакцию.</p>
+        и&nbsp;каждый спрашивает не&nbsp;мнение, а&nbsp;реакцию.</p>
       <h2 class="six-title rv">Шесть способов<br>увидеть <em>себя</em></h2>
       <ol class="stages">
-        <li class="rv"><span class="s-n">01</span><span class="s-h">Что ты слышишь</span>
-          <span class="s-t">Звуковые иллюзии. Одна и та же пара тонов слышится кому-то вверх, кому-то вниз.</span></li>
-        <li class="rv" style="--rd:.08s"><span class="s-n">02</span><span class="s-h">Что ты видишь</span>
-          <span class="s-t">Зрительные иллюзии. Что проявилось первым — то и сигнал.</span></li>
-        <li class="rv" style="--rd:.16s"><span class="s-n">03</span><span class="s-h">Что ты чувствуешь</span>
-          <span class="s-t">Незаконченные предложения. Дописываешь как есть, не задумываясь.</span></li>
-        <li class="rv" style="--rd:.24s"><span class="s-n">04</span><span class="s-h">Что откликается</span>
-          <span class="s-t">Цвета. Выбираешь не любимый, а тот, к которому тянет сейчас.</span></li>
+        <li class="rv"><span class="s-n">01</span><span class="s-h">Что&nbsp;ты слышишь</span>
+          <span class="s-t">Звуковые иллюзии. Одна и&nbsp;та же пара тонов слышится кому-то вверх, кому-то вниз.</span></li>
+        <li class="rv" style="--rd:.08s"><span class="s-n">02</span><span class="s-h">Что&nbsp;ты видишь</span>
+          <span class="s-t">Зрительные иллюзии. Что&nbsp;проявилось первым — то и&nbsp;сигнал.</span></li>
+        <li class="rv" style="--rd:.16s"><span class="s-n">03</span><span class="s-h">Что&nbsp;ты чувствуешь</span>
+          <span class="s-t">Незаконченные предложения. Дописываешь как&nbsp;есть, не&nbsp;задумываясь.</span></li>
+        <li class="rv" style="--rd:.24s"><span class="s-n">04</span><span class="s-h">Что&nbsp;откликается</span>
+          <span class="s-t">Цвета. Выбираешь не&nbsp;любимый, а&nbsp;тот, к&nbsp;которому тянет сейчас.</span></li>
         <li class="rv" style="--rd:.32s"><span class="s-n">05</span><span class="s-h">Кем ты себя видишь</span>
-          <span class="s-t">Образы и сценарии. Метафора говорит то, чего не скажешь прямо.</span></li>
-        <li class="rv" style="--rd:.4s"><span class="s-n">06</span><span class="s-h">Как ты вспоминаешь</span>
-          <span class="s-t">Шкалы воспоминаний. Насколько сильно — важнее, чем что именно.</span></li>
+          <span class="s-t">Образы и&nbsp;сценарии. Метафора говорит то, чего не&nbsp;скажешь прямо.</span></li>
+        <li class="rv" style="--rd:.4s"><span class="s-n">06</span><span class="s-h">Как&nbsp;ты вспоминаешь</span>
+          <span class="s-t">Шкалы воспоминаний. Насколько сильно — важнее, чем что&nbsp;именно.</span></li>
       </ol>
-      <p class="six-foot rv" style="--rd:.5s">Перед ними — три коротких вопроса о контексте детства.
-        После большинства ответов сразу видно, что значит твой выбор.</p>
+      <p class="six-foot rv" style="--rd:.5s">Перед ними — три коротких вопроса о&nbsp;контексте детства.
+        После большинства ответов сразу видно, что&nbsp;значит твой выбор.</p>
     </div>
   </section>
 
@@ -1648,22 +1661,20 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
        и сразу видно, во что превращается результат. -->
   <section class="st st--full" id="fish-scene">
     <div class="scene-bg" aria-hidden="true"><img src="assets/scene/result.jpg" alt="" loading="lazy" decoding="async"></div>
-    <!-- Рыба не сидит в рамке, а проходит по экрану справа налево. Кадры сняты
-         на чистом чёрном, поэтому screen убирает фон без вырезки; смешивание
-         живёт на обёртке, потому что opacity и filter на самом элементе его
-         отключают. -->
-    <span class="swim" id="swimFish" aria-hidden="true"><img src="assets/fish/flounder.jpg" alt="" loading="lazy" decoding="async"></span>
+    <!-- Рыба не сидит в рамке, а проходит по экрану справа налево.
+         Кадр вырезан с прозрачностью, поэтому ложится на любой фон. -->
+    <span class="swim" id="swimFish" aria-hidden="true"><img src="assets/fish/flounder-cut.webp" alt="" loading="lazy" decoding="async"></span>
     <div class="fish-in">
       <div class="fish-copy">
-        <h2 class="rv">Какая рыба живёт<br>в твоём <em>истоке</em></h2>
-        <p class="scene-txt rv">Восемь осей: глубина, стая или одиночество, свет или тьма, движение или укрытие. Из них собирается один образ — и карточка, которую хочется сохранить.</p>
-        <p class="fish-note rv">Двенадцать рыб. Рядом — как выглядит одна из них.</p>
+        <h2 class="rv">Какая рыба живёт<br>в&nbsp;твоём <em>истоке</em></h2>
+        <p class="scene-txt rv">Восемь осей: глубина, стая или&nbsp;одиночество, свет или&nbsp;тьма, движение или&nbsp;укрытие. Из&nbsp;них собирается один образ — и&nbsp;карточка, которую хочется сохранить.</p>
+        <p class="fish-note rv">Двенадцать рыб. Рядом — как&nbsp;выглядит одна из&nbsp;них.</p>
       </div>
       <figure class="rc rv" aria-label="Пример карточки результата">
         <figcaption class="rc-body">
           <p class="rc-lbl">твой исток</p>
           <p class="rc-name">Камбала</p>
-          <p class="rc-txt">Ложится на дно и становится неотличимой от песка. Так безопасно &#8212; и так же незаметно.</p>
+          <p class="rc-txt">Ложится на&nbsp;дно и&nbsp;становится неотличимой от&nbsp;песка. Так безопасно &#8212; и&nbsp;так же незаметно.</p>
           <dl class="rc-ax">
             <div><dt>Глубина</dt><dd><i style="--v:65%"></i><b>65</b></dd></div>
             <div><dt>Одиночество</dt><dd><i style="--v:70%"></i><b>70</b></dd></div>
@@ -1681,9 +1692,9 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   <section class="st st--dark" id="method-scene">
     <div class="mth">
       <h2 class="rv">Это не <em>гадание</em></h2>
-      <p class="scene-txt rv">Каждый блок опирается на методику с историей. Называем источники прямо &#8212; вместе с их границами.</p>
+      <p class="scene-txt rv">Каждый блок опирается на&nbsp;методику с&nbsp;историей. Называем источники прямо &#8212; вместе с&nbsp;их границами.</p>
       <ul class="mref" id="mrefList"></ul>
-      <button class="mlink rv" onclick="showMethod()">Как считается результат <span aria-hidden="true">&#8594;</span></button>
+      <button class="mlink rv" onclick="showMethod()">Как&nbsp;считается результат <span aria-hidden="true">&#8594;</span></button>
     </div>
   </section>
 
@@ -1700,7 +1711,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
       <p class="fin-l rv">Исследование уже началось.</p>
       <h2 class="fin-h rv" style="--rd:.4s">Осталось узнать,<br>куда это <em>ведёт</em></h2>
       <button class="st-cta rv" style="--rd:.9s" onclick="startTest()">Начать исследование <span aria-hidden="true">&#8594;</span></button>
-      <button class="mlink rv" style="--rd:1.1s;margin-top:22px" onclick="showAtt()">Или короткий тест на стиль привязанности <span aria-hidden="true">&#8594;</span></button>
+      <button class="mlink rv" style="--rd:1.1s;margin-top:22px" onclick="showAtt()">Или&nbsp;короткий тест на&nbsp;стиль привязанности <span aria-hidden="true">&#8594;</span></button>
     </div>
   </section>
 
@@ -4696,13 +4707,21 @@ function soundCheck(){
     var raf=null;
     function go(){
       raf=null;
-      var r=sec.getBoundingClientRect(), span=r.height+innerHeight;
-      var g=Math.min(1,Math.max(0,(innerHeight-r.top)/span));
-      /* Справа налево — головой вперёд, кадр снят мордой влево. И не по
-         прямой: пологая дуга вниз, как рыба и заходит в глубину. */
-      var x=104-g*172;
-      var y=-9+g*20+Math.sin(g*Math.PI)*4.5;
-      var rot=(-3+g*7).toFixed(2);
+      var r=sec.getBoundingClientRect(), span=r.height-innerHeight;
+      var g=span>0?Math.min(1,Math.max(0,(-r.top)/span)):0;
+      /* Справа налево головой вперёд: кадр снят мордой влево.
+         Дуга, а не прямая. Прошлая версия давала 172vw по горизонтали
+         против 20vh по вертикали — на экране 1440x900 это 2477 пикселей
+         против 180, то есть глазом ровная линия. Теперь снижение идёт по
+         квадрату: в начале почти горизонтально, к концу круто вниз — так
+         путь читается дугой, а не наклонной прямой. Ход по горизонтали
+         укорочен, чтобы кривизна успевала проявиться.
+         Наклон корпуса тоже развёрнут: рыба смотрит влево, поэтому нос
+         опускается при отрицательном угле, а раньше он задирался вверх,
+         пока она шла вниз. */
+      var x=100-g*160;
+      var y=-26+g*g*62;
+      var rot=(-g*13).toFixed(2);
       f.style.transform='translate3d('+x.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) rotate('+rot+'deg)';
     }
     addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(go);},{passive:true});
