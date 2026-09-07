@@ -947,7 +947,13 @@ footer{padding:56px 72px;border-top:1px solid rgba(255,255,255,.08);background:t
   --void2:#0a0a0c;
 }
 html{background:var(--void)!important;}
-#ocean{background:linear-gradient(180deg,#0a0a0c 0%,#070708 52%,#050505 100%)!important;}
+/* Вода — единственный фон страницы. Цвет ведётся прокруткой: у поверхности
+   сине-зелёная, ко дну почти чёрная. Чернота перестаёт быть умолчанием и
+   начинает означать глубину. Значения подставляет JS. */
+#ocean{background:
+    radial-gradient(120% 60% at 50% -14%, var(--w-shaft,rgba(150,185,200,.10)), transparent 62%),
+    linear-gradient(180deg, var(--w-top,#0b1a20) 0%, var(--w-mid,#081318) 48%, var(--w-bot,#050708) 100%)!important;
+  transition:background .3s linear;}
 body{color:var(--ink);}
 .hero-sub,.scene-txt{color:var(--muted);}
 h1.hero-h,.scene h2{color:var(--ink);}
@@ -1105,12 +1111,20 @@ h1.hero-h{line-height:1.14;margin-bottom:0;}
 
 
 /* кадр серии как тихая подложка сцены */
+/* Растворение краёв — общее правило для всех полноэкранных кадров.
+   Маска на контейнере, а не на кадре: кадр ездит от параллакса и увёз
+   бы растворение за видимый край. */
+.scene-veil,.scene-bg{
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 20%,#000 78%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 20%,#000 78%,transparent 100%);}
 .scene-veil{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1;}
-.scene-veil img{width:100%;height:100%;object-fit:cover;opacity:.34;
+.scene-veil img{width:100%;height:100%;object-fit:cover;opacity:.24;
   transform:translate3d(0,var(--py,0px),0) scale(1.08);}
+/* Кадр остаётся видимым, но уступает тексту: ровное сгущение воды поверх
+   плюс усиление слева, где начинается строка. */
 .scene-veil::after{content:'';position:absolute;inset:0;background:
-  linear-gradient(180deg,var(--void) 0%,rgba(6,6,7,.62) 22%,rgba(6,6,7,.62) 78%,var(--void) 100%),
-  linear-gradient(90deg,rgba(6,6,7,.86) 0%,rgba(6,6,7,.4) 46%,rgba(6,6,7,.72) 100%);}
+  linear-gradient(90deg,rgba(5,10,13,.66) 0%,rgba(5,10,13,.34) 58%,rgba(5,10,13,.5) 100%),
+  radial-gradient(90% 62% at 34% 50%,rgba(4,9,12,.5),transparent 78%);}
 .scene--list,.scene--mini{position:relative;}
 
 
@@ -1160,7 +1174,22 @@ h1.hero-h{line-height:1.14;margin-bottom:0;}
 
 .st{position:relative;min-height:100vh;min-height:100svh;display:flex;
   align-items:center;justify-content:center;padding:96px 24px;overflow:hidden;isolation:isolate;}
-.st--dark{background:var(--void);}
+/* Секции прозрачны: фон один на весь документ, поэтому стыков между
+   сценами не существует физически — воде негде кончиться. */
+/* Глубиномер: видно, куда спустился. Это и есть путь через страницу. */
+#depth{position:fixed;right:26px;top:50%;translate:0 -50%;z-index:40;pointer-events:none;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+  font-family:var(--fb);font-size:10px;letter-spacing:.22em;color:#5f6f78;
+  opacity:0;transition:opacity .8s ease;}
+body.dive #depth{opacity:1;}
+#depth .d-rail{width:1px;height:32vh;position:relative;
+  background:linear-gradient(180deg,rgba(242,239,233,.26),rgba(242,239,233,.05));}
+#depth .d-cur{position:absolute;right:-3px;width:7px;height:1px;background:var(--accent-serif);
+  transition:top .12s linear;}
+#depth .d-val{font-variant-numeric:tabular-nums;}
+@media(max-width:900px){#depth{right:10px;font-size:9px;}#depth .d-rail{height:24vh;}}
+@media(prefers-reduced-motion:reduce){#depth{display:none;}}
+.st--dark{background:transparent;}
 /* стык сцен: не резкая граница, а растворение */
 .st--dark + .st--dark::before{content:'';position:absolute;left:50%;top:0;translate:-50% 0;
   width:min(70vw,760px);height:1px;background:linear-gradient(90deg,transparent,rgba(242,239,233,.10),transparent);}
@@ -1201,7 +1230,27 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 .qline:last-child{margin-bottom:0;}
 .qline.in{opacity:1;transform:none;filter:none;}
 /* прочитанные фразы гаснут — на экране всегда живёт одна мысль */
-.qline.past{opacity:.16;filter:blur(1.5px);transition-duration:1.8s;}
+/* Одна мысль за раз. Раньше прочитанные фразы гасли до 16% и висели на
+   экране бледными — читалось не как «одна за раз», а как две тусклые
+   строки и одна яркая. Теперь фразы лежат друг на друге, видна ровно одна,
+   и ведёт их прокрутка, а не таймер. */
+#question{height:300svh;display:block;padding:0;}
+.q-stick{position:sticky;top:0;height:100svh;display:flex;align-items:center;
+  justify-content:center;padding:0 24px;}
+.q-stick .qlines{position:relative;display:block;width:100%;max-width:820px;
+  min-height:5em;}
+#question .qline{position:absolute;left:0;right:0;top:50%;translate:0 -50%;
+  margin:0;padding-left:0;opacity:0;transform:translateY(20px);filter:blur(4px);
+  transition:opacity .7s ease,transform .9s var(--ease-out),filter .9s ease;}
+#question .qline.on{opacity:1;transform:none;filter:none;}
+.qline.past{opacity:0;}
+/* Секции по умолчанию изолированы (isolation:isolate), и тогда screen
+   смешивается не с водой, а с пустотой внутри секции — вокруг рыбы
+   появляется тёмный прямоугольник. Там, где рыба плывёт, изоляцию снимаем. */
+#discovery,#fish-scene{isolation:auto;}
+.swim--far{width:min(56vw,760px);top:30%;}
+.swim--far img{filter:brightness(.42) saturate(.7);}
+@media(max-width:900px){.swim--far{width:min(120vw,560px);top:24%;}}
 .qline em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 
 /* ── СЦЕНА 03: узнавание, и первый фрагмент рыбы ── */
@@ -1287,6 +1336,22 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   background:var(--accent-serif);transform:scaleX(0);transform-origin:center;
   transition:transform .5s var(--ease-out);}
 .six-t.on::after{transform:scaleX(1);}
+/* ── СЦЕНА 05: этапы теста, а не второй прогон вопросов ── */
+.six-lead{font-size:.95rem;color:var(--muted);max-width:44ch;margin:0 0 18px;}
+.six-title{font-size:clamp(1.6rem,3.4vw,2.6rem);font-weight:400;letter-spacing:-.03em;
+  line-height:1.16;color:var(--ink);margin:0 0 44px;}
+.six-title em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
+.stages{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 56px;}
+.stages li{display:grid;grid-template-columns:2.6rem 1fr;grid-template-rows:auto auto;
+  gap:2px 0;padding:18px 0;border-top:1px solid rgba(242,239,233,.09);}
+.s-n{grid-row:1 / span 2;font-size:10.5px;letter-spacing:.2em;color:#5f6f78;padding-top:.45em;
+  font-variant-numeric:tabular-nums;}
+.s-h{font-size:1.02rem;color:var(--ink);letter-spacing:-.01em;}
+.s-t{font-size:.88rem;color:var(--muted);line-height:1.6;max-width:34ch;}
+.six-foot{margin:36px 0 0;font-size:.85rem;color:#6f7a80;max-width:52ch;}
+@media(max-width:900px){.stages{gap:0}.six-title{margin-bottom:30px}}
+
 /* Строки задаём явно и прижимаем содержимое к верху. Раньше строки тянулись
    на всю min-height, счётчик висел по низу своей строки, и левая колонка
    уезжала вниз, пока правая начиналась сверху — между ними зияла дыра. */
@@ -1350,16 +1415,27 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 .st--full{padding:0;}
 #fish-scene .fish-in{position:relative;z-index:2;width:100%;max-width:1180px;
   display:flex;align-items:center;gap:64px;padding:110px 40px;}
-.fish-copy{flex:1 1 46%;}
+.fish-copy{flex:1 1 46%;position:relative;z-index:3;}
+/* Рыба идёт позади текста, а под текстом — мягкое сгущение воды, иначе
+   заголовок теряется в её чешуе. */
+#fish-scene .fish-in{position:relative;z-index:2;}
+#fish-scene::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(52% 58% at 26% 48%,rgba(3,8,11,.9),rgba(3,8,11,.5) 54%,transparent 76%);}
+@media(max-width:900px){#fish-scene::before{
+  background:radial-gradient(78% 44% at 50% 62%,rgba(4,10,14,.78),transparent 76%);}}
 #fish-scene h2{font-size:clamp(1.9rem,4.4vw,3.4rem);font-weight:400;letter-spacing:-.035em;
   line-height:1.1;color:var(--ink);margin-bottom:24px;}
 #fish-scene h2 em{font-family:var(--fs);font-style:normal;font-weight:200;color:var(--accent-serif);}
 .fish-note{margin-top:22px;font-size:12.5px;letter-spacing:.02em;color:#6f6a62;}
 /* карточка результата — артефакт, а не панель с показателями */
-.rc{flex:0 1 380px;background:linear-gradient(170deg,rgba(20,21,24,.86),rgba(9,9,11,.92));
+.rc{flex:0 1 340px;position:relative;z-index:3;background:linear-gradient(170deg,rgba(16,22,26,.72),rgba(7,11,14,.84));backdrop-filter:blur(3px);
   border:1px solid rgba(242,239,233,.1);overflow:hidden;
   box-shadow:0 40px 90px -50px rgba(0,0,0,.95);}
-.rc-img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;}
+.swim{position:absolute;left:0;top:54%;translate:0 -50%;z-index:1;line-height:0;
+  width:min(96vw,1240px);mix-blend-mode:screen;pointer-events:none;will-change:transform;}
+.swim img{display:block;width:100%;height:auto;}
+@media(max-width:900px){.swim{width:min(160vw,720px);top:34%;}}
+@media(prefers-reduced-motion:reduce){.swim{transform:translate3d(-14vw,0,0);}}
 .rc-body{padding:24px 26px 28px;}
 .rc-lbl{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#5c5850;}
 .rc-name{font-family:var(--fs);font-style:normal;font-weight:300;font-size:1.6rem;color:var(--ink);
@@ -1441,6 +1517,7 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 <div id="rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div id="caustic" aria-hidden="true"></div>
 <canvas id="motes" aria-hidden="true"></canvas>
+<div id="depth" aria-hidden="true"><span class="d-val">0 м</span><span class="d-rail"><i class="d-cur"></i></span><span class="d-name">поверхность</span></div>
 
 <nav id="nav" aria-label="Главная навигация">
   <button class="logo" onclick="showLanding()"><span>И</span>СТОК</button>
@@ -1477,23 +1554,23 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 
   <!-- ═══ СЦЕНА 02 · ВОПРОС ═══
        Темнота. Фразы приходят по одной и уходят: их читают не глазами. -->
-  <section class="st st--dark" id="question">
-    <div class="qlines">
-      <p class="qline">Почему ты замолкаешь,<br>когда нужно говорить.</p>
-      <p class="qline">Почему уходишь,<br>когда нужно остаться.</p>
-      <p class="qline">Почему снова и снова<br>выбираешь <em>одно и то же</em>.</p>
+  <section class="st--dark" id="question">
+    <div class="q-stick">
+      <div class="qlines">
+        <p class="qline">Почему ты замолкаешь,<br>когда нужно говорить.</p>
+        <p class="qline">Почему уходишь,<br>когда нужно остаться.</p>
+        <p class="qline">Почему снова и снова<br>выбираешь <em>одно и то же</em>.</p>
+      </div>
     </div>
   </section>
 
   <!-- ═══ СЦЕНА 03 · УЗНАВАНИЕ ═══
        Ответ на предыдущую сцену. Здесь впервые проступает глаз — но не рыба. -->
   <section class="st st--dark" id="discovery">
-    <div class="fx-hold fx--eye" aria-hidden="true"><svg class="fx" viewBox="0 0 200 90" aria-hidden="true">
-        <path class="fx-body" d="M8 45c24-26 58-36 92-33 22 2 41 12 55 27-14 15-33 25-55 27-34 3-68-7-92-21Z"/>
-        <path class="fx-tail" d="M155 38 196 11l-10 34 10 34-41-26Z"/>
-        <path class="fx-fin" d="M78 16c12 6 20 15 24 27-14-3-26-11-34-21Z"/>
-        <circle class="fx-eye" cx="44" cy="36" r="4.6"/>
-      </svg></div>
+    <div class="scene-veil" aria-hidden="true"><img src="assets/scene/transition.jpg" alt="" loading="lazy" decoding="async"></div>
+    <!-- Здесь рыба впервые проходит мимо — далеко и не в фокусе. Это первый
+         намёк на то, что в воде кто-то есть, до полного показа в сцене 06. -->
+    <span class="swim swim--far" id="discFish" aria-hidden="true"><img src="assets/fish/whaleshark.jpg" alt="" loading="lazy" decoding="async"></span>
     <div class="disc">
       <p class="disc-l rv">Это не случайность.</p>
       <p class="disc-l rv" style="--rd:.5s">Это паттерны.</p>
@@ -1532,13 +1609,25 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   <section class="st st--dark" id="six">
     <div class="scene-veil" aria-hidden="true"><img src="assets/scene/perception.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="six-in">
-      <div class="six-nav" id="sixNav" role="tablist" aria-label="Шесть способов"></div>
-      <div class="six-stage">
-        <p class="six-n" id="sixN">01 / 06</p>
-        <h2 class="six-h" id="sixH"></h2>
-        <div class="six-demo" id="sixDemo"></div>
-        <p class="six-echo" id="sixEcho"></p>
-      </div>
+      <p class="six-lead rv">Один фрагмент ты уже прошёл. Дальше — ещё пять способов,
+        и каждый спрашивает не мнение, а реакцию.</p>
+      <h2 class="six-title rv">Шесть способов<br>увидеть <em>себя</em></h2>
+      <ol class="stages">
+        <li class="rv"><span class="s-n">01</span><span class="s-h">Что ты слышишь</span>
+          <span class="s-t">Звуковые иллюзии. Одна и та же пара тонов слышится кому-то вверх, кому-то вниз.</span></li>
+        <li class="rv" style="--rd:.08s"><span class="s-n">02</span><span class="s-h">Что ты видишь</span>
+          <span class="s-t">Зрительные иллюзии. Что проявилось первым — то и сигнал.</span></li>
+        <li class="rv" style="--rd:.16s"><span class="s-n">03</span><span class="s-h">Что ты чувствуешь</span>
+          <span class="s-t">Незаконченные предложения. Дописываешь как есть, не задумываясь.</span></li>
+        <li class="rv" style="--rd:.24s"><span class="s-n">04</span><span class="s-h">Что откликается</span>
+          <span class="s-t">Цвета. Выбираешь не любимый, а тот, к которому тянет сейчас.</span></li>
+        <li class="rv" style="--rd:.32s"><span class="s-n">05</span><span class="s-h">Кем ты себя видишь</span>
+          <span class="s-t">Образы и сценарии. Метафора говорит то, чего не скажешь прямо.</span></li>
+        <li class="rv" style="--rd:.4s"><span class="s-n">06</span><span class="s-h">Как ты вспоминаешь</span>
+          <span class="s-t">Шкалы воспоминаний. Насколько сильно — важнее, чем что именно.</span></li>
+      </ol>
+      <p class="six-foot rv" style="--rd:.5s">Перед ними — три коротких вопроса о контексте детства.
+        После большинства ответов сразу видно, что значит твой выбор.</p>
     </div>
   </section>
 
@@ -1547,14 +1636,18 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
        и сразу видно, во что превращается результат. -->
   <section class="st st--full" id="fish-scene">
     <div class="scene-bg" aria-hidden="true"><img src="assets/scene/result.jpg" alt="" loading="lazy" decoding="async"></div>
+    <!-- Рыба не сидит в рамке, а проходит по экрану справа налево. Кадры сняты
+         на чистом чёрном, поэтому screen убирает фон без вырезки; смешивание
+         живёт на обёртке, потому что opacity и filter на самом элементе его
+         отключают. -->
+    <span class="swim" id="swimFish" aria-hidden="true"><img src="assets/fish/flounder.jpg" alt="" loading="lazy" decoding="async"></span>
     <div class="fish-in">
       <div class="fish-copy">
         <h2 class="rv">Какая рыба живёт<br>в твоём <em>истоке</em></h2>
         <p class="scene-txt rv">Восемь осей: глубина, стая или одиночество, свет или тьма, движение или укрытие. Из них собирается один образ — и карточка, которую хочется сохранить.</p>
-        <p class="fish-note rv">Двенадцать рыб. Ниже — как выглядит одна из них.</p>
+        <p class="fish-note rv">Двенадцать рыб. Рядом — как выглядит одна из них.</p>
       </div>
       <figure class="rc rv" aria-label="Пример карточки результата">
-        <img class="rc-img" src="assets/fish/flounder.jpg" alt="" loading="lazy" decoding="async">
         <figcaption class="rc-body">
           <p class="rc-lbl">твой исток</p>
           <p class="rc-name">Камбала</p>
@@ -4530,6 +4623,92 @@ function soundCheck(){
     setTimeout(()=>{ if(!ok)v.remove(); },6000);
     const pr=v.play(); if(pr&&pr.catch)pr.catch(()=>{});
   })();
+  /* ── ПОГРУЖЕНИЕ: цвет воды и глубиномер ведутся прокруткой ── */
+  (function(){
+    var ocean=document.getElementById('ocean'), box=document.getElementById('depth');
+    if(!ocean)return;
+    var STOPS=[
+      {p:0,    top:'#1d3f4a', mid:'#142d35', bot:'#0c1e26', sh:'rgba(190,225,238,.28)', n:'поверхность'},
+      {p:.34,  top:'#122e37', mid:'#0d2028', bot:'#09171d', sh:'rgba(170,205,220,.16)', n:'полумрак'},
+      {p:.68,  top:'#0a181e', mid:'#071216', bot:'#050d11', sh:'rgba(150,185,200,.08)', n:'глубина'},
+      {p:1,    top:'#06090c', mid:'#040709', bot:'#020304', sh:'rgba(140,175,190,.04)', n:'дно'}];
+    function h2(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
+    function mixH(a,b,t){var A=h2(a),B=h2(b);return '#'+[0,1,2].map(function(i){
+      return Math.round(A[i]+(B[i]-A[i])*t).toString(16).padStart(2,'0');}).join('');}
+    function mixR(a,b,t){var A=a.match(/[\d.]+/g).map(Number),B=b.match(/[\d.]+/g).map(Number);
+      return 'rgba('+[0,1,2].map(function(i){return Math.round(A[i]+(B[i]-A[i])*t);}).join(',')+
+        ','+(A[3]+(B[3]-A[3])*t).toFixed(3)+')';}
+    var val=box&&box.querySelector('.d-val'), cur=box&&box.querySelector('.d-cur'),
+        nm=box&&box.querySelector('.d-name'), raf=null;
+    function apply(){
+      raf=null;
+      var H=document.documentElement.scrollHeight-innerHeight;
+      var g=H>0?Math.min(1,Math.max(0,scrollY/H)):0;
+      var i=0; while(i<STOPS.length-2 && g>STOPS[i+1].p) i++;
+      var a=STOPS[i],b=STOPS[i+1],t=Math.min(1,Math.max(0,(g-a.p)/(b.p-a.p)));
+      ocean.style.setProperty('--w-top',mixH(a.top,b.top,t));
+      ocean.style.setProperty('--w-mid',mixH(a.mid,b.mid,t));
+      ocean.style.setProperty('--w-bot',mixH(a.bot,b.bot,t));
+      ocean.style.setProperty('--w-shaft',mixR(a.sh,b.sh,t));
+      if(val){val.textContent=Math.round(g*240)+' м';cur.style.top=(g*100).toFixed(1)+'%';
+        nm.textContent=(t<.5?a.n:b.n);}
+      document.body.classList.toggle('dive', g>0.02);
+    }
+    addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(apply);},{passive:true});
+    addEventListener('resize',function(){if(!raf)raf=requestAnimationFrame(apply);},{passive:true});
+    apply();
+  })();
+
+  /* ── сцена 02: прокрутка ведёт фразы, на экране ровно одна ── */
+  (function(){
+    var sec=document.getElementById('question'); if(!sec)return;
+    var lines=[].slice.call(sec.querySelectorAll('.qline')); if(!lines.length)return;
+    var raf=null;
+    function step(){
+      raf=null;
+      var r=sec.getBoundingClientRect(), span=r.height-innerHeight;
+      var g=span>0?Math.min(1,Math.max(0,(-r.top)/span)):0;
+      var inside=r.top<=1 && r.bottom>=innerHeight-1;
+      var i=Math.min(lines.length-1,Math.floor(g*lines.length+1e-6));
+      lines.forEach(function(p,n){ p.classList.toggle('on', inside && n===i); });
+    }
+    addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(step);},{passive:true});
+    addEventListener('resize',function(){if(!raf)raf=requestAnimationFrame(step);},{passive:true});
+    step();
+  })();
+
+  /* ── сцена 03: рыба впервые проходит мимо, далеко и медленно ── */
+  (function(){
+    var sec=document.getElementById('discovery'), f=document.getElementById('discFish');
+    if(!sec||!f||RM)return;
+    var raf=null;
+    function go(){
+      raf=null;
+      var r=sec.getBoundingClientRect(), span=r.height+innerHeight;
+      var g=Math.min(1,Math.max(0,(innerHeight-r.top)/span));
+      f.style.transform='translate3d('+(-52+g*150).toFixed(2)+'vw,'+((g-.5)*4).toFixed(2)+'vh,0)';
+    }
+    addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(go);},{passive:true});
+    addEventListener('resize',function(){if(!raf)raf=requestAnimationFrame(go);},{passive:true});
+    go();
+  })();
+
+  /* ── рыба сцены 06 идёт по экрану, пока сцена проходит мимо ── */
+  (function(){
+    var sec=document.getElementById('fish-scene'), fish=document.getElementById('swimFish');
+    if(!sec||!fish||RM)return;
+    var raf=null;
+    function swim(){
+      raf=null;
+      var r=sec.getBoundingClientRect(), span=r.height+innerHeight;
+      var g=Math.min(1,Math.max(0,(innerHeight-r.top)/span));
+      fish.style.transform='translate3d('+(104-g*206).toFixed(2)+'vw,'+((g-.5)*5).toFixed(2)+'vh,0)';
+    }
+    addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(swim);},{passive:true});
+    addEventListener('resize',function(){if(!raf)raf=requestAnimationFrame(swim);},{passive:true});
+    swim();
+  })();
+
   /* ── SCROLL PARALLAX: кадры сцен движутся вместе с прокруткой ── */
   (function(){
     if(RM)return;
@@ -4571,11 +4750,13 @@ function soundCheck(){
   })();
 
   /* ── МИНИ-ОПЫТ: настоящая иллюзия Шепарда прямо на лендинге ── */
+  /* Говорим о человеке, а не о методике: не «низкая тревога ожидания», а
+     «спокойно держишься, когда непонятно». Про себя люди думают так. */
   const MINI_ECHO=[
-    '<b>Любопытство.</b> Ты идёшь к неопределённости с интересом, а не с защитой — в тесте это обычно совпадает с низкой тревогой ожидания.',
-    '<b>Ожидание конца.</b> Напряжение росло не от звука, а от невозможности предсказать, когда он остановится. Это язык контроля.',
-    '<b>Предчувствие.</b> Нейтральный сигнал прочитался как угроза — так работает радар, настроенный в детстве.',
-    '<b>Ровно.</b> Иллюзия не зацепила — это тоже ответ: не каждый стимул обязан отзываться.'
+    '<b>Тебе спокойно, когда непонятно.</b> Ты идёшь в неизвестное с интересом, а не с готовностью защищаться. Это редко, и обычно за этим стоит детство, где неожиданное не означало опасное.',
+    '<b>Ты ждёшь, когда это закончится.</b> Напрягал не сам звук, а то, что нельзя было угадать конец. Так живут те, кому спокойно, только когда всё под контролем.',
+    '<b>Ты услышал угрозу там, где её нет.</b> Обычный звук прочитался как «сейчас что-то случится». Так настраивается слух у ребёнка, которому важно было заранее понять, каким домой придёт взрослый.',
+    '<b>Тебя это не тронуло.</b> Ты не стал ничего вычитывать в звуке — и это тоже ответ. Не каждый сигнал обязан что-то значить.'
   ];
   let miniOn=false;
   function miniToggle(){
@@ -4613,7 +4794,7 @@ function soundCheck(){
     document.querySelectorAll('.mini-opt').forEach((b,k)=>b.classList.toggle('sel',k===i));
     const e=document.getElementById('miniEcho');
     if(!e)return;
-    e.innerHTML=MINI_ECHO[i]+' <span style="color:#6f6a62">Это ещё не результат. Это только первый сигнал — в тесте их пятьдесят шесть.</span>';
+    e.innerHTML=MINI_ECHO[i]+' <span style="color:#6f6a62">Это один вопрос из пятидесяти шести. По одному ничего не понять — по всем вместе складывается картина.</span>';
     e.classList.add('on');
   }
   window.miniToggle=miniToggle; window.miniPick=miniPick;
