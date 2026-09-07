@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Исток — прототип погружения</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400&family=Unbounded:wght@200;300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#F2EFE9; --dim:#9FB2BD; --faint:#69808C;
+  --accent:#A9C6D4;
+  --fb:'Onest',system-ui,sans-serif;
+  --fd:'Unbounded',system-ui,sans-serif;
+}
+html{scroll-behavior:auto}
+body{font-family:var(--fb);font-weight:300;color:var(--ink);background:#0a1a22;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ═══ ВОДА: один слой на весь документ. Секции прозрачны, поэтому
+       стыков между ними не существует физически. ═══ */
+#water{position:fixed;inset:0;z-index:-3;
+  background:
+    radial-gradient(120% 62% at 50% -12%, var(--w-shaft), transparent 62%),
+    linear-gradient(180deg, var(--w-top) 0%, var(--w-mid) 46%, var(--w-bot) 100%);
+  transition:background .35s linear}
+/* взвесь */
+#motes{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.5}
+/* зерно поверх всего, чтобы градиент не полосил */
+#grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E")}
+
+/* ═══ ГЛУБИНОМЕР — тот самый путь: видно, куда спустился ═══ */
+#gauge{position:fixed;right:26px;top:50%;translate:0 -50%;z-index:50;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+  font-size:10px;letter-spacing:.22em;color:var(--faint);
+  transition:color .4s}
+#gauge .rail{width:1px;height:34vh;background:linear-gradient(180deg,
+  rgba(242,239,233,.28),rgba(242,239,233,.05));position:relative}
+#gauge .cur{position:absolute;right:-3px;width:7px;height:1px;background:var(--accent);
+  transition:top .12s linear}
+#gauge .val{font-variant-numeric:tabular-nums}
+@media(max-width:900px){#gauge{right:12px}#gauge .rail{height:26vh}}
+
+/* ═══ СЕКЦИИ: без собственного фона ═══ */
+.sc{position:relative;min-height:100svh;display:flex;align-items:center;
+  justify-content:center;padding:0 clamp(20px,5vw,72px)}
+
+/* ── 01 · первый экран: кадр во весь экран, без наезда ── */
+#s1{padding:0}
+#s1 .plate{position:absolute;inset:0;overflow:hidden}
+#s1 video,#s1 .poster{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;
+  /* временная врезка: нынешний ролик снят «коробкой» с чёрным вокруг.
+     Уйдёт, когда придёт новый рендер от кадрированного стартового кадра. */
+  transform:scale(1.34)}
+#s1 video{opacity:0;transition:opacity 1.4s ease}
+#s1 video.on{opacity:1}
+#s1 .poster{background:url('assets/scene/childhood.jpg') center/cover no-repeat}
+#s1 .fade{position:absolute;inset:0;background:linear-gradient(180deg,
+  rgba(6,14,18,.42) 0%, rgba(6,14,18,0) 26%, rgba(6,14,18,.06) 54%, rgba(8,16,20,.96) 100%)}
+#s1 .plate{-webkit-mask-image:linear-gradient(180deg,#000 0,#000 74%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0,#000 74%,transparent 100%)}
+#s1 .in{position:relative;z-index:2;text-align:center;width:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  min-height:100svh;padding-bottom:12vh}
+#s1 h1{font-family:var(--fd);font-weight:200;letter-spacing:-.03em;line-height:1.24;
+  font-size:clamp(1.7rem,4.6vw,3.4rem)}
+#s1 h1 em{font-style:normal;color:var(--accent)}
+.cta{margin-top:28px;display:inline-flex;gap:.6em;align-items:center;
+  font-size:.85rem;color:var(--ink);border-bottom:1px solid rgba(242,239,233,.34);
+  padding-bottom:6px;text-decoration:none}
+
+/* ── 02 · одна мысль за раз ── */
+#s2{height:320vh;display:block;padding:0}
+#s2 .stick{position:sticky;top:0;height:100svh;display:flex;align-items:center;
+  justify-content:center;padding:0 24px}
+#s2 p{position:absolute;max-width:22ch;text-align:center;
+  font-size:clamp(1.5rem,4vw,3rem);font-weight:200;line-height:1.28;letter-spacing:-.02em;
+  opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+#s2 p.on{opacity:1;transform:none}
+#s2 em{font-family:var(--fd);font-style:normal;font-weight:200;color:var(--accent)}
+
+/* ── 03 · рыба проходит мимо, во весь рост ── */
+#s3{height:260vh;display:block;padding:0}
+#s3 .stick{position:sticky;top:0;height:100svh;overflow:hidden;
+  display:flex;align-items:center;justify-content:center}
+/* Общее правило вместо частного случая: у каждого полноэкранного кадра
+   края растворяются в воде, иначе видно линию, где кончается картинка и
+   начинается следующий блок. Маска висит на неподвижной обёртке, а не на
+   самом кадре: кадр ездит от параллакса и увёз бы растворение за край. */
+.bgwrap{position:absolute;inset:0;overflow:hidden;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 76%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 76%,transparent 100%)}
+#s3 .bg{position:absolute;inset:-10% -4%;background:url('assets/scene/memory.jpg') center/cover no-repeat;
+  opacity:.34;will-change:transform}
+/* мягкая тень под текстом, чтобы он читался поверх кадра */
+#s3 .stick::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:radial-gradient(58% 70% at 26% 50%,rgba(4,10,14,.72),transparent 70%)}
+/* Рыбы сняты на чистом чёрном — screen делает чёрное прозрачным.
+   Отдельная вырезка с альфой для этого не нужна. */
+/* Смешивание живёт на обёртке, а затемнение — на картинке внутри неё.
+   И opacity, и filter на самом смешиваемом элементе создают отдельную
+   группу и отключают screen: рыба возвращается со своим чёрным прямоугольником. */
+.fish{position:absolute;mix-blend-mode:screen;pointer-events:none;
+  will-change:transform;user-select:none;line-height:0}
+.fish img{display:block;width:100%;height:auto}
+#f-big{width:min(112vw,1500px);top:52%;left:0;translate:0 -50%}
+#f-small{width:min(30vw,380px);top:76%;left:0;translate:0 -50%}
+#f-small img{filter:brightness(.55) saturate(.8)}
+#s3 .copy{position:absolute;z-index:3;text-align:left;max-width:20ch;
+  left:clamp(20px,7vw,110px);top:50%;translate:0 -50%}
+#s3 h2{font-family:var(--fd);font-weight:200;font-size:clamp(1.4rem,3.4vw,2.5rem);
+  line-height:1.28;letter-spacing:-.02em}
+#s3 h2 em{font-style:normal;color:var(--accent)}
+#s3 .sub{margin-top:18px;color:var(--dim);font-size:clamp(.95rem,1.5vw,1.06rem);line-height:1.7;max-width:26ch}
+
+/* конец прототипа */
+#tail{min-height:60svh;display:flex;align-items:center;justify-content:center;
+  color:var(--faint);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase}
+@media(max-width:820px){
+  #s3 .copy{position:relative;left:auto;top:auto;translate:none;text-align:center;
+    max-width:26ch;margin:0 auto;padding:0 20px}
+  #s3 .stick::after{background:radial-gradient(78% 60% at 50% 50%,rgba(4,10,14,.7),transparent 74%)}
+  #f-big{width:min(190vw,900px)}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="water"></div>
+<canvas id="motes"></canvas>
+<div id="grain"></div>
+
+<div id="gauge">
+  <span class="val" id="gVal">0 м</span>
+  <div class="rail"><span class="cur" id="gCur" style="top:0"></span></div>
+  <span id="gName">поверхность</span>
+</div>
+
+<section class="sc" id="s1">
+  <div class="plate">
+    <div class="poster"></div>
+    <video id="v" muted loop autoplay playsinline preload="auto"></video>
+    <div class="fade"></div>
+  </div>
+  <div class="in">
+    <h1>Всё начинается в<br><em>детстве</em></h1>
+    <a class="cta" href="#s2">Начать исследование <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="stick">
+    <p data-i="0">Почему ты замолкаешь,<br>когда нужно говорить.</p>
+    <p data-i="1">Почему уходишь,<br>когда нужно остаться.</p>
+    <p data-i="2">Почему снова и снова<br>выбираешь <em>одно и то же</em>.</p>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="stick">
+    <div class="bgwrap"><div class="bg" id="s3bg"></div></div>
+    <span class="fish" id="f-small"><img src="assets/fish/neon.jpg" alt=""></span>
+    <span class="fish" id="f-big"><img src="assets/fish/whaleshark.jpg" alt=""></span>
+    <div class="copy">
+      <h2>Это не случайность.<br>Это <em>паттерны</em>.</h2>
+      <p class="sub">Они сформировались как способ выжить. Теперь они мешают жить.</p>
+    </div>
+  </div>
+</section>
+
+<div id="tail">дальше — остальные сцены</div>
+
+<script>
+(function(){
+  var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── видео первого экрана ── */
+  (function(){
+    var v=document.getElementById('v'), c=navigator.connection;
+    if(RM||(c&&(c.saveData||/2g/.test(c.effectiveType||'')))){v.remove();return;}
+    v.src = innerWidth<900 ? 'assets/video/hero-sm.mp4' : 'assets/video/hero.mp4';
+    v.addEventListener('loadeddata',function(){ if(v.readyState>=2) v.classList.add('on'); });
+    v.addEventListener('error',function(){ v.remove(); });
+    var p=v.play(); if(p&&p.catch)p.catch(function(){});
+  })();
+
+  /* ── ПАЛИТРА ГЛУБИНЫ: цвет воды зависит от того, как глубоко ты спустился ── */
+  var STOPS=[
+    {p:0.00, top:'#20444f', mid:'#153039', bot:'#0d2029', shaft:'rgba(190,225,238,.30)', name:'поверхность'},
+    {p:0.34, top:'#13303a', mid:'#0e222a', bot:'#0a181e', shaft:'rgba(170,205,220,.17)', name:'полумрак'},
+    {p:0.68, top:'#0b1a20', mid:'#081318', bot:'#060e12', shaft:'rgba(150,185,200,.09)', name:'глубина'},
+    {p:1.00, top:'#060a0d', mid:'#04080a', bot:'#020405', shaft:'rgba(140,175,190,.05)', name:'дно'}
+  ];
+  function hex(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
+  function mixHex(a,b,t){var A=hex(a),B=hex(b);
+    return '#'+[0,1,2].map(function(i){return Math.round(A[i]+(B[i]-A[i])*t).toString(16).padStart(2,'0');}).join('');}
+  function mixRgba(a,b,t){
+    var pa=a.match(/[\d.]+/g).map(Number), pb=b.match(/[\d.]+/g).map(Number);
+    return 'rgba('+[0,1,2].map(function(i){return Math.round(pa[i]+(pb[i]-pa[i])*t);}).join(',')+','+
+      (pa[3]+(pb[3]-pa[3])*t).toFixed(3)+')';
+  }
+  var water=document.getElementById('water'), gVal=document.getElementById('gVal'),
+      gCur=document.getElementById('gCur'), gName=document.getElementById('gName');
+
+  function paint(prog){
+    var i=0; while(i<STOPS.length-2 && prog>STOPS[i+1].p) i++;
+    var a=STOPS[i], b=STOPS[i+1];
+    var t=Math.min(1,Math.max(0,(prog-a.p)/(b.p-a.p)));
+    water.style.setProperty('--w-top',  mixHex(a.top,b.top,t));
+    water.style.setProperty('--w-mid',  mixHex(a.mid,b.mid,t));
+    water.style.setProperty('--w-bot',  mixHex(a.bot,b.bot,t));
+    water.style.setProperty('--w-shaft',mixRgba(a.shaft,b.shaft,t));
+    gVal.textContent = Math.round(prog*240)+' м';
+    gCur.style.top = (prog*100).toFixed(1)+'%';
+    gName.textContent = (t<.5?a.name:b.name);
+  }
+
+  /* ── сцена 02: ровно одна фраза на экране ── */
+  var s2=document.getElementById('s2'), lines=[].slice.call(s2.querySelectorAll('p'));
+  function phrases(){
+    var r=s2.getBoundingClientRect();
+    var prog=(-r.top)/(r.height-innerHeight);
+    prog=Math.min(1,Math.max(0,prog));
+    var idx=Math.min(lines.length-1, Math.floor(prog*lines.length+0.0001));
+    var inside = r.top<=0 && r.bottom>=innerHeight;
+    lines.forEach(function(p,i){ p.classList.toggle('on', inside && i===idx); });
+  }
+
+  /* ── сцена 03: рыба идёт справа налево, слои — с разной скоростью ── */
+  var s3=document.getElementById('s3'), fb=document.getElementById('f-big'),
+      fs=document.getElementById('f-small'), bg=document.getElementById('s3bg');
+  function swim(){
+    var r=s3.getBoundingClientRect();
+    var prog=(-r.top)/(r.height-innerHeight);
+    prog=Math.min(1.2,Math.max(-.2,prog));
+    /* крупная — быстро и близко, мелкая — медленно и далеко: это и есть глубина */
+    fb.style.transform='translate3d('+(112-prog*230).toFixed(2)+'vw,'+(prog*4).toFixed(2)+'vh,0)';
+    fs.style.transform='translate3d('+(-30+prog*150).toFixed(2)+'vw,'+(-prog*3).toFixed(2)+'vh,0)';
+    bg.style.transform='translate3d(0,'+(prog*-6).toFixed(2)+'vh,0) scale(1.06)';
+  }
+
+  var ticking=false;
+  function frame(){
+    ticking=false;
+    var h=document.documentElement.scrollHeight-innerHeight;
+    paint(h>0?Math.min(1,Math.max(0,scrollY/h)):0);
+    phrases(); if(!RM) swim();
+  }
+  function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(frame);} }
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',onScroll,{passive:true});
+  frame();
+
+  /* ── взвесь ── */
+  (function(){
+    var cv=document.getElementById('motes'); if(!cv||RM){if(cv)cv.remove();return;}
+    var x=cv.getContext('2d'),w,h,dpr,parts;
+    function size(){
+      dpr=Math.min(2,devicePixelRatio||1); w=innerWidth; h=innerHeight;
+      cv.width=w*dpr|0; cv.height=h*dpr|0; cv.style.width=w+'px'; cv.style.height=h+'px';
+      x.setTransform(dpr,0,0,dpr,0,0);
+      var n=Math.round(Math.min(70,Math.max(24,w*h/28000)));
+      parts=Array.from({length:n},function(){return spawn(true);});
+    }
+    function spawn(any){return{x:Math.random()*w,y:any?Math.random()*h:h+8,
+      r:Math.random()*1.5+.35,s:Math.random()*.22+.05,a:Math.random()*.3+.08};}
+    function tick(){
+      x.clearRect(0,0,w,h);
+      for(var i=0;i<parts.length;i++){var p=parts[i];
+        p.y-=p.s; if(p.y<-8)parts[i]=spawn(false);
+        x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);
+        x.fillStyle='rgba(200,225,235,'+p.a+')';x.fill();}
+      requestAnimationFrame(tick);
+    }
+    size(); addEventListener('resize',size); tick();
+  })();
+})();
+</script>
+</body>
+</html>
