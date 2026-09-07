@@ -599,11 +599,13 @@ body.focus #caustic{opacity:.06;}
   justify-content:flex-end;align-items:center;overflow:hidden;padding:0;}
 
 /* плита: вода на полную силу + световой прожектор, открывающий глубину */
-.plate{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.plate{position:absolute;inset:0;overflow:hidden;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 62%,rgba(0,0,0,.55) 84%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0,#000 62%,rgba(0,0,0,.55) 84%,transparent 100%);}
 .plate-base,.plate-reveal{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;}
-.plate-base{background-image:url('assets/scene/childhood.jpg');transform:scale(1.06);
-  animation:plateZoom 2.4s var(--ease-out) forwards;}
-@keyframes plateZoom{to{transform:scale(1)}}
+/* Ни наезда, ни дрейфа: подложка обязана совпадать с видео пиксель в
+   пиксель, иначе при подмене фото на ролик кадр прыгает в размере. */
+.plate-base{background-image:url('assets/scene/childhood.jpg');}
 /* второй слой виден только внутри мягкого круга под курсором */
 .plate-reveal{background-image:url('assets/scene/childhood-dry.jpg');opacity:0;transition:opacity .7s ease;
   filter:saturate(1.05) brightness(1.12);
@@ -1065,11 +1067,8 @@ body.spot-on .spot-hint{opacity:0!important;animation:none!important;transition:
    ═══════════════════════════════════════════════════════════ */
 @media(prefers-reduced-motion:no-preference){
 
-  /* hero-кадр никогда не стоит: медленный бесконечный дрейф после наезда */
-  .plate-base{animation:plateZoom 2.4s var(--ease-out) forwards,
-                        heroDrift 42s ease-in-out 2.4s infinite alternate;}
-  @keyframes heroDrift{from{transform:scale(1) translate3d(0,0,0)}
-                       to{transform:scale(1.08) translate3d(-2%,-1.2%,0)}}
+  /* Дрейф подложки тоже снят: движение на первом экране даёт сам ролик,
+     а любой масштаб здесь разводит фото и видео по размеру. */
 
   /* заголовок собирается по словам, а не строкой целиком */
   .hw{display:inline-block;opacity:0;transform:translateY(38%) rotate(1.2deg);
@@ -4699,7 +4698,12 @@ function soundCheck(){
       raf=null;
       var r=sec.getBoundingClientRect(), span=r.height+innerHeight;
       var g=Math.min(1,Math.max(0,(innerHeight-r.top)/span));
-      f.style.transform='translate3d('+(-52+g*150).toFixed(2)+'vw,'+((g-.5)*4).toFixed(2)+'vh,0)';
+      /* Справа налево — головой вперёд, кадр снят мордой влево. И не по
+         прямой: пологая дуга вниз, как рыба и заходит в глубину. */
+      var x=104-g*172;
+      var y=-9+g*20+Math.sin(g*Math.PI)*4.5;
+      var rot=(-3+g*7).toFixed(2);
+      f.style.transform='translate3d('+x.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) rotate('+rot+'deg)';
     }
     addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(go);},{passive:true});
     addEventListener('resize',function(){if(!raf)raf=requestAnimationFrame(go);},{passive:true});
