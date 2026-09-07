@@ -1297,6 +1297,29 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
                    100%{transform:translate3d(-30%,-7%,0) scale(.7);opacity:0}}
 @media(prefers-reduced-motion:reduce){.fx--leave .fx,.fx--eye::after{animation:none;}}
 
+/* ── СЦЕНА 04: настоящий вопрос теста с картинками ── */
+/* Четыре в ряд, а не «сколько влезет»: авторазмещение ломало ряд на 3+1. */
+#mini .mini{max-width:1080px;}
+.mini-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;margin-top:34px;width:100%;}
+@media(max-width:900px){.mini-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}}
+.mini-card{position:relative;display:flex;flex-direction:column;gap:0;padding:0;
+  background:none;border:0;cursor:pointer;text-align:left;color:var(--muted);
+  font-family:var(--fb);opacity:0;animation:mcIn .9s var(--ease-out) forwards;
+  animation-delay:var(--od,0s);transition:color .3s;}
+@keyframes mcIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.mini-card .card-art,.mini-card .card-art img,.mini-card .card-art svg{
+  display:block;width:100%;aspect-ratio:16/10;object-fit:cover;}
+.mini-card .card-art{overflow:hidden;filter:saturate(.9) brightness(.86);
+  transition:filter .45s ease,transform .6s var(--ease-out);}
+.mini-card:hover .card-art,.mini-card:focus-visible .card-art{filter:none;transform:scale(1.03);}
+.mini-card.sel .card-art{filter:none;}
+.mc-l{margin-top:12px;font-size:.95rem;color:var(--ink);letter-spacing:-.01em;}
+.mc-s{margin-top:2px;font-size:.82rem;color:#6f7a80;}
+.mini-card.sel .mc-l{color:var(--accent-serif);}
+.mini-card:focus-visible{outline:1px solid var(--accent-serif);outline-offset:6px;}
+@media(prefers-reduced-motion:reduce){.mini-card{opacity:1;animation:none;}}
+
 /* ── СЦЕНА 04: мини-опыт, где кнопка Play почти единственный интерфейс ── */
 #mini .mini{max-width:720px;text-align:center;position:relative;z-index:2;}
 .mini-cue{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#6f6a62;margin-bottom:26px;}
@@ -1585,20 +1608,10 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   <section class="st st--dark" id="mini">
     <div class="scene-veil" aria-hidden="true"><img src="assets/scene/memory.jpg" alt="" loading="lazy" decoding="async"></div>
     <div class="mini" id="miniWrap">
-      <p class="mini-cue rv">послушай</p>
-      <h2 class="mini-q rv">Что с тобой происходит,<br>пока звук <em>поднимается</em>?</h2>
-      <button class="mini-play" id="miniPlay" onclick="miniToggle()" aria-label="Воспроизвести звуковую иллюзию">
-        <span class="mini-ico" id="miniIco"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="mini-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-        <span id="miniLbl">15 секунд</span>
-      </button>
-      <p class="mini-hint" id="miniHint">Тон Шепарда: иллюзия бесконечно растущей высоты. Звук рождается прямо в браузере.</p>
-      <div class="mini-opts" id="miniOpts" hidden>
-        <button class="mini-opt" onclick="miniPick(0)">Интерес. Хотелось понять, как это устроено</button>
-        <button class="mini-opt" onclick="miniPick(1)">Напряжение. Когда же это закончится</button>
-        <button class="mini-opt" onclick="miniPick(2)">Тревогу. Как будто что-то надвигается</button>
-        <button class="mini-opt" onclick="miniPick(3)">Ничего. Просто звук</button>
-      </div>
+      <p class="mini-cue rv">вопрос 35 из 56</p>
+      <h2 class="mini-q rv">Какой образ описывает тебя <em>в детстве</em>?</h2>
+      <p class="mini-hint">Выбери интуитивно, не думай. Это настоящий вопрос из теста — блок «Образы и сценарии».</p>
+      <div class="mini-cards" id="miniCards"></div>
       <p class="mini-echo" id="miniEcho"></p>
     </div>
   </section>
@@ -4752,52 +4765,36 @@ function soundCheck(){
   /* ── МИНИ-ОПЫТ: настоящая иллюзия Шепарда прямо на лендинге ── */
   /* Говорим о человеке, а не о методике: не «низкая тревога ожидания», а
      «спокойно держишься, когда непонятно». Про себя люди думают так. */
-  const MINI_ECHO=[
-    '<b>Тебе спокойно, когда непонятно.</b> Ты идёшь в неизвестное с интересом, а не с готовностью защищаться. Это редко, и обычно за этим стоит детство, где неожиданное не означало опасное.',
-    '<b>Ты ждёшь, когда это закончится.</b> Напрягал не сам звук, а то, что нельзя было угадать конец. Так живут те, кому спокойно, только когда всё под контролем.',
-    '<b>Ты услышал угрозу там, где её нет.</b> Обычный звук прочитался как «сейчас что-то случится». Так настраивается слух у ребёнка, которому важно было заранее понять, каким домой придёт взрослый.',
-    '<b>Тебя это не тронуло.</b> Ты не стал ничего вычитывать в звуке — и это тоже ответ. Не каждый сигнал обязан что-то значить.'
+  /* ── СЦЕНА 04: настоящий вопрос из теста, а не отдельная демонстрация ──
+     Взят вопрос 35 из блока «Образы и сценарии»: у него есть картинки, он
+     не требует звука (наушники есть не у всех и не везде) и работает как
+     доказательство продукта — человек видит ровно то, что будет в тесте.
+     Карточки рисует cardArt(): если положить assets/cards/<имя>.jpg,
+     подхватится фотография, иначе рисуется сцена кодом. */
+  const MINI_CARDS=[
+    {i:'bird',  l:'Птица в клетке',  s:'хочет вырваться',
+     e:'<b>Птица в клетке.</b> Силы для полёта есть, но что-то держит. Обычно так себя описывают те, кому в детстве было безопаснее не высовываться — и привычка осталась.'},
+    {i:'tree',  l:'Дерево на ветру', s:'гнётся, но держится',
+     e:'<b>Дерево на ветру.</b> Ты выдерживаешь то, что других ломает. Обратная сторона — терпеть научили рано, и теперь трудно заметить, что уже можно не терпеть.'},
+    {i:'stone', l:'Камень в воде',   s:'всё обтекает',
+     e:'<b>Камень в воде.</b> Тебя мало что задевает, и это правда удобно. Часто за этим стоит детство, где показывать чувства было небезопасно, — и чувствовать стало тише.'},
+    {i:'candle',l:'Свеча',           s:'светит другим, сгорая',
+     e:'<b>Свеча.</b> Ты греешь других за свой счёт. Так живут те, кого в детстве любили за пользу, — и кажется, что просто так любить не будут.'}
   ];
-  let miniOn=false;
-  function miniToggle(){
-    const box=document.querySelector('.mini'), lbl=document.getElementById('miniLbl'),
-          ico=document.getElementById('miniIco');
-    if(!box)return;
-    if(miniOn){ AudioIll.stop(); return; }
-    /* контекст создаётся внутри клика — иначе Safari не даст звук */
-    try{ if(typeof Music!=='undefined'&&Music.unlock)Music.unlock(); }catch(e){}
-    const idle=()=>{
-      miniOn=false; box.classList.remove('playing');
-      if(lbl)lbl.textContent='Послушать ещё раз';
-      if(ico)ico.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
-      miniReveal();
-    };
-    /* варианты не лежат готовым списком: они приходят после звука, по одному —
-       иначе человек читает ответы вместо того, чтобы слушать */
-    function miniReveal(){
-      const box=document.getElementById('miniOpts'); if(!box||!box.hidden)return;
-      box.hidden=false;
-      [...box.children].forEach((b,i)=>b.style.setProperty('--od',(i*.42)+'s'));
-      const h=document.getElementById('miniHint'); if(h)h.classList.add('dim');
-    }
-    /* если звук не завёлся — сразу возвращаемся в исходное состояние,
-       иначе кнопка навсегда остаётся «Остановить» и больше не играет */
-    const started=AudioIll.play('shepard',-1,idle);
-    if(started===false){ idle(); return; }
-    /* если звук не дослушают до конца, варианты всё равно откроются */
-    setTimeout(miniReveal,9000);
-    miniOn=true; box.classList.add('playing');
-    if(lbl)lbl.textContent='Остановить';
-    if(ico)ico.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
-  }
+  (function(){
+    var box=document.getElementById('miniCards'); if(!box)return;
+    box.innerHTML=MINI_CARDS.map(function(c,i){
+      return '<button class="mini-card" type="button" onclick="miniPick('+i+')" style="--od:'+(i*.09)+'s">'+
+        cardArt(c.i)+'<span class="mc-l">'+c.l+'</span><span class="mc-s">'+c.s+'</span></button>';
+    }).join('');
+  })();
   function miniPick(i){
-    document.querySelectorAll('.mini-opt').forEach((b,k)=>b.classList.toggle('sel',k===i));
-    const e=document.getElementById('miniEcho');
-    if(!e)return;
-    e.innerHTML=MINI_ECHO[i]+' <span style="color:#6f6a62">Это один вопрос из пятидесяти шести. По одному ничего не понять — по всем вместе складывается картина.</span>';
+    document.querySelectorAll('.mini-card').forEach(function(b,k){b.classList.toggle('sel',k===i);});
+    var e=document.getElementById('miniEcho'); if(!e)return;
+    e.innerHTML=MINI_CARDS[i].e+' <span style="color:#6f6a62">Это один вопрос из пятидесяти шести. По одному ничего не понять — по всем вместе складывается картина.</span>';
     e.classList.add('on');
   }
-  window.miniToggle=miniToggle; window.miniPick=miniPick;
+  window.miniPick=miniPick;
 
   /* ── DISCOVERY на телефоне: прожектор ведётся пальцем ── */
   (function(){
