@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Исток — шрифт первого экрана</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400&family=Unbounded:wght@200;300&family=Manrope:wght@200;300&family=Forum&family=Cormorant+Garamond:wght@300;400&family=Prata&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080d10;color:#F2EFE9;font-family:'Onest',system-ui,sans-serif;font-weight:300}
+.opt{position:relative;height:82svh;min-height:520px;overflow:hidden;
+  display:flex;align-items:flex-end;justify-content:center;padding:0 24px 9vh}
+.bg{position:absolute;inset:0;background:url('assets/scene/childhood.jpg') center/cover no-repeat}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,
+  rgba(6,14,18,.5) 0%,rgba(6,14,18,0) 26%,rgba(6,14,18,.08) 54%,rgba(8,14,18,.8) 100%)}
+.in{position:relative;z-index:2;text-align:center;width:100%}
+h1{font-weight:200;font-size:clamp(1.9rem,5.4vw,4rem);line-height:1.2;letter-spacing:-.03em}
+h1 em{font-style:normal;color:#A9C6D4}
+.tag{position:absolute;top:22px;left:22px;z-index:3;font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;color:#8ea3ad;font-family:'Onest',sans-serif;font-weight:400}
+.note{position:absolute;top:22px;right:22px;z-index:3;font-size:11.5px;color:#6d7f88;
+  max-width:34ch;text-align:right;font-family:'Onest',sans-serif;line-height:1.5}
+.cta{display:inline-flex;gap:.6em;margin-top:26px;font-family:'Onest',sans-serif;
+  font-size:.85rem;font-weight:400;color:#F2EFE9;border-bottom:1px solid rgba(242,239,233,.34);
+  padding-bottom:6px}
+
+.f1 h1{font-family:'Unbounded',sans-serif}
+.f2 h1{font-family:'Manrope',sans-serif;letter-spacing:-.04em}
+.f3 h1{font-family:'Forum',Georgia,serif;font-weight:400;letter-spacing:.005em}
+.f4 h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;
+  font-size:clamp(2.4rem,7vw,5.2rem);letter-spacing:0}
+.f5 h1{font-family:'Onest',sans-serif;font-weight:200;letter-spacing:-.04em}
+</style>
+</head>
+<body>
+<section class="opt f1"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">01 · Unbounded — сейчас</span>
+  <span class="note">Геометрический дисплейный. Заметный характер, но читается как «техно» и спорит с настроением воды.</span>
+  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
+
+<section class="opt f2"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">02 · Manrope Extra Light</span>
+  <span class="note">Тот же класс, но без причуд. Тише, современнее, не тянет внимание на себя.</span>
+  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
+
+<section class="opt f3"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">03 · Forum</span>
+  <span class="note">Прямая антиква с родной кириллицей. Музейное, спокойное, взрослое.</span>
+  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
+
+<section class="opt f4"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">04 · Cormorant Garamond Light</span>
+  <span class="note">Высокий контраст, тонкие штрихи. Дороже всех, но требует крупного кегля.</span>
+  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
+
+<section class="opt f5"><div class="bg"></div><div class="veil"></div>
+  <span class="tag">05 · Onest Extra Light — без дисплейной пары</span>
+  <span class="note">Одна гарнитура на весь сайт. Главным героем остаётся картинка, а не буквы.</span>
+  <div class="in"><h1>Всё начинается<br>в&nbsp;<em>детстве</em></h1><span class="cta">Начать исследование →</span></div></section>
+</body>
+</html>
