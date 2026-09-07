@@ -20,7 +20,7 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300..700&family=Unbounded:wght@200;300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Onest:wght@200..700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0d0f1a;--bg2:#111422;--surface:#1a1e30;--surface2:#1f2438;
@@ -30,7 +30,9 @@
   --mist:rgba(139,127,190,0.12);--mist2:rgba(139,127,190,0.05);
   --fb:'Onest',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --fd:'Onest',system-ui,-apple-system,sans-serif;
-  --fs:'Unbounded',system-ui,-apple-system,sans-serif;   /* акцент: широкий геометрический, не антиква */
+  /* Пара по присланному референсу: нейтральный гротеск на всё и
+     каллиграфический курсив ровно на акцентном слове. */
+  --fs:'Cormorant Garamond',Georgia,'Times New Roman',serif;
   /* HIG structural tokens: 8pt spacing grid, concentric radii, motion, touch target */
   --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;
   --r-sm:8px;--r-md:12px;--r-lg:16px;--r-full:9999px;
@@ -641,7 +643,7 @@ body:not(.reveal-on) .spot-hint{display:none!important;}
 .badge-star{opacity:.5;}
 
 /* заголовок: маскированные строки, плотный трекинг */
-h1.hero-h{font-family:var(--fd);font-weight:300;font-size:clamp(2.1rem,5.6vw,4.2rem);line-height:1.06;
+h1.hero-h{font-family:var(--fd);font-weight:300;font-size:clamp(2.6rem,7.4vw,5.6rem);line-height:1.06;
   letter-spacing:-.045em;color:var(--ink);margin:0;display:flex;flex-direction:column;align-items:center;
   text-shadow:0 2px 60px rgba(5,6,14,.85);}
 .hline{display:block;overflow:hidden;padding:.02em .15em .1em;margin-bottom:-.08em;}
@@ -733,7 +735,7 @@ nav#nav{padding:22px 40px 10px;}
   .plate-reveal{display:block;}
   .hero-stats{gap:16px;flex-direction:column;padding:34px 20px 26px;white-space:normal;}
   .stat{white-space:normal;}
-  h1.hero-h{font-size:clamp(1.7rem,7.6vw,2.4rem);}
+  h1.hero-h{font-size:clamp(2rem,9.6vw,3.1rem);}
   .hero-sub{font-size:15px;margin-top:14px;}
   .hero-actions{margin-top:20px;}
   .sline-wrap{display:none;}
@@ -761,7 +763,7 @@ nav#nav{padding:22px 40px 10px;}
   .nav-cta{padding:0 9px;font-size:11.5px;}
 }
 @media(min-width:1600px){
-  h1.hero-h{font-size:4.6rem;}
+  h1.hero-h{font-size:6.2rem;}
   .hero-sub{font-size:18px;max-width:540px;}
   .hero-in{max-width:1020px;}
   .stat{font-size:15px;}
@@ -863,7 +865,11 @@ nav#nav{position:absolute!important;background:transparent!important;border:none
 /* — типографика — */
 body{font-family:var(--fb);font-weight:400;letter-spacing:-.01em;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-h1.hero-h{font-family:var(--fs);font-weight:200;letter-spacing:-.03em;line-height:1.2;}
+/* Заголовок держит нейтральный гротеск. Он уже основной шрифт сайта,
+   поэтому первый экран перестал быть отдельной вселенной; и он уже
+   геометрического Unbounded, так что тот же кадр выдерживает заметно
+   более крупный кегль. */
+h1.hero-h{font-family:var(--fd);font-weight:200;letter-spacing:-.035em;line-height:1.14;}
 /* Unbounded — не антиква, поэтому акцентное слово держится не наклоном,
    а цветом: строка остаётся одной гарнитурой, как в выбранном образце. */
 h1.hero-h em,.scene em{font-family:var(--fs);font-style:normal;font-weight:200;font-size:1em;
@@ -1091,7 +1097,10 @@ footer{border-top-color:rgba(242,239,233,.08);}
   opacity:0;animation:hintIn 1.2s var(--ease-out) 2.6s forwards;}
 @keyframes hintIn{to{opacity:1}}
 body.spot-on .spot-hint{opacity:0!important;animation:none!important;transition:opacity .35s;}
-@media(max-width:900px){.spot-hint{bottom:auto;top:calc(100svh - 210px);font-size:10.5px;}}
+/* На тач-устройствах курсора нет — подсказка бессмысленна, и с выросшим
+   заголовком она ещё и налезала на строку. */
+@media(max-width:900px){.spot-hint{bottom:auto;top:calc(100svh - 236px);font-size:10.5px;}}
+@media(pointer:coarse){.spot-hint{display:none!important;}}
 
 
 /* ═══════════════════════════════════════════════════════════
@@ -1222,7 +1231,11 @@ body.dive #depth{opacity:1;}
 #depth .d-cur{position:absolute;right:-3px;width:7px;height:1px;background:var(--accent-serif);
   transition:top .12s linear;}
 #depth .d-val{font-variant-numeric:tabular-nums;}
-@media(max-width:900px){#depth{right:10px;font-size:9px;}#depth .d-rail{height:24vh;}}
+/* На узком экране глубиномер садился прямо на подписи карточек. Оставляем
+   только рельс с меткой — он и был главным, цифры дублируют ощущение. */
+@media(max-width:900px){#depth{right:8px;font-size:9px;}
+  #depth .d-rail{height:26vh;}
+  #depth .d-val,#depth .d-name{display:none;}}
 @media(prefers-reduced-motion:reduce){#depth{display:none;}}
 .st--dark{background:transparent;}
 /* Стык сцен ничем не отмечен. Раньше здесь лежала волосяная линия — она
@@ -1233,7 +1246,10 @@ body.dive #depth{opacity:1;}
 /* ── СЦЕНА 01: только заголовок и одно действие ── */
 /* композиция прижата к низу кадра, но с запасом: подсказка о курсоре
    и кнопка не должны сходиться в одну строку */
-#hero{justify-content:flex-end;padding:0 24px 132px;}
+/* Композиция осталась прижатой к низу — комната симметрична, и текст,
+   поднятый в центр, сел бы ровно на изголовье кровати. Но запас снизу
+   уменьшен: заголовок вырос, ему нужно место, а не поле под ним. */
+#hero{justify-content:flex-end;padding:0 24px 108px;}
 #hero .hero-in{gap:0;}
 #hero .hero-h{margin-bottom:0;}
 .st-cta{margin-top:38px;background:none;border:0;padding:10px 0;cursor:pointer;
@@ -1284,12 +1300,17 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
    смешивается не с водой, а с пустотой внутри секции — вокруг рыбы
    появляется тёмный прямоугольник. Там, где рыба плывёт, изоляцию снимаем. */
 #discovery,#fish-scene{isolation:auto;}
-/* Сцену держим на месте, пока она проходит. Иначе собственная прокрутка
-   секции уносит рыбу вверх быстрее, чем её опускает траектория, и дуга
-   просто не видна: 558 пикселей снижения против 1800 пикселей проката. */
-#discovery{height:230svh;display:block;padding:0;}
-.d-stick{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;
+/* Сцена больше не закреплена. Закрепление решало проблему дуги, но
+   создавало худшую: страница переставала ехать под пальцами, и рыба
+   читалась как остановившаяся. Теперь рыба вынесена в отдельный слой над
+   водой и её путь считается прямо в координатах экрана — секция при этом
+   прокручивается как любая другая, а рыба честно уходит за край кадра. */
+#discovery{min-height:100svh;display:block;padding:0;}
+.d-stick{position:static;min-height:100svh;overflow:visible;display:flex;
   align-items:center;justify-content:center;padding:0 clamp(20px,5vw,72px);}
+#swimmers{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;}
+#swimmers .swim{position:absolute;left:0;top:0;translate:none;
+  will-change:transform;}
 .swim--far{width:min(56vw,760px);top:30%;}
 .swim--far img{filter:brightness(.42) saturate(.7);}
 @media(max-width:900px){.swim--far{width:min(120vw,560px);top:24%;}}
@@ -1343,8 +1364,8 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 /* Четыре в ряд, а не «сколько влезет»: авторазмещение ломало ряд на 3+1. */
 #mini .mini{max-width:1080px;}
 .mini-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:16px;margin-top:34px;width:100%;}
-@media(max-width:900px){.mini-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}}
+  gap:22px;margin-top:44px;width:100%;}
+@media(max-width:900px){.mini-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:34px;}}
 .mini-card{position:relative;display:flex;flex-direction:column;gap:0;padding:0;
   background:none;border:0;cursor:pointer;text-align:left;color:var(--muted);
   font-family:var(--fb);opacity:0;animation:mcIn .9s var(--ease-out) forwards;
@@ -1356,14 +1377,18 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   transition:filter .45s ease,transform .6s var(--ease-out);}
 .mini-card:hover .card-art,.mini-card:focus-visible .card-art{filter:none;transform:scale(1.03);}
 .mini-card.sel .card-art{filter:none;}
-.mc-l{margin-top:12px;font-size:.95rem;color:var(--ink);letter-spacing:-.01em;}
-.mc-s{margin-top:2px;font-size:.82rem;color:#6f7a80;}
+.mc-l{margin-top:16px;font-size:1.16rem;color:var(--ink);letter-spacing:-.015em;}
+.mc-s{margin-top:4px;font-size:.95rem;color:#7d8a91;}
+@media(max-width:900px){.mc-l{font-size:1rem;}.mc-s{font-size:.85rem;}}
 .mini-card.sel .mc-l{color:var(--accent-serif);}
 .mini-card:focus-visible{outline:1px solid var(--accent-serif);outline-offset:6px;}
 @media(prefers-reduced-motion:reduce){.mini-card{opacity:1;animation:none;}}
 
 /* ── СЦЕНА 04: мини-опыт, где кнопка Play почти единственный интерфейс ── */
-#mini .mini{max-width:720px;text-align:center;position:relative;z-index:2;}
+/* Карточки — главное в этой сцене, поэтому блок шире текстовой колонки.
+   Сам вопрос и подсказка при этом остаются в читаемой мере. */
+#mini .mini{max-width:1180px;text-align:center;position:relative;z-index:2;}
+#mini .mini-q,#mini .mini-cue{max-width:860px;margin-left:auto;margin-right:auto;}
 .mini-cue{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#6f6a62;margin-bottom:26px;}
 .mini-q{font-size:clamp(1.5rem,3.4vw,2.5rem);font-weight:400;letter-spacing:-.03em;
   line-height:1.24;color:var(--ink);margin-bottom:44px;}
@@ -1577,6 +1602,32 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
   .six-sw{width:52px;height:52px;}
   .six-sc button{width:36px;height:36px;font-size:12px;}
 }
+
+/* ── Акцентная гарнитура ──
+   Все прежние правила ставили акцентному слову normal/200 — это было нужно
+   широкому геометрическому Unbounded. Теперь там каллиграфический курсив,
+   поэтому переопределяем весь список разом, а не полтора десятка мест.
+   Курсив мельче гротеска в кегле, отсюда 1.12em — иначе акцентное слово
+   читалось бы слабее основного. */
+h1.hero-h em,.scene em,.qline em,.mini-q em,.six-title em,.six-h em,
+#fish-scene h2 em,#method-scene h2 em,.fin-h em,.hist-i{
+  font-family:var(--fs);font-style:italic;font-weight:400;
+  font-size:1.12em;letter-spacing:0;color:var(--accent-serif);}
+.rc-name{font-family:var(--fs);font-style:italic;font-weight:400;
+  font-size:1.9rem;letter-spacing:0;}
+
+/* Кадр в шестой сцене светлый и крупный, текст ложился прямо на плавник.
+   Само сгущение существовало и раньше, но лежало ПОД рыбой: и оно, и рыба
+   стояли на z-index 1, а рыба идёт в разметке позже — значит, рисуется
+   поверх. Поднимаем подложку между рыбой и текстом, где ей и место. */
+#fish-scene::before{z-index:2!important;background:
+  radial-gradient(42% 62% at 22% 46%,rgba(3,8,11,.92),rgba(3,8,11,.58) 48%,rgba(3,8,11,.18) 72%,transparent 88%),
+  linear-gradient(90deg,rgba(3,8,11,.78) 0%,rgba(3,8,11,.3) 30%,transparent 50%)!important;
+  /* Подложка кончается вместе с секцией, и её нижний край читался поперёк
+     экрана как граница блока. Растворяем края по вертикали. */
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 15%,#000 78%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 15%,#000 78%,transparent 100%);}
+#fish-scene .fish-in{z-index:3!important;}
 </style>
 </head>
 <body>
@@ -1585,6 +1636,8 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
 <div id="grain" aria-hidden="true"></div>
 <div id="ocean" aria-hidden="true"><i class="cau cau--a"></i><i class="cau cau--b"></i></div>
 <div id="rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<!-- Рыба живёт в воде, а не внутри секции: отдельный слой под всем текстом. -->
+<div id="swimmers" aria-hidden="true"><span class="swim swim--far" id="discFish"><img src="assets/fish/whaleshark-cut.webp" alt="" loading="lazy" decoding="async"></span></div>
 <div id="caustic" aria-hidden="true"></div>
 <canvas id="motes" aria-hidden="true"></canvas>
 <div id="depth" aria-hidden="true"><span class="d-val">0 м</span><span class="d-rail"><i class="d-cur"></i></span><span class="d-name">поверхность</span></div>
@@ -1638,9 +1691,6 @@ body.spot-on .spot-hint{opacity:0!important;transition:opacity .4s;}
        Ответ на предыдущую сцену. Здесь впервые проступает глаз — но не рыба. -->
   <section class="st--dark" id="discovery">
     <div class="d-stick">
-    <!-- Здесь рыба впервые проходит мимо — далеко и не в фокусе. Это первый
-         намёк на то, что в воде кто-то есть, до полного показа в сцене 06. -->
-    <span class="swim swim--far" id="discFish" aria-hidden="true"><img src="assets/fish/whaleshark-cut.webp" alt="" loading="lazy" decoding="async"></span>
     <div class="disc">
       <p class="disc-l rv">Это не&nbsp;случайность.</p>
       <p class="disc-l rv" style="--rd:.5s">Это паттерны.</p>
@@ -4176,8 +4226,8 @@ async function shareFish(){
   /* ждём шрифты, но не дольше двух секунд — иначе карточка не соберётся вовсе */
   try{await Promise.race([
     Promise.all([
-      document.fonts.load('300 66px "Unbounded"'),
-      document.fonts.load('400 30px "Inter"')
+      document.fonts.load('italic 400 66px "Cormorant Garamond"'),
+      document.fonts.load('400 30px "Onest"')
     ]),
     new Promise(r=>setTimeout(r,2000))
   ]);}catch(e){}
@@ -4192,9 +4242,9 @@ async function shareFish(){
   x.fillStyle=rg;x.fillRect(0,0,1080,940);
   /* шапка */
   x.textAlign='center';
-  x.fillStyle='#b8aee8';x.font='300 36px Inter, sans-serif';
+  x.fillStyle='#b8aee8';x.font='300 36px Onest, sans-serif';
   x.fillText('И  С  Т  О  К',540,96);
-  x.fillStyle='#5e5a72';x.font='300 26px Inter, sans-serif';
+  x.fillStyle='#5e5a72';x.font='300 26px Onest, sans-serif';
   x.fillText('тест о паттернах детства',540,138);
   /* рыба */
   const load=src=>new Promise((res,rej)=>{
@@ -4221,10 +4271,10 @@ async function shareFish(){
   }catch(e){}
   x.strokeStyle='rgba(255,255,255,.14)';x.lineWidth=2;x.strokeRect(120,178,840,525);
   /* имя */
-  x.fillStyle='#e8e4f0';x.font='300 66px "Unbounded", sans-serif';
+  x.fillStyle='#e8e4f0';x.font='italic 400 70px "Cormorant Garamond", Georgia, serif';
   x.fillText(S.name,540,788);
   /* теги в 2-3 ряда */
-  x.font='300 26px Inter, sans-serif';
+  x.font='300 26px Onest, sans-serif';
   const rows=[];let row=[],wsum=0;
   S.chips.forEach(ch=>{
     const w=x.measureText(ch).width+44;
@@ -4247,18 +4297,18 @@ async function shareFish(){
   /* топ-3 паттерна */
   cy+=26;
   S.top.forEach(t=>{
-    x.textAlign='left';x.fillStyle='#e8e4f0';x.font='300 31px Inter, sans-serif';
+    x.textAlign='left';x.fillStyle='#e8e4f0';x.font='300 31px Onest, sans-serif';
     x.fillText(t.name,140,cy);
-    x.textAlign='right';x.fillStyle='#b8aee8';x.font='300 32px "Unbounded", sans-serif';
+    x.textAlign='right';x.fillStyle='#b8aee8';x.font='300 32px Onest, sans-serif';
     x.fillText(t.pct+'%',940,cy);
     x.fillStyle='rgba(255,255,255,.13)';x.fillRect(140,cy+16,800,3);
     x.fillStyle='#8b7fbe';x.fillRect(140,cy+16,800*Math.min(100,t.pct)/100,3);
     cy+=80;x.textAlign='center';
   });
   /* индекс + футер */
-  x.fillStyle='#5e5a72';x.font='300 26px Inter, sans-serif';
+  x.fillStyle='#5e5a72';x.font='300 26px Onest, sans-serif';
   x.fillText('общий индекс детского следа — '+S.idx+'%',540,cy+6);
-  x.fillStyle='#8b7fbe';x.font='300 30px Inter, sans-serif';
+  x.fillStyle='#8b7fbe';x.font='300 30px Onest, sans-serif';
   x.fillText('Какая рыба живёт в твоём истоке?',540,1318);
   /* экспорт: share или скачивание */
   c.toBlob(async b=>{
@@ -4761,32 +4811,37 @@ function soundCheck(){
     step();
   })();
 
-  /* ── сцена 03: рыба впервые проходит мимо, далеко и медленно ── */
+  /* ── сцена 03: рыба проходит кадр по дуге и уходит за край ── */
   (function(){
     var sec=document.getElementById('discovery'), f=document.getElementById('discFish');
-    if(!sec||!f||RM)return;
+    if(!sec||!f)return;
+    if(RM){f.style.transform='translate3d(14vw,22vh,0)';return;}
     var raf=null;
     function go(){
       raf=null;
-      var r=sec.getBoundingClientRect(), span=r.height-innerHeight;
-      var g=span>0?Math.min(1,Math.max(0,(-r.top)/span)):0;
-      /* Справа налево головой вперёд: кадр снят мордой влево.
-         Дуга, а не прямая. Прошлая версия давала 172vw по горизонтали
-         против 20vh по вертикали — на экране 1440x900 это 2477 пикселей
-         против 180, то есть глазом ровная линия. Теперь снижение идёт по
-         квадрату: в начале почти горизонтально, к концу круто вниз — так
-         путь читается дугой, а не наклонной прямой. Ход по горизонтали
-         укорочен, чтобы кривизна успевала проявиться.
-         Наклон корпуса тоже развёрнут: рыба смотрит влево, поэтому нос
-         опускается при отрицательном угле, а раньше он задирался вверх,
-         пока она шла вниз. */
-      var x=100-g*160;
-      var y=-26+g*g*62;
-      var rot=(-g*13).toFixed(2);
-      f.style.transform='translate3d('+x.toFixed(2)+'vw,'+y.toFixed(2)+'vh,0) rotate('+rot+'deg)';
+      /* p — проход секции мимо экрана целиком: 0, когда её верх только
+         показался снизу, 1, когда её низ ушёл вверх. */
+      var r=sec.getBoundingClientRect(), span=innerHeight+r.height;
+      var p=span>0?Math.min(1,Math.max(0,(innerHeight-r.top)/span)):0;
+      /* Внутри этого прохода рыба занимает середину: до и после она уже
+         за краем кадра, и обрезается слоем. */
+      var g=Math.min(1,Math.max(0,(p-.1)/.8));
+      var W=innerWidth,H=innerHeight,w=f.offsetWidth,h=f.offsetHeight;
+      /* Считаем положение центра прямо на экране, а не относительно секции.
+         Прежняя версия задавала смещение внутри секции, и собственная
+         прокрутка секции (1800 пикселей вверх) перебивала снижение
+         (558 пикселей вниз) — на экране рыба уезжала вверх-влево.
+         Крайние точки берутся от ширины самой рыбы, поэтому она гарантированно
+         уходит за край целиком, а не зависает половиной в кадре. */
+      var x0=W+w/2+24, x1=-w/2-24;
+      var cx=x0+(x1-x0)*g;
+      var cy=H*(.16+g*g*.72);        /* пологая дуга вниз, а не прямая */
+      var rot=(-g*g*16).toFixed(2);  /* нос опускается по мере снижения */
+      f.style.transform='translate3d('+(cx-w/2).toFixed(1)+'px,'+(cy-h/2).toFixed(1)+'px,0) rotate('+rot+'deg)';
     }
     addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(go);},{passive:true});
     addEventListener('resize',function(){if(!raf)raf=requestAnimationFrame(go);},{passive:true});
+    addEventListener('load',go);
     go();
   })();
 
