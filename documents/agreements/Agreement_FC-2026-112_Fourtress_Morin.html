@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Services Framework Agreement No. FC-2026/112</title>
+<style>
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-Regular.ttf');font-weight:400;}
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-Medium.ttf');font-weight:500;}
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-SemiBold.ttf');font-weight:600;}
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-Bold.ttf');font-weight:700;}
+@font-face{font-family:'InterX';src:url('file:///root/.fonts/Inter-Black.ttf');font-weight:900;}
+
+:root{
+  --ink:#16171A; --ink-soft:#3C3E44; --ink-mute:#6E7076;
+  --paper:#E7E3DA; --line:#B6B1A5; --hair:#CFCABE;
+}
+@page{
+  size:A4; margin:16mm 16mm 15mm 16mm; background:#E7E3DA;
+  @bottom-left{
+    content:"Services Framework Agreement No. FC-2026/112 · 22.08.2026";
+    font-family:'InterX'; font-size:6.1pt; font-weight:600; letter-spacing:.09em;
+    text-transform:uppercase; color:#6E7076; margin-bottom:4mm;
+  }
+  @bottom-right{
+    content:counter(page) " / " counter(pages);
+    font-family:'InterX'; font-size:6.1pt; font-weight:700; letter-spacing:.09em;
+    color:#3C3E44; margin-bottom:4mm;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--paper);}
+body{font-family:'InterX',Helvetica,Arial,sans-serif;color:var(--ink);font-size:8pt;line-height:1.56;}
+
+.brandline{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:6.4pt;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);}
+.wordmark{font-weight:900;font-size:76pt;line-height:.84;letter-spacing:-.042em;
+  text-transform:uppercase;white-space:nowrap;transform:scaleX(1.0);transform-origin:left center;
+  margin-top:4mm;}
+.subwordmark{font-size:8.6pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-soft);margin-top:2.5mm;}
+.rule{border-top:.7pt solid var(--line);}
+.hair{border-top:.45pt solid var(--hair);}
+
+.meta{display:flex;gap:9mm;padding:4.5mm 0 5mm;}
+.meta .col{flex:1;}
+.label{font-size:6.2pt;font-weight:700;letter-spacing:.17em;text-transform:uppercase;margin-bottom:2mm;}
+.who{font-weight:700;font-size:8.6pt;margin-bottom:.8mm;}
+.meta p{color:var(--ink-soft);font-size:7.5pt;line-height:1.6;}
+.meta .ref{text-align:right;}
+.meta .ref .row{display:flex;justify-content:flex-end;gap:3mm;color:var(--ink-soft);font-size:7.5pt;line-height:1.62;}
+.meta .ref .row b{font-weight:600;color:var(--ink);}
+.meta .ref .big{font-weight:900;font-size:11pt;letter-spacing:-.02em;margin-bottom:1mm;}
+
+h2{font-size:7.6pt;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  margin:5mm 0 2mm;padding-top:2.4mm;border-top:.45pt solid var(--hair);
+  break-after:avoid;}
+h2 .n{color:var(--ink-mute);margin-right:2.5mm;}
+h2.first{border-top:0;padding-top:0;margin-top:4mm;}
+p.t{color:var(--ink-soft);text-align:justify;margin-bottom:1.6mm;}
+p.t b{color:var(--ink);font-weight:600;}
+ol.c{list-style:none;counter-reset:cl;}
+ol.c>li{counter-increment:cl;position:relative;padding-left:9mm;margin-bottom:1.6mm;
+  color:var(--ink-soft);text-align:justify;break-inside:avoid;}
+ol.c>li::before{content:counter(cl)".";position:absolute;left:0;top:0;width:7mm;
+  font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+ol.c>li b{color:var(--ink);font-weight:600;}
+ul.d{list-style:none;margin:1.2mm 0 1.2mm 0;}
+ul.d>li{position:relative;padding-left:4.5mm;margin-bottom:.8mm;color:var(--ink-soft);break-inside:avoid;}
+ul.d>li::before{content:"—";position:absolute;left:0;color:var(--ink-mute);}
+
+table{width:100%;border-collapse:collapse;table-layout:fixed;margin:2.4mm 0 1.5mm;}
+th{font-size:6.2pt;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-align:left;
+  padding:1.8mm 2.5mm;border-top:.7pt solid var(--line);border-bottom:.7pt solid var(--line);}
+td{padding:2mm 2.5mm;border-bottom:.45pt solid var(--hair);vertical-align:top;
+  color:var(--ink-soft);font-size:7.5pt;}
+td.k{color:var(--ink);font-weight:600;}
+th.r,td.r{text-align:right;}
+td.num{font-variant-numeric:tabular-nums;}
+tr{break-inside:avoid;}
+
+.sign{display:flex;gap:14mm;padding-top:8mm;break-inside:avoid;}
+.sign .col{flex:1;}
+.sign .line{height:14mm;border-bottom:.7pt solid var(--line);}
+.sign .nm{padding-top:2mm;font-size:6.6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+.sign .rl{font-size:6.6pt;font-weight:500;letter-spacing:.06em;color:var(--ink-mute);margin-top:.6mm;}
+
+.annex{break-before:page;}
+.annexhead{font-weight:900;font-size:26pt;letter-spacing:-.02em;text-transform:uppercase;line-height:1;}
+.annexsub{font-size:7.4pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-soft);margin-top:2mm;}
+h3{font-size:7.2pt;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin:4.5mm 0 1.5mm;break-after:avoid;}
+h3 .n{color:var(--ink-mute);margin-right:2.5mm;}
+.note{font-size:7pt;color:var(--ink-mute);text-align:justify;margin-top:1.5mm;}
+</style>
+</head>
+<body>
+
+<div class="brandline">
+  <span>Fourtress Commerce&nbsp;Ltd</span>
+  <span>Varna · Bulgaria</span>
+</div>
+<div class="wordmark">Agreement</div>
+<div class="subwordmark">Services Framework Agreement</div>
+<div class="rule" style="margin-top:4mm"></div>
+
+<div class="meta">
+  <div class="col">
+    <div class="label">Provider</div>
+    <div class="who">Fourtress Commerce Ltd</div>
+    <p>
+      Company No. 204154873<br>
+      5, Parizhka Komuna Str., Office 3,<br>
+      Ground Floor, Varna 9000, Bulgaria<br>
+      Represented by Sergey Sergeev, Director<br>
+      fortreskltd@gmail.com · +359 877 173 509
+    </p>
+  </div>
+  <div class="col">
+    <div class="label">Client</div>
+    <div class="who">Michel Morin</div>
+    <p>
+      4 Résidence Beausoleil<br>
+      14400 Saint-Vigor-le-Grand<br>
+      France
+    </p>
+  </div>
+  <div class="col ref">
+    <div class="label">Agreement</div>
+    <div class="big">No. FC-2026/112</div>
+    <div class="row"><span>Date of execution</span><b>22.08.2026</b></div>
+    <div class="row"><span>Place</span><b>Varna, Bulgaria</b></div>
+    <div class="row"><span>Initial term</span><b>22.08.2026 – 21.08.2027</b></div>
+    <div class="row"><span>Currency</span><b>EUR (€)</b></div>
+    <div class="row"><span>Language</span><b>English</b></div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<h2 class="first">Preamble</h2>
+<p class="t">This Services Framework Agreement (the <b>“Agreement”</b>) is made on <b>22 August 2026</b> in Varna, Bulgaria, between <b>Fourtress Commerce Ltd</b>, a limited liability company incorporated and existing under the laws of the Republic of Bulgaria, registered under company number 204154873, with its seat and registered address at 5, Parizhka Komuna Str., Office 3, Ground Floor, Varna 9000, Bulgaria, represented by its Director Sergey Sergeev (the <b>“Provider”</b>), and <b>Michel Morin</b>, an individual residing at 4 Résidence Beausoleil, 14400 Saint-Vigor-le-Grand, France (the <b>“Client”</b>), each a <b>“Party”</b> and together the <b>“Parties”</b>.</p>
+<p class="t">Whereas the Provider carries on, as its registered economic activity, the business of web development, information technology services, e-commerce, digital marketing and online advertising, and possesses the personnel, technical means and professional capacity required to perform the services described in this Agreement; and whereas the Client wishes to commission such services from the Provider from time to time on a non-exclusive basis; the Parties have agreed as follows.</p>
+
+<h2><span class="n">1.</span>Definitions and interpretation</h2>
+<ol class="c">
+  <li><b>“Services”</b> means any of the services listed in Annex 1, as ordered by the Client and accepted by the Provider under clause 4.</li>
+  <li><b>“Service Order”</b> means a specific order for Services placed under this Agreement, in any form permitted by clause 4, including scope, deliverables, fees and delivery dates.</li>
+  <li><b>“Deliverables”</b> means the results of the Services, including designs, source code, configurations, texts, images and documentation delivered to the Client.</li>
+  <li><b>“Project”</b> means a group of Services ordered and delivered as one indivisible engagement and invoiced as a single item.</li>
+  <li>Headings are for convenience only and do not affect interpretation. The singular includes the plural. References to a clause or annex are references to a clause of, or annex to, this Agreement.</li>
+</ol>
+
+<h2><span class="n">2.</span>Subject matter and framework nature</h2>
+<ol class="c">
+  <li>This Agreement sets out the general terms on which the Provider supplies Services to the Client. It qualifies as a contract for work and services (<i>договор за изработка и за услуга</i>) under Articles 258 et seq. and Articles 280 et seq. of the Bulgarian Obligations and Contracts Act.</li>
+  <li>This Agreement creates <b>no minimum volume obligation</b> for either Party. The Client is under no obligation to order any Services, and the Provider is under no obligation to accept any particular Service Order.</li>
+  <li>The Provider performs the Services as an independent contractor. Nothing in this Agreement creates an employment relationship, partnership, joint venture or agency between the Parties.</li>
+  <li>The Parties confirm that any invoice issued by the Provider to the Client on or after the date of this Agreement for Services falling within Annex 1 is deemed issued under, and governed by, this Agreement, whether or not it refers to it expressly.</li>
+</ol>
+
+<h2><span class="n">3.</span>Connection between the Provider’s registered activity and the Services</h2>
+<ol class="c">
+  <li>The Provider’s registered scope of business comprises digital marketing, online advertising, e-commerce, information technology services and web development.</li>
+  <li>Each category of Services set out in Annex 1 falls directly within that registered scope of business, as follows:
+    <ul class="d">
+      <li>Annex 1, Section A (Web design and development) — corresponds to the Provider’s registered activity of web development and information technology services.</li>
+      <li>Annex 1, Section B (E-commerce) — corresponds to the Provider’s registered activity of e-commerce and web development.</li>
+      <li>Annex 1, Section C (Digital marketing and online advertising) — corresponds to the Provider’s registered activity of digital marketing and online advertising.</li>
+      <li>Annex 1, Section D (IT services, hosting and support) — corresponds to the Provider’s registered activity of information technology services.</li>
+    </ul>
+  </li>
+  <li>The Provider warrants that it performs no Services under this Agreement outside its registered scope of business, and that it holds all registrations required under Bulgarian law for the performance of the Services.</li>
+</ol>
+
+<h2><span class="n">4.</span>Ordering procedure</h2>
+<ol class="c">
+  <li>The Client may place a Service Order in writing, by e-mail, or through any other durable medium agreed between the Parties. A Service Order shall state the Services requested and, where relevant, the desired delivery date.</li>
+  <li>A Service Order becomes binding when the Provider confirms it in writing or by e-mail, or when the Provider commences performance of the Services with the Client’s knowledge.</li>
+  <li>Where Services are ordered as one Project, they form a single indivisible engagement: the Deliverables are accepted, invoiced and paid as a whole, and individual items within the Project are not separately acceptable or separately terminable.</li>
+  <li>Any change to the scope of an accepted Service Order requires the written agreement of both Parties and may result in an adjustment of fees and delivery dates.</li>
+</ol>
+
+<h2><span class="n">5.</span>Term</h2>
+<ol class="c">
+  <li>This Agreement enters into force on <b>22 August 2026</b> and is concluded for an initial term of twelve (12) months, expiring on <b>21 August 2027</b>.</li>
+  <li>Upon expiry of the initial term the Agreement is automatically renewed for successive periods of twelve (12) months, unless either Party gives written notice of non-renewal no later than thirty (30) days before the end of the then-current term.</li>
+  <li>Expiry or termination of this Agreement does not affect any Service Order already accepted, which shall be completed and paid for under the terms of this Agreement.</li>
+</ol>
+
+<h2><span class="n">6.</span>Fees, invoicing and payment</h2>
+<ol class="c">
+  <li>Fees are agreed per Service Order, either on a time basis at the hourly rates indicated in Annex 1, or as a fixed Project fee. All fees are stated in euro (EUR).</li>
+  <li>The Provider invoices the Client upon delivery of the Services or of an agreed stage of a Project. Invoices are payable within <b>fifteen (15) calendar days</b> of the invoice date.</li>
+  <li>Payment is made by bank transfer to the Provider’s account: <b>VIVABANK S.A.</b>, 18–20 Amarousiou Chalandriou Ave., Marousi 151 25, Greece, <b>IBAN GR39 0570 0000 0007 9018 6298 335</b>, <b>SWIFT/BIC PRXBGRAA</b>, currency EUR. All bank charges on the sender’s side are borne by the Client.</li>
+  <li>Where a discount is granted, it is applied to the VAT-inclusive amount of the relevant invoice and is shown as a separate line on that invoice.</li>
+  <li>In case of late payment the Provider may charge statutory default interest under Bulgarian law from the day following the due date until payment in full.</li>
+  <li>The following invoice is issued under this Agreement and forms part of it:
+    <table>
+      <colgroup><col style="width:16%"><col style="width:16%"><col style="width:38%"><col style="width:14%"><col style="width:16%"></colgroup>
+      <thead><tr><th>Invoice No.</th><th>Date</th><th>Subject</th><th>Annex 1 section</th><th class="r">Amount incl. VAT</th></tr></thead>
+      <tbody><tr>
+        <td class="k">112</td><td class="num">01.09.2026</td>
+        <td>Full-cycle development and launch of the Client’s website, supplied as a single Project</td>
+        <td>Section A</td><td class="r num k">€5,000.00</td>
+      </tr></tbody>
+    </table>
+  </li>
+</ol>
+
+<h2><span class="n">7.</span>Obligations of the Provider</h2>
+<ol class="c">
+  <li>To perform the Services with the professional care, skill and diligence reasonably expected of a provider of comparable services, and in accordance with the accepted Service Order.</li>
+  <li>To use personnel with the qualifications required for the Services, and to remain responsible for any subcontractor it engages as for its own acts.</li>
+  <li>To inform the Client without undue delay of any circumstance that may prevent or delay delivery.</li>
+  <li>To hand over the Deliverables together with the access credentials and documentation reasonably required for their use.</li>
+</ol>
+
+<h2><span class="n">8.</span>Obligations of the Client</h2>
+<ol class="c">
+  <li>To provide, in good time, the content, materials, access rights and decisions necessary for the Provider to perform the Services.</li>
+  <li>To warrant that any material supplied to the Provider does not infringe third-party rights, and to hold the Provider harmless against claims arising from such material.</li>
+  <li>To review Deliverables submitted for acceptance and to respond within the period set in clause 9.</li>
+  <li>To pay the agreed fees in accordance with clause 6.</li>
+</ol>
+
+<h2><span class="n">9.</span>Delivery and acceptance</h2>
+<ol class="c">
+  <li>The Provider submits the Deliverables to the Client by e-mail, by handover of access to a staging or production environment, or by any other agreed means.</li>
+  <li>The Client shall examine the Deliverables and notify the Provider of any defect within <b>ten (10) calendar days</b> of submission. Deliverables not objected to within that period are deemed accepted.</li>
+  <li>Defects duly notified within that period shall be remedied by the Provider free of charge within a reasonable time. Requests that go beyond the agreed scope constitute a new Service Order.</li>
+  <li>Putting a Deliverable into live commercial use constitutes acceptance of that Deliverable.</li>
+</ol>
+
+<h2><span class="n">10.</span>Intellectual property</h2>
+<ol class="c">
+  <li>Upon receipt by the Provider of payment in full for the relevant Services, all transferable intellectual property rights in the Deliverables pass to the Client, for an unlimited term and without territorial restriction.</li>
+  <li>Until payment in full, the Provider retains all rights in the Deliverables, and the Client has no right to use them commercially.</li>
+  <li>Pre-existing know-how, tools, libraries, frameworks and reusable components of the Provider remain its property; the Client receives a non-exclusive, perpetual, royalty-free licence to use them to the extent they are incorporated in the Deliverables.</li>
+  <li>Third-party components (including open-source software, fonts and stock media) remain subject to their own licence terms, which the Provider shall identify on request.</li>
+  <li>The Provider may name the Client and show the Deliverables in its portfolio and reference lists, unless the Client objects in writing.</li>
+</ol>
+
+<h2><span class="n">11.</span>Confidentiality</h2>
+<ol class="c">
+  <li>Each Party shall keep confidential all non-public information obtained from the other Party in connection with this Agreement, and shall use it solely for the purpose of performing this Agreement.</li>
+  <li>This obligation does not apply to information that is or becomes public without breach of this Agreement, that was lawfully known before disclosure, or whose disclosure is required by law or by a competent authority.</li>
+  <li>The confidentiality obligation survives the termination of this Agreement for a period of three (3) years.</li>
+</ol>
+
+<h2><span class="n">12.</span>Data protection</h2>
+<ol class="c">
+  <li>Each Party shall comply with Regulation (EU) 2016/679 (GDPR) and, as applicable, the Bulgarian Personal Data Protection Act and the French Act No. 78-17 of 6 January 1978 as amended.</li>
+  <li>Where the Provider processes personal data on behalf of the Client in the course of the Services, it acts as a processor, processes such data only on the Client’s documented instructions, applies appropriate technical and organisational measures, and imposes equivalent obligations on any sub-processor.</li>
+  <li>Personal data of the Parties’ representatives is processed for the purposes of concluding and performing this Agreement and for compliance with statutory accounting and tax retention obligations.</li>
+</ol>
+
+<h2><span class="n">13.</span>VAT treatment</h2>
+<ol class="c">
+  <li>The Client is a non-taxable person established in France. Accordingly, the place of supply of the Services is the place where the Provider has established its business, pursuant to Article 45 of Council Directive 2006/112/EC and Article 21(1) of the Bulgarian Value Added Tax Act.</li>
+  <li>The Services are therefore subject to Bulgarian value added tax at the standard rate of <b>20%</b>, which the Provider charges and accounts for in Bulgaria. Invoices state the taxable amount and the VAT separately.</li>
+  <li>The Services are supplied by the Provider’s personnel and are not electronically supplied services within the meaning of Article 58 of Directive 2006/112/EC and Article 7(3) of Implementing Regulation (EU) No 282/2011.</li>
+  <li>Should the Client at any time acquire the status of a taxable person identified for VAT purposes in another Member State, and notify the Provider of a valid VAT identification number, the Parties shall apply the reverse charge mechanism under Article 196 of Directive 2006/112/EC to supplies made after that notification.</li>
+</ol>
+
+<h2><span class="n">14.</span>Warranties and liability</h2>
+<ol class="c">
+  <li>The Provider warrants that the Deliverables will materially conform to the accepted Service Order for a period of three (3) months from acceptance, and shall remedy non-conformities notified within that period free of charge.</li>
+  <li>The Provider gives no warranty that the Deliverables will achieve any particular commercial result, search-engine position or level of traffic.</li>
+  <li>Save in cases of intent or gross negligence, the aggregate liability of the Provider under or in connection with a Service Order is limited to the amount actually paid by the Client for that Service Order.</li>
+  <li>The Provider is not liable for indirect or consequential loss, loss of profit, loss of data or loss of business opportunity, save in cases of intent or gross negligence.</li>
+  <li>Nothing in this clause limits or excludes any liability that cannot be limited or excluded under applicable mandatory law, including any mandatory consumer protection rules applicable to the Client.</li>
+</ol>
+
+<h2><span class="n">15.</span>Force majeure</h2>
+<ol class="c">
+  <li>Neither Party is liable for a failure to perform caused by an event beyond its reasonable control, including natural disaster, war, civil unrest, act of a public authority, general strike, epidemic, or failure of telecommunications or electricity networks not attributable to that Party.</li>
+  <li>The affected Party shall notify the other Party without undue delay. If the event continues for more than sixty (60) days, either Party may terminate the affected Service Order by written notice, and the Client shall pay for the Services performed up to that date.</li>
+</ol>
+
+<h2><span class="n">16.</span>Termination</h2>
+<ol class="c">
+  <li>Either Party may terminate this Agreement for convenience by giving thirty (30) days’ written notice, without affecting Service Orders already accepted.</li>
+  <li>Either Party may terminate this Agreement or any Service Order with immediate effect if the other Party commits a material breach and fails to remedy it within fifteen (15) days of a written request to do so.</li>
+  <li>The Provider may suspend performance if an undisputed invoice remains unpaid for more than thirty (30) days after its due date.</li>
+  <li>On termination, the Client shall pay for all Services performed up to the effective date of termination, and the Provider shall hand over the Deliverables paid for.</li>
+</ol>
+
+<h2><span class="n">17.</span>Notices</h2>
+<ol class="c">
+  <li>Notices under this Agreement are given in writing to the addresses stated on the first page, or by e-mail to the address of the relevant Party notified for that purpose.</li>
+  <li>A notice sent by e-mail is deemed received on the next business day following dispatch, unless the sender receives a delivery failure notification.</li>
+</ol>
+
+<h2><span class="n">18.</span>Governing law and jurisdiction</h2>
+<ol class="c">
+  <li>This Agreement is governed by the substantive law of the Republic of Bulgaria.</li>
+  <li>The Parties shall attempt to settle any dispute amicably. Failing agreement, the dispute shall be referred to the competent court in Varna, Bulgaria.</li>
+  <li>Clause 18.2 does not deprive the Client, where acting as a consumer, of the protection afforded by the mandatory provisions of the law of their country of habitual residence, nor of the right to bring proceedings before the courts of that country, in accordance with Regulation (EU) No 1215/2012.</li>
+</ol>
+
+<h2><span class="n">19.</span>Final provisions</h2>
+<ol class="c">
+  <li>This Agreement, together with Annex 1 and the accepted Service Orders, constitutes the entire agreement between the Parties on its subject matter.</li>
+  <li>Annex 1 forms an integral part of this Agreement. In case of conflict, the body of this Agreement prevails, except as to prices and technical specifications, where Annex 1 prevails.</li>
+  <li>Amendments are valid only if made in writing and signed by both Parties. An exchange of signed scanned documents by e-mail satisfies this requirement.</li>
+  <li>If any provision is or becomes invalid, the remainder of the Agreement remains in force, and the Parties shall replace the invalid provision with a valid one of equivalent economic effect.</li>
+  <li>Neither Party may assign this Agreement without the prior written consent of the other Party.</li>
+  <li>This Agreement is executed in English, in two originals of equal legal force, one for each Party.</li>
+</ol>
+
+<div class="sign">
+  <div class="col">
+    <div class="label">For the Provider</div>
+    <div class="line"></div>
+    <div class="nm">Sergey Sergeev</div>
+    <div class="rl">Director, Fourtress Commerce Ltd · Varna, 22.08.2026</div>
+  </div>
+  <div class="col">
+    <div class="label">The Client</div>
+    <div class="line"></div>
+    <div class="nm">Michel Morin</div>
+    <div class="rl">Saint-Vigor-le-Grand, 22.08.2026</div>
+  </div>
+</div>
+
+<!-- ================= ANNEX 1 ================= -->
+<div class="annex">
+  <div class="brandline"><span>Fourtress Commerce&nbsp;Ltd</span><span>Agreement No. FC-2026/112 · 22.08.2026</span></div>
+  <div class="annexhead" style="margin-top:6mm">Annex 1</div>
+  <div class="annexsub">Catalogue of Services and indicative rates</div>
+  <div class="rule" style="margin-top:4mm"></div>
+  <p class="note" style="margin-top:3mm">This catalogue is <b>non-exhaustive</b> and indicative. The scope of any item may be extended, reduced or combined at the Client’s request. Rates are shown net of VAT and serve as a basis for quotation; the fee for each Service Order is the fee confirmed under clause 4. Annex 1 forms an integral part of the Agreement dated 22 August 2026.</p>
+
+  <h3><span class="n">A.</span>Web design and development</h3>
+  <table>
+    <colgroup><col style="width:32%"><col style="width:46%"><col style="width:22%"></colgroup>
+    <thead><tr><th>Service</th><th>Scope</th><th class="r">Indicative rate</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Discovery and specification</td><td>Requirements workshop, technical specification, sitemap, information architecture</td><td class="r num">€55–80 / h</td></tr>
+      <tr><td class="k">UX architecture</td><td>User flows, wireframes, prototypes, responsive page structure</td><td class="r num">€60–90 / h</td></tr>
+      <tr><td class="k">UI design system</td><td>Visual identity for the interface, component library, page layouts</td><td class="r num">€65–100 / h</td></tr>
+      <tr><td class="k">Front-end development</td><td>HTML, CSS and JavaScript build, responsive implementation, animation, cross-browser testing</td><td class="r num">€55–85 / h</td></tr>
+      <tr><td class="k">Back-end development</td><td>Server-side logic, databases, authentication, business rules</td><td class="r num">€70–110 / h</td></tr>
+      <tr><td class="k">CMS implementation</td><td>Setup and configuration of a content management system, editorial templates, user roles</td><td class="r num">€60–95 / h</td></tr>
+      <tr><td class="k">Integrations</td><td>Third-party APIs, payment providers, CRM, analytics, mailing platforms</td><td class="r num">€70–110 / h</td></tr>
+      <tr><td class="k">Launch and handover</td><td>Hosting setup, domain and certificate configuration, deployment, documentation, training</td><td class="r num">€50–80 / h</td></tr>
+      <tr><td class="k">Full-cycle website project</td><td>All of the above combined and delivered as one indivisible Project</td><td class="r num">from €2,500 / project</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="n">B.</span>E-commerce</h3>
+  <table>
+    <colgroup><col style="width:32%"><col style="width:46%"><col style="width:22%"></colgroup>
+    <thead><tr><th>Service</th><th>Scope</th><th class="r">Indicative rate</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Online store build</td><td>Catalogue, cart, checkout, shipping and tax rules, order management</td><td class="r num">€65–105 / h</td></tr>
+      <tr><td class="k">Payment integration</td><td>Connection and testing of payment service providers and payment methods</td><td class="r num">€70–110 / h</td></tr>
+      <tr><td class="k">Product data</td><td>Catalogue structuring, imports, feeds, product content templates</td><td class="r num">€45–75 / h</td></tr>
+      <tr><td class="k">Marketplace connections</td><td>Synchronisation of stock, prices and orders with external marketplaces</td><td class="r num">€65–100 / h</td></tr>
+      <tr><td class="k">Conversion optimisation</td><td>Funnel analysis, A/B testing, checkout and landing-page improvements</td><td class="r num">€60–95 / h</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="n">C.</span>Digital marketing and online advertising</h3>
+  <table>
+    <colgroup><col style="width:32%"><col style="width:46%"><col style="width:22%"></colgroup>
+    <thead><tr><th>Service</th><th>Scope</th><th class="r">Indicative rate</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Search engine optimisation</td><td>Technical audit, on-page optimisation, structured data, content recommendations</td><td class="r num">€50–85 / h</td></tr>
+      <tr><td class="k">Paid search and display</td><td>Campaign setup, keyword and audience research, creatives, ongoing management</td><td class="r num">€55–90 / h</td></tr>
+      <tr><td class="k">Social media advertising</td><td>Campaign strategy, audience targeting, creative production, reporting</td><td class="r num">€55–90 / h</td></tr>
+      <tr><td class="k">Analytics and reporting</td><td>Measurement plan, tag and event setup, dashboards, periodic reporting</td><td class="r num">€55–90 / h</td></tr>
+      <tr><td class="k">Content and copywriting</td><td>Page copy, landing pages, product descriptions, editorial calendars</td><td class="r num">€40–75 / h</td></tr>
+      <tr><td class="k">E-mail marketing</td><td>Template design, automation flows, list management, campaign delivery</td><td class="r num">€45–80 / h</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="n">D.</span>IT services, hosting and support</h3>
+  <table>
+    <colgroup><col style="width:32%"><col style="width:46%"><col style="width:22%"></colgroup>
+    <thead><tr><th>Service</th><th>Scope</th><th class="r">Indicative rate</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Hosting and infrastructure</td><td>Server provisioning, environments, backups, monitoring, certificates</td><td class="r num">€55–95 / h</td></tr>
+      <tr><td class="k">Technical maintenance</td><td>Updates, security patching, performance tuning, uptime supervision</td><td class="r num">€50–85 / h</td></tr>
+      <tr><td class="k">Support and incident handling</td><td>Response to malfunctions, restoration of service, corrective work</td><td class="r num">€50–85 / h</td></tr>
+      <tr><td class="k">Migration</td><td>Transfer of a site, store or data set between platforms or providers</td><td class="r num">€60–100 / h</td></tr>
+      <tr><td class="k">Consulting</td><td>Technical advice, platform selection, architecture review, audits</td><td class="r num">€70–120 / h</td></tr>
+      <tr><td class="k">Retained support</td><td>An agreed monthly volume of maintenance and support hours</td><td class="r num">from €250 / month</td></tr>
+    </tbody>
+  </table>
+
+  <p class="note">Time is recorded and billed in whole or quarter hours. Where a Service Order is agreed as a fixed-fee Project, the hourly rates above serve only as a basis for calculating that fee. Travel, third-party licences, stock media, paid advertising budgets and similar out-of-pocket costs are not included in the rates and are recharged at cost where agreed in advance.</p>
+
+  <div class="sign">
+    <div class="col">
+      <div class="label">For the Provider</div>
+      <div class="line"></div>
+      <div class="nm">Sergey Sergeev</div>
+      <div class="rl">Director, Fourtress Commerce Ltd · Varna, 22.08.2026</div>
+    </div>
+    <div class="col">
+      <div class="label">The Client</div>
+      <div class="line"></div>
+      <div class="nm">Michel Morin</div>
+      <div class="rl">Saint-Vigor-le-Grand, 22.08.2026</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
