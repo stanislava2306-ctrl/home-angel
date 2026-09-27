@@ -97,7 +97,7 @@ ul{list-style:none}
 }
 .hero-bg .bg-media.active{opacity:1}
 .hero-bg img.active{animation:kenburns 14s ease-in-out infinite alternate}
-.hero-bg .hero-girl{object-position:50% 22%}
+.hero-bg video.bg-media{object-position:50% 30%}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.08)}}
 .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.38);z-index:1}
 .hero-content{
@@ -117,6 +117,15 @@ ul{list-style:none}
 .switch-btn.active{opacity:1}
 .switch-btn .idx{font-size:8px;line-height:12px;font-weight:600}
 .switch-btn .label{font-size:12px;line-height:16px;letter-spacing:-.12px;font-weight:600}
+.hero-sound{
+  display:flex;gap:8px;align-items:center;margin-top:14px;padding:10px 16px;min-height:44px;
+  border:1px solid rgba(255,255,255,.35);border-radius:999px;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);
+  font-size:12px;line-height:16px;letter-spacing:-.12px;font-weight:600;text-transform:uppercase;
+  transition:border-color .3s ease,background .3s ease;
+}
+.hero-sound:hover{border-color:var(--accent)}
+.hero-sound[aria-pressed="true"]{border-color:var(--accent);background:rgba(245,152,242,.18)}
+.hero-sound .ico{font-size:14px}
 .availability{flex:1;display:flex;align-items:center;gap:10px;justify-content:flex-end}
 .availability .dot{
   width:7px;height:7px;border-radius:50%;background:var(--accent);
@@ -164,7 +173,7 @@ ul{list-style:none}
 .marquee{padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
 .marquee-track{display:flex;gap:18px;width:max-content;animation:marquee 40s linear infinite}
 .marquee:hover .marquee-track{animation-play-state:paused}
-.marquee-track img{height:220px;width:auto;border-radius:10px;object-fit:cover;flex:none}
+.marquee-track video{height:240px;aspect-ratio:9/16;width:auto;border-radius:10px;object-fit:cover;flex:none;background:#111}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ============ SECTIONS COMMON ============ */
@@ -184,61 +193,79 @@ ul{list-style:none}
 .stat .num em{font-style:normal;color:var(--accent)}
 .stat .lbl{margin-top:8px;font-size:13px;line-height:18px;color:var(--muted)}
 
-/* ============ WORKS ============ */
-.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.case-card{
-  border:1px solid var(--line);border-radius:18px;overflow:hidden;
-  display:flex;flex-direction:column;background:#0a0a0a;
-  transition:border-color .4s ease,transform .5s var(--ease-spring);
-}
-.case-card:hover{border-color:rgba(245,152,242,.55);transform:translateY(-6px)}
-.case-media{aspect-ratio:16/10;overflow:hidden;background:#111}
-.case-media img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .8s var(--ease-spring)}
-.case-card:hover .case-media img{transform:scale(1.05)}
-.case-body{padding:26px 26px 30px;display:flex;flex-direction:column;gap:12px;flex:1}
-.case-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.case-num{font-size:11px;font-weight:700;color:var(--accent)}
-.case-tag{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);text-align:right}
-.case-title{font-size:22px;line-height:1.15;font-weight:700;letter-spacing:-.02em}
-.case-text{font-size:14.5px;line-height:22px;color:rgba(255,255,255,.72)}
-.case-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px}
+/* ============ WORKS: CONTENT BLOCKS ============ */
 .chip{
   font-size:12px;line-height:1;font-weight:600;padding:8px 12px;border-radius:999px;
   border:1px solid var(--line);color:rgba(255,255,255,.8);white-space:nowrap;
 }
 .chip.hl{border-color:rgba(245,152,242,.5);color:var(--accent)}
 .case-link{font-size:13px;font-weight:600;color:var(--accent);display:inline-flex;gap:6px;align-items:center}
-.case-link:hover{text-decoration:underline}
+.live-hint{font-size:14px;color:var(--muted);margin:-24px 0 40px}
+.content-block{border-top:1px solid var(--line);padding:48px 0 72px}
+.cb-head{display:grid;grid-template-columns:1.1fr 1fr;gap:20px 60px;align-items:end;margin-bottom:28px}
+.cb-num{display:block;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+.cb-title{font-size:clamp(26px,3.4vw,40px);line-height:1.05;font-weight:600;letter-spacing:-.02em}
+.cb-text{font-size:15px;line-height:23px;color:rgba(255,255,255,.72);max-width:560px}
+.cb-facts{display:grid;gap:12px;margin-bottom:32px}
+.cb-facts>div{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start}
+.cb-facts dt{font-size:11px;line-height:30px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.cb-facts dd{display:flex;flex-wrap:wrap;gap:8px}
 
-/* ============ VIDEO SHOWCASE ============ */
-.video-sub{margin-top:80px}
-.video-sub h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
-.video-sub .hint{font-size:14px;color:var(--muted);margin-bottom:30px}
-.videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.extra-sub{margin-top:80px}
-.extra-sub h3{font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.01em;color:var(--muted);margin-bottom:24px}
-.extra-card{display:grid;grid-template-columns:300px 1fr;align-items:stretch}
-.extra-card .case-media{aspect-ratio:3/4;height:auto}
-.extra-card .case-metrics{margin-top:6px}
-.video-card{
-  border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0a0a0a;
-  transition:border-color .4s ease;position:relative;
+/* live video cards: muted preview, click = full with sound */
+.live{position:relative;overflow:hidden;border-radius:18px;background:#0a0a0a;border:1px solid var(--line);cursor:pointer;isolation:isolate;aspect-ratio:9/16;transition:border-color .4s ease}
+.live:hover,.live.on{border-color:rgba(245,152,242,.6)}
+.live video{display:block;width:100%;height:100%;object-fit:cover}
+.live-pill{
+  position:absolute;z-index:3;pointer-events:none;left:var(--hx,50%);top:var(--hy,50%);
+  display:flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;white-space:nowrap;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(8px);font-size:12px;font-weight:600;
+  opacity:0;transform:translate(-50%,-50%) scale(.9);transition:opacity .18s,transform .18s;
 }
-.video-card:hover{border-color:rgba(245,152,242,.55)}
-.video-card video{width:100%;aspect-ratio:9/16;object-fit:contain;background:#050505;display:block;cursor:pointer}
-.sound-btn{
-  position:absolute;top:14px;right:14px;z-index:2;
-  width:44px;height:44px;border-radius:50%;
-  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.25);
-  display:flex;align-items:center;justify-content:center;font-size:16px;
-  transition:border-color .3s ease,background .3s ease,transform .1s cubic-bezier(0,0,.58,1);
+.live-pill .on,.live.on .live-pill .off{display:none}
+.live.on .live-pill .on{display:inline}
+@media (hover:hover){.live{cursor:none}.live:hover .live-pill{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@media (hover:none){.live .live-pill{opacity:1;top:12px;transform:translate(-50%,0);font-size:11px;padding:7px 11px}.live.on .live-pill{opacity:0}}
+.live-eq{position:absolute;right:14px;top:14px;z-index:3;display:flex;gap:3px;align-items:flex-end;height:16px;opacity:0;transition:opacity .2s}
+.live-eq i{width:3px;background:var(--accent);border-radius:2px;animation:eq 1s ease-in-out infinite}
+.live-eq i:nth-child(2){animation-delay:-.3s}.live-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes eq{0%,100%{height:4px}50%{height:16px}}
+.live.on .live-eq{opacity:1}
+.live-bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--accent);z-index:3;opacity:0}
+.live.on .live-bar{opacity:1}
+.live-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.live-rail{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(200px,22vw,280px);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent}
+.live-rail .live{scroll-snap-align:start}
+.more-card,.acc-link{
+  display:flex;flex-direction:column;justify-content:space-between;gap:16px;
+  border:1px solid var(--line);border-radius:18px;background:#0a0a0a;padding:24px;
+  transition:border-color .4s ease,background .4s ease;
 }
-.sound-btn:hover{border-color:var(--accent)}
-.sound-btn:active{transform:scale(.94)}
-.video-card figcaption{padding:18px 20px 20px;display:flex;flex-direction:column;gap:4px}
-.video-card figcaption b{font-size:16px;font-weight:700;letter-spacing:-.01em}
-.video-card figcaption span{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.more-card{aspect-ratio:9/16}
+.more-card:hover,.acc-link:hover{border-color:rgba(245,152,242,.55);background:#140d14}
+.more-card b,.acc-link b{font-size:clamp(22px,2.2vw,30px);line-height:1.05;font-weight:600;letter-spacing:-.02em}
+.more-card .cb-num,.acc-link .cb-num{margin:0}
+.acc-link{margin-top:18px;flex-direction:row;align-items:center;flex-wrap:wrap}
+.arb-row{display:grid;grid-template-columns:minmax(0,320px) 1fr;gap:48px;align-items:center}
+.arb-row .live{aspect-ratio:3/4}
+.arb-row .cb-facts{margin:0}
+
+
+/* ============ PROOF MODAL ============ */
+.proof-btn{font-size:13px;font-weight:600;color:var(--accent);padding:8px 4px;border-bottom:1px dashed rgba(245,152,242,.5);line-height:1}
+.proof-btn:hover{border-bottom-style:solid}
+.proof{margin:auto;padding:0;border:1px solid var(--line);border-radius:18px;background:#0a0a0a;color:var(--text);width:min(960px,calc(100vw - 32px));max-height:calc(100dvh - 48px)}
+.proof::backdrop{background:rgba(0,0,0,.75);backdrop-filter:blur(6px)}
+.proof[open]{animation:proofIn .35s var(--ease-spring)}
+@keyframes proofIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.proof-inner{display:flex;flex-direction:column;max-height:calc(100dvh - 50px)}
+.proof-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.proof-head h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.proof-close{width:44px;height:44px;margin:-10px -10px -10px 0;border-radius:50%;font-size:16px}
+.proof-close:hover{background:rgba(255,255,255,.08)}
+.proof-body{overflow:auto;padding:22px;display:flex;flex-wrap:wrap;gap:22px;justify-content:center;align-items:flex-start}
+.proof-body figure{flex:1 1 300px;max-width:520px}
+.proof-body img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
+.proof-body figcaption{margin-top:10px;font-size:13px;line-height:19px;color:var(--muted)}
 
 /* ============ RESULTS INFOGRAPHIC ============ */
 .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -288,17 +315,17 @@ ul{list-style:none}
 .mega .cap{display:block;margin-top:14px;font-size:15px;color:rgba(255,255,255,.75)}
 
 /* ============ SERVICES ============ */
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:90px}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:90px}
 .service-card{
   position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;
   border:1px solid var(--line);
 }
-.service-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-spring)}
-.service-card:hover img{transform:scale(1.06)}
+.service-card img,.service-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-spring)}
+.service-card:hover img,.service-card:hover video{transform:scale(1.06)}
 .service-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 40%,rgba(0,0,0,.82) 100%)}
 .service-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px}
 .service-body .idx{font-size:11px;font-weight:700;color:var(--accent)}
-.service-body h3{font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:-.02em;margin:6px 0 8px}
+.service-body h3{font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:-.02em;margin:6px 0 8px}
 .service-body p{font-size:13.5px;line-height:20px;color:rgba(255,255,255,.75)}
 .process{border-top:1px solid var(--line)}
 .process h3{
@@ -317,7 +344,7 @@ ul{list-style:none}
 /* ============ OFFER ============ */
 .offer{border-top:1px solid var(--line);margin-top:90px;padding-top:48px}
 .offer h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:36px}
-.offer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.offer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
 .offer-item{
   border:1px solid var(--line);border-radius:18px;background:#0a0a0a;
   padding:26px 24px 28px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;
@@ -398,6 +425,8 @@ ul{list-style:none}
   .hero-bottom{gap:28px;padding-bottom:52px}
   .hero-aside{padding-left:24px}
   .steps{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .live-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
   .offer-grid{grid-template-columns:repeat(2,1fr)}
   .tools-groups{grid-template-columns:repeat(2,1fr)}
   .about-grid{gap:36px}
@@ -420,17 +449,19 @@ ul{list-style:none}
   .hero-aside{padding-left:0;max-width:420px;min-width:0}
   .section{padding:80px 0 60px}
   .stats{grid-template-columns:1fr 1fr}
-  .works-grid{grid-template-columns:1fr}
   .services-grid{grid-template-columns:1fr;margin-bottom:60px}
-  .videos-grid{grid-template-columns:1fr}
   .results-grid{grid-template-columns:1fr}
+  .cb-head{grid-template-columns:1fr}
+  .cb-facts>div{grid-template-columns:1fr;gap:6px}
+  .cb-facts dt{line-height:1.4}
+  .live-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .live-rail{grid-auto-columns:62vw}
+  .arb-row{grid-template-columns:1fr;gap:28px}
+  .arb-row .live{max-width:360px}
+  .content-block{padding:40px 0 56px}
   .offer-grid{grid-template-columns:1fr}
   .offer{margin-top:60px}
   .tools-groups{grid-template-columns:1fr 1fr;gap:24px 16px}
-  .extra-sub{margin-top:56px}
-  .extra-card{grid-template-columns:1fr}
-  .extra-card .case-media{aspect-ratio:16/10;min-height:0}
-  .video-sub{margin-top:56px}
   .mega{padding:36px 20px}
   .result-card{padding:26px 22px 28px}
   .service-card{aspect-ratio:4/5}
@@ -439,7 +470,7 @@ ul{list-style:none}
   .about-photo img{max-height:380px}
   .about-cols{grid-template-columns:1fr}
   .exp-item{grid-template-columns:1fr;gap:8px;padding:20px 0}
-  .marquee-track img{height:150px}
+  .marquee-track video{height:170px}
   .contact{padding:90px 0 30px}
   .contact-mail{font-size:calc((100vw - 36px) / 16.5);word-break:normal}
   .footer{margin-top:70px}
@@ -490,16 +521,15 @@ ul{list-style:none}
 <!-- ============ HERO ============ -->
 <section class="hero" aria-label="Hero">
   <div class="hero-bg" aria-hidden="true">
-    <video class="bg-media hero-girl active" src="../assets/video-avatar-mic.mp4" poster="../assets/video-avatar-mic-poster.jpg" muted autoplay loop playsinline preload="auto"></video>
-    <img class="bg-media" src="../assets/hero-3.jpg" alt="" loading="lazy">
-    <img class="bg-media" src="../assets/hero-2.jpg" alt="" loading="lazy">
+    <video class="bg-media active" src="../assets/hero/casino.mp4" poster="../assets/hero/casino.jpg" muted autoplay playsinline preload="auto"></video>
+    <video class="bg-media" src="../assets/hero/rider.mp4" poster="../assets/hero/rider.jpg" muted playsinline preload="metadata"></video>
   </div>
   <div class="hero-content">
     <div class="hero-upper">
       <div class="hero-switcher" role="group" aria-label="Generation examples">
-        <button class="switch-btn active" data-slide="0"><span class="idx">01</span><span class="label">Photo-to-video</span></button>
-        <button class="switch-btn" data-slide="1"><span class="idx">02</span><span class="label">Neuro photoshoot</span></button>
-        <button class="switch-btn" data-slide="2"><span class="idx">03</span><span class="label">Product shots</span></button>
+        <button class="switch-btn active" data-slide="0"><span class="idx">01</span><span class="label">AI creative · iGaming</span></button>
+        <button class="switch-btn" data-slide="1"><span class="idx">02</span><span class="label">AI creative · cinematic</span></button>
+        <button class="hero-sound" id="heroSound" aria-pressed="false"><span class="ico" aria-hidden="true">🔇</span><span class="label">sound on</span></button>
       </div>
       <div class="availability" role="status">
         <span class="dot" aria-hidden="true"></span>
@@ -521,14 +551,20 @@ ul{list-style:none}
 <!-- ============ MARQUEE ============ -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track" id="marqueeTrack">
-    <img src="../assets/g1.jpg" alt="">
-    <img src="../assets/g2.jpg" alt="">
-    <img src="../assets/g3.jpg" alt="">
-    <img src="../assets/g4.jpg" alt="">
-    <img src="../assets/g5.jpg" alt="">
-    <img src="../assets/g6.jpg" alt="">
-    <img src="../assets/g7.jpg" alt="">
-    <img src="../assets/g8.jpg" alt="">
+    <video src="../assets/thumbs/t1.mp4" poster="../assets/thumbs/t1.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t2.mp4" poster="../assets/thumbs/t2.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t3.mp4" poster="../assets/thumbs/t3.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t4.mp4" poster="../assets/thumbs/t4.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t5.mp4" poster="../assets/thumbs/t5.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t6.mp4" poster="../assets/thumbs/t6.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t7.mp4" poster="../assets/thumbs/t7.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t8.mp4" poster="../assets/thumbs/t8.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t9.mp4" poster="../assets/thumbs/t9.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t10.mp4" poster="../assets/thumbs/t10.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t11.mp4" poster="../assets/thumbs/t11.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t12.mp4" poster="../assets/thumbs/t12.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t13.mp4" poster="../assets/thumbs/t13.jpg" muted loop playsinline preload="none"></video>
+    <video src="../assets/thumbs/t14.mp4" poster="../assets/thumbs/t14.jpg" muted loop playsinline preload="none"></video>
   </div>
 </div>
 
@@ -539,7 +575,7 @@ ul{list-style:none}
       <span class="idx">01</span>
       <div>
         <h2>Works</h2>
-        <p class="section-sub">Case studies with real metrics: from viral UGC content in the US to complex creative localization for different markets.</p>
+        <p class="section-sub">Three kinds of content I make: UGC for nutra brands in the US, short AI creatives for social media, and creatives for media buying.</p>
       </div>
     </div>
 
@@ -550,101 +586,88 @@ ul{list-style:none}
       <div class="stat"><div class="num"><span data-count="6">0</span></div><div class="lbl">unique AI videos per day — steady production pace</div></div>
     </div>
 
-    <div class="works-grid">
-      <article class="case-card reveal-up">
-        <div class="case-media"><img src="../assets/case-1.jpg" alt="Cata-Kor TikTok account screenshots" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Case 01</span><span class="case-tag">SMM / AI content</span></div>
-          <h3 class="case-title">Cata-Kor — #1 supplement seller in the US</h3>
-          <p class="case-text">2024–2025. Copy, scripts, visuals and videos for Instagram, TikTok and YouTube, all made with neural networks. Ran 6+ accounts with daily publishing.</p>
-          <div class="case-metrics">
-            <span class="chip hl">8M+ views</span>
-            <span class="chip hl">peak: 3 sales per 4 product-page visits</span>
-            <span class="chip">MidJourney · Veo 3 · Sora 2 · HeyGen</span>
-          </div>
+    <p class="live-hint reveal-up">Videos play muted. Click any of them to watch in full with sound.</p>
+
+    <!-- 01 · UGC -->
+    <article class="content-block reveal-up">
+      <div class="cb-head">
+        <div>
+          <span class="cb-num">01 · UGC · nutra &amp; health · USA</span>
+          <h3 class="cb-title">Realistic UGC videos, from avatar to account</h3>
         </div>
-      </article>
-
-      <article class="case-card reveal-up delay-1">
-        <div class="case-media"><img src="../assets/case-2.jpg" alt="Metrics: 935K post views, 132K likes" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Case 02</span><span class="case-tag">iGaming · NDA</span></div>
-          <h3 class="case-title">Content in a heavily restricted niche</h3>
-          <p class="case-text">Instagram, TikTok, Telegram: platform-specific content planning, trendwatching and rapid trend adaptation — despite iGaming content bans.</p>
-          <div class="case-metrics">
-            <span class="chip hl">900K+ views</span>
-            <span class="chip">50–100K monthly reach</span>
-            <span class="chip">Kling · Seedance · CapCut</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-card reveal-up">
-        <div class="case-media"><img src="../assets/case-3.jpg" alt="Ad creative for the Latin American market" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Case 03</span><span class="case-tag">Media Buying · Amalgama</span></div>
-          <h3 class="case-title">Creatives for media buying</h3>
-          <p class="case-text">CIS, European and Latin American markets. Complex video editing, re-voicing and avatar swaps to localize creatives for Facebook, Instagram and TikTok. A/B testing and hunting for converting combinations.</p>
-          <div class="case-metrics">
-            <span class="chip hl">$1,000+ revenue per creative</span>
-            <span class="chip">health · nutra · pharma</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-card reveal-up delay-1">
-        <div class="case-media"><img src="../assets/case-4.jpg" alt="Viral UGC creatives for health and wellness" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Case 04</span><span class="case-tag">UGC / AI avatar · USA</span></div>
-          <h3 class="case-title">AI avatar from scratch for health &amp; wellness</h3>
-          <p class="case-text">Built the character end to end: concept, visual style, backstory and voice. Up to 6 unique videos a day with full consistency: talking head, changing locations, storytelling with B-roll.</p>
-          <div class="case-metrics">
-            <span class="chip hl">80K+ views in 2 weeks</span>
-            <span class="chip">native-style selling</span>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <div class="video-sub">
-      <h3 class="reveal-up">AI video in action</h3>
-      <p class="hint reveal-up">These videos are fully made with neural networks — from script to edit. Click a video to turn the sound on.</p>
-      <div class="videos-grid">
-        <figure class="video-card reveal-up">
-          <video src="../assets/video-avatar-mic.mp4" poster="../assets/video-avatar-mic-poster.jpg" muted loop playsinline preload="metadata" aria-label="AI avatar generated from a single photo"></video>
-          <button class="sound-btn" aria-label="Turn sound on">🔇</button>
-          <figcaption><b>AI avatar from one photo</b><span>Photo-to-video · UGC</span></figcaption>
-        </figure>
-        <figure class="video-card reveal-up delay-1">
-          <video src="../assets/video-priest.mp4" poster="../assets/video-priest-poster.jpg" muted loop playsinline preload="metadata" aria-label="Ad creative for the Latin American market"></video>
-          <button class="sound-btn" aria-label="Turn sound on">🔇</button>
-          <figcaption><b>Creative for LatAm market</b><span>Media buying · localization</span></figcaption>
-        </figure>
-        <figure class="video-card reveal-up delay-2">
-          <video src="../assets/video-postpartum.mp4" poster="../assets/video-postpartum-poster.jpg" muted loop playsinline preload="metadata" aria-label="AI avatar for the health and wellness niche"></video>
-          <button class="sound-btn" aria-label="Turn sound on">🔇</button>
-          <figcaption><b>AI avatar for health niche</b><span>UGC · USA</span></figcaption>
-        </figure>
+        <p class="cb-text">I build avatars from scratch, photos for video, the videos themselves, voiceover and editing. I run and set up geo-targeted accounts on YouTube, Instagram, TikTok, Facebook and Threads.</p>
       </div>
-    </div>
+      <dl class="cb-facts">
+        <div><dt>Brands</dt><dd><span class="chip hl">Regenix</span><span class="chip hl">Thinbi</span><span class="chip hl">Cata-Kor</span></dd></div>
+        <div><dt>Platforms</dt><dd><span class="chip">Amazon US</span><span class="chip">TikTok Shop</span></dd></div>
+        <div><dt>Results</dt><dd><span class="chip hl">8M+ views</span><span class="chip hl">peak: 3 sales per 4 visits</span><span class="chip">80K+ views in 2 weeks</span><span class="chip">up to 6 videos a day</span><button type="button" class="proof-btn" data-proof="ugc">see the proof →</button></dd></div>
+        <div><dt>AI tools</dt><dd><span class="chip">Midjourney</span><span class="chip">Nano Banana</span><span class="chip">Veo 3</span><span class="chip">Sora 2</span><span class="chip">HeyGen</span><span class="chip">ElevenLabs</span></dd></div>
+      </dl>
+      <div class="live-grid">
+        <figure class="live"><video data-loop="../assets/ugc/u1-loop.mp4" data-full="../assets/ugc/u1.mp4" poster="../assets/ugc/u1.jpg" aria-label="UGC video 1"></video></figure>
+        <figure class="live"><video data-loop="../assets/ugc/u4-loop.mp4" data-full="../assets/ugc/u4.mp4" poster="../assets/ugc/u4.jpg" aria-label="UGC video 2"></video></figure>
+        <figure class="live"><video data-loop="../assets/ugc/u5-loop.mp4" data-full="../assets/ugc/u5.mp4" poster="../assets/ugc/u5.jpg" aria-label="UGC video 3"></video></figure>
+        <figure class="live"><video data-loop="../assets/ugc/u2-loop.mp4" data-full="../assets/ugc/u2.mp4" poster="../assets/ugc/u2.jpg" aria-label="UGC video 4"></video></figure>
+        <figure class="live"><video data-loop="../assets/ugc/u7-loop.mp4" data-full="../assets/ugc/u7.mp4" poster="../assets/ugc/u7.jpg" aria-label="UGC video 5"></video></figure>
+        <figure class="live"><video data-loop="../assets/ugc/u6-loop.mp4" data-full="../assets/ugc/u6.mp4" poster="../assets/ugc/u6.jpg" aria-label="UGC video 6"></video></figure>
+        <figure class="live"><video data-loop="../assets/ugc/u3-loop.mp4" data-full="../assets/ugc/u3.mp4" poster="../assets/ugc/u3.jpg" aria-label="UGC video 7"></video></figure>
+        <a class="more-card" href="https://drive.google.com/drive/folders/1NlMt-R12weOZQ4_UaTp2CVPEUJ825FNG?usp=sharing" target="_blank" rel="noopener">
+          <span class="cb-num">Google Drive</span>
+          <b>More videos</b>
+          <span class="case-link">open the folder →</span>
+        </a>
+      </div>
+      <a class="acc-link" href="https://www.instagram.com/althea.lenroy/" target="_blank" rel="noopener">
+        <span class="cb-num">An account I ran</span>
+        <b>Althea Lenroy</b>
+        <span class="case-link">@althea.lenroy on Instagram →</span>
+      </a>
+    </article>
 
-    <div class="extra-sub">
-      <h3 class="reveal-up">Extra · vibe-coding</h3>
-      <article class="case-card extra-card reveal-up">
-        <div class="case-media"><img src="../assets/case-5.jpg" alt="Wedding invitation website" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Side project</span><span class="case-tag">Vibe-coding / Web</span></div>
-          <h3 class="case-title">Invitation website in 1 day</h3>
-          <p class="case-text">A one-page wedding invitation website: layout in Figma, graphics and copy generated with Gemini and ChatGPT, built on Taplink. The same AI approach works for brand landing pages too.</p>
-          <div class="case-metrics">
-            <span class="chip hl">built in 1 day</span>
-            <span class="chip">Figma · Gemini · ChatGPT</span>
-          </div>
-          <a class="case-link" href="https://taplink.cc/weddingromanveronika" target="_blank" rel="noopener">View the site →</a>
+    <!-- 02 · AI creatives -->
+    <article class="content-block reveal-up">
+      <div class="cb-head">
+        <div>
+          <span class="cb-num">02 · AI creatives · Shorts · TikTok · Reels</span>
+          <h3 class="cb-title">Short viral creatives for social media</h3>
         </div>
-      </article>
-    </div>
+        <p class="cb-text">Cinematic 5–15 second videos for an iGaming company. International market and CIS. Brand under NDA.</p>
+      </div>
+      <dl class="cb-facts">
+        <div><dt>Market</dt><dd><span class="chip">iGaming · NDA</span><span class="chip">international</span><span class="chip">CIS</span></dd></div>
+        <div><dt>Results</dt><dd><span class="chip hl">900K+ views</span><span class="chip">50–100K reach / month</span><button type="button" class="proof-btn" data-proof="ai">see the proof →</button></dd></div>
+        <div><dt>AI tools</dt><dd><span class="chip">Kling</span><span class="chip">Seedance</span><span class="chip">Nano Banana</span><span class="chip">CapCut</span></dd></div>
+      </dl>
+      <div class="live-rail">
+        <figure class="live"><video data-loop="../assets/ai/a6.mp4" poster="../assets/ai/a6.jpg" aria-label="AI creative 1"></video></figure>
+        <figure class="live"><video data-loop="../assets/ai/a1.mp4" poster="../assets/ai/a1.jpg" aria-label="AI creative 2"></video></figure>
+        <figure class="live"><video data-loop="../assets/ai/a3.mp4" poster="../assets/ai/a3.jpg" aria-label="AI creative 3"></video></figure>
+        <figure class="live"><video data-loop="../assets/ai/a7.mp4" poster="../assets/ai/a7.jpg" aria-label="AI creative 4"></video></figure>
+        <figure class="live"><video data-loop="../assets/ai/a4.mp4" poster="../assets/ai/a4.jpg" aria-label="AI creative 5"></video></figure>
+        <figure class="live"><video data-loop="../assets/ai/a2.mp4" poster="../assets/ai/a2.jpg" aria-label="AI creative 6"></video></figure>
+        <figure class="live"><video data-loop="../assets/ai/a5.mp4" poster="../assets/ai/a5.jpg" aria-label="AI creative 7"></video></figure>
+      </div>
+    </article>
+
+    <!-- 03 · Media buying -->
+    <article class="content-block reveal-up">
+      <div class="cb-head">
+        <div>
+          <span class="cb-num">03 · Media buying · Amalgama</span>
+          <h3 class="cb-title">Creatives and VSLs for any geo</h3>
+        </div>
+        <p class="cb-text">I adapt VSLs, re-voice them and swap avatars for local markets. From short creatives to hour-long videos.</p>
+      </div>
+      <div class="arb-row">
+        <figure class="live arb-video"><video data-loop="../assets/video-priest.mp4" poster="../assets/video-priest-poster.jpg" aria-label="Creative for the Latin American market"></video></figure>
+        <dl class="cb-facts">
+          <div><dt>Geo</dt><dd><span class="chip">Latin America</span><span class="chip">Bangladesh</span><span class="chip">Indonesia</span><span class="chip">Asia</span><span class="chip">Russian-speaking market</span></dd></div>
+          <div><dt>Formats</dt><dd><span class="chip">short creatives</span><span class="chip">VSLs up to 1 hour</span><span class="chip">VSL adaptation</span><span class="chip">re-voicing</span><span class="chip">avatar swaps</span></dd></div>
+          <div><dt>Results</dt><dd><span class="chip hl">$1,000+ revenue per creative</span><span class="chip">health · nutra · pharma</span></dd></div>
+          <div><dt>AI tools</dt><dd><span class="chip">ElevenLabs</span><span class="chip">HeyGen</span><span class="chip">FaceSwap AI</span><span class="chip">CapCut</span><span class="chip">After Effects</span></dd></div>
+        </dl>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -732,6 +755,14 @@ ul{list-style:none}
           <p>Virtual characters for brands: concept, look, voice and personality. A steady stream of UGC content without a film crew.</p>
         </div>
       </article>
+      <article class="service-card reveal-up delay-3">
+        <video src="../assets/ai/a4.mp4" poster="../assets/ai/a4.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>
+        <div class="service-body">
+          <span class="idx">04</span>
+          <h3>Viral creatives</h3>
+          <p>Short 5–15 second videos for Shorts, TikTok and Reels: script, generation, sound and editing built to hold attention from the first second.</p>
+        </div>
+      </article>
     </div>
 
     <div class="process reveal-up">
@@ -777,6 +808,11 @@ ul{list-style:none}
           <b>Neuro photoshoot</b>
           <p>Photo generations with 1-to-1 likeness, or studio-free product photography.</p>
           <span class="chip">1–2 days</span>
+        </div>
+        <div class="offer-item">
+          <b>Viral creatives</b>
+          <p>A batch of short AI videos for Shorts, TikTok and Reels around one product or offer.</p>
+          <span class="chip">from 2 days</span>
         </div>
         <div class="offer-item">
           <b>Hypothesis test</b>
@@ -841,22 +877,27 @@ ul{list-style:none}
       <div class="exp-item">
         <span class="years">2024–2025</span>
         <div class="role"><b>AI content maker / SMM</b><span>Cata-Kor (USA) — supplement brand</span></div>
-        <p class="desc">Full-cycle AI content: videos, visuals, scripts, avatars, voice. Ran 6+ accounts on TikTok, Instagram and YouTube — metrics in case 01.</p>
+        <p class="desc">Full-cycle AI content: videos, visuals, scripts, avatars, voice. Ran 6+ accounts on TikTok, Instagram and YouTube: 8M+ views.</p>
       </div>
       <div class="exp-item">
         <span class="years">2025–2026</span>
         <div class="role"><b>Content creator / SMM</b><span>iGaming niche · NDA · project-based</span></div>
-        <p class="desc">Content planning and trendwatching in a heavily restricted niche — details in case 02.</p>
+        <p class="desc">Content planning, trendwatching and short AI creatives in a heavily restricted niche: 900K+ views.</p>
       </div>
       <div class="exp-item">
         <span class="years">2026</span>
         <div class="role"><b>Editor / AI creator</b><span>Media buying · Amalgama · project-based</span></div>
-        <p class="desc">Creative localization for different geos: editing, re-voicing, A/B testing — details in case 03.</p>
+        <p class="desc">Localizing creatives and VSLs for different geos: editing, re-voicing, avatar swaps, A/B testing.</p>
       </div>
       <div class="exp-item">
         <span class="years">2026</span>
         <div class="role"><b>AI creator</b><span>Nutra niche · NDA · project-based</span></div>
-        <p class="desc">Short, dynamic video content for TikTok and Reels: retention, audience loyalty, native-style selling — details in case 04.</p>
+        <p class="desc">Short, dynamic video content for TikTok and Reels: retention, audience loyalty, native-style selling.</p>
+      </div>
+      <div class="exp-item">
+        <span class="years">2026</span>
+        <div class="role"><b>UGC creator</b><span>Regenix · Thinbi (USA) · Amazon, TikTok Shop</span></div>
+        <p class="desc">A turnkey pack of native UGC videos: AI avatars from scratch, photos for video, the videos, voiceover and editing.</p>
       </div>
     </div>
 
@@ -919,10 +960,28 @@ ul{list-style:none}
 </section>
 </main>
 
+<!-- ============ PROOF MODAL ============ -->
+<dialog class="proof" id="proof" aria-labelledby="proofTitle">
+  <div class="proof-inner">
+    <div class="proof-head">
+      <h3 id="proofTitle">Proof</h3>
+      <button type="button" class="proof-close" aria-label="Close">✕</button>
+    </div>
+    <div class="proof-body"></div>
+  </div>
+</dialog>
+<template id="proof-ugc">
+  <figure><img src="../assets/case-1.jpg" alt="Screenshot of the american_beautyhacks account for Cata-Kor" loading="lazy"><figcaption>One of the Cata-Kor accounts I ran</figcaption></figure>
+  <figure><img src="../assets/case-4.jpg" alt="View counts of UGC videos with an AI avatar" loading="lazy"><figcaption>Views on AI-avatar videos: up to 66.8K per video</figcaption></figure>
+</template>
+<template id="proof-ai">
+  <figure><img src="../assets/case-2.jpg" alt="Key metrics: 935K views, 132K likes, 17K reposts" loading="lazy"><figcaption>Account stats for September 30, 2025 – February 28, 2026 (interface in Russian)</figcaption></figure>
+</template>
+
 <script>
 // ---------- Clock (Moscow) ----------
 (function(){
-  var fmt = new Intl.DateTimeFormat('ru-RU', {
+  var fmt = new Intl.DateTimeFormat('en-US', {
     timeZone:'Europe/Moscow', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false
   });
   var top = document.getElementById('clockTop');
@@ -936,33 +995,48 @@ ul{list-style:none}
   setInterval(tick, 1000);
 })();
 
-// ---------- Hero background switcher ----------
+// ---------- Hero: videos in sequence + sound button ----------
 (function(){
-  var imgs = document.querySelectorAll('.hero-bg .bg-media');
+  var vids = document.querySelectorAll('.hero-bg .bg-media');
   var btns = document.querySelectorAll('.switch-btn');
-  var current = 0, timer;
+  var soundBtn = document.getElementById('heroSound');
+  var current = 0, soundOn = false;
   function show(i){
     current = i;
-    imgs.forEach(function(img, k){
-      img.classList.toggle('active', k === i);
-      if(img.tagName === 'VIDEO'){
-        if(k === i){ img.play().catch(function(){}); }
-        else { img.pause(); }
-      }
+    vids.forEach(function(v, k){
+      var on = k === i;
+      v.classList.toggle('active', on);
+      if(on){ v.currentTime = 0; v.muted = !soundOn; v.play().catch(function(){}); }
+      else { v.pause(); v.muted = true; }
     });
     btns.forEach(function(b, k){ b.classList.toggle('active', k === i); });
   }
-  btns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      show(parseInt(btn.dataset.slide, 10));
-      restart();
-    });
+  vids.forEach(function(v){
+    v.addEventListener('ended', function(){ show((current + 1) % vids.length); });
   });
-  function restart(){
-    clearInterval(timer);
-    timer = setInterval(function(){ show((current + 1) % imgs.length); }, 8000);
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){ show(parseInt(btn.dataset.slide, 10)); });
+  });
+  function setSound(on){
+    soundOn = on;
+    vids[current].muted = !on;
+    if(on) vids[current].play().catch(function(){});
+    soundBtn.setAttribute('aria-pressed', on);
+    soundBtn.querySelector('.ico').textContent = on ? '🔊' : '🔇';
+    soundBtn.querySelector('.label').textContent = on ? 'sound off' : 'sound on';
   }
-  restart();
+  soundBtn.addEventListener('click', function(){
+    if(!soundOn) document.dispatchEvent(new CustomEvent('liveSound', { detail: null }));
+    setSound(!soundOn);
+  });
+  // another video with sound: mute the hero
+  document.addEventListener('liveSound', function(e){ if(e.detail && soundOn) setSound(false); });
+  // leaving the first screen: mute the hero
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){
+      if(!en[0].isIntersecting && soundOn) setSound(false);
+    }, { threshold: 0.2 }).observe(document.querySelector('.hero'));
+  }
 })();
 
 // ---------- Mobile menu ----------
@@ -1005,39 +1079,110 @@ ul{list-style:none}
 (function(){
   var track = document.getElementById('marqueeTrack');
   track.innerHTML += track.innerHTML;
+  var vids = track.querySelectorAll('video');
+  function playAll(on){ vids.forEach(function(v){ if(on){ v.play().catch(function(){}); } else { v.pause(); } }); }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){ playAll(en[0].isIntersecting); }, { threshold: 0 }).observe(track);
+  } else { playAll(true); }
 })();
 
-// ---------- Video showcase: autoplay in view + sound on click ----------
+// ---------- Live videos: muted preview, click for full video with sound ----------
 (function(){
-  var cards = document.querySelectorAll('.video-card');
-  if('IntersectionObserver' in window){
-    var vio = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        var v = e.target.querySelector('video');
-        if(e.isIntersecting){ v.play().catch(function(){}); }
-        else { v.pause(); }
-      });
-    }, { threshold: 0.25 });
-    cards.forEach(function(c){ vio.observe(c); });
-  } else {
-    cards.forEach(function(c){ c.querySelector('video').play().catch(function(){}); });
+  var cards = [].slice.call(document.querySelectorAll('.live'));
+  var canHover = window.matchMedia('(hover:hover)').matches;
+  var soundMode = false, current = null;
+  var chrome = '<div class="live-eq" aria-hidden="true"><i></i><i></i><i></i></div>' +
+    '<div class="live-bar" aria-hidden="true"></div>' +
+    '<div class="live-pill" aria-hidden="true"><span class="off">🔇 sound on</span><span class="on">🔊 sound off</span></div>';
+
+  function load(v, full){
+    var src = full ? (v.dataset.full || v.dataset.loop) : v.dataset.loop;
+    if(v.getAttribute('src') !== src) v.src = src;
+    v.dataset.state = full ? 'full' : 'loop';
   }
-  function setSound(card, on){
+  function mute(card){
     var v = card.querySelector('video');
-    var b = card.querySelector('.sound-btn');
-    v.muted = !on;
-    b.textContent = on ? '🔊' : '🔇';
-    b.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on');
+    card.classList.remove('on');
+    card.setAttribute('aria-pressed', 'false');
+    v.muted = true; v.loop = true;
+    if(v.dataset.full && v.dataset.state === 'full'){ load(v, false); v.play().catch(function(){}); }
   }
+  function unmute(card){
+    var v = card.querySelector('video');
+    card.classList.add('on');
+    card.setAttribute('aria-pressed', 'true');
+    load(v, true);
+    v.currentTime = 0; v.muted = false; v.loop = !v.dataset.full;
+    v.play().catch(function(){});
+    document.dispatchEvent(new CustomEvent('liveSound', { detail: card }));
+  }
+  function setSound(card){
+    if(current && current !== card) mute(current);
+    current = card;
+    if(card) unmute(card);
+  }
+
   cards.forEach(function(card){
-    function toggle(){
-      var willUnmute = card.querySelector('video').muted;
-      cards.forEach(function(c){ setSound(c, false); });
-      if(willUnmute) setSound(card, true);
+    var v = card.querySelector('video');
+    card.insertAdjacentHTML('beforeend', chrome);
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-pressed', 'false');
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'metadata';
+    v.setAttribute('playsinline', '');
+    load(v, false);
+    var bar = card.querySelector('.live-bar');
+    v.addEventListener('timeupdate', function(){ if(v.duration) bar.style.width = (v.currentTime / v.duration * 100) + '%'; });
+    v.addEventListener('ended', function(){ if(current === card){ current = null; soundMode = false; mute(card); } });
+
+    card.addEventListener('click', function(e){
+      if(e.target.closest('a')) return;
+      if(current === card){ soundMode = false; mute(card); current = null; }
+      else { soundMode = true; setSound(card); }
+    });
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); card.click(); }
+    });
+    if(canHover){
+      card.addEventListener('pointermove', function(e){
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--hx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--hy', (e.clientY - r.top) + 'px');
+      });
+      // after the first click, sound follows the cursor
+      card.addEventListener('pointerenter', function(){ if(soundMode && current !== card) setSound(card); });
     }
-    card.querySelector('video').addEventListener('click', toggle);
-    card.querySelector('.sound-btn').addEventListener('click', toggle);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){
+        if(en[0].isIntersecting){ v.play().catch(function(){}); }
+        else { v.pause(); if(current === card){ mute(card); current = null; } }
+      }, { threshold: 0.4 }).observe(card);
+    } else { v.play().catch(function(){}); }
   });
+  // hero sound on: mute live videos
+  document.addEventListener('liveSound', function(e){
+    if(!e.detail && current){ mute(current); current = null; soundMode = false; }
+  });
+})();
+
+// ---------- Metric proofs ----------
+(function(){
+  var dlg = document.getElementById('proof');
+  var body = dlg.querySelector('.proof-body');
+  var title = document.getElementById('proofTitle');
+  var titles = { ugc: 'Proof · UGC for nutra', ai: 'Proof · AI creatives' };
+  document.querySelectorAll('.proof-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var tpl = document.getElementById('proof-' + b.dataset.proof);
+      body.innerHTML = '';
+      body.appendChild(tpl.content.cloneNode(true));
+      title.textContent = titles[b.dataset.proof] || 'Proof';
+      if(dlg.showModal){ dlg.showModal(); } else { dlg.setAttribute('open', ''); }
+    });
+  });
+  function close(){ if(dlg.close){ dlg.close(); } else { dlg.removeAttribute('open'); } }
+  dlg.querySelector('.proof-close').addEventListener('click', close);
+  dlg.addEventListener('click', function(e){ if(e.target === dlg) close(); });
 })();
 
 // ---------- Animated counters ----------
