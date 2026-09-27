@@ -249,6 +249,24 @@ ul{list-style:none}
 .arb-row .live{aspect-ratio:3/4}
 .arb-row .cb-facts{margin:0}
 
+
+/* ============ PROOF MODAL ============ */
+.proof-btn{font-size:13px;font-weight:600;color:var(--accent);padding:8px 4px;border-bottom:1px dashed rgba(245,152,242,.5);line-height:1}
+.proof-btn:hover{border-bottom-style:solid}
+.proof{margin:auto;padding:0;border:1px solid var(--line);border-radius:18px;background:#0a0a0a;color:var(--text);width:min(960px,calc(100vw - 32px));max-height:calc(100dvh - 48px)}
+.proof::backdrop{background:rgba(0,0,0,.75);backdrop-filter:blur(6px)}
+.proof[open]{animation:proofIn .35s var(--ease-spring)}
+@keyframes proofIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.proof-inner{display:flex;flex-direction:column;max-height:calc(100dvh - 50px)}
+.proof-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.proof-head h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.proof-close{width:44px;height:44px;margin:-10px -10px -10px 0;border-radius:50%;font-size:16px}
+.proof-close:hover{background:rgba(255,255,255,.08)}
+.proof-body{overflow:auto;padding:22px;display:flex;flex-wrap:wrap;gap:22px;justify-content:center;align-items:flex-start}
+.proof-body figure{flex:1 1 300px;max-width:520px}
+.proof-body img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
+.proof-body figcaption{margin-top:10px;font-size:13px;line-height:19px;color:var(--muted)}
+
 /* ============ RESULTS INFOGRAPHIC ============ */
 .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .result-card{
@@ -582,7 +600,7 @@ ul{list-style:none}
       <dl class="cb-facts">
         <div><dt>Бренды</dt><dd><span class="chip hl">Regenix</span><span class="chip hl">Thinbi</span><span class="chip hl">Cata-Kor</span></dd></div>
         <div><dt>Площадки</dt><dd><span class="chip">Amazon US</span><span class="chip">TikTok Shop</span></dd></div>
-        <div><dt>Результаты</dt><dd><span class="chip hl">8 млн+ просмотров</span><span class="chip hl">пик: 3 продажи на 4 перехода</span><span class="chip">80 тыс+ просмотров за 2 недели</span><span class="chip">до 6 видео в день</span></dd></div>
+        <div><dt>Результаты</dt><dd><span class="chip hl">8 млн+ просмотров</span><span class="chip hl">пик: 3 продажи на 4 перехода</span><span class="chip">80 тыс+ просмотров за 2 недели</span><span class="chip">до 6 видео в день</span><button type="button" class="proof-btn" data-proof="ugc">смотреть подтверждение →</button></dd></div>
         <div><dt>Нейросети</dt><dd><span class="chip">Midjourney</span><span class="chip">Nano Banana</span><span class="chip">Veo 3</span><span class="chip">Sora 2</span><span class="chip">HeyGen</span><span class="chip">ElevenLabs</span></dd></div>
       </dl>
       <div class="live-grid">
@@ -617,7 +635,7 @@ ul{list-style:none}
       </div>
       <dl class="cb-facts">
         <div><dt>Рынок</dt><dd><span class="chip">iGaming · NDA</span><span class="chip">международный</span><span class="chip">СНГ</span></dd></div>
-        <div><dt>Результаты</dt><dd><span class="chip hl">900 тыс+ просмотров</span><span class="chip">50–100 тыс охвата / мес</span></dd></div>
+        <div><dt>Результаты</dt><dd><span class="chip hl">900 тыс+ просмотров</span><span class="chip">50–100 тыс охвата / мес</span><button type="button" class="proof-btn" data-proof="ai">смотреть подтверждение →</button></dd></div>
         <div><dt>Нейросети</dt><dd><span class="chip">Kling</span><span class="chip">Seedance</span><span class="chip">Nano Banana</span><span class="chip">CapCut</span></dd></div>
       </dl>
       <div class="live-rail">
@@ -942,6 +960,24 @@ ul{list-style:none}
 </section>
 </main>
 
+<!-- ============ PROOF MODAL ============ -->
+<dialog class="proof" id="proof" aria-labelledby="proofTitle">
+  <div class="proof-inner">
+    <div class="proof-head">
+      <h3 id="proofTitle">Подтверждение</h3>
+      <button type="button" class="proof-close" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="proof-body"></div>
+  </div>
+</dialog>
+<template id="proof-ugc">
+  <figure><img src="assets/case-1.jpg" alt="Скриншот аккаунта american_beautyhacks для Cata-Kor" loading="lazy"><figcaption>Один из аккаунтов Cata-Kor, которые я вела</figcaption></figure>
+  <figure><img src="assets/case-4.jpg" alt="Статистика просмотров UGC-роликов с AI-аватаром" loading="lazy"><figcaption>Просмотры роликов с AI-аватаром: до 66,8 тыс. на ролик</figcaption></figure>
+</template>
+<template id="proof-ai">
+  <figure><img src="assets/case-2.jpg" alt="Основные метрики: 935 тыс. просмотров, 132 тыс. лайков, 17 тыс. репостов" loading="lazy"><figcaption>Статистика аккаунта за 30 сентября 2025 — 28 февраля 2026</figcaption></figure>
+</template>
+
 <script>
 // ---------- Часы (Москва) ----------
 (function(){
@@ -1127,6 +1163,26 @@ ul{list-style:none}
   document.addEventListener('liveSound', function(e){
     if(!e.detail && current){ mute(current); current = null; soundMode = false; }
   });
+})();
+
+// ---------- Подтверждения метрик ----------
+(function(){
+  var dlg = document.getElementById('proof');
+  var body = dlg.querySelector('.proof-body');
+  var title = document.getElementById('proofTitle');
+  var titles = { ugc: 'Подтверждение · UGC для нутры', ai: 'Подтверждение · AI-креативы' };
+  document.querySelectorAll('.proof-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var tpl = document.getElementById('proof-' + b.dataset.proof);
+      body.innerHTML = '';
+      body.appendChild(tpl.content.cloneNode(true));
+      title.textContent = titles[b.dataset.proof] || 'Подтверждение';
+      if(dlg.showModal){ dlg.showModal(); } else { dlg.setAttribute('open', ''); }
+    });
+  });
+  function close(){ if(dlg.close){ dlg.close(); } else { dlg.removeAttribute('open'); } }
+  dlg.querySelector('.proof-close').addEventListener('click', close);
+  dlg.addEventListener('click', function(e){ if(e.target === dlg) close(); });
 })();
 
 // ---------- Анимированные счётчики ----------
