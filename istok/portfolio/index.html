@@ -97,7 +97,7 @@ ul{list-style:none}
 }
 .hero-bg .bg-media.active{opacity:1}
 .hero-bg img.active{animation:kenburns 14s ease-in-out infinite alternate}
-.hero-bg .hero-girl{object-position:50% 22%}
+.hero-bg video.bg-media{object-position:50% 30%}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.08)}}
 .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.38);z-index:1}
 .hero-content{
@@ -117,6 +117,15 @@ ul{list-style:none}
 .switch-btn.active{opacity:1}
 .switch-btn .idx{font-size:8px;line-height:12px;font-weight:600}
 .switch-btn .label{font-size:12px;line-height:16px;letter-spacing:-.12px;font-weight:600}
+.hero-sound{
+  display:flex;gap:8px;align-items:center;margin-top:14px;padding:10px 16px;min-height:44px;
+  border:1px solid rgba(255,255,255,.35);border-radius:999px;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);
+  font-size:12px;line-height:16px;letter-spacing:-.12px;font-weight:600;text-transform:uppercase;
+  transition:border-color .3s ease,background .3s ease;
+}
+.hero-sound:hover{border-color:var(--accent)}
+.hero-sound[aria-pressed="true"]{border-color:var(--accent);background:rgba(245,152,242,.18)}
+.hero-sound .ico{font-size:14px}
 .availability{flex:1;display:flex;align-items:center;gap:10px;justify-content:flex-end}
 .availability .dot{
   width:7px;height:7px;border-radius:50%;background:var(--accent);
@@ -164,7 +173,7 @@ ul{list-style:none}
 .marquee{padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
 .marquee-track{display:flex;gap:18px;width:max-content;animation:marquee 40s linear infinite}
 .marquee:hover .marquee-track{animation-play-state:paused}
-.marquee-track img{height:220px;width:auto;border-radius:10px;object-fit:cover;flex:none}
+.marquee-track video{height:240px;aspect-ratio:9/16;width:auto;border-radius:10px;object-fit:cover;flex:none;background:#111}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ============ SECTIONS COMMON ============ */
@@ -184,61 +193,61 @@ ul{list-style:none}
 .stat .num em{font-style:normal;color:var(--accent)}
 .stat .lbl{margin-top:8px;font-size:13px;line-height:18px;color:var(--muted)}
 
-/* ============ WORKS ============ */
-.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.case-card{
-  border:1px solid var(--line);border-radius:18px;overflow:hidden;
-  display:flex;flex-direction:column;background:#0a0a0a;
-  transition:border-color .4s ease,transform .5s var(--ease-spring);
-}
-.case-card:hover{border-color:rgba(245,152,242,.55);transform:translateY(-6px)}
-.case-media{aspect-ratio:16/10;overflow:hidden;background:#111}
-.case-media img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .8s var(--ease-spring)}
-.case-card:hover .case-media img{transform:scale(1.05)}
-.case-body{padding:26px 26px 30px;display:flex;flex-direction:column;gap:12px;flex:1}
-.case-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.case-num{font-size:11px;font-weight:700;color:var(--accent)}
-.case-tag{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);text-align:right}
-.case-title{font-size:22px;line-height:1.15;font-weight:700;letter-spacing:-.02em}
-.case-text{font-size:14.5px;line-height:22px;color:rgba(255,255,255,.72)}
-.case-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px}
+/* ============ WORKS: CONTENT BLOCKS ============ */
 .chip{
   font-size:12px;line-height:1;font-weight:600;padding:8px 12px;border-radius:999px;
   border:1px solid var(--line);color:rgba(255,255,255,.8);white-space:nowrap;
 }
 .chip.hl{border-color:rgba(245,152,242,.5);color:var(--accent)}
 .case-link{font-size:13px;font-weight:600;color:var(--accent);display:inline-flex;gap:6px;align-items:center}
-.case-link:hover{text-decoration:underline}
+.live-hint{font-size:14px;color:var(--muted);margin:-24px 0 40px}
+.content-block{border-top:1px solid var(--line);padding:48px 0 72px}
+.cb-head{display:grid;grid-template-columns:1.1fr 1fr;gap:20px 60px;align-items:end;margin-bottom:28px}
+.cb-num{display:block;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+.cb-title{font-size:clamp(26px,3.4vw,40px);line-height:1.05;font-weight:600;letter-spacing:-.02em}
+.cb-text{font-size:15px;line-height:23px;color:rgba(255,255,255,.72);max-width:560px}
+.cb-facts{display:grid;gap:12px;margin-bottom:32px}
+.cb-facts>div{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start}
+.cb-facts dt{font-size:11px;line-height:30px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.cb-facts dd{display:flex;flex-wrap:wrap;gap:8px}
 
-/* ============ VIDEO SHOWCASE ============ */
-.video-sub{margin-top:80px}
-.video-sub h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
-.video-sub .hint{font-size:14px;color:var(--muted);margin-bottom:30px}
-.videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.extra-sub{margin-top:80px}
-.extra-sub h3{font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.01em;color:var(--muted);margin-bottom:24px}
-.extra-card{display:grid;grid-template-columns:300px 1fr;align-items:stretch}
-.extra-card .case-media{aspect-ratio:3/4;height:auto}
-.extra-card .case-metrics{margin-top:6px}
-.video-card{
-  border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0a0a0a;
-  transition:border-color .4s ease;position:relative;
+/* live video cards: muted preview, click = full with sound */
+.live{position:relative;overflow:hidden;border-radius:18px;background:#0a0a0a;border:1px solid var(--line);cursor:pointer;isolation:isolate;aspect-ratio:9/16;transition:border-color .4s ease}
+.live:hover,.live.on{border-color:rgba(245,152,242,.6)}
+.live video{display:block;width:100%;height:100%;object-fit:cover}
+.live-pill{
+  position:absolute;z-index:3;pointer-events:none;left:var(--hx,50%);top:var(--hy,50%);
+  display:flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;white-space:nowrap;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(8px);font-size:12px;font-weight:600;
+  opacity:0;transform:translate(-50%,-50%) scale(.9);transition:opacity .18s,transform .18s;
 }
-.video-card:hover{border-color:rgba(245,152,242,.55)}
-.video-card video{width:100%;aspect-ratio:9/16;object-fit:contain;background:#050505;display:block;cursor:pointer}
-.sound-btn{
-  position:absolute;top:14px;right:14px;z-index:2;
-  width:44px;height:44px;border-radius:50%;
-  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.25);
-  display:flex;align-items:center;justify-content:center;font-size:16px;
-  transition:border-color .3s ease,background .3s ease,transform .1s cubic-bezier(0,0,.58,1);
+.live-pill .on,.live.on .live-pill .off{display:none}
+.live.on .live-pill .on{display:inline}
+@media (hover:hover){.live{cursor:none}.live:hover .live-pill{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@media (hover:none){.live .live-pill{opacity:1;top:12px;transform:translate(-50%,0);font-size:11px;padding:7px 11px}.live.on .live-pill{opacity:0}}
+.live-eq{position:absolute;right:14px;top:14px;z-index:3;display:flex;gap:3px;align-items:flex-end;height:16px;opacity:0;transition:opacity .2s}
+.live-eq i{width:3px;background:var(--accent);border-radius:2px;animation:eq 1s ease-in-out infinite}
+.live-eq i:nth-child(2){animation-delay:-.3s}.live-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes eq{0%,100%{height:4px}50%{height:16px}}
+.live.on .live-eq{opacity:1}
+.live-bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--accent);z-index:3;opacity:0}
+.live.on .live-bar{opacity:1}
+.live-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.live-rail{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(200px,22vw,280px);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent}
+.live-rail .live{scroll-snap-align:start}
+.more-card,.acc-link{
+  display:flex;flex-direction:column;justify-content:space-between;gap:16px;
+  border:1px solid var(--line);border-radius:18px;background:#0a0a0a;padding:24px;
+  transition:border-color .4s ease,background .4s ease;
 }
-.sound-btn:hover{border-color:var(--accent)}
-.sound-btn:active{transform:scale(.94)}
-.video-card figcaption{padding:18px 20px 20px;display:flex;flex-direction:column;gap:4px}
-.video-card figcaption b{font-size:16px;font-weight:700;letter-spacing:-.01em}
-.video-card figcaption span{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.more-card{aspect-ratio:9/16}
+.more-card:hover,.acc-link:hover{border-color:rgba(245,152,242,.55);background:#140d14}
+.more-card b,.acc-link b{font-size:clamp(22px,2.2vw,30px);line-height:1.05;font-weight:600;letter-spacing:-.02em}
+.more-card .cb-num,.acc-link .cb-num{margin:0}
+.acc-link{margin-top:18px;flex-direction:row;align-items:center;flex-wrap:wrap}
+.arb-row{display:grid;grid-template-columns:minmax(0,320px) 1fr;gap:48px;align-items:center}
+.arb-row .live{aspect-ratio:3/4}
+.arb-row .cb-facts{margin:0}
 
 /* ============ RESULTS INFOGRAPHIC ============ */
 .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -288,17 +297,17 @@ ul{list-style:none}
 .mega .cap{display:block;margin-top:14px;font-size:15px;color:rgba(255,255,255,.75)}
 
 /* ============ SERVICES ============ */
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:90px}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:90px}
 .service-card{
   position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;
   border:1px solid var(--line);
 }
-.service-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-spring)}
-.service-card:hover img{transform:scale(1.06)}
+.service-card img,.service-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-spring)}
+.service-card:hover img,.service-card:hover video{transform:scale(1.06)}
 .service-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 40%,rgba(0,0,0,.82) 100%)}
 .service-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px}
 .service-body .idx{font-size:11px;font-weight:700;color:var(--accent)}
-.service-body h3{font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:-.02em;margin:6px 0 8px}
+.service-body h3{font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:-.02em;margin:6px 0 8px}
 .service-body p{font-size:13.5px;line-height:20px;color:rgba(255,255,255,.75)}
 .process{border-top:1px solid var(--line)}
 .process h3{
@@ -317,7 +326,7 @@ ul{list-style:none}
 /* ============ OFFER ============ */
 .offer{border-top:1px solid var(--line);margin-top:90px;padding-top:48px}
 .offer h3{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:36px}
-.offer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.offer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
 .offer-item{
   border:1px solid var(--line);border-radius:18px;background:#0a0a0a;
   padding:26px 24px 28px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;
@@ -398,6 +407,8 @@ ul{list-style:none}
   .hero-bottom{gap:28px;padding-bottom:52px}
   .hero-aside{padding-left:24px}
   .steps{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .live-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
   .offer-grid{grid-template-columns:repeat(2,1fr)}
   .tools-groups{grid-template-columns:repeat(2,1fr)}
   .about-grid{gap:36px}
@@ -420,17 +431,19 @@ ul{list-style:none}
   .hero-aside{padding-left:0;max-width:420px;min-width:0}
   .section{padding:80px 0 60px}
   .stats{grid-template-columns:1fr 1fr}
-  .works-grid{grid-template-columns:1fr}
   .services-grid{grid-template-columns:1fr;margin-bottom:60px}
-  .videos-grid{grid-template-columns:1fr}
   .results-grid{grid-template-columns:1fr}
+  .cb-head{grid-template-columns:1fr}
+  .cb-facts>div{grid-template-columns:1fr;gap:6px}
+  .cb-facts dt{line-height:1.4}
+  .live-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .live-rail{grid-auto-columns:62vw}
+  .arb-row{grid-template-columns:1fr;gap:28px}
+  .arb-row .live{max-width:360px}
+  .content-block{padding:40px 0 56px}
   .offer-grid{grid-template-columns:1fr}
   .offer{margin-top:60px}
   .tools-groups{grid-template-columns:1fr 1fr;gap:24px 16px}
-  .extra-sub{margin-top:56px}
-  .extra-card{grid-template-columns:1fr}
-  .extra-card .case-media{aspect-ratio:16/10;min-height:0}
-  .video-sub{margin-top:56px}
   .mega{padding:36px 20px}
   .result-card{padding:26px 22px 28px}
   .service-card{aspect-ratio:4/5}
@@ -439,7 +452,7 @@ ul{list-style:none}
   .about-photo img{max-height:380px}
   .about-cols{grid-template-columns:1fr}
   .exp-item{grid-template-columns:1fr;gap:8px;padding:20px 0}
-  .marquee-track img{height:150px}
+  .marquee-track video{height:170px}
   .contact{padding:90px 0 30px}
   .contact-mail{font-size:calc((100vw - 36px) / 16.5);word-break:normal}
   .footer{margin-top:70px}
@@ -490,16 +503,15 @@ ul{list-style:none}
 <!-- ============ HERO ============ -->
 <section class="hero" aria-label="Главный экран">
   <div class="hero-bg" aria-hidden="true">
-    <video class="bg-media hero-girl active" src="assets/video-avatar-mic.mp4" poster="assets/video-avatar-mic-poster.jpg" muted autoplay loop playsinline preload="auto"></video>
-    <img class="bg-media" src="assets/hero-3.jpg" alt="" loading="lazy">
-    <img class="bg-media" src="assets/hero-2.jpg" alt="" loading="lazy">
+    <video class="bg-media active" src="assets/hero/casino.mp4" poster="assets/hero/casino.jpg" muted autoplay playsinline preload="auto"></video>
+    <video class="bg-media" src="assets/hero/rider.mp4" poster="assets/hero/rider.jpg" muted playsinline preload="metadata"></video>
   </div>
   <div class="hero-content">
     <div class="hero-upper">
       <div class="hero-switcher" role="group" aria-label="Примеры генераций">
-        <button class="switch-btn active" data-slide="0"><span class="idx">01</span><span class="label">Генерация по фото</span></button>
-        <button class="switch-btn" data-slide="1"><span class="idx">02</span><span class="label">Нейрофотосессия</span></button>
-        <button class="switch-btn" data-slide="2"><span class="idx">03</span><span class="label">Предметная съёмка</span></button>
+        <button class="switch-btn active" data-slide="0"><span class="idx">01</span><span class="label">AI-креатив · iGaming</span></button>
+        <button class="switch-btn" data-slide="1"><span class="idx">02</span><span class="label">AI-креатив · кино</span></button>
+        <button class="hero-sound" id="heroSound" aria-pressed="false"><span class="ico" aria-hidden="true">🔇</span><span class="label">включить звук</span></button>
       </div>
       <div class="availability" role="status">
         <span class="dot" aria-hidden="true"></span>
@@ -521,14 +533,20 @@ ul{list-style:none}
 <!-- ============ MARQUEE ============ -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track" id="marqueeTrack">
-    <img src="assets/g1.jpg" alt="">
-    <img src="assets/g2.jpg" alt="">
-    <img src="assets/g3.jpg" alt="">
-    <img src="assets/g4.jpg" alt="">
-    <img src="assets/g5.jpg" alt="">
-    <img src="assets/g6.jpg" alt="">
-    <img src="assets/g7.jpg" alt="">
-    <img src="assets/g8.jpg" alt="">
+    <video src="assets/thumbs/t1.mp4" poster="assets/thumbs/t1.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t2.mp4" poster="assets/thumbs/t2.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t3.mp4" poster="assets/thumbs/t3.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t4.mp4" poster="assets/thumbs/t4.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t5.mp4" poster="assets/thumbs/t5.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t6.mp4" poster="assets/thumbs/t6.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t7.mp4" poster="assets/thumbs/t7.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t8.mp4" poster="assets/thumbs/t8.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t9.mp4" poster="assets/thumbs/t9.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t10.mp4" poster="assets/thumbs/t10.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t11.mp4" poster="assets/thumbs/t11.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t12.mp4" poster="assets/thumbs/t12.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t13.mp4" poster="assets/thumbs/t13.jpg" muted loop playsinline preload="none"></video>
+    <video src="assets/thumbs/t14.mp4" poster="assets/thumbs/t14.jpg" muted loop playsinline preload="none"></video>
   </div>
 </div>
 
@@ -539,7 +557,7 @@ ul{list-style:none}
       <span class="idx">01</span>
       <div>
         <h2>Работы</h2>
-        <p class="section-sub">Кейсы с реальными метриками: от вирусного UGC-контента в США до сложной локализации креативов под разные рынки.</p>
+        <p class="section-sub">Три вида контента, которые я делаю: UGC для нутры в США, короткие AI-креативы для соцсетей и креативы для арбитража трафика.</p>
       </div>
     </div>
 
@@ -550,101 +568,88 @@ ul{list-style:none}
       <div class="stat"><div class="num"><span data-count="6">0</span></div><div class="lbl">уникальных AI-видео в день — стабильный продакшен</div></div>
     </div>
 
-    <div class="works-grid">
-      <article class="case-card reveal-up">
-        <div class="case-media"><img src="assets/case-1.jpg" alt="Скриншоты TikTok-аккаунтов Cata-Kor" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Кейс 01</span><span class="case-tag">SMM / AI-контент</span></div>
-          <h3 class="case-title">Cata-Kor — ТОП-1 по продажам БАДов в США</h3>
-          <p class="case-text">2024–2025. Тексты, сценарии, визуалы и видео для Instagram, TikTok и YouTube с использованием нейросетей. Вела 6+ аккаунтов с ежедневным выпуском контента.</p>
-          <div class="case-metrics">
-            <span class="chip hl">8 млн+ просмотров</span>
-            <span class="chip hl">пик: 3 продажи на 4 перехода в карточку</span>
-            <span class="chip">MidJourney · Veo 3 · Sora 2 · HeyGen</span>
-          </div>
+    <p class="live-hint reveal-up">Ролики играют без звука. Нажмите на любой, чтобы посмотреть целиком со звуком.</p>
+
+    <!-- 01 · UGC -->
+    <article class="content-block reveal-up">
+      <div class="cb-head">
+        <div>
+          <span class="cb-num">01 · UGC · нутра и здоровье · США</span>
+          <h3 class="cb-title">Реалистичные UGC-ролики от аватара до аккаунта</h3>
         </div>
-      </article>
-
-      <article class="case-card reveal-up delay-1">
-        <div class="case-media"><img src="assets/case-2.jpg" alt="Метрики: 935K просмотров публикаций, 132K лайков" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Кейс 02</span><span class="case-tag">iGaming · NDA</span></div>
-          <h3 class="case-title">Контент в нише с жёсткими ограничениями</h3>
-          <p class="case-text">Instagram, TikTok, Telegram: контент-план под специфику платформ, трендвочинг и быстрая адаптация трендов — несмотря на блокировки гемблинг-контента.</p>
-          <div class="case-metrics">
-            <span class="chip hl">900 тыс+ просмотров</span>
-            <span class="chip">50–100 тыс охвата / мес</span>
-            <span class="chip">Kling · Seedance · CapCut</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-card reveal-up">
-        <div class="case-media"><img src="assets/case-3.jpg" alt="Рекламный креатив для латиноамериканского рынка" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Кейс 03</span><span class="case-tag">Media Buying · Amalgama</span></div>
-          <h3 class="case-title">Креативы для арбитража трафика</h3>
-          <p class="case-text">Рынки СНГ, Европы и Латинской Америки. Сложный видеомонтаж, переозвучка и замена аватаров для локализации под Facebook, Instagram и TikTok. A/B-тесты и поиск конверсионных связок.</p>
-          <div class="case-metrics">
-            <span class="chip hl">$1 000+ выручки с креатива</span>
-            <span class="chip">health · нутра · фарма</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-card reveal-up delay-1">
-        <div class="case-media"><img src="assets/case-4.jpg" alt="Вирусные UGC-креативы для health and wellness" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Кейс 04</span><span class="case-tag">UGC / AI-аватар · США</span></div>
-          <h3 class="case-title">AI-аватар с нуля для health &amp; wellness</h3>
-          <p class="case-text">Разработала персонажа полностью: концепция, визуальный стиль, история и голос. До 6 уникальных видео в день с сохранением консистентности: talking head, смена локаций, storytelling с B-roll.</p>
-          <div class="case-metrics">
-            <span class="chip hl">80 тыс+ просмотров за 2 недели</span>
-            <span class="chip">нативные продажи</span>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <div class="video-sub">
-      <h3 class="reveal-up">AI-видео в действии</h3>
-      <p class="hint reveal-up">Ролики полностью созданы с помощью нейросетей — от сценария до монтажа. Нажми на видео, чтобы включить звук.</p>
-      <div class="videos-grid">
-        <figure class="video-card reveal-up">
-          <video src="assets/video-avatar-mic.mp4" poster="assets/video-avatar-mic-poster.jpg" muted loop playsinline preload="metadata" aria-label="AI-аватар, сгенерированный по одному фото"></video>
-          <button class="sound-btn" aria-label="Включить звук">🔇</button>
-          <figcaption><b>AI-аватар по одному фото</b><span>Генерация по фото · UGC</span></figcaption>
-        </figure>
-        <figure class="video-card reveal-up delay-1">
-          <video src="assets/video-priest.mp4" poster="assets/video-priest-poster.jpg" muted loop playsinline preload="metadata" aria-label="Рекламный креатив для латиноамериканского рынка"></video>
-          <button class="sound-btn" aria-label="Включить звук">🔇</button>
-          <figcaption><b>Креатив для лат. рынка</b><span>Арбитраж · локализация</span></figcaption>
-        </figure>
-        <figure class="video-card reveal-up delay-2">
-          <video src="assets/video-postpartum.mp4" poster="assets/video-postpartum-poster.jpg" muted loop playsinline preload="metadata" aria-label="ИИ-аватар для ниши health and wellness"></video>
-          <button class="sound-btn" aria-label="Включить звук">🔇</button>
-          <figcaption><b>ИИ-аватар для health-ниши</b><span>UGC · США</span></figcaption>
-        </figure>
+        <p class="cb-text">Создаю аватаров с нуля, фото для видео, сами ролики, озвучку и монтаж. Веду и настраиваю аккаунты под гео в YouTube, Instagram, TikTok, Facebook и Threads.</p>
       </div>
-    </div>
+      <dl class="cb-facts">
+        <div><dt>Бренды</dt><dd><span class="chip hl">Regenix</span><span class="chip hl">Thinbi</span><span class="chip hl">Cata-Kor</span></dd></div>
+        <div><dt>Площадки</dt><dd><span class="chip">Amazon US</span><span class="chip">TikTok Shop</span></dd></div>
+        <div><dt>Результаты</dt><dd><span class="chip hl">8 млн+ просмотров</span><span class="chip hl">пик: 3 продажи на 4 перехода</span><span class="chip">80 тыс+ просмотров за 2 недели</span><span class="chip">до 6 видео в день</span></dd></div>
+        <div><dt>Нейросети</dt><dd><span class="chip">Midjourney</span><span class="chip">Nano Banana</span><span class="chip">Veo 3</span><span class="chip">Sora 2</span><span class="chip">HeyGen</span><span class="chip">ElevenLabs</span></dd></div>
+      </dl>
+      <div class="live-grid">
+        <figure class="live"><video data-loop="assets/ugc/u1-loop.mp4" data-full="assets/ugc/u1.mp4" poster="assets/ugc/u1.jpg" aria-label="UGC-ролик 1"></video></figure>
+        <figure class="live"><video data-loop="assets/ugc/u4-loop.mp4" data-full="assets/ugc/u4.mp4" poster="assets/ugc/u4.jpg" aria-label="UGC-ролик 2"></video></figure>
+        <figure class="live"><video data-loop="assets/ugc/u5-loop.mp4" data-full="assets/ugc/u5.mp4" poster="assets/ugc/u5.jpg" aria-label="UGC-ролик 3"></video></figure>
+        <figure class="live"><video data-loop="assets/ugc/u2-loop.mp4" data-full="assets/ugc/u2.mp4" poster="assets/ugc/u2.jpg" aria-label="UGC-ролик 4"></video></figure>
+        <figure class="live"><video data-loop="assets/ugc/u7-loop.mp4" data-full="assets/ugc/u7.mp4" poster="assets/ugc/u7.jpg" aria-label="UGC-ролик 5"></video></figure>
+        <figure class="live"><video data-loop="assets/ugc/u6-loop.mp4" data-full="assets/ugc/u6.mp4" poster="assets/ugc/u6.jpg" aria-label="UGC-ролик 6"></video></figure>
+        <figure class="live"><video data-loop="assets/ugc/u3-loop.mp4" data-full="assets/ugc/u3.mp4" poster="assets/ugc/u3.jpg" aria-label="UGC-ролик 7"></video></figure>
+        <a class="more-card" href="https://drive.google.com/drive/folders/1NlMt-R12weOZQ4_UaTp2CVPEUJ825FNG?usp=sharing" target="_blank" rel="noopener">
+          <span class="cb-num">Google Drive</span>
+          <b>Больше роликов</b>
+          <span class="case-link">смотреть папку →</span>
+        </a>
+      </div>
+      <a class="acc-link" href="https://www.instagram.com/althea.lenroy/" target="_blank" rel="noopener">
+        <span class="cb-num">Пример аккаунта, который я вела</span>
+        <b>Althea Lenroy</b>
+        <span class="case-link">@althea.lenroy в Instagram →</span>
+      </a>
+    </article>
 
-    <div class="extra-sub">
-      <h3 class="reveal-up">Дополнительно · vibe-coding</h3>
-      <article class="case-card extra-card reveal-up">
-        <div class="case-media"><img src="assets/case-5.jpg" alt="Сайт-приглашение на свадьбу" loading="lazy"></div>
-        <div class="case-body">
-          <div class="case-top"><span class="case-num">Side-проект</span><span class="case-tag">Vibe-coding / Web</span></div>
-          <h3 class="case-title">Сайт-приглашение за 1 день</h3>
-          <p class="case-text">Одностраничный сайт-приглашение на свадьбу: макет в Figma, графика и тексты сгенерированы через Gemini и ChatGPT, сборка на Taplink. Тот же AI-подход работает и для лендингов брендов.</p>
-          <div class="case-metrics">
-            <span class="chip hl">срок — 1 день</span>
-            <span class="chip">Figma · Gemini · ChatGPT</span>
-          </div>
-          <a class="case-link" href="https://taplink.cc/weddingromanveronika" target="_blank" rel="noopener">Посмотреть сайт →</a>
+    <!-- 02 · AI-креативы -->
+    <article class="content-block reveal-up">
+      <div class="cb-head">
+        <div>
+          <span class="cb-num">02 · AI-креативы · Shorts · TikTok · Reels</span>
+          <h3 class="cb-title">Короткие вирусные креативы для соцсетей</h3>
         </div>
-      </article>
-    </div>
+        <p class="cb-text">Кинематографичные ролики на 5–15 секунд для компании в сфере iGaming. Международный рынок и СНГ. Бренд под NDA.</p>
+      </div>
+      <dl class="cb-facts">
+        <div><dt>Рынок</dt><dd><span class="chip">iGaming · NDA</span><span class="chip">международный</span><span class="chip">СНГ</span></dd></div>
+        <div><dt>Результаты</dt><dd><span class="chip hl">900 тыс+ просмотров</span><span class="chip">50–100 тыс охвата / мес</span></dd></div>
+        <div><dt>Нейросети</dt><dd><span class="chip">Kling</span><span class="chip">Seedance</span><span class="chip">Nano Banana</span><span class="chip">CapCut</span></dd></div>
+      </dl>
+      <div class="live-rail">
+        <figure class="live"><video data-loop="assets/ai/a6.mp4" poster="assets/ai/a6.jpg" aria-label="AI-креатив 1"></video></figure>
+        <figure class="live"><video data-loop="assets/ai/a1.mp4" poster="assets/ai/a1.jpg" aria-label="AI-креатив 2"></video></figure>
+        <figure class="live"><video data-loop="assets/ai/a3.mp4" poster="assets/ai/a3.jpg" aria-label="AI-креатив 3"></video></figure>
+        <figure class="live"><video data-loop="assets/ai/a7.mp4" poster="assets/ai/a7.jpg" aria-label="AI-креатив 4"></video></figure>
+        <figure class="live"><video data-loop="assets/ai/a4.mp4" poster="assets/ai/a4.jpg" aria-label="AI-креатив 5"></video></figure>
+        <figure class="live"><video data-loop="assets/ai/a2.mp4" poster="assets/ai/a2.jpg" aria-label="AI-креатив 6"></video></figure>
+        <figure class="live"><video data-loop="assets/ai/a5.mp4" poster="assets/ai/a5.jpg" aria-label="AI-креатив 7"></video></figure>
+      </div>
+    </article>
+
+    <!-- 03 · Арбитраж -->
+    <article class="content-block reveal-up">
+      <div class="cb-head">
+        <div>
+          <span class="cb-num">03 · Арбитраж трафика · Amalgama</span>
+          <h3 class="cb-title">Креативы и VSL под любое гео</h3>
+        </div>
+        <p class="cb-text">Адаптирую VSL, переозвучиваю, меняю аватаров под локальный рынок. Длительность от коротких креативов до часовых роликов.</p>
+      </div>
+      <div class="arb-row">
+        <figure class="live arb-video"><video data-loop="assets/video-priest.mp4" poster="assets/video-priest-poster.jpg" aria-label="Креатив для латиноамериканского рынка"></video></figure>
+        <dl class="cb-facts">
+          <div><dt>Гео</dt><dd><span class="chip">Латинская Америка</span><span class="chip">Бангладеш</span><span class="chip">Индонезия</span><span class="chip">Азия</span><span class="chip">русскоязычный рынок</span></dd></div>
+          <div><dt>Форматы</dt><dd><span class="chip">короткие креативы</span><span class="chip">VSL до часа</span><span class="chip">VSL-адаптация</span><span class="chip">переозвучка</span><span class="chip">замена аватаров</span></dd></div>
+          <div><dt>Результаты</dt><dd><span class="chip hl">$1 000+ выручки с креатива</span><span class="chip">health · нутра · фарма</span></dd></div>
+          <div><dt>Нейросети</dt><dd><span class="chip">ElevenLabs</span><span class="chip">HeyGen</span><span class="chip">FaceSwap AI</span><span class="chip">CapCut</span><span class="chip">After Effects</span></dd></div>
+        </dl>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -732,6 +737,14 @@ ul{list-style:none}
           <p>Виртуальные персонажи для брендов: концепция, внешность, голос и характер. Стабильный выпуск UGC-контента без съёмочной команды.</p>
         </div>
       </article>
+      <article class="service-card reveal-up delay-3">
+        <video src="assets/ai/a4.mp4" poster="assets/ai/a4.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>
+        <div class="service-body">
+          <span class="idx">04</span>
+          <h3>Вирусные креативы</h3>
+          <p>Короткие ролики на 5–15 секунд для Shorts, TikTok и Reels: сценарий, генерация, звук и монтаж под удержание с первой секунды.</p>
+        </div>
+      </article>
     </div>
 
     <div class="process reveal-up">
@@ -777,6 +790,11 @@ ul{list-style:none}
           <b>Нейрофотосессия</b>
           <p>Фотогенерации с повторением внешности 1 в 1 или предметная съёмка товара без студии.</p>
           <span class="chip">1–2 дня</span>
+        </div>
+        <div class="offer-item">
+          <b>Вирусные креативы</b>
+          <p>Пачка коротких AI-роликов для Shorts, TikTok и Reels под один продукт или оффер.</p>
+          <span class="chip">от 2 дней</span>
         </div>
         <div class="offer-item">
           <b>Тест гипотез</b>
@@ -841,22 +859,27 @@ ul{list-style:none}
       <div class="exp-item">
         <span class="years">2024–2025</span>
         <div class="role"><b>AI-контент-мейкер / SMM</b><span>Cata-Kor (США) — бренд БАДов</span></div>
-        <p class="desc">AI-контент полного цикла: видео, визуалы, сценарии, аватары, голос. Вела 6+ аккаунтов в TikTok, Instagram и YouTube — метрики в кейсе 01.</p>
+        <p class="desc">AI-контент полного цикла: видео, визуалы, сценарии, аватары, голос. Вела 6+ аккаунтов в TikTok, Instagram и YouTube: 8 млн+ просмотров.</p>
       </div>
       <div class="exp-item">
         <span class="years">2025–2026</span>
         <div class="role"><b>Контент-креатор / SMM</b><span>Гемблинг-ниша · NDA · проектно</span></div>
-        <p class="desc">Контент-план и трендвочинг в нише с жёсткими ограничениями платформ — подробности в кейсе 02.</p>
+        <p class="desc">Контент-план, трендвочинг и короткие AI-креативы в нише с жёсткими ограничениями платформ: 900 тыс+ просмотров.</p>
       </div>
       <div class="exp-item">
         <span class="years">2026</span>
         <div class="role"><b>Монтажёр-AI-креатор</b><span>Арбитраж трафика · Amalgama · проектно</span></div>
-        <p class="desc">Локализация креативов под разные гео: монтаж, переозвучка, A/B-тесты — подробности в кейсе 03.</p>
+        <p class="desc">Локализация креативов и VSL под разные гео: монтаж, переозвучка, замена аватаров, A/B-тесты.</p>
       </div>
       <div class="exp-item">
         <span class="years">2026</span>
         <div class="role"><b>AI-креатор</b><span>Нутра-ниша · NDA · проектно</span></div>
-        <p class="desc">Короткий динамичный видео-контент для TikTok и Reels: удержание, лояльность аудитории, нативные продажи — подробности в кейсе 04.</p>
+        <p class="desc">Короткий динамичный видео-контент для TikTok и Reels: удержание, лояльность аудитории, нативные продажи.</p>
+      </div>
+      <div class="exp-item">
+        <span class="years">2026</span>
+        <div class="role"><b>UGC-креатор</b><span>Regenix · Thinbi (США) · Amazon, TikTok Shop</span></div>
+        <p class="desc">Пак нативных UGC-роликов под ключ: AI-аватары с нуля, фото для видео, ролики, озвучка и монтаж.</p>
       </div>
     </div>
 
@@ -936,33 +959,48 @@ ul{list-style:none}
   setInterval(tick, 1000);
 })();
 
-// ---------- Переключатель фонов hero ----------
+// ---------- Hero: ролики по очереди + звук по кнопке ----------
 (function(){
-  var imgs = document.querySelectorAll('.hero-bg .bg-media');
+  var vids = document.querySelectorAll('.hero-bg .bg-media');
   var btns = document.querySelectorAll('.switch-btn');
-  var current = 0, timer;
+  var soundBtn = document.getElementById('heroSound');
+  var current = 0, soundOn = false;
   function show(i){
     current = i;
-    imgs.forEach(function(img, k){
-      img.classList.toggle('active', k === i);
-      if(img.tagName === 'VIDEO'){
-        if(k === i){ img.play().catch(function(){}); }
-        else { img.pause(); }
-      }
+    vids.forEach(function(v, k){
+      var on = k === i;
+      v.classList.toggle('active', on);
+      if(on){ v.currentTime = 0; v.muted = !soundOn; v.play().catch(function(){}); }
+      else { v.pause(); v.muted = true; }
     });
     btns.forEach(function(b, k){ b.classList.toggle('active', k === i); });
   }
-  btns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      show(parseInt(btn.dataset.slide, 10));
-      restart();
-    });
+  vids.forEach(function(v){
+    v.addEventListener('ended', function(){ show((current + 1) % vids.length); });
   });
-  function restart(){
-    clearInterval(timer);
-    timer = setInterval(function(){ show((current + 1) % imgs.length); }, 8000);
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){ show(parseInt(btn.dataset.slide, 10)); });
+  });
+  function setSound(on){
+    soundOn = on;
+    vids[current].muted = !on;
+    if(on) vids[current].play().catch(function(){});
+    soundBtn.setAttribute('aria-pressed', on);
+    soundBtn.querySelector('.ico').textContent = on ? '🔊' : '🔇';
+    soundBtn.querySelector('.label').textContent = on ? 'выключить звук' : 'включить звук';
   }
-  restart();
+  soundBtn.addEventListener('click', function(){
+    if(!soundOn) document.dispatchEvent(new CustomEvent('liveSound', { detail: null }));
+    setSound(!soundOn);
+  });
+  // другой ролик со звуком — hero замолкает
+  document.addEventListener('liveSound', function(e){ if(e.detail && soundOn) setSound(false); });
+  // уходим с первого экрана — hero замолкает
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){
+      if(!en[0].isIntersecting && soundOn) setSound(false);
+    }, { threshold: 0.2 }).observe(document.querySelector('.hero'));
+  }
 })();
 
 // ---------- Мобильное меню ----------
@@ -1005,38 +1043,89 @@ ul{list-style:none}
 (function(){
   var track = document.getElementById('marqueeTrack');
   track.innerHTML += track.innerHTML;
+  var vids = track.querySelectorAll('video');
+  function playAll(on){ vids.forEach(function(v){ if(on){ v.play().catch(function(){}); } else { v.pause(); } }); }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){ playAll(en[0].isIntersecting); }, { threshold: 0 }).observe(track);
+  } else { playAll(true); }
 })();
 
-// ---------- Витрина видео: автоплей в кадре + звук по клику ----------
+// ---------- Живые ролики: превью без звука, по клику целиком со звуком ----------
 (function(){
-  var cards = document.querySelectorAll('.video-card');
-  if('IntersectionObserver' in window){
-    var vio = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        var v = e.target.querySelector('video');
-        if(e.isIntersecting){ v.play().catch(function(){}); }
-        else { v.pause(); }
-      });
-    }, { threshold: 0.25 });
-    cards.forEach(function(c){ vio.observe(c); });
-  } else {
-    cards.forEach(function(c){ c.querySelector('video').play().catch(function(){}); });
+  var cards = [].slice.call(document.querySelectorAll('.live'));
+  var canHover = window.matchMedia('(hover:hover)').matches;
+  var soundMode = false, current = null;
+  var chrome = '<div class="live-eq" aria-hidden="true"><i></i><i></i><i></i></div>' +
+    '<div class="live-bar" aria-hidden="true"></div>' +
+    '<div class="live-pill" aria-hidden="true"><span class="off">🔇 включить звук</span><span class="on">🔊 выключить</span></div>';
+
+  function load(v, full){
+    var src = full ? (v.dataset.full || v.dataset.loop) : v.dataset.loop;
+    if(v.getAttribute('src') !== src) v.src = src;
+    v.dataset.state = full ? 'full' : 'loop';
   }
-  function setSound(card, on){
+  function mute(card){
     var v = card.querySelector('video');
-    var b = card.querySelector('.sound-btn');
-    v.muted = !on;
-    b.textContent = on ? '🔊' : '🔇';
-    b.setAttribute('aria-label', on ? 'Выключить звук' : 'Включить звук');
+    card.classList.remove('on');
+    card.setAttribute('aria-pressed', 'false');
+    v.muted = true; v.loop = true;
+    if(v.dataset.full && v.dataset.state === 'full'){ load(v, false); v.play().catch(function(){}); }
   }
+  function unmute(card){
+    var v = card.querySelector('video');
+    card.classList.add('on');
+    card.setAttribute('aria-pressed', 'true');
+    load(v, true);
+    v.currentTime = 0; v.muted = false; v.loop = !v.dataset.full;
+    v.play().catch(function(){});
+    document.dispatchEvent(new CustomEvent('liveSound', { detail: card }));
+  }
+  function setSound(card){
+    if(current && current !== card) mute(current);
+    current = card;
+    if(card) unmute(card);
+  }
+
   cards.forEach(function(card){
-    function toggle(){
-      var willUnmute = card.querySelector('video').muted;
-      cards.forEach(function(c){ setSound(c, false); });
-      if(willUnmute) setSound(card, true);
+    var v = card.querySelector('video');
+    card.insertAdjacentHTML('beforeend', chrome);
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-pressed', 'false');
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'metadata';
+    v.setAttribute('playsinline', '');
+    load(v, false);
+    var bar = card.querySelector('.live-bar');
+    v.addEventListener('timeupdate', function(){ if(v.duration) bar.style.width = (v.currentTime / v.duration * 100) + '%'; });
+    v.addEventListener('ended', function(){ if(current === card){ current = null; soundMode = false; mute(card); } });
+
+    card.addEventListener('click', function(e){
+      if(e.target.closest('a')) return;
+      if(current === card){ soundMode = false; mute(card); current = null; }
+      else { soundMode = true; setSound(card); }
+    });
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); card.click(); }
+    });
+    if(canHover){
+      card.addEventListener('pointermove', function(e){
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--hx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--hy', (e.clientY - r.top) + 'px');
+      });
+      // после первого клика звук переходит за курсором
+      card.addEventListener('pointerenter', function(){ if(soundMode && current !== card) setSound(card); });
     }
-    card.querySelector('video').addEventListener('click', toggle);
-    card.querySelector('.sound-btn').addEventListener('click', toggle);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){
+        if(en[0].isIntersecting){ v.play().catch(function(){}); }
+        else { v.pause(); if(current === card){ mute(card); current = null; } }
+      }, { threshold: 0.4 }).observe(card);
+    } else { v.play().catch(function(){}); }
+  });
+  // включили звук в hero — живые ролики замолкают
+  document.addEventListener('liveSound', function(e){
+    if(!e.detail && current){ mute(current); current = null; soundMode = false; }
   });
 })();
 
