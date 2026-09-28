@@ -30,6 +30,15 @@ high — начни с бережного признания текущего с
 живого специалиста, без драматизации.`;
 
 export default async (req) => {
+  // Проверка готовности без передачи ответов: браузер сначала спрашивает,
+  // работает ли разбор, и отправляет ответы только если да.
+  if (req.method === 'GET') {
+    return new Response(JSON.stringify({
+      ready: !!process.env.ANTHROPIC_API_KEY,
+      paid: !!process.env.YOOKASSA_SECRET_KEY,
+      price: (process.env.PAY_PRICE_RUB || '249') + ' ₽',
+    }), { headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
+  }
   if (req.method !== 'POST') {
     return new Response('Method Not Allowed', { status: 405 });
   }
