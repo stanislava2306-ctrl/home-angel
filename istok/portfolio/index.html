@@ -264,6 +264,7 @@ ul{list-style:none}
 .proof-close:hover{background:rgba(255,255,255,.08)}
 .proof-body{overflow:auto;padding:22px;display:flex;flex-wrap:wrap;gap:22px;justify-content:center;align-items:flex-start}
 .proof-body figure{flex:1 1 250px;max-width:420px}
+.proof-body figure:only-child{max-width:100%}
 .proof-body img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
 .proof-body figcaption{margin-top:10px;font-size:13px;line-height:19px;color:var(--muted)}
 
@@ -663,7 +664,7 @@ ul{list-style:none}
         <dl class="cb-facts">
           <div><dt>Гео</dt><dd><span class="chip">Латинская Америка</span><span class="chip">Бангладеш</span><span class="chip">Индонезия</span><span class="chip">Азия</span><span class="chip">русскоязычный рынок</span></dd></div>
           <div><dt>Форматы</dt><dd><span class="chip">короткие креативы</span><span class="chip">VSL до часа</span><span class="chip">VSL-адаптация</span><span class="chip">переозвучка</span><span class="chip">замена аватаров</span></dd></div>
-          <div><dt>Результаты</dt><dd><span class="chip hl">$1 000+ выручки с креатива</span><span class="chip">health · нутра · фарма</span></dd></div>
+          <div><dt>Результаты</dt><dd><span class="chip hl">до $9 226 выручки с креатива</span><span class="chip">health · нутра · фарма</span><button type="button" class="proof-btn" data-proof="arb">смотреть подтверждение →</button></dd></div>
           <div><dt>Нейросети</dt><dd><span class="chip">ElevenLabs</span><span class="chip">HeyGen</span><span class="chip">FaceSwap AI</span><span class="chip">CapCut</span><span class="chip">After Effects</span></dd></div>
         </dl>
       </div>
@@ -982,6 +983,9 @@ ul{list-style:none}
 <template id="proof-ai">
   <figure><img src="assets/case-2.jpg" alt="Основные метрики: 935 тыс. просмотров, 132 тыс. лайков, 17 тыс. репостов" loading="lazy"><figcaption>Статистика аккаунта за 30 сентября 2025 — 28 февраля 2026</figcaption></figure>
 </template>
+<template id="proof-arb">
+  <figure><img src="assets/proof/arb-1.jpg" alt="Статистика креативов в трекере: клики, лиды и выручка по каждому" loading="lazy"><figcaption>Лучший креатив: 242 815 кликов, 3 452 лида и $9 226 выручки</figcaption></figure>
+</template>
 
 <script>
 // ---------- Часы (Москва) ----------
@@ -1175,7 +1179,7 @@ ul{list-style:none}
   var dlg = document.getElementById('proof');
   var body = dlg.querySelector('.proof-body');
   var title = document.getElementById('proofTitle');
-  var titles = { ugc: 'Подтверждение · UGC для нутры', ai: 'Подтверждение · AI-креативы' };
+  var titles = { ugc: 'Подтверждение · UGC для нутры', ai: 'Подтверждение · AI-креативы', arb: 'Подтверждение · арбитраж трафика' };
   document.querySelectorAll('.proof-btn').forEach(function(b){
     b.addEventListener('click', function(){
       var tpl = document.getElementById('proof-' + b.dataset.proof);
