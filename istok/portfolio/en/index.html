@@ -264,6 +264,7 @@ ul{list-style:none}
 .proof-close:hover{background:rgba(255,255,255,.08)}
 .proof-body{overflow:auto;padding:22px;display:flex;flex-wrap:wrap;gap:22px;justify-content:center;align-items:flex-start}
 .proof-body figure{flex:1 1 250px;max-width:420px}
+.proof-body figure:only-child{max-width:100%}
 .proof-body img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
 .proof-body figcaption{margin-top:10px;font-size:13px;line-height:19px;color:var(--muted)}
 
@@ -663,7 +664,7 @@ ul{list-style:none}
         <dl class="cb-facts">
           <div><dt>Geo</dt><dd><span class="chip">Latin America</span><span class="chip">Bangladesh</span><span class="chip">Indonesia</span><span class="chip">Asia</span><span class="chip">Russian-speaking market</span></dd></div>
           <div><dt>Formats</dt><dd><span class="chip">short creatives</span><span class="chip">VSLs up to 1 hour</span><span class="chip">VSL adaptation</span><span class="chip">re-voicing</span><span class="chip">avatar swaps</span></dd></div>
-          <div><dt>Results</dt><dd><span class="chip hl">$1,000+ revenue per creative</span><span class="chip">health · nutra · pharma</span></dd></div>
+          <div><dt>Results</dt><dd><span class="chip hl">$1,000+ revenue per creative</span><span class="chip">health · nutra · pharma</span><button type="button" class="proof-btn" data-proof="arb">see the proof →</button></dd></div>
           <div><dt>AI tools</dt><dd><span class="chip">ElevenLabs</span><span class="chip">HeyGen</span><span class="chip">FaceSwap AI</span><span class="chip">CapCut</span><span class="chip">After Effects</span></dd></div>
         </dl>
       </div>
@@ -982,6 +983,9 @@ ul{list-style:none}
 <template id="proof-ai">
   <figure><img src="../assets/case-2.jpg" alt="Key metrics: 935K views, 132K likes, 17K reposts" loading="lazy"><figcaption>Account stats for September 30, 2025 – February 28, 2026 (interface in Russian)</figcaption></figure>
 </template>
+<template id="proof-arb">
+  <figure><img src="../assets/proof/arb-1.jpg" alt="Creative stats in the tracker: clicks, leads and revenue for each one" loading="lazy"><figcaption>Best creative: 242,815 clicks, 3,452 leads and $9,226 in revenue</figcaption></figure>
+</template>
 
 <script>
 // ---------- Clock (Moscow) ----------
@@ -1175,7 +1179,7 @@ ul{list-style:none}
   var dlg = document.getElementById('proof');
   var body = dlg.querySelector('.proof-body');
   var title = document.getElementById('proofTitle');
-  var titles = { ugc: 'Proof · UGC for nutra', ai: 'Proof · AI creatives' };
+  var titles = { ugc: 'Proof · UGC for nutra', ai: 'Proof · AI creatives', arb: 'Proof · media buying' };
   document.querySelectorAll('.proof-btn').forEach(function(b){
     b.addEventListener('click', function(){
       var tpl = document.getElementById('proof-' + b.dataset.proof);
