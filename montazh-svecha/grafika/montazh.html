@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Монтаж · сон с четверга на пятницу</title>
+<style>
+@font-face{font-family:Manrope;src:url(fonts/Manrope-Light.ttf);font-weight:300}
+@font-face{font-family:Manrope;src:url(fonts/Manrope-Regular.ttf);font-weight:400}
+@font-face{font-family:Manrope;src:url(fonts/Manrope-Medium.ttf);font-weight:500}
+@font-face{font-family:Manrope;src:url(fonts/Manrope-Bold.ttf);font-weight:700}
+@font-face{font-family:Manrope;src:url(fonts/Manrope-ExtraBold.ttf);font-weight:800}
+@font-face{font-family:JBMono;src:url(fonts/JetBrainsMono-Regular.ttf)}
+
+:root{
+  --ink:#070809;
+  --paper:#EFEAE1;         /* тёплый не-белый */
+  --muted:rgba(239,234,225,.72);
+  --accent:#E3A24F;        /* тёплый янтарь — как лампы в кадре */
+  --plate:rgba(10,11,14,.80);
+  --edge:rgba(239,234,225,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:transparent}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;
+  font-family:Manrope,system-ui,sans-serif;color:var(--paper);
+  -webkit-font-smoothing:antialiased}
+.layer{position:absolute;inset:0;pointer-events:none}
+
+/* ---------- b-roll ---------- */
+#broll{mix-blend-mode:screen;
+  -webkit-mask-image:radial-gradient(ellipse 54% 26% at 50% 30%, rgba(0,0,0,.08) 0%, rgba(0,0,0,.45) 55%, #000 100%);
+          mask-image:radial-gradient(ellipse 54% 26% at 50% 30%, rgba(0,0,0,.08) 0%, rgba(0,0,0,.45) 55%, #000 100%)}
+.br{position:absolute;inset:0;opacity:0}
+.blob{position:absolute;border-radius:50%;filter:blur(70px)}
+#fog .blob{background:radial-gradient(circle,rgba(176,192,214,.50),rgba(176,192,214,0) 70%)}
+#salt svg,#window svg,#candle svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* ---------- затемнение, виньетка, зерно ---------- */
+#veil{background:#05060A;opacity:0}
+#vig{background:
+  radial-gradient(ellipse 78% 52% at 50% 36%, rgba(0,0,0,0) 40%, rgba(0,0,0,.55) 100%),
+  linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 62%, rgba(0,0,0,.62) 100%)}
+
+/* ---------- плашки ---------- */
+.plate{position:absolute;left:66px;right:66px;padding:36px 42px 40px;
+  background:linear-gradient(180deg,rgba(12,13,17,.86),rgba(8,9,12,.80));
+  border:1px solid var(--edge);border-radius:20px;
+  box-shadow:0 34px 90px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05);
+  opacity:0;transform-origin:50% 100%}
+.plate.sym{border-left:3px solid var(--accent);border-radius:4px 20px 20px 4px}
+.plate.top{top:128px;right:auto;width:auto;display:inline-block;padding:20px 32px 22px}
+.plate.bottom{bottom:300px}
+.plate.mini{left:66px;right:380px;padding:24px 30px 26px}
+
+.kicker{font-size:23px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;font-family:JBMono,Manrope,monospace}
+.head{font-size:62px;font-weight:800;line-height:1.02;letter-spacing:-.015em;word-spacing:.10em;text-transform:uppercase}
+.head.sm{font-size:48px}
+.head.xs{font-size:38px;text-transform:none;font-weight:700;letter-spacing:-.01em}
+.sub{margin-top:18px;font-size:33px;font-weight:300;line-height:1.3;color:var(--muted)}
+.sub b{font-weight:600;color:var(--accent)}
+.toplabel{font-size:26px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--paper);font-family:JBMono,Manrope,monospace}
+.toplabel i{font-style:normal;color:var(--accent)}
+
+/* ---------- крупные центровые ---------- */
+#hook,#sect,#spell{position:absolute;left:84px;right:84px;opacity:0}
+#hook{top:560px}
+#hook .l{font-size:104px;font-weight:800;line-height:.98;letter-spacing:-.025em;text-transform:uppercase;opacity:0}
+#hook .tagline{margin-top:34px;font-size:30px;font-weight:300;letter-spacing:.04em;color:var(--muted);opacity:0}
+#hook .rule{height:2px;background:var(--accent);width:0;margin-top:46px;opacity:.9}
+#sect{top:780px;text-align:center}
+#sect .l{font-size:76px;font-weight:800;line-height:1.02;letter-spacing:-.02em;text-transform:uppercase}
+#sect .k{font-size:24px;font-weight:600;letter-spacing:.3em;color:var(--accent);
+  text-transform:uppercase;margin-bottom:26px;font-family:JBMono,Manrope,monospace}
+#spell{top:700px;text-align:center}
+#spell .q{font-size:52px;font-weight:400;line-height:1.34;letter-spacing:.02em;color:var(--paper)}
+#spell .q span{opacity:0}
+#spell .k{font-size:23px;font-weight:600;letter-spacing:.3em;color:var(--accent);
+  text-transform:uppercase;margin-bottom:30px;font-family:JBMono,Manrope,monospace}
+
+/* субтитр по одному слову */
+#sub{position:absolute;left:0;right:0;bottom:300px;display:flex;justify-content:center;opacity:0}
+#sub .pill{display:inline-block;padding:20px 38px 24px;border-radius:18px;
+  background:linear-gradient(180deg,rgba(12,13,17,.88),rgba(8,9,12,.82));
+  border:1px solid var(--edge);box-shadow:0 26px 70px rgba(0,0,0,.55);
+  font-size:84px;font-weight:800;letter-spacing:-.02em;line-height:1;text-transform:uppercase;
+  white-space:nowrap}
+#sub .pill.long{font-size:66px}
+#sub .pill.vlong{font-size:54px}
+#sub .pill b{color:var(--accent);font-weight:800}
+
+/* чек-лист действий */
+#todo{position:absolute;left:66px;right:66px;bottom:300px;opacity:0}
+#todo .row{display:flex;align-items:center;gap:22px;margin-top:16px;opacity:0;
+  background:linear-gradient(180deg,rgba(12,13,17,.86),rgba(8,9,12,.80));
+  border:1px solid var(--edge);border-radius:16px;padding:22px 28px}
+#todo .row .n{font-family:JBMono,Manrope,monospace;font-size:24px;color:var(--accent);
+  letter-spacing:.1em;min-width:46px}
+#todo .row .tx{font-size:44px;font-weight:800;letter-spacing:-.01em;text-transform:uppercase}
+
+/* луна */
+#moon{position:absolute;right:92px;opacity:0}
+.cta-arrow{position:absolute;left:50%;margin-left:-16px;opacity:0}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="layer" id="broll">
+    <div class="br" id="fog"></div>
+    <div class="br" id="salt"></div>
+    <div class="br" id="window"></div>
+    <div class="br" id="candle"></div>
+  </div>
+  <div class="layer" id="veil"></div>
+  <div class="layer" id="vig"></div>
+  <div class="layer" id="ui"></div>
+  <div id="sub"></div>
+</div>
+
+<script src="slova.js"></script>
+<script src="scenes.js"></script>
+<script>
+(function(){
+  const stage = document.getElementById('stage');
+  const ui = document.getElementById('ui');
+  const veil = document.getElementById('veil');
+
+  /* ---------- утилиты ---------- */
+  const cl = (v,a,b)=>Math.max(a,Math.min(b,v));
+  const ease = p => 1-Math.pow(1-cl(p,0,1),3);
+  const easeIO = p => (p=cl(p,0,1)) < .5 ? 4*p*p*p : 1-Math.pow(-2*p+2,3)/2;
+  function R(i){ const x=Math.sin(i*127.1+311.7)*43758.5453; return x-Math.floor(x); }
+
+  /* ---------- b-roll: туман ---------- */
+  const fog = document.getElementById('fog');
+  const blobs = [];
+  for(let i=0;i<7;i++){
+    const b=document.createElement('div'); b.className='blob';
+    const s=420+R(i)*520; b.style.width=s+'px'; b.style.height=(s*.62)+'px';
+    fog.appendChild(b); blobs.push({el:b,s,i});
+  }
+  function fogAt(t,k){
+    blobs.forEach(({el,s,i})=>{
+      const x=-240+R(i*3)*1320 + Math.sin(t*.11+i)*130;
+      const y= 120+R(i*5)*1560 + Math.cos(t*.085+i*1.7)*90;
+      el.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
+      el.style.opacity=(0.22+0.5*R(i*7))*k;
+    });
+  }
+
+  /* ---------- b-roll: соль в углу ---------- */
+  const salt=document.getElementById('salt');
+  salt.innerHTML=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="none">
+    <g stroke="rgba(226,232,240,.52)" stroke-width="2.6" fill="none">
+      <path d="M 120 760 L 120 1300 L 580 1300"/>
+      <path d="M 120 1300 L 300 1186" stroke-dasharray="3 22" opacity=".55"/>
+    </g>
+    <path id="heap" fill="rgba(232,238,246,.26)" d=""/>
+    <g id="grains" fill="rgba(246,250,254,.92)"></g></svg>`;
+  const grains=salt.querySelector('#grains'), heap=salt.querySelector('#heap');
+  for(let i=0;i<70;i++) grains.appendChild(document.createElementNS('http://www.w3.org/2000/svg','circle'));
+  function saltAt(t,local){
+    [...grains.children].forEach((c,i)=>{
+      const per=1.5+R(i)*1.5, ph=((local+R(i*3)*per)%per)/per;
+      const x=168+R(i*7)*300, y=770+ph*ph*520;
+      c.setAttribute('cx',(x+Math.sin(ph*7+i)*5).toFixed(1));
+      c.setAttribute('cy',y.toFixed(1));
+      c.setAttribute('r',(2.3+R(i*11)*3.1).toFixed(2));
+      c.setAttribute('opacity',(0.85*(1-ph*0.55)).toFixed(3));
+    });
+    const g=Math.min(1,local/3.2), w=66+g*260, h=18+g*54;
+    heap.setAttribute('d',`M ${(150-w*0.3).toFixed(0)} 1300 Q ${(150+w*0.35).toFixed(0)} ${(1300-h).toFixed(0)} ${(150+w).toFixed(0)} 1300 Z`);
+  }
+
+  /* ---------- b-roll: открытое окно ---------- */
+  const win=document.getElementById('window');
+  win.innerHTML=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="none">
+    <g transform="translate(-110,565) scale(0.62)" stroke="rgba(226,232,240,.60)" stroke-width="3.4" fill="none" stroke-linecap="round">
+      <rect x="250" y="430" width="580" height="760" rx="6"/>
+      <g id="sashL"><rect x="256" y="436" width="282" height="748" rx="4"/><path d="M 397 436 v 748"/><path d="M 256 810 h 282"/></g>
+      <g id="sashR"><rect x="542" y="436" width="282" height="748" rx="4"/><path d="M 683 436 v 748"/><path d="M 542 810 h 282"/></g>
+      <path d="M 210 1190 h 660" opacity=".8"/>
+    </g>
+    <g id="air" transform="translate(-110,565) scale(0.62)" stroke="rgba(190,214,238,.55)" stroke-width="3" fill="none"></g></svg>`;
+  for(let i=0;i<6;i++) win.querySelector('#air').appendChild(document.createElementNS('http://www.w3.org/2000/svg','path'));
+  function windowAt(t,local){
+    const o=ease(Math.min(1,local/1.6));                 // створки распахиваются
+    win.querySelector('#sashL').setAttribute('transform',
+      `translate(256,810) scale(${(1-o*0.72).toFixed(3)},1) translate(-256,-810)`);
+    win.querySelector('#sashR').setAttribute('transform',
+      `translate(824,810) scale(${(1-o*0.72).toFixed(3)},1) translate(-824,-810)`);
+    [...win.querySelector('#air').children].forEach((p,i)=>{
+      const per=3.4, lp=((t+i*per/6)%per)/per, y=520+i*110+Math.sin(t*.6+i)*12;
+      const x0=430+lp*430, len=120+R(i)*90;
+      p.setAttribute('d',`M ${x0.toFixed(0)} ${y.toFixed(0)} q ${(len/2).toFixed(0)} -16 ${len.toFixed(0)} 0`);
+      p.setAttribute('opacity',(0.55*Math.sin(lp*Math.PI)).toFixed(3));
+    });
+  }
+
+  /* ---------- b-roll: свеча ---------- */
+  const candle=document.getElementById('candle');
+  candle.innerHTML=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="none">
+    <g transform="translate(-300,232) scale(0.78)" stroke="rgba(232,224,210,.62)" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M 452 1480 L 452 1060 q 88 -26 176 0 L 628 1480 Z"/>
+      <path d="M 452 1060 q 88 34 176 0"/>
+      <path d="M 540 1060 L 540 1012"/>
+      <path d="M 392 1480 h 296" opacity=".7"/>
+    </g>
+    <path transform="translate(-300,232) scale(0.78)" id="flame" fill="rgba(240,186,96,.55)" stroke="rgba(248,214,150,.7)" stroke-width="1.5" d=""/>
+    <g transform="translate(-300,232) scale(0.78)" id="smoke" stroke="rgba(200,206,214,.45)" stroke-width="2.4" fill="none" stroke-linecap="round"></g>
+    <ellipse transform="translate(-300,232) scale(0.78)" id="glow" cx="540" cy="960" rx="190" ry="210" fill="url(#gg)"/>
+    <defs><radialGradient id="gg"><stop offset="0" stop-color="rgba(240,180,90,.30)"/>
+      <stop offset="1" stop-color="rgba(240,180,90,0)"/></radialGradient></defs></svg>`;
+  for(let i=0;i<3;i++) candle.querySelector('#smoke').appendChild(document.createElementNS('http://www.w3.org/2000/svg','path'));
+  function candleAt(t,local,dying){
+    const fl=1-0.55*Math.max(0,Math.min(1,dying));        // dying: пламя гаснет
+    const j=Math.sin(t*7.3)*0.5+Math.sin(t*11.7)*0.3+Math.sin(t*19.1)*0.2;
+    const h=(118+j*12)*fl, w=(31+j*4)*fl, y=1012;
+    candle.querySelector('#flame').setAttribute('d',
+      `M 540 ${(y-h).toFixed(0)} C ${(540+w).toFixed(0)} ${(y-h*0.52).toFixed(0)} ${(540+w*0.84).toFixed(0)} ${y} 540 ${y}
+       C ${(540-w*0.84).toFixed(0)} ${y} ${(540-w).toFixed(0)} ${(y-h*0.52).toFixed(0)} 540 ${(y-h).toFixed(0)} Z`);
+    candle.querySelector('#flame').setAttribute('opacity',fl.toFixed(3));
+    candle.querySelector('#glow').setAttribute('opacity',(fl*(0.85+j*0.12)).toFixed(3));
+    [...candle.querySelector('#smoke').children].forEach((p,i)=>{
+      const per=3.6, lp=((t+i*per/3)%per)/per, top=y-150-lp*430, sw=46+lp*120;
+      p.setAttribute('d',`M 540 ${(y-140).toFixed(0)} C ${(540+sw).toFixed(0)} ${(y-240-lp*120).toFixed(0)}
+        ${(540-sw).toFixed(0)} ${(y-320-lp*200).toFixed(0)} ${(540+sw*0.4).toFixed(0)} ${top.toFixed(0)}`);
+      p.setAttribute('opacity',(0.5*Math.sin(lp*Math.PI)*Math.max(0.35,dying||0)).toFixed(3));
+    });
+  }
+
+  /* ---------- луна ---------- */
+  const moonEl=document.createElement('div'); moonEl.id='moon';
+  moonEl.innerHTML=`<svg width="150" height="150" viewBox="0 0 150 150">
+    <defs><mask id="mm"><rect width="150" height="150" fill="#fff"/>
+      <circle cx="46" cy="75" r="60" fill="#000"/></mask></defs>
+    <circle cx="75" cy="75" r="60" fill="none" stroke="rgba(227,162,79,.35)" stroke-width="1.5"/>
+    <circle cx="75" cy="75" r="60" fill="#E3A24F" mask="url(#mm)" opacity=".92"/></svg>`;
+  stage.appendChild(moonEl);
+
+  /* ---------- сборка плашек из описания сцен ---------- */
+  function build(s){
+    const el=document.createElement('div');
+    if(s.kind==='plate'){
+      el.className='plate '+(s.pos||'bottom')+(s.sym?' sym':'')+(s.mini?' mini':'');
+      el.innerHTML=(s.kicker?`<div class="kicker">${s.kicker}</div>`:'')+
+                   (s.head?`<div class="head ${s.hs||''}">${s.head}</div>`:'')+
+                   (s.sub?`<div class="sub">${s.sub}</div>`:'');
+    } else if(s.kind==='label'){
+      el.className='plate top';
+      el.innerHTML=`<div class="toplabel">${s.text}</div>`;
+    }
+    ui.appendChild(el);
+    return el;
+  }
+  SCENES.forEach(s=>{ if(s.kind==='plate'||s.kind==='label') s._el=build(s); });
+
+  /* hook / section / spell */
+  const hook=document.createElement('div'); hook.id='hook';
+  hook.innerHTML=HOOK.lines.map(l=>`<div class="l">${l}</div>`).join('')+
+                 `<div class="rule"></div><div class="tagline">${HOOK.tag}</div>`;
+  stage.appendChild(hook);
+  const hookLines=[...hook.querySelectorAll('.l')], hookRule=hook.querySelector('.rule'),
+        hookTag=hook.querySelector('.tagline');
+
+  const sect=document.createElement('div'); sect.id='sect'; stage.appendChild(sect);
+  const spell=document.createElement('div'); spell.id='spell';
+  spell.innerHTML=`<div class="k">три раза шёпотом</div><div class="q">`+
+    SPELL.words.map(w=>`<span>${w.w}</span> `).join('')+`</div>`;
+  stage.appendChild(spell);
+  const spellWords=[...spell.querySelectorAll('.q span')];
+
+  /* ---------- субтитры по одному слову ---------- */
+  const subEl=document.getElementById('sub');
+  subEl.innerHTML='<div class="pill"></div>';
+  const pill=subEl.querySelector('.pill');
+  let lastWord=-1;
+
+  /* ---------- чек-лист ---------- */
+  const todo=document.createElement('div'); todo.id='todo';
+  todo.innerHTML=TODO.rows.map(r=>`<div class="row"><div class="n">${r.n}</div><div class="tx">${r.t}</div></div>`).join('');
+  stage.appendChild(todo);
+  const todoRows=[...todo.querySelectorAll('.row')];
+
+  /* ---------- рендер кадра ---------- */
+  function showPlate(el,local,dur,yFrom){
+    const inP=ease(local/0.30), out=cl((dur-local)/0.22,0,1);
+    el.style.opacity=(inP*out).toFixed(3);
+    el.style.transform=`translateY(${((1-inP)*(yFrom||20)).toFixed(2)}px)`;
+  }
+
+  window.render=function(t){
+    /* b-roll */
+    const want={fog:0,salt:0,window:0,candle:0};
+    let veilV=0, local2={salt:0,window:0,candle:0}, dying=0;
+    for(const s of SCENES){
+      if(t<s.a||t>=s.b) continue;
+      const local=t-s.a, dur=s.b-s.a;
+      const fade=Math.min(ease(local/0.6), cl((dur-local)/0.5,0,1));
+      if(s.br){ want[s.br]=Math.max(want[s.br],(s.brk||1)*fade);
+                if(s.br in local2) local2[s.br]=local; }
+      if(s.dying) dying=Math.max(dying,s.dying);
+      if(s.veil) veilV=Math.max(veilV,s.veil*fade);
+    }
+    fogAt(t,1);
+    document.getElementById('fog').style.opacity=(want.fog*0.95).toFixed(3);
+    if(want.salt>0) saltAt(t,local2.salt);
+    salt.style.opacity=(want.salt*0.95).toFixed(3);
+    if(want.window>0) windowAt(t,local2.window);
+    win.style.opacity=(want.window*0.85).toFixed(3);
+    if(want.candle>0) candleAt(t,local2.candle,dying);
+    candle.style.opacity=(want.candle*0.95).toFixed(3);
+    veil.style.opacity=veilV.toFixed(3);
+
+    /* плашки */
+    for(const s of SCENES){
+      if(!s._el) continue;
+      if(t<s.a||t>=s.b){ s._el.style.opacity=0; continue; }
+      showPlate(s._el,t-s.a,s.b-s.a,s.kind==='label'?-16:22);
+    }
+
+    /* хук */
+    if(t>=HOOK.a&&t<HOOK.b){
+      const l=t-HOOK.a, out=cl((HOOK.b-t)/0.45,0,1);
+      hook.style.opacity=out.toFixed(3);
+      hookLines.forEach((el,i)=>{
+        const p=ease((l-(0.12+i*0.34))/0.42);
+        el.style.opacity=p.toFixed(3);
+        el.style.transform=`translateY(${((1-p)*34).toFixed(1)}px)`;
+      });
+      hookRule.style.width=(ease((l-1.25)/0.7)*300).toFixed(1)+'px';
+      hookTag.style.opacity=ease((l-1.5)/0.5).toFixed(3);
+    } else hook.style.opacity=0;
+
+    /* секционные заставки */
+    let sv=0;
+    for(const s of SECTIONS){
+      if(t<s.a||t>=s.b) continue;
+      const l=t-s.a, dur=s.b-s.a;
+      sect.innerHTML=`<div class="k">${s.k}</div><div class="l">${s.l}</div>`;
+      sv=Math.min(ease(l/0.4),cl((dur-l)/0.4,0,1));
+      sect.style.transform=`translateY(${((1-ease(l/0.6))*26).toFixed(1)}px)`;
+    }
+    sect.style.opacity=sv.toFixed(3);
+
+    /* заклинание */
+    if(t>=SPELL.a&&t<SPELL.b){
+      spell.style.opacity=Math.min(ease((t-SPELL.a)/0.35),cl((SPELL.b-t)/0.4,0,1)).toFixed(3);
+      SPELL.words.forEach((w,i)=>{
+        const p=ease((t-w.t)/0.26);
+        spellWords[i].style.opacity=p.toFixed(3);
+        spellWords[i].style.filter=`blur(${((1-p)*2).toFixed(2)}px)`;
+      });
+    } else spell.style.opacity=0;
+
+    /* субтитры: одно слово в такт речи */
+    let on=SUBS.some(([a,b])=>t>=a&&t<b), wi=-1;
+    if(on){
+      for(let i=0;i<WORDS.length;i++){
+        if(t>=WORDS[i][1]-0.02&&t<WORDS[i][2]){ wi=i; break; }
+      }
+    }
+    if(wi>=0){
+      const [w,a,b]=WORDS[wi];
+      if(wi!==lastWord){
+        pill.textContent=w.toUpperCase();
+        pill.className='pill'+(w.length>12?' vlong':(w.length>8?' long':''));
+        lastWord=wi;
+      }
+      const l=t-a, pr=ease(l/0.13), out=cl((b-t)/0.09,0,1);
+      subEl.style.opacity=(pr*out).toFixed(3);
+      subEl.style.transform=`translateY(${((1-pr)*12).toFixed(1)}px)`;
+    } else { subEl.style.opacity=0; lastWord=-1; }
+
+    /* чек-лист действий */
+    if(t>=TODO.a&&t<TODO.b){
+      todo.style.opacity=cl((TODO.b-t)/0.4,0,1).toFixed(3);
+      todoRows.forEach((r,i)=>{
+        const pr=ease((t-TODO.rows[i].at)/0.3);
+        r.style.opacity=pr.toFixed(3);
+        r.style.transform=`translateX(${((1-pr)*-26).toFixed(1)}px)`;
+      });
+    } else todo.style.opacity=0;
+
+    /* луна */
+    let mv=0;
+    for(const m of MOONS){
+      if(t<m.a||t>=m.b) continue;
+      const l=t-m.a, dur=m.b-m.a;
+      mv=Math.min(ease(l/0.5),cl((dur-l)/0.4,0,1));
+      moonEl.style.top=m.y+'px';
+      moonEl.style.transform=`translateY(${((1-ease(l/0.8))*18).toFixed(1)}px) rotate(${(Math.sin(t*.2)*2).toFixed(2)}deg)`;
+    }
+    moonEl.style.opacity=(mv*0.9).toFixed(3);
+  };
+
+  window.DURATION=DURATION;
+  /* предпросмотр в браузере */
+  const qs=new URLSearchParams(location.search);
+  if(!qs.has('render')){
+    const t0=performance.now(), fixed=qs.has('t')?+qs.get('t'):null;
+    if(fixed!==null) render(fixed);
+    else { let paused=false,base=0,last=0;
+      addEventListener('keydown',e=>{ if(e.code==='Space'){paused=!paused;e.preventDefault();}
+        if(e.code==='ArrowRight')base+=1; if(e.code==='ArrowLeft')base-=1; });
+      (function loop(){ if(!paused) last=(performance.now()-t0)/1000;
+        render(Math.max(0,Math.min(DURATION,last+base))); requestAnimationFrame(loop); })(); }
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,899 @@
+[
+ {
+  "start": 0.0,
+  "end": 0.523,
+  "text": "Так, стоп.",
+  "words": [
+   {
+    "word": "Так",
+    "start": 0.075,
+    "end": 0.27,
+    "probability": 1.0
+   },
+   {
+    "word": "стоп",
+    "start": 0.275,
+    "end": 0.47,
+    "probability": 1.0
+   }
+  ]
+ },
+ {
+  "start": 0.523,
+  "end": 8.755,
+  "text": "Если у тебя дома свеча гаснет сама, без всякого сквозняка, или коптит чёрным — дослушай, это важно.",
+  "words": [
+   {
+    "word": "Если",
+    "start": 0.575,
+    "end": 1.255,
+    "probability": 1.0
+   },
+   {
+    "word": "у",
+    "start": 1.265,
+    "end": 1.46,
+    "probability": 1.0
+   },
+   {
+    "word": "тебя",
+    "start": 1.425,
+    "end": 1.82,
+    "probability": 1.0
+   },
+   {
+    "word": "дома",
+    "start": 1.785,
+    "end": 2.3,
+    "probability": 1.0
+   },
+   {
+    "word": "свеча",
+    "start": 2.285,
+    "end": 2.675,
+    "probability": 1.0
+   },
+   {
+    "word": "гаснет",
+    "start": 2.685,
+    "end": 3.055,
+    "probability": 1.0
+   },
+   {
+    "word": "сама",
+    "start": 3.065,
+    "end": 3.51,
+    "probability": 1.0
+   },
+   {
+    "word": "без",
+    "start": 3.485,
+    "end": 3.875,
+    "probability": 1.0
+   },
+   {
+    "word": "всякого",
+    "start": 3.885,
+    "end": 4.59,
+    "probability": 1.0
+   },
+   {
+    "word": "сквозняка",
+    "start": 4.595,
+    "end": 5.275,
+    "probability": 1.0
+   },
+   {
+    "word": "или",
+    "start": 5.285,
+    "end": 5.69,
+    "probability": 1.0
+   },
+   {
+    "word": "коптит",
+    "start": 5.645,
+    "end": 6.225,
+    "probability": 1.0
+   },
+   {
+    "word": "чёрным",
+    "start": 6.235,
+    "end": 6.965,
+    "probability": 1.0
+   },
+   {
+    "word": "дослушай",
+    "start": 6.975,
+    "end": 7.805,
+    "probability": 1.0
+   },
+   {
+    "word": "это",
+    "start": 7.815,
+    "end": 8.14,
+    "probability": 1.0
+   },
+   {
+    "word": "важно",
+    "start": 8.135,
+    "end": 8.6,
+    "probability": 1.0
+   }
+  ]
+ },
+ {
+  "start": 8.755,
+  "end": 13.38,
+  "text": "Моя прабабка Аграфена говорила: свеча — это градусник дома.",
+  "words": [
+   {
+    "word": "Моя",
+    "start": 8.995,
+    "end": 9.46,
+    "probability": 1.0
+   },
+   {
+    "word": "прабабка",
+    "start": 9.405,
+    "end": 10.035,
+    "probability": 1.0
+   },
+   {
+    "word": "Аграфена",
+    "start": 10.045,
+    "end": 10.59,
+    "probability": 1.0
+   },
+   {
+    "word": "говорила",
+    "start": 10.515,
+    "end": 11.64,
+    "probability": 1.0
+   },
+   {
+    "word": "свеча",
+    "start": 11.555,
+    "end": 12.06,
+    "probability": 1.0
+   },
+   {
+    "word": "это",
+    "start": 12.035,
+    "end": 12.55,
+    "probability": 1.0
+   },
+   {
+    "word": "градусник",
+    "start": 12.465,
+    "end": 12.96,
+    "probability": 1.0
+   },
+   {
+    "word": "дома",
+    "start": 12.885,
+    "end": 13.26,
+    "probability": 1.0
+   }
+  ]
+ },
+ {
+  "start": 13.38,
+  "end": 16.555,
+  "text": "Гаснет — значит, в доме что-то застоялось.",
+  "words": [
+   {
+    "word": "Гаснет",
+    "start": 13.675,
+    "end": 14.09,
+    "probability": 1.0
+   },
+   {
+    "word": "значит",
+    "start": 14.055,
+    "end": 14.535,
+    "probability": 1.0
+   },
+   {
+    "word": "в",
+    "start": 14.545,
+    "end": 14.74,
+    "probability": 1.0
+   },
+   {
+    "word": "доме",
+    "start": 14.695,
+    "end": 15.15,
+    "probability": 1.0
+   },
+   {
+    "word": "что-то",
+    "start": 15.105,
+    "end": 15.595,
+    "probability": 1.0
+   },
+   {
+    "word": "застоялось",
+    "start": 15.605,
+    "end": 16.433,
+    "probability": 0.75
+   }
+  ]
+ },
+ {
+  "start": 16.555,
+  "end": 20.035,
+  "text": "Чужое слово, ссора, которую так и не закрыли…",
+  "words": [
+   {
+    "word": "Чужое",
+    "start": 16.755,
+    "end": 17.41,
+    "probability": 1.0
+   },
+   {
+    "word": "слово",
+    "start": 17.365,
+    "end": 17.795,
+    "probability": 1.0
+   },
+   {
+    "word": "ссора",
+    "start": 17.805,
+    "end": 18.125,
+    "probability": 1.0
+   },
+   {
+    "word": "которую",
+    "start": 18.135,
+    "end": 18.84,
+    "probability": 1.0
+   },
+   {
+    "word": "так",
+    "start": 18.815,
+    "end": 19.01,
+    "probability": 1.0
+   },
+   {
+    "word": "и",
+    "start": 18.975,
+    "end": 19.17,
+    "probability": 1.0
+   },
+   {
+    "word": "не",
+    "start": 19.085,
+    "end": 19.415,
+    "probability": 1.0
+   },
+   {
+    "word": "закрыли",
+    "start": 19.425,
+    "end": 19.81,
+    "probability": 1.0
+   }
+  ]
+ },
+ {
+  "start": 20.035,
+  "end": 23.14,
+  "text": "или гость, после которого ты ходишь как выжатая.",
+  "words": [
+   {
+    "word": "или",
+    "start": 20.254,
+    "end": 20.585,
+    "probability": 0.5
+   },
+   {
+    "word": "гость",
+    "start": 20.595,
+    "end": 20.79,
+    "probability": 1.0
+   },
+   {
+    "word": "после",
+    "start": 20.795,
+    "end": 21.11,
+    "probability": 1.0
+   },
+   {
+    "word": "которого",
+    "start": 21.065,
+    "end": 21.69,
+    "probability": 1.0
+   },
+   {
+    "word": "ты",
+    "start": 21.625,
+    "end": 21.82,
+    "probability": 1.0
+   },
+   {
+    "word": "ходишь",
+    "start": 21.805,
+    "end": 22.11,
+    "probability": 1.0
+   },
+   {
+    "word": "как",
+    "start": 22.105,
+    "end": 22.303,
+    "probability": 1.0
+   },
+   {
+    "word": "выжатая",
+    "start": 22.313,
+    "end": 23.011,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 23.14,
+  "end": 26.035,
+  "text": "Смотри, проверь себя по трём пунктам.",
+  "words": [
+   {
+    "word": "Смотри",
+    "start": 23.485,
+    "end": 24.005,
+    "probability": 1.0
+   },
+   {
+    "word": "проверь",
+    "start": 24.015,
+    "end": 24.45,
+    "probability": 1.0
+   },
+   {
+    "word": "себя",
+    "start": 24.445,
+    "end": 24.95,
+    "probability": 1.0
+   },
+   {
+    "word": "по",
+    "start": 24.905,
+    "end": 25.1,
+    "probability": 1.0
+   },
+   {
+    "word": "трём",
+    "start": 25.105,
+    "end": 25.365,
+    "probability": 1.0
+   },
+   {
+    "word": "пунктам",
+    "start": 25.375,
+    "end": 25.82,
+    "probability": 1.0
+   }
+  ]
+ },
+ {
+  "start": 26.035,
+  "end": 30.925,
+  "text": "Первый: после кого из гостей тебе дома тяжело дышать?",
+  "words": [
+   {
+    "word": "Первый",
+    "start": 26.305,
+    "end": 27.005,
+    "probability": 1.0
+   },
+   {
+    "word": "после",
+    "start": 27.015,
+    "end": 27.4,
+    "probability": 1.0
+   },
+   {
+    "word": "кого",
+    "start": 27.375,
+    "end": 27.805,
+    "probability": 1.0
+   },
+   {
+    "word": "из",
+    "start": 27.815,
+    "end": 28.105,
+    "probability": 1.0
+   },
+   {
+    "word": "гостей",
+    "start": 28.115,
+    "end": 28.49,
+    "probability": 1.0
+   },
+   {
+    "word": "тебе",
+    "start": 28.415,
+    "end": 28.92,
+    "probability": 1.0
+   },
+   {
+    "word": "дома",
+    "start": 28.905,
+    "end": 29.285,
+    "probability": 1.0
+   },
+   {
+    "word": "тяжело",
+    "start": 29.295,
+    "end": 30.235,
+    "probability": 1.0
+   },
+   {
+    "word": "дышать",
+    "start": 30.245,
+    "end": 30.56,
+    "probability": 1.0
+   }
+  ]
+ },
+ {
+  "start": 30.925,
+  "end": 34.675,
+  "text": "Второй: есть угол, где вечно копится хлам, сколько ни разбирай?",
+  "words": [
+   {
+    "word": "Второй",
+    "start": 31.105,
+    "end": 31.61,
+    "probability": 1.0
+   },
+   {
+    "word": "есть",
+    "start": 31.565,
+    "end": 31.76,
+    "probability": 1.0
+   },
+   {
+    "word": "угол",
+    "start": 31.765,
+    "end": 32.12,
+    "probability": 1.0
+   },
+   {
+    "word": "где",
+    "start": 32.045,
+    "end": 32.245,
+    "probability": 1.0
+   },
+   {
+    "word": "вечно",
+    "start": 32.255,
+    "end": 32.68,
+    "probability": 1.0
+   },
+   {
+    "word": "копится",
+    "start": 32.645,
+    "end": 33.205,
+    "probability": 1.0
+   },
+   {
+    "word": "хлам",
+    "start": 33.215,
+    "end": 33.445,
+    "probability": 1.0
+   },
+   {
+    "word": "сколько",
+    "start": 33.455,
+    "end": 33.77,
+    "probability": 1.0
+   },
+   {
+    "word": "ни",
+    "start": 33.745,
+    "end": 33.94,
+    "probability": 1.0
+   },
+   {
+    "word": "разбирай",
+    "start": 33.925,
+    "end": 34.498,
+    "probability": 0.67
+   }
+  ]
+ },
+ {
+  "start": 34.675,
+  "end": 39.48,
+  "text": "Третий: что тебе подарили, а у тебя рука не поднимается это любить?",
+  "words": [
+   {
+    "word": "Третий",
+    "start": 34.965,
+    "end": 35.275,
+    "probability": 0.5
+   },
+   {
+    "word": "что",
+    "start": 35.215,
+    "end": 35.685,
+    "probability": 1.0
+   },
+   {
+    "word": "тебе",
+    "start": 35.695,
+    "end": 36.05,
+    "probability": 1.0
+   },
+   {
+    "word": "подарили",
+    "start": 36.025,
+    "end": 36.71,
+    "probability": 1.0
+   },
+   {
+    "word": "а",
+    "start": 36.605,
+    "end": 36.8,
+    "probability": 1.0
+   },
+   {
+    "word": "у",
+    "start": 36.705,
+    "end": 36.975,
+    "probability": 1.0
+   },
+   {
+    "word": "тебя",
+    "start": 36.985,
+    "end": 37.39,
+    "probability": 1.0
+   },
+   {
+    "word": "рука",
+    "start": 37.315,
+    "end": 37.635,
+    "probability": 1.0
+   },
+   {
+    "word": "не",
+    "start": 37.645,
+    "end": 37.84,
+    "probability": 1.0
+   },
+   {
+    "word": "поднимается",
+    "start": 37.785,
+    "end": 38.72,
+    "probability": 1.0
+   },
+   {
+    "word": "это",
+    "start": 38.685,
+    "end": 38.98,
+    "probability": 1.0
+   },
+   {
+    "word": "любить",
+    "start": 38.955,
+    "end": 39.34,
+    "probability": 1.0
+   }
+  ]
+ },
+ {
+  "start": 39.48,
+  "end": 44.96,
+  "text": "Если хотя бы на два вопроса есть ответ — вот этот момент мне уже не нравится.",
+  "words": [
+   {
+    "word": "Если",
+    "start": 39.765,
+    "end": 40.12,
+    "probability": 1.0
+   },
+   {
+    "word": "хотя",
+    "start": 40.055,
+    "end": 40.52,
+    "probability": 1.0
+   },
+   {
+    "word": "бы",
+    "start": 40.445,
+    "end": 40.665,
+    "probability": 1.0
+   },
+   {
+    "word": "на",
+    "start": 40.675,
+    "end": 40.87,
+    "probability": 1.0
+   },
+   {
+    "word": "два",
+    "start": 40.835,
+    "end": 41.03,
+    "probability": 1.0
+   },
+   {
+    "word": "вопроса",
+    "start": 41.035,
+    "end": 41.57,
+    "probability": 1.0
+   },
+   {
+    "word": "есть",
+    "start": 41.575,
+    "end": 41.825,
+    "probability": 1.0
+   },
+   {
+    "word": "ответ",
+    "start": 41.835,
+    "end": 42.485,
+    "probability": 1.0
+   },
+   {
+    "word": "вот",
+    "start": 42.495,
+    "end": 42.705,
+    "probability": 1.0
+   },
+   {
+    "word": "этот",
+    "start": 42.715,
+    "end": 43.06,
+    "probability": 1.0
+   },
+   {
+    "word": "момент",
+    "start": 43.065,
+    "end": 43.465,
+    "probability": 1.0
+   },
+   {
+    "word": "мне",
+    "start": 43.475,
+    "end": 43.67,
+    "probability": 1.0
+   },
+   {
+    "word": "уже",
+    "start": 43.665,
+    "end": 44.11,
+    "probability": 1.0
+   },
+   {
+    "word": "не",
+    "start": 44.075,
+    "end": 44.27,
+    "probability": 1.0
+   },
+   {
+    "word": "нравится",
+    "start": 44.235,
+    "end": 44.76,
+    "probability": 0.67
+   }
+  ]
+ },
+ {
+  "start": 44.96,
+  "end": 45.78,
+  "text": "Короче.",
+  "words": [
+   {
+    "word": "Короче",
+    "start": 45.205,
+    "end": 45.64,
+    "probability": 1.0
+   }
+  ]
+ },
+ {
+  "start": 45.78,
+  "end": 51.948,
+  "text": "Сегодня же открываешь все окна, проходишь с солью по углам, а нелюбимую вещь — из дома.",
+  "words": [
+   {
+    "word": "Сегодня",
+    "start": 46.095,
+    "end": 46.61,
+    "probability": 1.0
+   },
+   {
+    "word": "же",
+    "start": 46.585,
+    "end": 46.805,
+    "probability": 1.0
+   },
+   {
+    "word": "открываешь",
+    "start": 46.815,
+    "end": 47.62,
+    "probability": 1.0
+   },
+   {
+    "word": "все",
+    "start": 47.585,
+    "end": 47.78,
+    "probability": 1.0
+   },
+   {
+    "word": "окна",
+    "start": 47.745,
+    "end": 48.145,
+    "probability": 1.0
+   },
+   {
+    "word": "проходишь",
+    "start": 48.155,
+    "end": 48.65,
+    "probability": 1.0
+   },
+   {
+    "word": "с",
+    "start": 48.66,
+    "end": 48.855,
+    "probability": 0.0
+   },
+   {
+    "word": "солью",
+    "start": 48.785,
+    "end": 49.16,
+    "probability": 1.0
+   },
+   {
+    "word": "по",
+    "start": 49.145,
+    "end": 49.465,
+    "probability": 1.0
+   },
+   {
+    "word": "углам",
+    "start": 49.475,
+    "end": 49.84,
+    "probability": 1.0
+   },
+   {
+    "word": "а",
+    "start": 49.785,
+    "end": 49.98,
+    "probability": 1.0
+   },
+   {
+    "word": "нелюбимую",
+    "start": 49.905,
+    "end": 51.055,
+    "probability": 1.0
+   },
+   {
+    "word": "вещь",
+    "start": 51.065,
+    "end": 51.295,
+    "probability": 1.0
+   },
+   {
+    "word": "из",
+    "start": 51.305,
+    "end": 51.5,
+    "probability": 1.0
+   },
+   {
+    "word": "дома",
+    "start": 51.475,
+    "end": 51.948,
+    "probability": 1.0
+   }
+  ]
+ },
+ {
+  "start": 51.948,
+  "end": 52.88,
+  "text": "Без жалости.",
+  "words": [
+   {
+    "word": "Без",
+    "start": 51.975,
+    "end": 52.215,
+    "probability": 1.0
+   },
+   {
+    "word": "жалости",
+    "start": 52.225,
+    "end": 52.78,
+    "probability": 0.67
+   }
+  ]
+ },
+ {
+  "start": 52.88,
+  "end": 58.75,
+  "text": "А если перейдешь по ссылке в моём профиле, то сделаю тебе в подарок расклад.",
+  "words": [
+   {
+    "word": "А",
+    "start": 53.065,
+    "end": 53.325,
+    "probability": 1.0
+   },
+   {
+    "word": "если",
+    "start": 53.335,
+    "end": 53.72,
+    "probability": 1.0
+   },
+   {
+    "word": "перейдешь",
+    "start": 53.675,
+    "end": 54.32,
+    "probability": 1.0
+   },
+   {
+    "word": "по",
+    "start": 54.315,
+    "end": 54.535,
+    "probability": 1.0
+   },
+   {
+    "word": "ссылке",
+    "start": 54.545,
+    "end": 54.96,
+    "probability": 1.0
+   },
+   {
+    "word": "в",
+    "start": 54.965,
+    "end": 55.255,
+    "probability": 1.0
+   },
+   {
+    "word": "моём",
+    "start": 55.265,
+    "end": 55.655,
+    "probability": 1.0
+   },
+   {
+    "word": "профиле",
+    "start": 55.665,
+    "end": 56.16,
+    "probability": 1.0
+   },
+   {
+    "word": "то",
+    "start": 56.055,
+    "end": 56.255,
+    "probability": 1.0
+   },
+   {
+    "word": "сделаю",
+    "start": 56.265,
+    "end": 56.985,
+    "probability": 1.0
+   },
+   {
+    "word": "тебе",
+    "start": 56.995,
+    "end": 57.4,
+    "probability": 1.0
+   },
+   {
+    "word": "в",
+    "start": 57.375,
+    "end": 57.57,
+    "probability": 1.0
+   },
+   {
+    "word": "подарок",
+    "start": 57.565,
+    "end": 58.225,
+    "probability": 1.0
+   },
+   {
+    "word": "расклад",
+    "start": 58.235,
+    "end": 58.678,
+    "probability": 0.5
+   }
+  ]
+ }
+]

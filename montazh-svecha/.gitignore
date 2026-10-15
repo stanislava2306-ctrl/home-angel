@@ -1,0 +1,7 @@
+# тяжёлое: исходник, рендеры и кадры проверки в репозиторий не кладём
+src/
+kadry/
+kadry_proverka/
+*.mp4
+*.log
+kontakt-list.jpg
