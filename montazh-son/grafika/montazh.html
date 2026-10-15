@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Монтаж · сон с четверга на пятницу</title>
+<style>
+@font-face{font-family:Manrope;src:url(fonts/Manrope-Light.ttf);font-weight:300}
+@font-face{font-family:Manrope;src:url(fonts/Manrope-Regular.ttf);font-weight:400}
+@font-face{font-family:Manrope;src:url(fonts/Manrope-Medium.ttf);font-weight:500}
+@font-face{font-family:Manrope;src:url(fonts/Manrope-Bold.ttf);font-weight:700}
+@font-face{font-family:Manrope;src:url(fonts/Manrope-ExtraBold.ttf);font-weight:800}
+@font-face{font-family:JBMono;src:url(fonts/JetBrainsMono-Regular.ttf)}
+
+:root{
+  --ink:#070809;
+  --paper:#EFEAE1;         /* тёплый не-белый */
+  --muted:rgba(239,234,225,.72);
+  --accent:#E3A24F;        /* тёплый янтарь — как лампы в кадре */
+  --plate:rgba(10,11,14,.80);
+  --edge:rgba(239,234,225,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:transparent}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;
+  font-family:Manrope,system-ui,sans-serif;color:var(--paper);
+  -webkit-font-smoothing:antialiased}
+.layer{position:absolute;inset:0;pointer-events:none}
+
+/* ---------- b-roll ---------- */
+#broll{mix-blend-mode:screen;
+  -webkit-mask-image:radial-gradient(ellipse 54% 26% at 50% 30%, rgba(0,0,0,.08) 0%, rgba(0,0,0,.45) 55%, #000 100%);
+          mask-image:radial-gradient(ellipse 54% 26% at 50% 30%, rgba(0,0,0,.08) 0%, rgba(0,0,0,.45) 55%, #000 100%)}
+.br{position:absolute;inset:0;opacity:0}
+.blob{position:absolute;border-radius:50%;filter:blur(70px)}
+#fog .blob{background:radial-gradient(circle,rgba(176,192,214,.50),rgba(176,192,214,0) 70%)}
+#water svg,#house svg,#forest svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* ---------- затемнение, виньетка, зерно ---------- */
+#veil{background:#05060A;opacity:0}
+#vig{background:
+  radial-gradient(ellipse 78% 52% at 50% 36%, rgba(0,0,0,0) 40%, rgba(0,0,0,.55) 100%),
+  linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 62%, rgba(0,0,0,.62) 100%)}
+
+/* ---------- плашки ---------- */
+.plate{position:absolute;left:66px;right:66px;padding:36px 42px 40px;
+  background:linear-gradient(180deg,rgba(12,13,17,.86),rgba(8,9,12,.80));
+  border:1px solid var(--edge);border-radius:20px;
+  box-shadow:0 34px 90px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05);
+  opacity:0;transform-origin:50% 100%}
+.plate.sym{border-left:3px solid var(--accent);border-radius:4px 20px 20px 4px}
+.plate.top{top:128px;right:auto;width:auto;display:inline-block;padding:20px 32px 22px}
+.plate.bottom{bottom:300px}
+.plate.mini{left:66px;right:380px;padding:24px 30px 26px}
+
+.kicker{font-size:23px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;font-family:JBMono,Manrope,monospace}
+.head{font-size:62px;font-weight:800;line-height:1.02;letter-spacing:-.015em;word-spacing:.10em;text-transform:uppercase}
+.head.sm{font-size:48px}
+.head.xs{font-size:38px;text-transform:none;font-weight:700;letter-spacing:-.01em}
+.sub{margin-top:18px;font-size:33px;font-weight:300;line-height:1.3;color:var(--muted)}
+.sub b{font-weight:600;color:var(--accent)}
+.toplabel{font-size:26px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--paper);font-family:JBMono,Manrope,monospace}
+.toplabel i{font-style:normal;color:var(--accent)}
+
+/* ---------- крупные центровые ---------- */
+#hook,#sect,#spell{position:absolute;left:84px;right:84px;opacity:0}
+#hook{top:560px}
+#hook .l{font-size:104px;font-weight:800;line-height:.98;letter-spacing:-.025em;text-transform:uppercase;opacity:0}
+#hook .tagline{margin-top:34px;font-size:30px;font-weight:300;letter-spacing:.04em;color:var(--muted);opacity:0}
+#hook .rule{height:2px;background:var(--accent);width:0;margin-top:46px;opacity:.9}
+#sect{top:780px;text-align:center}
+#sect .l{font-size:76px;font-weight:800;line-height:1.02;letter-spacing:-.02em;text-transform:uppercase}
+#sect .k{font-size:24px;font-weight:600;letter-spacing:.3em;color:var(--accent);
+  text-transform:uppercase;margin-bottom:26px;font-family:JBMono,Manrope,monospace}
+#spell{top:700px;text-align:center}
+#spell .q{font-size:52px;font-weight:400;line-height:1.34;letter-spacing:.02em;color:var(--paper)}
+#spell .q span{opacity:0}
+#spell .k{font-size:23px;font-weight:600;letter-spacing:.3em;color:var(--accent);
+  text-transform:uppercase;margin-bottom:30px;font-family:JBMono,Manrope,monospace}
+
+/* луна */
+#moon{position:absolute;right:92px;opacity:0}
+.cta-arrow{position:absolute;left:50%;margin-left:-16px;opacity:0}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="layer" id="broll">
+    <div class="br" id="fog"></div>
+    <div class="br" id="water"></div>
+    <div class="br" id="house"></div>
+    <div class="br" id="forest"></div>
+  </div>
+  <div class="layer" id="veil"></div>
+  <div class="layer" id="vig"></div>
+  <div class="layer" id="ui"></div>
+</div>
+
+<script src="scenes.js"></script>
+<script>
+(function(){
+  const stage = document.getElementById('stage');
+  const ui = document.getElementById('ui');
+  const veil = document.getElementById('veil');
+
+  /* ---------- утилиты ---------- */
+  const cl = (v,a,b)=>Math.max(a,Math.min(b,v));
+  const ease = p => 1-Math.pow(1-cl(p,0,1),3);
+  const easeIO = p => (p=cl(p,0,1)) < .5 ? 4*p*p*p : 1-Math.pow(-2*p+2,3)/2;
+  function R(i){ const x=Math.sin(i*127.1+311.7)*43758.5453; return x-Math.floor(x); }
+
+  /* ---------- b-roll: туман ---------- */
+  const fog = document.getElementById('fog');
+  const blobs = [];
+  for(let i=0;i<7;i++){
+    const b=document.createElement('div'); b.className='blob';
+    const s=420+R(i)*520; b.style.width=s+'px'; b.style.height=(s*.62)+'px';
+    fog.appendChild(b); blobs.push({el:b,s,i});
+  }
+  function fogAt(t,k){
+    blobs.forEach(({el,s,i})=>{
+      const x=-240+R(i*3)*1320 + Math.sin(t*.11+i)*130;
+      const y= 120+R(i*5)*1560 + Math.cos(t*.085+i*1.7)*90;
+      el.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
+      el.style.opacity=(0.22+0.5*R(i*7))*k;
+    });
+  }
+
+  /* ---------- b-roll: вода ---------- */
+  const water=document.getElementById('water');
+  water.innerHTML=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="none">
+    <g id="wv" fill="none" stroke="rgba(150,185,215,.55)" stroke-width="2"></g>
+    <g id="rp" fill="none" stroke="rgba(170,200,225,.5)" stroke-width="2"></g></svg>`;
+  const wv=water.querySelector('#wv'), rp=water.querySelector('#rp');
+  for(let i=0;i<9;i++) wv.appendChild(document.createElementNS('http://www.w3.org/2000/svg','path'));
+  for(let i=0;i<4;i++) rp.appendChild(document.createElementNS('http://www.w3.org/2000/svg','ellipse'));
+  function waterAt(t){
+    [...wv.children].forEach((p,i)=>{
+      const y=740+i*118, a=10+R(i)*14, w=.011+R(i*2)*.006, ph=t*(.5+R(i*3)*.45)+i;
+      let d='M -40 '+(y+Math.sin(ph)*a).toFixed(1);
+      for(let x=60;x<=1140;x+=60) d+=' L '+x+' '+(y+Math.sin(x*w+ph)*a).toFixed(1);
+      p.setAttribute('d',d); p.setAttribute('opacity',(.30+.34*R(i*5)).toFixed(3));
+    });
+    [...rp.children].forEach((e,i)=>{
+      const per=3.0, lp=((t+i*per/4)%per)/per;
+      e.setAttribute('cx',540); e.setAttribute('cy',1265);
+      e.setAttribute('rx',(70+lp*620).toFixed(1)); e.setAttribute('ry',(22+lp*196).toFixed(1));
+      e.setAttribute('opacity',(0.62*(1-lp)*(1-lp)).toFixed(3));
+    });
+  }
+
+  /* ---------- b-roll: старый дом ---------- */
+  const house=document.getElementById('house');
+  house.innerHTML=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice">
+   <g id="hs" fill="none" stroke="rgba(226,214,196,.62)" stroke-width="2.4"
+      stroke-linejoin="round" stroke-linecap="round" transform="translate(0,120)">
+    <path d="M190 1180 L190 760 L540 520 L890 760 L890 1180 Z"/>
+    <path d="M150 790 L540 498 L930 790"/>
+    <path d="M190 1180 L890 1180"/>
+    <path d="M470 1180 L470 940 L610 940 L610 1180"/>
+    <path d="M300 850 h130 v130 h-130 Z"/><path d="M365 850 v130"/><path d="M300 915 h130"/>
+    <path d="M650 850 h130 v130 h-130 Z"/><path d="M715 850 v130"/><path d="M650 915 h130"/>
+    <path d="M740 640 h70 v-120 h-70 Z"/>
+    <path d="M540 520 L540 470"/>
+    <path d="M120 1180 h840" stroke-dasharray="4 26" opacity=".7"/>
+   </g></svg>`;
+  const hpaths=[...house.querySelectorAll('path')];
+  hpaths.forEach(p=>{ const L=p.getTotalLength(); p.dataset.l=L; p.style.strokeDasharray=L; });
+  function houseAt(t,local){
+    const g=house.querySelector('#hs');
+    hpaths.forEach((p,i)=>{
+      const L=+p.dataset.l, pr=ease((local-0.08*i)/1.5);
+      p.style.strokeDashoffset=(L*(1-pr)).toFixed(1);
+    });
+    const sc=0.70+local*0.005, ty=600-local*6, tx=300-local*4;
+    g.setAttribute('transform',`translate(${tx.toFixed(1)},${ty.toFixed(1)}) scale(${sc.toFixed(4)})`);
+  }
+
+  /* ---------- b-roll: лес ---------- */
+  const forest=document.getElementById('forest');
+  function fir(x,h,w){                      // силуэт ели: зубчатый контур, посажен на низ кадра
+    const base=1920, steps=7; let L=[], Rr=[];
+    for(let k=0;k<=steps;k++){
+      const y=base-h*(0.14+k*(0.86/steps)), ww=w*(1-k/steps)*1.0;
+      L.push(`${(x-ww).toFixed(0)} ${(y+h*0.055).toFixed(0)}`, `${(x-ww*0.62).toFixed(0)} ${y.toFixed(0)}`);
+      Rr.push(`${(x+ww*0.62).toFixed(0)} ${y.toFixed(0)}`, `${(x+ww).toFixed(0)} ${(y+h*0.055).toFixed(0)}`);
+    }
+    return `M ${x-w*0.16} ${base} L ${L.join(' L ')} L ${x} ${(base-h).toFixed(0)} L ${Rr.reverse().join(' L ')} L ${x+w*0.16} ${base} Z`;
+  }
+  let fs='';
+  for(let layer=0;layer<3;layer++){
+    const n=[7,9,11][layer];
+    let d='';
+    for(let i=0;i<n;i++){
+      const x=-70+i*(1220/n)+R(layer*31+i)*90;
+      const h=(980-layer*210)*(0.62+R(layer*7+i)*0.55);
+      const w=(130-layer*26)*(0.75+R(layer*3+i)*0.6);
+      d+=fir(x,h,w)+' ';
+    }
+    fs+=`<g class="fl" data-k="${(3-layer)*0.45}">
+          <path d="${d}" fill="rgba(146,170,196,${(0.13-layer*0.03).toFixed(3)})"
+                stroke="rgba(188,208,228,${(0.20-layer*0.05).toFixed(3)})" stroke-width="${1.6-layer*0.4}"/></g>`;
+  }
+  forest.innerHTML=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="none">${fs}</svg>`;
+  const flayers=[...forest.querySelectorAll('.fl')];
+  function forestAt(t){
+    flayers.forEach((g,i)=>{
+      const k=+g.dataset.k;
+      g.setAttribute('transform',`translate(${(Math.sin(t*.06+i*1.3)*22*k).toFixed(1)},${(Math.sin(t*.045+i*2)*7).toFixed(1)})`);
+    });
+  }
+
+  /* ---------- луна ---------- */
+  const moonEl=document.createElement('div'); moonEl.id='moon';
+  moonEl.innerHTML=`<svg width="150" height="150" viewBox="0 0 150 150">
+    <defs><mask id="mm"><rect width="150" height="150" fill="#fff"/>
+      <circle cx="46" cy="75" r="60" fill="#000"/></mask></defs>
+    <circle cx="75" cy="75" r="60" fill="none" stroke="rgba(227,162,79,.35)" stroke-width="1.5"/>
+    <circle cx="75" cy="75" r="60" fill="#E3A24F" mask="url(#mm)" opacity=".92"/></svg>`;
+  stage.appendChild(moonEl);
+
+  /* ---------- сборка плашек из описания сцен ---------- */
+  function build(s){
+    const el=document.createElement('div');
+    if(s.kind==='plate'){
+      el.className='plate '+(s.pos||'bottom')+(s.sym?' sym':'')+(s.mini?' mini':'');
+      el.innerHTML=(s.kicker?`<div class="kicker">${s.kicker}</div>`:'')+
+                   (s.head?`<div class="head ${s.hs||''}">${s.head}</div>`:'')+
+                   (s.sub?`<div class="sub">${s.sub}</div>`:'');
+    } else if(s.kind==='label'){
+      el.className='plate top';
+      el.innerHTML=`<div class="toplabel">${s.text}</div>`;
+    }
+    ui.appendChild(el);
+    return el;
+  }
+  SCENES.forEach(s=>{ if(s.kind==='plate'||s.kind==='label') s._el=build(s); });
+
+  /* hook / section / spell */
+  const hook=document.createElement('div'); hook.id='hook';
+  hook.innerHTML=HOOK.lines.map(l=>`<div class="l">${l}</div>`).join('')+
+                 `<div class="rule"></div><div class="tagline">${HOOK.tag}</div>`;
+  stage.appendChild(hook);
+  const hookLines=[...hook.querySelectorAll('.l')], hookRule=hook.querySelector('.rule'),
+        hookTag=hook.querySelector('.tagline');
+
+  const sect=document.createElement('div'); sect.id='sect'; stage.appendChild(sect);
+  const spell=document.createElement('div'); spell.id='spell';
+  spell.innerHTML=`<div class="k">три раза шёпотом</div><div class="q">`+
+    SPELL.words.map(w=>`<span>${w.w}</span> `).join('')+`</div>`;
+  stage.appendChild(spell);
+  const spellWords=[...spell.querySelectorAll('.q span')];
+
+  /* ---------- рендер кадра ---------- */
+  function showPlate(el,local,dur,yFrom){
+    const inP=ease(local/0.30), out=cl((dur-local)/0.22,0,1);
+    el.style.opacity=(inP*out).toFixed(3);
+    el.style.transform=`translateY(${((1-inP)*(yFrom||20)).toFixed(2)}px)`;
+  }
+
+  window.render=function(t){
+    /* b-roll */
+    const want={fog:0,water:0,house:0,forest:0};
+    let veilV=0, vigV=1, houseLocal=0;
+    for(const s of SCENES){
+      if(t<s.a||t>=s.b) continue;
+      const local=t-s.a, dur=s.b-s.a;
+      const fade=Math.min(ease(local/0.6), cl((dur-local)/0.5,0,1));
+      if(s.br) want[s.br]=Math.max(want[s.br],(s.brk||1)*fade);
+      if(s.br==='house') houseLocal=local;
+      if(s.veil) veilV=Math.max(veilV,s.veil*fade);
+    }
+    fogAt(t,1);
+    document.getElementById('fog').style.opacity=(want.fog*0.95).toFixed(3);
+    if(want.water>0) waterAt(t);
+    water.style.opacity=(want.water*1.0).toFixed(3);
+    if(want.house>0) houseAt(t,houseLocal);
+    house.style.opacity=(want.house*0.80).toFixed(3);
+    if(want.forest>0) forestAt(t);
+    forest.style.opacity=(want.forest*0.95).toFixed(3);
+    veil.style.opacity=veilV.toFixed(3);
+
+    /* плашки */
+    for(const s of SCENES){
+      if(!s._el) continue;
+      if(t<s.a||t>=s.b){ s._el.style.opacity=0; continue; }
+      showPlate(s._el,t-s.a,s.b-s.a,s.kind==='label'?-16:22);
+    }
+
+    /* хук */
+    if(t>=HOOK.a&&t<HOOK.b){
+      const l=t-HOOK.a, out=cl((HOOK.b-t)/0.45,0,1);
+      hook.style.opacity=out.toFixed(3);
+      hookLines.forEach((el,i)=>{
+        const p=ease((l-(0.12+i*0.34))/0.42);
+        el.style.opacity=p.toFixed(3);
+        el.style.transform=`translateY(${((1-p)*34).toFixed(1)}px)`;
+      });
+      hookRule.style.width=(ease((l-1.25)/0.7)*300).toFixed(1)+'px';
+      hookTag.style.opacity=ease((l-1.5)/0.5).toFixed(3);
+    } else hook.style.opacity=0;
+
+    /* секционные заставки */
+    let sv=0;
+    for(const s of SECTIONS){
+      if(t<s.a||t>=s.b) continue;
+      const l=t-s.a, dur=s.b-s.a;
+      sect.innerHTML=`<div class="k">${s.k}</div><div class="l">${s.l}</div>`;
+      sv=Math.min(ease(l/0.4),cl((dur-l)/0.4,0,1));
+      sect.style.transform=`translateY(${((1-ease(l/0.6))*26).toFixed(1)}px)`;
+    }
+    sect.style.opacity=sv.toFixed(3);
+
+    /* заклинание */
+    if(t>=SPELL.a&&t<SPELL.b){
+      spell.style.opacity=Math.min(ease((t-SPELL.a)/0.35),cl((SPELL.b-t)/0.4,0,1)).toFixed(3);
+      SPELL.words.forEach((w,i)=>{
+        const p=ease((t-w.t)/0.26);
+        spellWords[i].style.opacity=p.toFixed(3);
+        spellWords[i].style.filter=`blur(${((1-p)*2).toFixed(2)}px)`;
+      });
+    } else spell.style.opacity=0;
+
+    /* луна */
+    let mv=0;
+    for(const m of MOONS){
+      if(t<m.a||t>=m.b) continue;
+      const l=t-m.a, dur=m.b-m.a;
+      mv=Math.min(ease(l/0.5),cl((dur-l)/0.4,0,1));
+      moonEl.style.top=m.y+'px';
+      moonEl.style.transform=`translateY(${((1-ease(l/0.8))*18).toFixed(1)}px) rotate(${(Math.sin(t*.2)*2).toFixed(2)}deg)`;
+    }
+    moonEl.style.opacity=(mv*0.9).toFixed(3);
+  };
+
+  window.DURATION=DURATION;
+  /* предпросмотр в браузере */
+  const qs=new URLSearchParams(location.search);
+  if(!qs.has('render')){
+    const t0=performance.now(), fixed=qs.has('t')?+qs.get('t'):null;
+    if(fixed!==null) render(fixed);
+    else { let paused=false,base=0,last=0;
+      addEventListener('keydown',e=>{ if(e.code==='Space'){paused=!paused;e.preventDefault();}
+        if(e.code==='ArrowRight')base+=1; if(e.code==='ArrowLeft')base-=1; });
+      (function loop(){ if(!paused) last=(performance.now()-t0)/1000;
+        render(Math.max(0,Math.min(DURATION,last+base))); requestAnimationFrame(loop); })(); }
+  }
+})();
+</script>
+</body>
+</html>

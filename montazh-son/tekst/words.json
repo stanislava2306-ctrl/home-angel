@@ -1,0 +1,1412 @@
+[
+ {
+  "start": 0.0,
+  "end": 2.57,
+  "text": "Не ложись сегодня спать, пока не досмотришь.",
+  "words": [
+   {
+    "word": "Не",
+    "start": 0.04,
+    "end": 0.223,
+    "probability": 0.5
+   },
+   {
+    "word": "ложись",
+    "start": 0.223,
+    "end": 0.589,
+    "probability": 0.5
+   },
+   {
+    "word": "сегодня",
+    "start": 0.589,
+    "end": 1.158,
+    "probability": 0.5
+   },
+   {
+    "word": "спать",
+    "start": 1.158,
+    "end": 1.342,
+    "probability": 0.5
+   },
+   {
+    "word": "пока",
+    "start": 1.342,
+    "end": 1.728,
+    "probability": 0.5
+   },
+   {
+    "word": "не",
+    "start": 1.728,
+    "end": 1.911,
+    "probability": 0.5
+   },
+   {
+    "word": "досмотришь",
+    "start": 1.911,
+    "end": 2.46,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 2.57,
+  "end": 4.762,
+  "text": "Сегодня ночь с четверга на пятницу.",
+  "words": [
+   {
+    "word": "Сегодня",
+    "start": 2.46,
+    "end": 3.201,
+    "probability": 0.5
+   },
+   {
+    "word": "ночь",
+    "start": 3.201,
+    "end": 3.374,
+    "probability": 0.5
+   },
+   {
+    "word": "с",
+    "start": 3.374,
+    "end": 3.548,
+    "probability": 0.5
+   },
+   {
+    "word": "четверга",
+    "start": 3.548,
+    "end": 4.068,
+    "probability": 0.5
+   },
+   {
+    "word": "на",
+    "start": 4.068,
+    "end": 4.242,
+    "probability": 0.5
+   },
+   {
+    "word": "пятницу",
+    "start": 4.242,
+    "end": 4.762,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 4.762,
+  "end": 9.47,
+  "text": "А сон с четверга на пятницу сбывается — это все бабки в деревне знали.",
+  "words": [
+   {
+    "word": "А",
+    "start": 4.762,
+    "end": 4.936,
+    "probability": 0.5
+   },
+   {
+    "word": "сон",
+    "start": 4.936,
+    "end": 5.299,
+    "probability": 0.5
+   },
+   {
+    "word": "с",
+    "start": 5.299,
+    "end": 5.473,
+    "probability": 0.5
+   },
+   {
+    "word": "четверга",
+    "start": 5.473,
+    "end": 5.993,
+    "probability": 0.5
+   },
+   {
+    "word": "на",
+    "start": 5.993,
+    "end": 6.167,
+    "probability": 0.5
+   },
+   {
+    "word": "пятницу",
+    "start": 6.167,
+    "end": 6.687,
+    "probability": 0.5
+   },
+   {
+    "word": "сбывается",
+    "start": 6.687,
+    "end": 7.381,
+    "probability": 0.5
+   },
+   {
+    "word": "это",
+    "start": 7.381,
+    "end": 7.909,
+    "probability": 0.5
+   },
+   {
+    "word": "все",
+    "start": 7.909,
+    "end": 8.082,
+    "probability": 0.5
+   },
+   {
+    "word": "бабки",
+    "start": 8.082,
+    "end": 8.429,
+    "probability": 0.5
+   },
+   {
+    "word": "в",
+    "start": 8.429,
+    "end": 8.603,
+    "probability": 0.5
+   },
+   {
+    "word": "деревне",
+    "start": 8.603,
+    "end": 9.123,
+    "probability": 0.5
+   },
+   {
+    "word": "знали",
+    "start": 9.123,
+    "end": 9.47,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 9.47,
+  "end": 12.715,
+  "text": "И в этом октябре он выпал на растущую Луну.",
+  "words": [
+   {
+    "word": "И",
+    "start": 9.47,
+    "end": 9.784,
+    "probability": 0.5
+   },
+   {
+    "word": "в",
+    "start": 9.784,
+    "end": 9.957,
+    "probability": 0.5
+   },
+   {
+    "word": "этом",
+    "start": 9.957,
+    "end": 10.344,
+    "probability": 0.5
+   },
+   {
+    "word": "октябре",
+    "start": 10.344,
+    "end": 10.865,
+    "probability": 0.5
+   },
+   {
+    "word": "он",
+    "start": 10.865,
+    "end": 11.038,
+    "probability": 0.5
+   },
+   {
+    "word": "выпал",
+    "start": 11.038,
+    "end": 11.385,
+    "probability": 0.5
+   },
+   {
+    "word": "на",
+    "start": 11.385,
+    "end": 11.559,
+    "probability": 0.5
+   },
+   {
+    "word": "растущую",
+    "start": 11.559,
+    "end": 12.253,
+    "probability": 0.5
+   },
+   {
+    "word": "Луну",
+    "start": 12.253,
+    "end": 12.6,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 12.715,
+  "end": 16.605,
+  "text": "Так что сегодня точно не тот вечер, чтобы уснуть с телефоном в руке.",
+  "words": [
+   {
+    "word": "Так",
+    "start": 12.6,
+    "end": 12.984,
+    "probability": 0.5
+   },
+   {
+    "word": "что",
+    "start": 12.984,
+    "end": 13.139,
+    "probability": 0.5
+   },
+   {
+    "word": "сегодня",
+    "start": 13.139,
+    "end": 13.602,
+    "probability": 0.5
+   },
+   {
+    "word": "точно",
+    "start": 13.602,
+    "end": 14.0,
+    "probability": 0.5
+   },
+   {
+    "word": "не",
+    "start": 14.0,
+    "end": 14.155,
+    "probability": 0.5
+   },
+   {
+    "word": "тот",
+    "start": 14.155,
+    "end": 14.309,
+    "probability": 0.5
+   },
+   {
+    "word": "вечер",
+    "start": 14.309,
+    "end": 14.618,
+    "probability": 0.5
+   },
+   {
+    "word": "чтобы",
+    "start": 14.618,
+    "end": 14.927,
+    "probability": 0.5
+   },
+   {
+    "word": "уснуть",
+    "start": 14.927,
+    "end": 15.235,
+    "probability": 0.5
+   },
+   {
+    "word": "с",
+    "start": 15.235,
+    "end": 15.39,
+    "probability": 0.5
+   },
+   {
+    "word": "телефоном",
+    "start": 15.39,
+    "end": 16.007,
+    "probability": 0.5
+   },
+   {
+    "word": "в",
+    "start": 16.007,
+    "end": 16.161,
+    "probability": 0.5
+   },
+   {
+    "word": "руке",
+    "start": 16.161,
+    "end": 16.47,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 16.605,
+  "end": 18.02,
+  "text": "Смотри, что делаешь.",
+  "words": [
+   {
+    "word": "Смотри",
+    "start": 16.47,
+    "end": 17.107,
+    "probability": 0.5
+   },
+   {
+    "word": "что",
+    "start": 17.107,
+    "end": 17.29,
+    "probability": 0.5
+   },
+   {
+    "word": "делаешь",
+    "start": 17.29,
+    "end": 17.84,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 18.02,
+  "end": 20.815,
+  "text": "Перед сном ставишь у изголовья стакан воды.",
+  "words": [
+   {
+    "word": "Перед",
+    "start": 17.84,
+    "end": 18.553,
+    "probability": 0.5
+   },
+   {
+    "word": "сном",
+    "start": 18.553,
+    "end": 18.729,
+    "probability": 0.5
+   },
+   {
+    "word": "ставишь",
+    "start": 18.729,
+    "end": 19.082,
+    "probability": 0.5
+   },
+   {
+    "word": "у",
+    "start": 19.082,
+    "end": 19.259,
+    "probability": 0.5
+   },
+   {
+    "word": "изголовья",
+    "start": 19.259,
+    "end": 19.964,
+    "probability": 0.5
+   },
+   {
+    "word": "стакан",
+    "start": 19.964,
+    "end": 20.317,
+    "probability": 0.5
+   },
+   {
+    "word": "воды",
+    "start": 20.317,
+    "end": 20.67,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 20.815,
+  "end": 22.236,
+  "text": "Задаёшь один вопрос.",
+  "words": [
+   {
+    "word": "Задаёшь",
+    "start": 20.67,
+    "end": 21.498,
+    "probability": 0.5
+   },
+   {
+    "word": "один",
+    "start": 21.498,
+    "end": 21.857,
+    "probability": 0.5
+   },
+   {
+    "word": "вопрос",
+    "start": 21.857,
+    "end": 22.236,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 22.236,
+  "end": 24.211,
+  "text": "Один, а не пять, я тебя знаю.",
+  "words": [
+   {
+    "word": "Один",
+    "start": 22.236,
+    "end": 22.725,
+    "probability": 0.5
+   },
+   {
+    "word": "а",
+    "start": 22.725,
+    "end": 22.905,
+    "probability": 0.5
+   },
+   {
+    "word": "не",
+    "start": 22.905,
+    "end": 23.084,
+    "probability": 0.5
+   },
+   {
+    "word": "пять",
+    "start": 23.084,
+    "end": 23.294,
+    "probability": 0.5
+   },
+   {
+    "word": "я",
+    "start": 23.294,
+    "end": 23.473,
+    "probability": 0.5
+   },
+   {
+    "word": "тебя",
+    "start": 23.473,
+    "end": 23.852,
+    "probability": 0.5
+   },
+   {
+    "word": "знаю",
+    "start": 23.852,
+    "end": 24.211,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 24.211,
+  "end": 29.375,
+  "text": "И три раза шёпотом: Ночь-ночь, правду мне покажи, что скрыто — во сне скажи.",
+  "words": [
+   {
+    "word": "И",
+    "start": 24.211,
+    "end": 24.391,
+    "probability": 0.5
+   },
+   {
+    "word": "три",
+    "start": 24.391,
+    "end": 24.57,
+    "probability": 0.5
+   },
+   {
+    "word": "раза",
+    "start": 24.57,
+    "end": 25.269,
+    "probability": 0.5
+   },
+   {
+    "word": "шёпотом",
+    "start": 25.269,
+    "end": 25.818,
+    "probability": 0.5
+   },
+   {
+    "word": "Ночь-ночь",
+    "start": 25.818,
+    "end": 26.177,
+    "probability": 0.5
+   },
+   {
+    "word": "правду",
+    "start": 26.177,
+    "end": 26.996,
+    "probability": 0.5
+   },
+   {
+    "word": "мне",
+    "start": 26.996,
+    "end": 27.175,
+    "probability": 0.5
+   },
+   {
+    "word": "покажи",
+    "start": 27.175,
+    "end": 27.734,
+    "probability": 0.5
+   },
+   {
+    "word": "что",
+    "start": 27.734,
+    "end": 28.113,
+    "probability": 0.5
+   },
+   {
+    "word": "скрыто",
+    "start": 28.113,
+    "end": 28.472,
+    "probability": 0.5
+   },
+   {
+    "word": "во",
+    "start": 28.472,
+    "end": 28.652,
+    "probability": 0.5
+   },
+   {
+    "word": "сне",
+    "start": 28.652,
+    "end": 28.831,
+    "probability": 0.5
+   },
+   {
+    "word": "скажи",
+    "start": 28.831,
+    "end": 29.19,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 29.375,
+  "end": 31.855,
+  "text": "Утром воду выливаешь за порог.",
+  "words": [
+   {
+    "word": "Утром",
+    "start": 29.19,
+    "end": 29.92,
+    "probability": 0.5
+   },
+   {
+    "word": "воду",
+    "start": 29.92,
+    "end": 30.28,
+    "probability": 0.5
+   },
+   {
+    "word": "выливаешь",
+    "start": 30.28,
+    "end": 31.14,
+    "probability": 0.5
+   },
+   {
+    "word": "за",
+    "start": 31.14,
+    "end": 31.31,
+    "probability": 0.5
+   },
+   {
+    "word": "порог",
+    "start": 31.31,
+    "end": 31.65,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 31.855,
+  "end": 37.035,
+  "text": "Ну или в раковину, если ты в квартире, я не осуждаю.",
+  "words": [
+   {
+    "word": "Ну",
+    "start": 31.65,
+    "end": 32.273,
+    "probability": 0.5
+   },
+   {
+    "word": "или",
+    "start": 32.273,
+    "end": 32.7,
+    "probability": 0.5
+   },
+   {
+    "word": "в",
+    "start": 32.7,
+    "end": 32.913,
+    "probability": 0.5
+   },
+   {
+    "word": "раковину",
+    "start": 32.913,
+    "end": 34.037,
+    "probability": 0.5
+   },
+   {
+    "word": "если",
+    "start": 34.037,
+    "end": 34.463,
+    "probability": 0.5
+   },
+   {
+    "word": "ты",
+    "start": 34.463,
+    "end": 34.677,
+    "probability": 0.5
+   },
+   {
+    "word": "в",
+    "start": 34.677,
+    "end": 34.89,
+    "probability": 0.5
+   },
+   {
+    "word": "квартире",
+    "start": 34.89,
+    "end": 35.53,
+    "probability": 0.5
+   },
+   {
+    "word": "я",
+    "start": 35.53,
+    "end": 35.743,
+    "probability": 0.5
+   },
+   {
+    "word": "не",
+    "start": 35.743,
+    "end": 35.957,
+    "probability": 0.5
+   },
+   {
+    "word": "осуждаю",
+    "start": 35.957,
+    "end": 36.86,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 37.035,
+  "end": 39.76,
+  "text": "Теперь — что значит то, что приснится.",
+  "words": [
+   {
+    "word": "Теперь",
+    "start": 36.86,
+    "end": 37.804,
+    "probability": 0.5
+   },
+   {
+    "word": "что",
+    "start": 37.804,
+    "end": 38.036,
+    "probability": 0.5
+   },
+   {
+    "word": "значит",
+    "start": 38.036,
+    "end": 38.46,
+    "probability": 0.5
+   },
+   {
+    "word": "то",
+    "start": 38.46,
+    "end": 38.752,
+    "probability": 0.5
+   },
+   {
+    "word": "что",
+    "start": 38.752,
+    "end": 38.964,
+    "probability": 0.5
+   },
+   {
+    "word": "приснится",
+    "start": 38.964,
+    "end": 39.63,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 39.76,
+  "end": 42.68,
+  "text": "Я перечислю то, что встречается чаще всего.",
+  "words": [
+   {
+    "word": "Я",
+    "start": 39.63,
+    "end": 40.059,
+    "probability": 0.5
+   },
+   {
+    "word": "перечислю",
+    "start": 40.059,
+    "end": 40.777,
+    "probability": 0.5
+   },
+   {
+    "word": "то",
+    "start": 40.777,
+    "end": 40.946,
+    "probability": 0.5
+   },
+   {
+    "word": "что",
+    "start": 40.946,
+    "end": 41.115,
+    "probability": 0.5
+   },
+   {
+    "word": "встречается",
+    "start": 41.115,
+    "end": 41.793,
+    "probability": 0.5
+   },
+   {
+    "word": "чаще",
+    "start": 41.793,
+    "end": 42.131,
+    "probability": 0.5
+   },
+   {
+    "word": "всего",
+    "start": 42.131,
+    "end": 42.47,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 42.68,
+  "end": 47.335,
+  "text": "Дом из детства — тебя держит старая история, и она скоро всплывёт.",
+  "words": [
+   {
+    "word": "Дом",
+    "start": 42.47,
+    "end": 43.063,
+    "probability": 0.5
+   },
+   {
+    "word": "из",
+    "start": 43.063,
+    "end": 43.236,
+    "probability": 0.5
+   },
+   {
+    "word": "детства",
+    "start": 43.236,
+    "end": 43.583,
+    "probability": 0.5
+   },
+   {
+    "word": "тебя",
+    "start": 43.583,
+    "end": 44.219,
+    "probability": 0.5
+   },
+   {
+    "word": "держит",
+    "start": 44.219,
+    "end": 44.565,
+    "probability": 0.5
+   },
+   {
+    "word": "старая",
+    "start": 44.565,
+    "end": 45.095,
+    "probability": 0.5
+   },
+   {
+    "word": "история",
+    "start": 45.095,
+    "end": 45.808,
+    "probability": 0.5
+   },
+   {
+    "word": "и",
+    "start": 45.808,
+    "end": 46.041,
+    "probability": 0.5
+   },
+   {
+    "word": "она",
+    "start": 46.041,
+    "end": 46.387,
+    "probability": 0.5
+   },
+   {
+    "word": "скоро",
+    "start": 46.387,
+    "end": 46.774,
+    "probability": 0.5
+   },
+   {
+    "word": "всплывёт",
+    "start": 46.774,
+    "end": 47.15,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 47.335,
+  "end": 50.74,
+  "text": "Человек, которого давно не видела, — он думает о тебе.",
+  "words": [
+   {
+    "word": "Человек",
+    "start": 47.15,
+    "end": 47.946,
+    "probability": 0.5
+   },
+   {
+    "word": "которого",
+    "start": 47.946,
+    "end": 48.524,
+    "probability": 0.5
+   },
+   {
+    "word": "давно",
+    "start": 48.524,
+    "end": 48.808,
+    "probability": 0.5
+   },
+   {
+    "word": "не",
+    "start": 48.808,
+    "end": 48.95,
+    "probability": 0.5
+   },
+   {
+    "word": "видела",
+    "start": 48.95,
+    "end": 49.646,
+    "probability": 0.5
+   },
+   {
+    "word": "он",
+    "start": 49.646,
+    "end": 49.788,
+    "probability": 0.5
+   },
+   {
+    "word": "думает",
+    "start": 49.788,
+    "end": 50.214,
+    "probability": 0.5
+   },
+   {
+    "word": "о",
+    "start": 50.214,
+    "end": 50.356,
+    "probability": 0.5
+   },
+   {
+    "word": "тебе",
+    "start": 50.356,
+    "end": 50.64,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 50.74,
+  "end": 52.225,
+  "text": "Да, прямо сейчас.",
+  "words": [
+   {
+    "word": "Да",
+    "start": 50.64,
+    "end": 51.058,
+    "probability": 0.5
+   },
+   {
+    "word": "прямо",
+    "start": 51.058,
+    "end": 51.594,
+    "probability": 0.5
+   },
+   {
+    "word": "сейчас",
+    "start": 51.594,
+    "end": 52.03,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 52.225,
+  "end": 56.705,
+  "text": "Выпадают зубы — не пугайся, это про перемены, а не про беду.",
+  "words": [
+   {
+    "word": "Выпадают",
+    "start": 52.03,
+    "end": 53.102,
+    "probability": 0.5
+   },
+   {
+    "word": "зубы",
+    "start": 53.102,
+    "end": 53.663,
+    "probability": 0.5
+   },
+   {
+    "word": "не",
+    "start": 53.663,
+    "end": 53.833,
+    "probability": 0.5
+   },
+   {
+    "word": "пугайся",
+    "start": 53.833,
+    "end": 54.345,
+    "probability": 0.5
+   },
+   {
+    "word": "это",
+    "start": 54.345,
+    "end": 54.825,
+    "probability": 0.5
+   },
+   {
+    "word": "про",
+    "start": 54.825,
+    "end": 54.996,
+    "probability": 0.5
+   },
+   {
+    "word": "перемены",
+    "start": 54.996,
+    "end": 55.678,
+    "probability": 0.5
+   },
+   {
+    "word": "а",
+    "start": 55.678,
+    "end": 55.848,
+    "probability": 0.5
+   },
+   {
+    "word": "не",
+    "start": 55.848,
+    "end": 56.019,
+    "probability": 0.5
+   },
+   {
+    "word": "про",
+    "start": 56.019,
+    "end": 56.189,
+    "probability": 0.5
+   },
+   {
+    "word": "беду",
+    "start": 56.189,
+    "end": 56.53,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 56.705,
+  "end": 63.21,
+  "text": "А если тебя во сне зовут по имени, а ты не видишь кто… вот этот момент мне уже не нравится.",
+  "words": [
+   {
+    "word": "А",
+    "start": 56.53,
+    "end": 57.057,
+    "probability": 0.5
+   },
+   {
+    "word": "если",
+    "start": 57.057,
+    "end": 57.41,
+    "probability": 0.5
+   },
+   {
+    "word": "тебя",
+    "start": 57.41,
+    "end": 57.764,
+    "probability": 0.5
+   },
+   {
+    "word": "во",
+    "start": 57.764,
+    "end": 57.941,
+    "probability": 0.5
+   },
+   {
+    "word": "сне",
+    "start": 57.941,
+    "end": 58.117,
+    "probability": 0.5
+   },
+   {
+    "word": "зовут",
+    "start": 58.117,
+    "end": 58.491,
+    "probability": 0.5
+   },
+   {
+    "word": "по",
+    "start": 58.491,
+    "end": 58.668,
+    "probability": 0.5
+   },
+   {
+    "word": "имени",
+    "start": 58.668,
+    "end": 59.228,
+    "probability": 0.5
+   },
+   {
+    "word": "а",
+    "start": 59.228,
+    "end": 59.405,
+    "probability": 0.5
+   },
+   {
+    "word": "ты",
+    "start": 59.405,
+    "end": 59.582,
+    "probability": 0.5
+   },
+   {
+    "word": "не",
+    "start": 59.582,
+    "end": 59.758,
+    "probability": 0.5
+   },
+   {
+    "word": "видишь",
+    "start": 59.758,
+    "end": 60.192,
+    "probability": 0.5
+   },
+   {
+    "word": "кто",
+    "start": 60.192,
+    "end": 60.839,
+    "probability": 0.5
+   },
+   {
+    "word": "вот",
+    "start": 60.839,
+    "end": 61.015,
+    "probability": 0.5
+   },
+   {
+    "word": "этот",
+    "start": 61.015,
+    "end": 61.429,
+    "probability": 0.5
+   },
+   {
+    "word": "момент",
+    "start": 61.429,
+    "end": 61.783,
+    "probability": 0.5
+   },
+   {
+    "word": "мне",
+    "start": 61.783,
+    "end": 61.959,
+    "probability": 0.5
+   },
+   {
+    "word": "уже",
+    "start": 61.959,
+    "end": 62.313,
+    "probability": 0.5
+   },
+   {
+    "word": "не",
+    "start": 62.313,
+    "end": 62.49,
+    "probability": 0.5
+   },
+   {
+    "word": "нравится",
+    "start": 62.49,
+    "end": 63.05,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 63.21,
+  "end": 67.7,
+  "text": "Запомни голос и утром сразу же запиши куда-то описание его.",
+  "words": [
+   {
+    "word": "Запомни",
+    "start": 63.05,
+    "end": 63.896,
+    "probability": 0.5
+   },
+   {
+    "word": "голос",
+    "start": 63.896,
+    "end": 64.24,
+    "probability": 0.5
+   },
+   {
+    "word": "и",
+    "start": 64.24,
+    "end": 64.412,
+    "probability": 0.5
+   },
+   {
+    "word": "утром",
+    "start": 64.412,
+    "end": 64.807,
+    "probability": 0.5
+   },
+   {
+    "word": "сразу",
+    "start": 64.807,
+    "end": 65.151,
+    "probability": 0.5
+   },
+   {
+    "word": "же",
+    "start": 65.151,
+    "end": 65.323,
+    "probability": 0.5
+   },
+   {
+    "word": "запиши",
+    "start": 65.323,
+    "end": 65.839,
+    "probability": 0.5
+   },
+   {
+    "word": "куда-то",
+    "start": 65.839,
+    "end": 66.355,
+    "probability": 0.5
+   },
+   {
+    "word": "описание",
+    "start": 66.355,
+    "end": 67.216,
+    "probability": 0.5
+   },
+   {
+    "word": "его",
+    "start": 67.216,
+    "end": 67.56,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 67.7,
+  "end": 69.97,
+  "text": "Сохрани видео, чтобы утром свериться.",
+  "words": [
+   {
+    "word": "Сохрани",
+    "start": 67.56,
+    "end": 68.29,
+    "probability": 0.5
+   },
+   {
+    "word": "видео",
+    "start": 68.29,
+    "end": 68.74,
+    "probability": 0.5
+   },
+   {
+    "word": "чтобы",
+    "start": 68.74,
+    "end": 69.04,
+    "probability": 0.5
+   },
+   {
+    "word": "утром",
+    "start": 69.04,
+    "end": 69.34,
+    "probability": 0.5
+   },
+   {
+    "word": "свериться",
+    "start": 69.34,
+    "end": 69.82,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 69.97,
+  "end": 74.07,
+  "text": "И напиши в комментариях «луна» — так ты запечатаешь свой вопрос.",
+  "words": [
+   {
+    "word": "И",
+    "start": 69.82,
+    "end": 70.278,
+    "probability": 0.5
+   },
+   {
+    "word": "напиши",
+    "start": 70.278,
+    "end": 70.751,
+    "probability": 0.5
+   },
+   {
+    "word": "в",
+    "start": 70.751,
+    "end": 70.909,
+    "probability": 0.5
+   },
+   {
+    "word": "комментариях",
+    "start": 70.909,
+    "end": 71.717,
+    "probability": 0.5
+   },
+   {
+    "word": "«луна»",
+    "start": 71.717,
+    "end": 72.313,
+    "probability": 0.5
+   },
+   {
+    "word": "так",
+    "start": 72.313,
+    "end": 72.47,
+    "probability": 0.5
+   },
+   {
+    "word": "ты",
+    "start": 72.47,
+    "end": 72.628,
+    "probability": 0.5
+   },
+   {
+    "word": "запечатаешь",
+    "start": 72.628,
+    "end": 73.417,
+    "probability": 0.5
+   },
+   {
+    "word": "свой",
+    "start": 73.417,
+    "end": 73.575,
+    "probability": 0.5
+   },
+   {
+    "word": "вопрос",
+    "start": 73.575,
+    "end": 73.89,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 74.07,
+  "end": 76.5,
+  "text": "Ну что, проверим тебя по-настоящему?",
+  "words": [
+   {
+    "word": "Ну",
+    "start": 73.89,
+    "end": 74.401,
+    "probability": 0.5
+   },
+   {
+    "word": "что",
+    "start": 74.401,
+    "end": 74.552,
+    "probability": 0.5
+   },
+   {
+    "word": "проверим",
+    "start": 74.552,
+    "end": 75.144,
+    "probability": 0.5
+   },
+   {
+    "word": "тебя",
+    "start": 75.144,
+    "end": 75.445,
+    "probability": 0.5
+   },
+   {
+    "word": "по-настоящему",
+    "start": 75.445,
+    "end": 76.35,
+    "probability": 0.5
+   }
+  ]
+ },
+ {
+  "start": 76.5,
+  "end": 81.04,
+  "text": "Ссылка в профиле — там таро разбор по дате рождения, в подарок от меня.",
+  "words": [
+   {
+    "word": "Ссылка",
+    "start": 76.35,
+    "end": 76.955,
+    "probability": 0.5
+   },
+   {
+    "word": "в",
+    "start": 76.955,
+    "end": 77.107,
+    "probability": 0.5
+   },
+   {
+    "word": "профиле",
+    "start": 77.107,
+    "end": 77.594,
+    "probability": 0.5
+   },
+   {
+    "word": "там",
+    "start": 77.594,
+    "end": 77.887,
+    "probability": 0.5
+   },
+   {
+    "word": "таро",
+    "start": 77.887,
+    "end": 78.192,
+    "probability": 0.5
+   },
+   {
+    "word": "разбор",
+    "start": 78.192,
+    "end": 78.496,
+    "probability": 0.5
+   },
+   {
+    "word": "по",
+    "start": 78.496,
+    "end": 78.649,
+    "probability": 0.5
+   },
+   {
+    "word": "дате",
+    "start": 78.649,
+    "end": 78.954,
+    "probability": 0.5
+   },
+   {
+    "word": "рождения",
+    "start": 78.954,
+    "end": 79.563,
+    "probability": 0.5
+   },
+   {
+    "word": "в",
+    "start": 79.563,
+    "end": 79.716,
+    "probability": 0.5
+   },
+   {
+    "word": "подарок",
+    "start": 79.716,
+    "end": 80.343,
+    "probability": 0.5
+   },
+   {
+    "word": "от",
+    "start": 80.343,
+    "end": 80.495,
+    "probability": 0.5
+   },
+   {
+    "word": "меня",
+    "start": 80.495,
+    "end": 80.8,
+    "probability": 0.5
+   }
+  ]
+ }
+]
